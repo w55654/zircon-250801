@@ -3566,7 +3566,7 @@ namespace Server.Envir
             {
                 if (++ErrorCount > 200 || String.Compare(ex, LastError, StringComparison.OrdinalIgnoreCase) == 0) return;
 
-                const string LogPath = @".\Errors\";
+                string LogPath = $"{AppInfo.AppPath}/Errors/";
 
                 LastError = ex;
 

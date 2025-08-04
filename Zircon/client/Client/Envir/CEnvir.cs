@@ -913,7 +913,7 @@ namespace Client.Envir
             {
                 if (++ErrorCount > 20 || String.Compare(ex, LastError, StringComparison.OrdinalIgnoreCase) == 0) return;
 
-                const string LogPath = @".\Errors\";
+                string LogPath = $"{AppInfo.AppPath}/Errors/";
 
                 LastError = ex;
                 string state = $"State = {Target?.DisplayRectangle}";

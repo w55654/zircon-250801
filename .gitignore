@@ -7,3 +7,6 @@ Build/
 packages/
 licenses.licx
 /NuGet.Config
+/mir3z/Client/Sound
+/mir3z/Client/Data
+/mir3z/Client/Map
