@@ -1,0 +1,10 @@
+<Project>
+	<PropertyGroup>
+		<!-- 提取解决方案目录名称 -->
+		<SolutionName>$([System.IO.Path]::GetFileName($(SolutionDir.TrimEnd('\'))))</SolutionName>
+
+		<!-- 设置 obj 和 bin 输出目录 -->
+		<BaseIntermediateOutputPath>D:\_build_temp\$(SolutionName)\obj\$(MSBuildProjectName)\</BaseIntermediateOutputPath>
+		<BaseOutputPath>D:\_build_temp\$(SolutionName)\bin\$(MSBuildProjectName)\</BaseOutputPath>
+	</PropertyGroup>
+</Project>
