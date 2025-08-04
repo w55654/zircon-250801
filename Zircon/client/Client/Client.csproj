@@ -7,12 +7,23 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<SupportedOSPlatformAttribute>windows</SupportedOSPlatformAttribute>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<OutputPath>..\..\..\mir3z\Client\</OutputPath>
+		<!--<OutputPath>..\..\..\mir3z\Client\</OutputPath>-->
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<!-- Debug 配置 -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<OutputPath>..\..\..\mir3z\Client\Debug\</OutputPath>
+	</PropertyGroup>
+
+	<!-- Release 配置 -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<OutputPath>..\..\..\mir3z\Client\Release\</OutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>

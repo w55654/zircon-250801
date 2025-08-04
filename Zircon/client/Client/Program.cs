@@ -20,6 +20,8 @@ namespace Client
         [STAThread]
         static void Main()
         {
+            Console.WriteLine($"当前app路径: {AppInfo.AppPath}");
+
             ConfigReader.Load(Assembly.GetAssembly(typeof(Config)));
 
             if (Config.SentryEnabled && !string.IsNullOrEmpty(Config.SentryDSN))
@@ -43,9 +45,10 @@ namespace Client
 
             foreach (KeyValuePair<LibraryFile, string> pair in Libraries.LibraryList)
             {
-                if (!File.Exists(@".\" + pair.Value)) continue;
+                if (!File.Exists(pair.Value))
+                    continue;
 
-                CEnvir.LibraryList[pair.Key] = new MirLibrary(@".\" + pair.Value);
+                CEnvir.LibraryList[pair.Key] = new MirLibrary(pair.Value);
             }
 
             CEnvir.Target = new TargetForm();

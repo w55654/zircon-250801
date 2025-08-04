@@ -7,15 +7,24 @@
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<ProduceReferenceAssembly>True</ProduceReferenceAssembly>
 		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
-
 	<PropertyGroup>
-		<OutputPath>..\..\..\mir3z\Server\</OutputPath>
+		<!--<OutputPath>..\..\..\mir3z\Server\</OutputPath>-->
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
 	</PropertyGroup>
 
+	<!-- Debug 配置 -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+		<OutputPath>..\..\..\mir3z\Server\Debug\</OutputPath>
+	</PropertyGroup>
+
+	<!-- Release 配置 -->
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<OutputPath>..\..\..\mir3z\Server\Release\</OutputPath>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<Reference Include="DevExpress.BonusSkins.v22.2">

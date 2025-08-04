@@ -4,11 +4,41 @@ using MirDB;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Library
 {
+    public static class AppInfo
+    {
+        public static readonly string AppPath;
+
+        static AppInfo()
+        {
+            // 获取 exe 所在目录的上级目录
+#if DEBUG
+            AppPath = Directory.CreateDirectory(AppContext.BaseDirectory + "../").FullName;
+            //AppPath = "../";
+#else
+            AppPath = Directory.CreateDirectory(AppContext.BaseDirectory).FullName;
+            //AppPath = "./";
+#endif
+        }
+
+        public static string GetFullPath(params string[] paths)
+        {
+            string fullPath = AppPath;
+
+            foreach (string part in paths)
+            {
+                fullPath = Path.Combine(fullPath, part);
+            }
+
+            return Path.GetFullPath(fullPath);
+        }
+    }
+
     public static class Globals
     {
         public static ItemInfo GoldInfo;

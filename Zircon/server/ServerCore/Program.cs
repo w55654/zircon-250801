@@ -10,6 +10,8 @@ namespace Server
     {
         static void Main(string[] args)
         {
+            Console.WriteLine($"当前app路径: {AppInfo.AppPath}");
+
             var assembly = Assembly.GetAssembly(typeof(Config));
             ConfigReader.Load(assembly);
             Config.LoadVersion();

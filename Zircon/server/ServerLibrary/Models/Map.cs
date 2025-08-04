@@ -56,7 +56,7 @@ namespace Server.Models
 
         public void Load()
         {
-            var path = Path.Combine(Config.MapPath, Info.FileName + ".map");
+            var path = AppInfo.GetFullPath(Config.MapPath, Info.FileName + ".map");
 
             if (!File.Exists(path))
             {

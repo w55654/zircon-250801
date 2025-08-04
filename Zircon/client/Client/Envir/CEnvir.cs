@@ -349,7 +349,7 @@ namespace Client.Envir
             {
                 try
                 {
-                    Session = new MirDB.Session(SessionMode.Users, @".\Data\") { BackUp = false };
+                    Session = new MirDB.Session(SessionMode.Users) { BackUp = false };
 
                     Session.Initialize(
                         Assembly.GetAssembly(typeof(ItemInfo)),

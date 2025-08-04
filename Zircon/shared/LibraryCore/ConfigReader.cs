@@ -18,11 +18,11 @@ namespace Library
         public static readonly Dictionary<Type, object> ConfigObjects = new Dictionary<Type, object>();
 
         private static readonly Dictionary<Type, Dictionary<string, Dictionary<string, string>>> ConfigContents = new Dictionary<Type, Dictionary<string, Dictionary<string, string>>>();
-        
+
         public static void Load(Assembly assembly)
         {
             Type[] types = assembly.GetTypes();
-            
+
             foreach (Type type in types)
             {
                 ConfigPath config = type.GetCustomAttribute<ConfigPath>();
@@ -66,7 +66,9 @@ namespace Library
                 return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, subFolder, $"{originalPath}"));
             }
 
-            return Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{originalPath}"));
+            string fullPath = AppInfo.GetFullPath(originalPath);
+
+            return fullPath;
         }
 
         private static string GetSubFolder(Assembly assembly)
@@ -88,7 +90,7 @@ namespace Library
             PropertyInfo[] properties = type.GetProperties();
 
             Dictionary<string, Dictionary<string, string>> contents = ConfigContents[type] = new Dictionary<string, Dictionary<string, string>>();
-            
+
             string[] lines = File.ReadAllLines(path);
 
             Dictionary<string, string> section = null;
@@ -199,7 +201,7 @@ namespace Library
 
             if (!ConfigContents.TryGetValue(type, out contents))
                 ConfigContents[type] = contents = new Dictionary<string, Dictionary<string, string>>();
-                
+
             if (contents.TryGetValue(section, out entries))
                 return entries.TryGetValue(key, out value);
 
@@ -210,7 +212,7 @@ namespace Library
         }
 
         #region Reads
-        public static Boolean Read(Type type,string section, string key, Boolean value)
+        public static Boolean Read(Type type, string section, string key, Boolean value)
         {
             string entry;
 
@@ -433,7 +435,7 @@ namespace Library
 
             return value;
         }
-        
+
         public static Point Read(Type type, string section, string key, Point value)
         {
             string entry;
@@ -536,9 +538,9 @@ namespace Library
                     int r = int.Parse(match.Groups["R"].Value);
                     int g = int.Parse(match.Groups["G"].Value);
                     int b = int.Parse(match.Groups["B"].Value);
-                    
+
                     return Color.FromArgb(
-                        Math.Min(Byte.MaxValue, Math.Max(Byte.MinValue, a)), 
+                        Math.Min(Byte.MaxValue, Math.Max(Byte.MinValue, a)),
                         Math.Min(Byte.MaxValue, Math.Max(Byte.MinValue, r)),
                         Math.Min(Byte.MaxValue, Math.Max(Byte.MinValue, g)),
                         Math.Min(Byte.MaxValue, Math.Max(Byte.MinValue, b)));
@@ -681,7 +683,7 @@ namespace Library
         public string Path { get; set; }
         public bool Disabled { get; set; } // Skip the local ini file
 
-        public ConfigPath(string path): this(path, false) { }
+        public ConfigPath(string path) : this(path, false) { }
 
         public ConfigPath(string path, bool disabled)
         {

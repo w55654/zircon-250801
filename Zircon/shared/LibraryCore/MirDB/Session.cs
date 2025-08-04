@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Library;
 using Library.MirDB;
 
 namespace MirDB
@@ -64,11 +65,10 @@ namespace MirDB
             Mode = mode;
         }
 
-        public Session(SessionMode mode, string root = @".\Database\", string backup = @".\Backup\")
+        public Session(SessionMode mode)
         {
-            Root = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, root));
-            BackupRoot = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, backup));
-
+            Root = $"{AppInfo.AppPath}Database/";
+            BackupRoot = $"{AppInfo.AppPath}Backup/";
             Mode = mode;
         }
 

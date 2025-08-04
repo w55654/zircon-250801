@@ -30,7 +30,6 @@ namespace Client.Envir
         public static Size GameSize { get; set; } = IntroSceneSize;
         public static TimeSpan CacheDuration { get; set; } = TimeSpan.FromMinutes(30);
         public static string FontName { get; set; } = "MS Sans Serif";
-        public static string MapPath { get; set; } = @".\Map\";
         public static bool ClipMouse { get; set; } = false;
         public static bool DebugLabel { get; set; } = false;
         public static float FontSizeMod { get; set; } = 0.0F;
