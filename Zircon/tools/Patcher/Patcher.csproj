@@ -1,0 +1,78 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows8.0</TargetFramework>
+		<OutputType>WinExe</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+	</PropertyGroup>
+	<PropertyGroup>
+		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+	</PropertyGroup>
+	<PropertyGroup>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<OutputPath>..\..\Debug\Patcher\</OutputPath>
+		<NoWarn>1701;1702;CA1416</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<OutputPath>..\..\Release\Patcher\</OutputPath>
+		<NoWarn>1701;1702;CA1416</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+		<PackageReference Include="System.Drawing.Common" Version="8.0.11" />
+		<PackageReference Include="System.Formats.Asn1" Version="9.0.0" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.1" />
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.2" />
+		<PackageReference Include="System.Text.Json" Version="9.0.0" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="DevExpress.BonusSkins.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.BonusSkins.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.Data.Desktop.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.Data.Desktop.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.Data.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.Data.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.Dialogs.v22.2.Core">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.Dialogs.v22.2.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.Drawing.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.Drawing.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.Printing.v22.2.Core">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.Printing.v22.2.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.Utils.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.Utils.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraBars.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraBars.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraDialogs.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraDialogs.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraEditors.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraEditors.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraGrid.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraGrid.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraLayout.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraLayout.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraNavBar.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraNavBar.v22.2.dll</HintPath>
+		</Reference>
+		<Reference Include="DevExpress.XtraTreeList.v22.2">
+			<HintPath>..\..\3rd\DevExpress\DevExpress.XtraTreeList.v22.2.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+</Project>
