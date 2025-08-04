@@ -8,10 +8,9 @@ using System.Reflection;
 
 namespace Server.Envir.Commands.Handler
 {
-    public abstract class AbstractCommandHandler<CommandType> : IValidatingCommandHandler 
+    public abstract class AbstractCommandHandler<CommandType> : IValidatingCommandHandler
         where CommandType : ICommand
     {
-
         public readonly List<ICommand> Commands = new List<ICommand>();
 
         public AbstractCommandHandler()
@@ -48,7 +47,6 @@ namespace Server.Envir.Commands.Handler
                     (command as AbstractParameterizedCommand<CommandType>).Action(player, input);
                 else if (command is AbstractCommand<CommandType>)
                     (command as AbstractCommand<CommandType>).Action(player);
-
             }
         }
     }

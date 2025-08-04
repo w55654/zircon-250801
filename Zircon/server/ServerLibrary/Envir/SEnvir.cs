@@ -57,6 +57,7 @@ namespace Server.Envir
 
         public static ConcurrentQueue<string> DisplayChatLogs = new ConcurrentQueue<string>();
         public static ConcurrentQueue<string> ChatLogs = new ConcurrentQueue<string>();
+
         public static void LogChat(string log)
         {
             log = string.Format("[{0:F}]: {1}", Time.Now, log);
@@ -103,6 +104,7 @@ namespace Server.Envir
                 Log(ex.ToString());
             }
         }
+
         private static void StopNetwork(bool log = true)
         {
             TcpListener expiredListener = _listener;
@@ -154,7 +156,6 @@ namespace Server.Envir
             }
             catch (SocketException)
             {
-
             }
             catch (Exception ex)
             {
@@ -189,6 +190,7 @@ namespace Server.Envir
                     _userCountListener.BeginAcceptTcpClient(CountConnection, null);
             }
         }
+
         private static void CountConnectionEnd(IAsyncResult result)
         {
             try
@@ -327,6 +329,7 @@ namespace Server.Envir
         public static List<EventLog> EventLogs = [];
 
         private static TimeOfDay _TimeOfDay;
+
         public static TimeOfDay TimeOfDay
         {
             get { return _TimeOfDay; }
@@ -340,6 +343,7 @@ namespace Server.Envir
 
         public static float PreviousDayTime { get; private set; }
         private static float _DayTime;
+
         public static float DayTime
         {
             get { return _DayTime; }
@@ -361,6 +365,7 @@ namespace Server.Envir
         public static DateTime NextRankChangeReset;
 
         public static long ConDelay, SaveDelay;
+
         #endregion
 
         public static void StartServer()
@@ -508,6 +513,7 @@ namespace Server.Envir
             StarterGuild.GuildName = Config.StarterGuildName;
 
             #region Create Ranks
+
             Rankings = new LinkedList<CharacterInfo>();
             TopRankings = new HashSet<CharacterInfo>();
             foreach (CharacterInfo info in CharacterInfoList.Binding)
@@ -518,6 +524,7 @@ namespace Server.Envir
                 RankingSort(info, false, true);
             }
             UpdateLead();
+
             #endregion
 
             for (int i = UserQuestList.Count - 1; i >= 0; i--)
@@ -562,12 +569,15 @@ namespace Server.Envir
                             case MirClass.Warrior:
                                 SwapRankPosition(character.RankChange, node.Value.RankChange, RequiredClass.Warrior);
                                 break;
+
                             case MirClass.Wizard:
                                 SwapRankPosition(character.RankChange, node.Value.RankChange, RequiredClass.Wizard);
                                 break;
+
                             case MirClass.Taoist:
                                 SwapRankPosition(character.RankChange, node.Value.RankChange, RequiredClass.Taoist);
                                 break;
+
                             case MirClass.Assassin:
                                 SwapRankPosition(character.RankChange, node.Value.RankChange, RequiredClass.Assassin);
                                 break;
@@ -615,16 +625,19 @@ namespace Server.Envir
                         war--;
                         newTopRankings.Add(cInfo);
                         break;
+
                     case MirClass.Wizard:
                         if (wiz == 0) continue;
                         wiz--;
                         newTopRankings.Add(cInfo);
                         break;
+
                     case MirClass.Taoist:
                         if (tao == 0) continue;
                         tao--;
                         newTopRankings.Add(cInfo);
                         break;
+
                     case MirClass.Assassin:
                         if (ass == 0) continue;
                         ass--;
@@ -658,6 +671,7 @@ namespace Server.Envir
             LoadExperienceList();
 
             #region Load Files
+
             for (int i = 0; i < MapInfoList.Count; i++)
             {
                 Maps[MapInfoList[i]] = new Map(MapInfoList[i]);
@@ -1009,7 +1023,6 @@ namespace Server.Envir
             Rankings = null;
             Random = null;
 
-
             Maps.Clear();
             Instances.Clear();
             Objects.Clear();
@@ -1020,10 +1033,8 @@ namespace Server.Envir
 
             _ObjectID = 0;
 
-
             EnvirThread = null;
         }
-
 
         public static void EnvirLoop()
         {
@@ -1172,6 +1183,7 @@ namespace Server.Envir
                                         if (conn.Player.Character.Observable)
                                             conn.ReceiveChat(string.Format(conn.Language.ObserverCount, conn.Observers.Count), MessageType.Hint);
                                         break;
+
                                     case GameStage.Observer:
                                         conn.ReceiveChat(string.Format(conn.Language.ObserverCount, conn.Observed.Observers.Count), MessageType.Hint);
                                         break;
@@ -1337,13 +1349,11 @@ namespace Server.Envir
                 if (!values.TryGetValue("txn_id", out transactionID))
                     error = true;
 
-
                 //Check that Txn_id has not been used
                 for (int i = 0; i < SEnvir.GameGoldPaymentList.Count; i++)
                 {
                     if (SEnvir.GameGoldPaymentList[i].TransactionID != transactionID) continue;
                     if (SEnvir.GameGoldPaymentList[i].Status != paymentStatus) continue;
-
 
                     SEnvir.Log(string.Format("[Duplicated Transaction] ID:{0} Status:{1}.", transactionID, paymentStatus));
                     message.Duplicate = true;
@@ -1458,6 +1468,7 @@ namespace Server.Envir
             Thread saveThread = new Thread(CommitChanges) { IsBackground = true };
             saveThread.Start(Session);
         }
+
         private static void CommitChanges(object data)
         {
             Session session = (Session)data;
@@ -1467,6 +1478,7 @@ namespace Server.Envir
 
             Saving = false;
         }
+
         private static void WriteLogsLoop()
         {
             DateTime NextLogTime = Now.AddSeconds(10);
@@ -1484,6 +1496,7 @@ namespace Server.Envir
                 NextLogTime = Now.AddSeconds(10);
             }
         }
+
         private static void WriteLogs()
         {
             var logPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".\\Logs.txt"));
@@ -1535,7 +1548,6 @@ namespace Server.Envir
 
                 warInfo.Delete();
             }
-
         }
 
         public static void CalculateLights()
@@ -1632,6 +1644,7 @@ namespace Server.Envir
 
             return freshItem;
         }
+
         public static UserItem CreateFreshItem(ItemCheck check)
         {
             UserItem item = check.Item != null ? CreateFreshItem(check.Item) : CreateFreshItem(check.Info);
@@ -1648,6 +1661,7 @@ namespace Server.Envir
 
             return item;
         }
+
         public static UserItem CreateFreshItem(ItemInfo info)
         {
             UserItem item = UserItemList.CreateNewObject();
@@ -1660,6 +1674,7 @@ namespace Server.Envir
 
             return item;
         }
+
         public static UserItem CreateDropItem(ItemCheck check, int chance = 15)
         {
             UserItem item = CreateDropItem(check.Info, chance);
@@ -1676,6 +1691,7 @@ namespace Server.Envir
 
             return item;
         }
+
         public static UserItem CreateDropItem(ItemInfo info, int chance = 15)
         {
             UserItem item = UserItemList.CreateNewObject();
@@ -1695,30 +1711,39 @@ namespace Server.Envir
                     case ItemType.Weapon:
                         UpgradeWeapon(item);
                         break;
+
                     case ItemType.Shield:
                         UpgradeShield(item);
                         break;
+
                     case ItemType.Armour:
                         UpgradeArmour(item);
                         break;
+
                     case ItemType.Helmet:
                         UpgradeHelmet(item);
                         break;
+
                     case ItemType.Necklace:
                         UpgradeNecklace(item);
                         break;
+
                     case ItemType.Bracelet:
                         UpgradeBracelet(item);
                         break;
+
                     case ItemType.Ring:
                         UpgradeRing(item);
                         break;
+
                     case ItemType.Shoes:
                         UpgradeShoes(item);
                         break;
+
                     case ItemType.Bundle:
                         UpgradeBundle(item);
                         break;
+
                     case ItemType.LootBox:
                         UpgradeLootBox(item);
                         break;
@@ -1738,23 +1763,27 @@ namespace Server.Envir
                 case ItemType.Shoes:
                     item.CurrentDurability = Math.Min(Random.Next(info.Durability) + 1000, item.MaxDurability);
                     break;
+
                 case ItemType.Meat:
                     item.CurrentDurability = Random.Next(info.Durability * 2) + 2000;
                     break;
+
                 case ItemType.Ore:
                     item.CurrentDurability = Random.Next(info.Durability * 3) + 3000;
                     break;
+
                 case ItemType.Book:
                     item.CurrentDurability = Random.Next(96) + 5; //0~95 + 5
                     break;
+
                 default:
                     item.CurrentDurability = info.Durability;
                     break;
             }
 
-
             return item;
         }
+
         public static ItemInfo GetItemInfo(string name)
         {
             for (int i = 0; i < ItemInfoList.Count; i++)
@@ -1776,7 +1805,6 @@ namespace Server.Envir
                             StringComparison.OrdinalIgnoreCase) == 0);
         }
 
-
         public static MonsterInfo GetMonsterInfo(Dictionary<MonsterInfo, int> list)
         {
             int total = 0;
@@ -1794,7 +1822,6 @@ namespace Server.Envir
 
                 return pair.Key;
             }
-
 
             return null;
         }
@@ -1841,13 +1868,11 @@ namespace Server.Envir
                     item.AddStat(Stat.MaxSC, value, StatSource.Added);
                 }
 
-
                 if (item.Info.Stats[Stat.MinMC] > 0 || item.Info.Stats[Stat.MaxMC] > 0)
                     item.AddStat(Stat.MaxMC, value, StatSource.Added);
 
                 if (item.Info.Stats[Stat.MinSC] > 0 || item.Info.Stats[Stat.MaxSC] > 0)
                     item.AddStat(Stat.MaxSC, value, StatSource.Added);
-
             }
 
             if (Random.Next(5) == 0)
@@ -1870,7 +1895,6 @@ namespace Server.Envir
                 Stat.PhantomAttack,
             };
 
-
             if (Random.Next(3) == 0)
             {
                 int value = 1;
@@ -1884,6 +1908,7 @@ namespace Server.Envir
                 item.AddStat(Elements[Random.Next(Elements.Count)], value, StatSource.Added);
             }
         }
+
         public static void UpgradeShield(UserItem item)
         {
             if (Random.Next(10) == 0)
@@ -1911,7 +1936,6 @@ namespace Server.Envir
 
                 item.AddStat(Stat.MCPercent, value, StatSource.Added);
                 item.AddStat(Stat.SCPercent, value, StatSource.Added);
-
             }
 
             if (Random.Next(10) == 0)
@@ -2010,7 +2034,6 @@ namespace Server.Envir
 
                             item.AddStat(element, -2, StatSource.Added);
                         }
-
                     }
                     else if (Random.Next(60) == 0)
                     {
@@ -2039,6 +2062,7 @@ namespace Server.Envir
                 item.AddStat(element, -2, StatSource.Added);
             }
         }
+
         public static void UpgradeArmour(UserItem item)
         {
             if (Random.Next(2) == 0)
@@ -2124,7 +2148,6 @@ namespace Server.Envir
 
                             item.AddStat(element, -2, StatSource.Added);
                         }
-
                     }
                     else if (Random.Next(60) == 0)
                     {
@@ -2153,6 +2176,7 @@ namespace Server.Envir
                 item.AddStat(element, -2, StatSource.Added);
             }
         }
+
         public static void UpgradeHelmet(UserItem item)
         {
             if (Random.Next(5) == 0)
@@ -2180,7 +2204,6 @@ namespace Server.Envir
 
                 item.AddStat(Stat.MaxMR, value, StatSource.Added);
             }
-
 
             List<Stat> Elements = new List<Stat>
             {
@@ -2238,7 +2261,6 @@ namespace Server.Envir
 
                             item.AddStat(element, -1, StatSource.Added);
                         }
-
                     }
                     else if (Random.Next(60) == 0)
                     {
@@ -2267,6 +2289,7 @@ namespace Server.Envir
                 item.AddStat(element, -1, StatSource.Added);
             }
         }
+
         public static void UpgradeNecklace(UserItem item)
         {
             if (Random.Next(5) == 0)
@@ -2281,7 +2304,6 @@ namespace Server.Envir
 
                 item.AddStat(Stat.MaxDC, value, StatSource.Added);
             }
-
 
             if (Random.Next(5) == 0)
             {
@@ -2300,14 +2322,12 @@ namespace Server.Envir
                     item.AddStat(Stat.MaxSC, value, StatSource.Added);
                 }
 
-
                 if (item.Info.Stats[Stat.MinMC] > 0 || item.Info.Stats[Stat.MaxMC] > 0)
                     item.AddStat(Stat.MaxMC, value, StatSource.Added);
 
                 if (item.Info.Stats[Stat.MinSC] > 0 || item.Info.Stats[Stat.MaxSC] > 0)
                     item.AddStat(Stat.MaxSC, value, StatSource.Added);
             }
-
 
             if (Random.Next(5) == 0)
             {
@@ -2319,10 +2339,8 @@ namespace Server.Envir
                 if (Random.Next(250) == 0)
                     value += 1;
 
-
                 item.AddStat(Stat.Accuracy, value, StatSource.Added);
             }
-
 
             if (Random.Next(5) == 0)
             {
@@ -2344,7 +2362,6 @@ namespace Server.Envir
                 Stat.PhantomAttack,
             };
 
-
             if (Random.Next(3) == 0)
             {
                 item.AddStat(Elements[Random.Next(Elements.Count)], 1, StatSource.Added);
@@ -2356,6 +2373,7 @@ namespace Server.Envir
                     item.AddStat(Elements[Random.Next(Elements.Count)], 1, StatSource.Added);
             }
         }
+
         public static void UpgradeBracelet(UserItem item)
         {
             if (Random.Next(5) == 0)
@@ -2384,7 +2402,6 @@ namespace Server.Envir
                 item.AddStat(Stat.MaxMR, value, StatSource.Added);
             }
 
-
             if (Random.Next(5) == 0)
             {
                 int value = 1;
@@ -2414,7 +2431,6 @@ namespace Server.Envir
                     item.AddStat(Stat.MaxMC, value, StatSource.Added);
                     item.AddStat(Stat.MaxSC, value, StatSource.Added);
                 }
-
 
                 if (item.Info.Stats[Stat.MinMC] > 0 || item.Info.Stats[Stat.MaxMC] > 0)
                     item.AddStat(Stat.MaxMC, value, StatSource.Added);
@@ -2448,7 +2464,6 @@ namespace Server.Envir
 
                 item.AddStat(Stat.Agility, value, StatSource.Added);
             }
-
 
             List<Stat> Elements = new List<Stat>
             {
@@ -2507,7 +2522,6 @@ namespace Server.Envir
 
                             item.AddStat(element, -1, StatSource.Added);
                         }
-
                     }
                     else if (Random.Next(40) == 0)
                     {
@@ -2536,10 +2550,9 @@ namespace Server.Envir
                 item.AddStat(element, -1, StatSource.Added);
             }
         }
+
         public static void UpgradeRing(UserItem item)
         {
-
-
             if (Random.Next(5) == 0)
             {
                 int value = 1;
@@ -2570,7 +2583,6 @@ namespace Server.Envir
                     item.AddStat(Stat.MaxSC, value, StatSource.Added);
                 }
 
-
                 if (item.Info.Stats[Stat.MinMC] > 0 || item.Info.Stats[Stat.MaxMC] > 0)
                     item.AddStat(Stat.MaxMC, value, StatSource.Added);
 
@@ -2598,7 +2610,6 @@ namespace Server.Envir
                 Stat.PhantomAttack,
             };
 
-
             if (Random.Next(3) == 0)
             {
                 item.AddStat(Elements[Random.Next(Elements.Count)], 1, StatSource.Added);
@@ -2610,6 +2621,7 @@ namespace Server.Envir
                     item.AddStat(Elements[Random.Next(Elements.Count)], 1, StatSource.Added);
             }
         }
+
         public static void UpgradeShoes(UserItem item)
         {
             if (Random.Next(5) == 0)
@@ -2650,7 +2662,6 @@ namespace Server.Envir
 
                 item.AddStat(Stat.Comfort, value, StatSource.Added);
             }
-
 
             List<Stat> Elements = new List<Stat>
             {
@@ -2708,7 +2719,6 @@ namespace Server.Envir
 
                             item.AddStat(element, -1, StatSource.Added);
                         }
-
                     }
                     else if (Random.Next(60) == 0)
                     {
@@ -2795,7 +2805,6 @@ namespace Server.Envir
                     }
             }
 
-
             if (account == null)
             {
                 con.Enqueue(new S.Login { Result = LoginResult.AccountNotExists });
@@ -2841,7 +2850,6 @@ namespace Server.Envir
 
             account.WrongPasswordCount = 0;
 
-
             //LockAccount ??
             if (account.Connection != null)
             {
@@ -2881,15 +2889,14 @@ namespace Server.Envir
                 return;
             }
 
-
             account.Connection = con;
-            account.TempAdmin = admin;
+            //account.TempAdmin = admin;
+            account.TempAdmin = account.Admin;
 
             con.Account = account;
             con.Stage = GameStage.Select;
 
             account.Key = Functions.RandomString(Random, 20);
-
 
             con.Enqueue(new S.Login
             {
@@ -2914,6 +2921,7 @@ namespace Server.Envir
 
             Log($"[Account Logon] Admin: {admin}, Account: {account.EMailAddress}, IP Address: {account.LastIP}, Security: {p.CheckSum}");
         }
+
         public static void NewAccount(C.NewAccount p, SConnection con)
         {
             if (!Config.AllowNewAccount)
@@ -3031,14 +3039,13 @@ namespace Server.Envir
                 else if (maxLevel >= 10) account.HuntGold.Amount = 50;
             }
 
-
-
             EmailService.SendActivationEmail(account);
 
             con.Enqueue(new S.NewAccount { Result = NewAccountResult.Success });
 
             Log($"[Account Created] Account: {account.EMailAddress}, IP Address: {con.IPAddress}, Security: {p.CheckSum}");
         }
+
         public static void ChangePassword(C.ChangePassword p, SConnection con)
         {
             if (!Config.AllowChangePassword)
@@ -3072,7 +3079,6 @@ namespace Server.Envir
                     account = AccountInfoList[i];
                     break;
                 }
-
 
             if (account == null)
             {
@@ -3122,6 +3128,7 @@ namespace Server.Envir
 
             Log($"[Password Changed] Account: {account.EMailAddress}, IP Address: {con.IPAddress}, Security: {p.CheckSum}");
         }
+
         public static void RequestPasswordReset(C.RequestPasswordReset p, SConnection con)
         {
             if (!Config.AllowRequestPasswordReset)
@@ -3167,6 +3174,7 @@ namespace Server.Envir
 
             Log($"[Request Password] Account: {account.EMailAddress}, IP Address: {con.IPAddress}, Security: {p.CheckSum}");
         }
+
         public static void ResetPassword(C.ResetPassword p, SConnection con)
         {
             if (!Config.AllowManualResetPassword)
@@ -3210,6 +3218,7 @@ namespace Server.Envir
 
             Log($"[Reset Password] Account: {account.EMailAddress}, IP Address: {con.IPAddress}, Security: {p.CheckSum}");
         }
+
         public static void Activation(C.Activation p, SConnection con)
         {
             if (!Config.AllowManualActivation)
@@ -3239,6 +3248,7 @@ namespace Server.Envir
 
             Log($"[Activation] Account: {account.EMailAddress}, IP Address: {con.IPAddress}, Security: {p.CheckSum}");
         }
+
         public static void RequestActivationKey(C.RequestActivationKey p, SConnection con)
         {
             if (!Config.AllowRequestActivation)
@@ -3302,6 +3312,7 @@ namespace Server.Envir
                 case MirGender.Male:
                 case MirGender.Female:
                     break;
+
                 default:
                     con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.BadGender });
                     return;
@@ -3318,7 +3329,6 @@ namespace Server.Envir
                 con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.BadHairColour });
                 return;
             }
-
 
             switch (p.Class)
             {
@@ -3339,6 +3349,7 @@ namespace Server.Envir
                     con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.ClassDisabled });
 
                     return;
+
                 case MirClass.Wizard:
                     if (p.HairType > (p.Gender == MirGender.Male ? 10 : 11))
                     {
@@ -3355,6 +3366,7 @@ namespace Server.Envir
 
                     con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.ClassDisabled });
                     return;
+
                 case MirClass.Taoist:
                     if (p.HairType > (p.Gender == MirGender.Male ? 10 : 11))
                     {
@@ -3371,6 +3383,7 @@ namespace Server.Envir
 
                     con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.ClassDisabled });
                     return;
+
                 case MirClass.Assassin:
 
                     if (p.HairType > 5)
@@ -3389,12 +3402,11 @@ namespace Server.Envir
 
                     con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.ClassDisabled });
                     return;
+
                 default:
                     con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.BadClass });
                     return;
             }
-
-
 
             int count = 0;
 
@@ -3407,7 +3419,6 @@ namespace Server.Envir
                 con.Enqueue(new S.NewCharacter { Result = NewCharacterResult.MaxCharacters });
                 return;
             }
-
 
             for (int i = 0; i < CharacterInfoList.Count; i++)
                 if (string.Compare(CharacterInfoList[i].CharacterName, p.CharacterName, StringComparison.OrdinalIgnoreCase) == 0)
@@ -3440,6 +3451,7 @@ namespace Server.Envir
 
             Log($"[Character Created] Character: {p.CharacterName}, IP Address: {con.IPAddress}, Security: {p.CheckSum}");
         }
+
         public static void DeleteCharacter(C.DeleteCharacter p, SConnection con)
         {
             if (!Config.AllowDeleteCharacter)
@@ -3467,6 +3479,7 @@ namespace Server.Envir
 
             con.Enqueue(new S.DeleteCharacter { Result = DeleteCharacterResult.NotFound });
         }
+
         public static void StartGame(C.StartGame p, SConnection con)
         {
             if (!Config.AllowStartGame)
@@ -3516,9 +3529,8 @@ namespace Server.Envir
             return false;
         }
 
-
-
         #region Password Encryption
+
         private const int Iterations = 1354;
         private const int SaltSize = 16;
         private const int hashSize = 20;
@@ -3543,6 +3555,7 @@ namespace Server.Envir
                 }
             }
         }
+
         private static bool PasswordMatch(string password, byte[] totalHash)
         {
             byte[] salt = new byte[SaltSize];
@@ -3555,11 +3568,12 @@ namespace Server.Envir
                 return Functions.IsMatch(totalHash, hash, SaltSize);
             }
         }
-        #endregion
 
+        #endregion
 
         public static int ErrorCount;
         private static string LastError;
+
         public static void SaveError(string ex)
         {
             try
@@ -3578,10 +3592,12 @@ namespace Server.Envir
             catch
             { }
         }
+
         public static PlayerObject GetPlayerByCharacter(string name)
         {
             return GetCharacter(name)?.Account.Connection?.Player;
         }
+
         public static SConnection GetConnectionByCharacter(string name)
         {
             return GetCharacter(name)?.Account.Connection;
@@ -3610,6 +3626,7 @@ namespace Server.Envir
             foreach (PlayerObject player in Players)
                 player.Enqueue(p);
         }
+
         public static S.Rankings GetRanks(C.RankRequest p, bool isGM)
         {
             S.Rankings result = new S.Rankings
@@ -3646,12 +3663,15 @@ namespace Server.Envir
                     case MirClass.Warrior:
                         if ((p.Class & RequiredClass.Warrior) != RequiredClass.Warrior) continue;
                         break;
+
                     case MirClass.Wizard:
                         if ((p.Class & RequiredClass.Wizard) != RequiredClass.Wizard) continue;
                         break;
+
                     case MirClass.Taoist:
                         if ((p.Class & RequiredClass.Taoist) != RequiredClass.Taoist) continue;
                         break;
+
                     case MirClass.Assassin:
                         if ((p.Class & RequiredClass.Assassin) != RequiredClass.Assassin) continue;
                         break;
@@ -3669,7 +3689,6 @@ namespace Server.Envir
                 if (p.OnlineOnly && info.Player == null) continue;
 
                 if (total++ < p.StartIndex || result.Ranks.Count > 20) continue;
-
 
                 result.Ranks.Add(new RankInfo
                 {
@@ -3803,6 +3822,7 @@ namespace Server.Envir
                             if (guildName != null && !instance.GuildCooldown.ContainsKey(guildName))
                                 instance.GuildCooldown.Add(guildName, cooldown);
                             break;
+
                         default:
                             if (!instance.UserCooldown.ContainsKey(user))
                                 instance.UserCooldown.Add(user, cooldown);
