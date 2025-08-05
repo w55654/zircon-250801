@@ -71,7 +71,6 @@ namespace Client.Envir
         public static bool ShiftOpenChat { get; set; } = true;
         public static bool SpecialRepair { get; set; } = true;
         public static bool RightClickDeTarget { get; set; } = true;
-        public static bool HideChatBar { get; set; } = true;
 
         public static bool MonsterBoxExpanded { get; set; } = true;
         public static bool MonsterBoxVisible { get; set; } = true;

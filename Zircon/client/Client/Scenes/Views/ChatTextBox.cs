@@ -226,26 +226,23 @@ namespace Client.Scenes.Views
 
         public void ToggleVisibility(KeyPressEventArgs e, bool hide)
         {
-            if (Config.HideChatBar)
+            if (Visible)
             {
-                if (Visible)
+                if (hide)
                 {
-                    if (hide)
+                    if (ChatTab.Tabs.Count > 0 && ChatTab.Tabs[0].Panel.TransparentCheckBox.Checked == true)
                     {
-                        if (ChatTab.Tabs.Count > 0 && ChatTab.Tabs[0].Panel.TransparentCheckBox.Checked == true)
-                        {
-                            Visible = false;
-                        }
+                        Visible = false;
                     }
                 }
-                else
+            }
+            else
+            {
+                if (!hide)
                 {
-                    if (!hide)
-                    {
-                        Visible = true;
+                    Visible = true;
 
-                        OnKeyPress(e);
-                    }
+                    OnKeyPress(e);
                 }
             }
         }
