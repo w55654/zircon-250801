@@ -7,10 +7,12 @@ namespace Client.Envir
     [ConfigPath(@".\Zircon.ini")]
     public static class Config
     {
-        public static readonly Size IntroSceneSize = new Size(1024, 768);
-
         public const string DefaultIPAddress = "127.0.0.1";
         public const int DefaultPort = 7000;
+
+        public static readonly Size IntroSceneSize = new Size(1024, 768);
+
+        public static bool FullScreen = false;
 
         [ConfigSection("Network")]
         public static bool UseNetworkConfig { get; set; } = false;
@@ -25,9 +27,8 @@ namespace Client.Envir
         public static string SentryDSN { get; set; } = "";
 
         [ConfigSection("Graphics")]
-        public static bool FullScreen { get; set; } = true;
-
         public static bool VSync { get; set; }
+
         public static bool LimitFPS { get; set; }
         public static Size GameSize { get; set; } = IntroSceneSize;
         public static TimeSpan CacheDuration { get; set; } = TimeSpan.FromMinutes(30);
