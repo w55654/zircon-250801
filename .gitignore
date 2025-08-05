@@ -11,3 +11,9 @@ licenses.licx
 /mir3z/Client/Data
 /mir3z/Client/Map
 /mir3z/Server/Backup
+
+**/Debug
+**/Release
+
+
+
