@@ -9,7 +9,7 @@ namespace Server.Envir.Commands.Command.Admin
 {
     internal class MapMove : AbstractParameterizedCommand<IAdminCommand>
     {
-        public override string VALUE => "MOVE";
+        public override string VALUE => "MAP";
         public override int PARAMS_LENGTH => 2;
 
         public override void Action(PlayerObject player, string[] vals)

@@ -351,20 +351,6 @@ namespace Client.Scenes
 
         private bool _HermitEnabled;
 
-        public float DayTime
-        {
-            get => _DayTime;
-            set
-            {
-                if (_DayTime == value) return;
-
-                _DayTime = value;
-                MapControl.LLayer.UpdateLights();
-            }
-        }
-
-        private float _DayTime;
-
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
@@ -5036,8 +5022,6 @@ namespace Client.Scenes
                 InspectTime = DateTime.MinValue;
                 ItemTime = DateTime.MinValue;
                 ItemReviveTime = DateTime.MinValue;
-
-                _DayTime = 0f;
             }
         }
 

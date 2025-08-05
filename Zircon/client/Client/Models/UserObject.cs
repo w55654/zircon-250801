@@ -14,6 +14,7 @@ namespace Client.Models
     public sealed class UserObject : PlayerObject
     {
         #region Stats
+
         public override Stats Stats
         {
             get { return _Stats; }
@@ -24,7 +25,9 @@ namespace Client.Models
                 GameScene.Game.StatsChanged();
             }
         }
+
         private Stats _Stats = new Stats();
+
         #endregion
 
         #region Hermit Stats
@@ -41,11 +44,13 @@ namespace Client.Models
                 GameScene.Game.StatsChanged();
             }
         }
+
         private Stats _HermitStats = new Stats();
 
         #endregion
 
         #region Level
+
         public override int Level
         {
             get { return _level; }
@@ -56,10 +61,13 @@ namespace Client.Models
                 GameScene.Game.LevelChanged();
             }
         }
+
         private int _level;
+
         #endregion
 
         #region Class
+
         public override MirClass Class
         {
             get { return _Class; }
@@ -70,10 +78,13 @@ namespace Client.Models
                 GameScene.Game.ClassChanged();
             }
         }
+
         private MirClass _Class;
+
         #endregion
 
         #region Experience
+
         public decimal Experience
         {
             get { return _Experience; }
@@ -84,10 +95,13 @@ namespace Client.Models
                 GameScene.Game.ExperienceChanged();
             }
         }
+
         private decimal _Experience;
+
         #endregion
 
         #region MaxExperience
+
         public decimal MaxExperience
         {
             get { return _MaxExperience; }
@@ -98,10 +112,13 @@ namespace Client.Models
                 GameScene.Game.ExperienceChanged();
             }
         }
+
         private decimal _MaxExperience;
+
         #endregion
 
         #region CurrentHP
+
         public override int CurrentHP
         {
             get { return _CurrentHP; }
@@ -112,10 +129,13 @@ namespace Client.Models
                 GameScene.Game.HealthChanged();
             }
         }
+
         private int _CurrentHP;
+
         #endregion
 
         #region CurrentMP
+
         public override int CurrentMP
         {
             get { return _CurrentMP; }
@@ -126,10 +146,13 @@ namespace Client.Models
                 GameScene.Game.ManaChanged();
             }
         }
+
         private int _CurrentMP;
+
         #endregion
 
         #region CurrentFP
+
         public override int CurrentFP
         {
             get { return _CurrentFP; }
@@ -140,10 +163,13 @@ namespace Client.Models
                 GameScene.Game.FocusChanged();
             }
         }
+
         private int _CurrentFP;
+
         #endregion
 
         #region AttackMode
+
         public AttackMode AttackMode
         {
             get { return _AttackMode; }
@@ -154,10 +180,13 @@ namespace Client.Models
                 GameScene.Game.AttackModeChanged();
             }
         }
+
         private AttackMode _AttackMode;
+
         #endregion
 
         #region AttackMode
+
         public PetMode PetMode
         {
             get { return _PetMode; }
@@ -168,7 +197,9 @@ namespace Client.Models
                 GameScene.Game.PetModeChanged();
             }
         }
+
         private PetMode _PetMode;
+
         #endregion
 
         #region Currencies
@@ -199,6 +230,7 @@ namespace Client.Models
                 GameScene.Game.SafeZoneChanged();
             }
         }
+
         private bool _InSafeZone;
 
         public int HermitPoints;
@@ -227,6 +259,7 @@ namespace Client.Models
                 GameScene.Game.ReceiveChat(CanThrusting ? CEnvir.Language.UseThrusting : CEnvir.Language.DoNotUseThrusting, MessageType.Hint);
             }
         }
+
         private bool _canThrusting;
 
         public bool CanHalfMoon
@@ -241,7 +274,9 @@ namespace Client.Models
                 GameScene.Game.ReceiveChat(CanHalfMoon ? CEnvir.Language.UseHalfMoon : CEnvir.Language.DoNotUseHalfMoon, MessageType.Hint);
             }
         }
+
         private bool _CanHalfMoon;
+
         public bool CanDestructiveSurge
         {
             get { return _CanDestructiveSurge; }
@@ -253,6 +288,7 @@ namespace Client.Models
                 GameScene.Game.ReceiveChat(CanDestructiveSurge ? CEnvir.Language.UseDestructiveSurge : CEnvir.Language.DoNotUseDestructiveSurge, MessageType.Hint);
             }
         }
+
         private bool _CanDestructiveSurge;
 
         public bool CanFlamingSword, CanDragonRise, CanBladeStorm, CanDefensiveBlow;
@@ -268,6 +304,7 @@ namespace Client.Models
                 GameScene.Game.ReceiveChat(CanFlameSplash ? CEnvir.Language.UseFlameSplash : CEnvir.Language.DoNotUseFlameSplash, MessageType.Hint);
             }
         }
+
         private bool _CanFlameSplash;
 
         public UserObject(StartInformation info)
@@ -326,7 +363,7 @@ namespace Client.Models
 
             HideHead = info.HideHead;
 
-            GameScene.Game.DayTime = info.DayTime;
+            //GameScene.Game.DayTime = info.DayTime;
             GameScene.Game.GroupBox.AllowGroup = info.AllowGroup;
 
             GameScene.Game.StruckEnabled = info.StruckEnabled;
@@ -424,6 +461,7 @@ namespace Client.Models
             foreach (TimeSpan delay in CurrentFrame.Delays)
                 NextActionTime += delay;
         }
+
         public void AttemptAction(ObjectAction action)
         {
             if (CEnvir.Now < NextActionTime || ActionQueue.Count > 0) return;
@@ -750,6 +788,7 @@ namespace Client.Models
                     break;
             }
         }
+
         public override void MovingOffSetChanged()
         {
             base.MovingOffSetChanged();

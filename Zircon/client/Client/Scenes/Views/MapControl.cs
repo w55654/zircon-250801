@@ -78,7 +78,6 @@ namespace Client.Scenes.Views
                 DXSoundManager.Play(nValue.Music);
 
             UpdateWeather();
-            LLayer.UpdateLights();
             MapInfoChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -147,9 +146,6 @@ namespace Client.Scenes.Views
             if (FLayer != null)
                 FLayer.Size = Size;
 
-            if (LLayer != null)
-                LLayer.Size = Size;
-
             OffSetX = Size.Width / 2 / CellWidth;
             OffSetY = Size.Height / 2 / CellHeight;
         }
@@ -167,7 +163,6 @@ namespace Client.Scenes.Views
         public bool AutoCast;
 
         public Floor FLayer;
-        public Light LLayer;
 
         public Cell[,] Cells;
         public int Width, Height;
@@ -193,7 +188,6 @@ namespace Client.Scenes.Views
             BackColour = Color.Empty;
 
             FLayer = new Floor { Parent = this, Size = Size };
-            LLayer = new Light { Parent = this, Location = new Point(-GameScene.Game.Location.X, -GameScene.Game.Location.Y), Size = Size };
         }
 
         #region Methods
@@ -236,12 +230,14 @@ namespace Client.Scenes.Views
 
             DXManager.Sprite.Flush();
 
-            DXManager.Device.SetRenderState(RenderState.SourceBlend, Blend.Zero);
-            DXManager.Device.SetRenderState(RenderState.DestinationBlend, Blend.SourceColor);
+            // todo w
+            //DXManager.Device.SetRenderState(RenderState.SourceBlend, Blend.Zero);
+            //DXManager.Device.SetRenderState(RenderState.DestinationBlend, Blend.SourceColor);
 
-            DXManager.Sprite.Draw(LLayer.ControlTexture, Color.White);
+            //DXManager.Sprite.Draw(LLayer.ControlTexture, Color.White);
 
             DXManager.Sprite.End();
+
             DXManager.Sprite.Begin(SpriteFlags.AlphaBlend);
 
             foreach (MapObject ob in Objects)
@@ -305,7 +301,6 @@ namespace Client.Scenes.Views
             if (!IsVisible || Size.Width == 0 || Size.Height == 0) return;
 
             FLayer.CheckTexture();
-            LLayer.CheckTexture();
 
             //CreateTexture();
             OnBeforeDraw();
@@ -1347,14 +1342,6 @@ namespace Client.Scenes.Views
                     FLayer = null;
                 }
 
-                if (LLayer != null)
-                {
-                    if (!LLayer.IsDisposed)
-                        LLayer.Dispose();
-
-                    LLayer = null;
-                }
-
                 Cells = null;
 
                 Width = 0;
@@ -1487,208 +1474,6 @@ namespace Client.Scenes.Views
             }
 
             protected override void DrawControl()
-            {
-            }
-
-            #endregion
-        }
-
-        public sealed class Light : DXControl
-        {
-            public Light()
-            {
-                IsControl = false;
-                BackColour = Color.FromArgb(15, 15, 15);
-            }
-
-            #region Methods
-
-            public void CheckTexture()
-            {
-                CreateTexture();
-            }
-
-            protected override void OnClearTexture()
-            {
-                base.OnClearTexture();
-
-                if (MapObject.User.Dead)
-                {
-                    DXManager.Device.Clear(ClearFlags.Target, Color.IndianRed, 0, 0);
-                    return;
-                }
-
-                DXManager.SetBlend(true);
-                DXManager.Device.SetRenderState(RenderState.SourceBlend, Blend.SourceAlpha);
-                DXManager.Device.SetRenderState(RenderState.DestinationBlend, Blend.One);
-
-                const float lightScale = 0.02F; //Players/Monsters
-                const float baseSize = 0.1F;
-
-                float fX;
-                float fY;
-
-                if ((MapObject.User.Poison & PoisonType.Abyss) == PoisonType.Abyss)
-                {
-                    DXManager.Device.Clear(ClearFlags.Target, Color.Black, 0, 0);
-
-                    float scale = baseSize + 4 * lightScale;
-
-                    fX = (OffSetX + MapObject.User.CurrentLocation.X - User.CurrentLocation.X) * CellWidth + CellWidth / 2;
-                    fY = (OffSetY + MapObject.User.CurrentLocation.Y - User.CurrentLocation.Y) * CellHeight;
-
-                    fX -= (DXManager.LightWidth * scale) / 2;
-                    fY -= (DXManager.LightHeight * scale) / 2;
-
-                    fX /= scale;
-                    fY /= scale;
-
-                    DXManager.Sprite.Transform = Matrix.Scaling(scale, scale, 1);
-
-                    DXManager.Sprite.Draw(DXManager.LightTexture, Vector3.Zero, new Vector3(fX, fY, 0), Color.White);
-
-                    DXManager.Sprite.Transform = Matrix.Identity;
-
-                    DXManager.SetBlend(false);
-
-                    var abyssEffects = MapObject.User.CreateMagicEffect(MagicEffect.Abyss);
-
-                    foreach (var effect in abyssEffects)
-                    {
-                        effect.Draw();
-                    }
-                    return;
-                }
-
-                foreach (MapObject ob in GameScene.Game.MapControl.Objects)
-                {
-                    if (ob.Light > 0 && (!ob.Dead || ob == MapObject.User || ob.Race == ObjectType.Spell))
-                    {
-                        float scale = baseSize + ob.Light * 2 * lightScale;
-
-                        fX = (OffSetX + ob.CurrentLocation.X - User.CurrentLocation.X) * CellWidth + ob.MovingOffSet.X - User.MovingOffSet.X + CellWidth / 2;
-                        fY = (OffSetY + ob.CurrentLocation.Y - User.CurrentLocation.Y) * CellHeight + ob.MovingOffSet.Y - User.MovingOffSet.Y;
-
-                        fX -= (DXManager.LightWidth * scale) / 2;
-                        fY -= (DXManager.LightHeight * scale) / 2;
-
-                        fX /= scale;
-                        fY /= scale;
-
-                        DXManager.Sprite.Transform = Matrix.Scaling(scale, scale, 1);
-
-                        DXManager.Sprite.Draw(DXManager.LightTexture, Vector3.Zero, new Vector3(fX, fY, 0), ob.LightColour);
-
-                        DXManager.Sprite.Transform = Matrix.Identity;
-                    }
-                }
-
-                foreach (MirEffect ob in GameScene.Game.MapControl.Effects)
-                {
-                    float frameLight = ob.FrameLight;
-
-                    if (frameLight > 0)
-                    {
-                        float scale = baseSize + frameLight * 2 * lightScale / 5;
-
-                        fX = ob.DrawX + CellWidth / 2;
-                        fY = ob.DrawY + CellHeight / 2;
-
-                        fX -= (DXManager.LightWidth * scale) / 2;
-                        fY -= (DXManager.LightHeight * scale) / 2;
-
-                        fX /= scale;
-                        fY /= scale;
-
-                        DXManager.Sprite.Transform = Matrix.Scaling(scale, scale, 1);
-
-                        DXManager.Sprite.Draw(DXManager.LightTexture, Vector3.Zero, new Vector3(fX, fY, 0), ob.FrameLightColour);
-
-                        DXManager.Sprite.Transform = Matrix.Identity;
-                    }
-                }
-
-                int minX = Math.Max(0, User.CurrentLocation.X - OffSetX - 15), maxX = Math.Min(GameScene.Game.MapControl.Width - 1, User.CurrentLocation.X + OffSetX + 15);
-                int minY = Math.Max(0, User.CurrentLocation.Y - OffSetY - 15), maxY = Math.Min(GameScene.Game.MapControl.Height - 1, User.CurrentLocation.Y + OffSetY + 15);
-
-                for (int y = minY; y <= maxY; y++)
-                {
-                    if (y < 0) continue;
-                    if (y >= GameScene.Game.MapControl.Height) break;
-
-                    int drawY = (y - User.CurrentLocation.Y + OffSetY) * CellHeight - User.MovingOffSet.Y - User.ShakeScreenOffset.Y;
-
-                    for (int x = minX; x <= maxX; x++)
-                    {
-                        if (x < 0) continue;
-                        if (x >= GameScene.Game.MapControl.Width) break;
-
-                        int drawX = (x - User.CurrentLocation.X + OffSetX) * CellWidth - User.MovingOffSet.X - User.ShakeScreenOffset.X;
-
-                        Cell tile = GameScene.Game.MapControl.Cells[x, y];
-
-                        if (tile.Light == 0) continue;
-
-                        float scale = baseSize + tile.Light * 30 * lightScale;
-
-                        fX = drawX + CellWidth / 2;
-                        fY = drawY + CellHeight / 2;
-
-                        fX -= DXManager.LightWidth * scale / 2;
-                        fY -= DXManager.LightHeight * scale / 2;
-
-                        fX /= scale;
-                        fY /= scale;
-
-                        DXManager.Sprite.Transform = Matrix.Scaling(scale, scale, 1);
-
-                        DXManager.Sprite.Draw(DXManager.LightTexture, Vector3.Zero, new Vector3(fX, fY, 0), Color.White);
-
-                        DXManager.Sprite.Transform = Matrix.Identity;
-                    }
-                }
-
-                DXManager.SetBlend(false);
-            }
-
-            public void UpdateLights()
-            {
-                switch (GameScene.Game.MapControl.MapInfo.Light)
-                {
-                    case LightSetting.Default:
-                        byte shading = (byte)(255 * GameScene.Game.DayTime);
-                        BackColour = Color.FromArgb(shading, shading, shading);
-                        Visible = true;
-                        break;
-
-                    case LightSetting.Night:
-                        BackColour = Color.FromArgb(15, 15, 15);
-                        Visible = true;
-                        break;
-
-                    case LightSetting.Twilight:
-                        BackColour = Color.FromArgb(100, 100, 100);
-                        Visible = true;
-                        break;
-
-                    case LightSetting.Light:
-                        BackColour = Color.FromArgb(255, 255, 255);
-                        Visible = true;
-                        break;
-                }
-
-                if (MapObject.User != null && (MapObject.User.Poison & PoisonType.Abyss) == PoisonType.Abyss)
-                {
-                    BackColour = Color.FromArgb(15, 15, 15);
-                    Visible = false;
-                }
-            }
-
-            protected override void DrawControl()
-            {
-            }
-
-            public override void Draw()
             {
             }
 

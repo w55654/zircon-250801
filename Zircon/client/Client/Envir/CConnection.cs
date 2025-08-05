@@ -875,7 +875,7 @@ namespace Client.Envir
 
         public void Process(S.DayChanged p)
         {
-            GameScene.Game.DayTime = p.DayTime;
+            //GameScene.Game.DayTime = p.DayTime;
         }
 
         public void Process(S.UserLocation p)
