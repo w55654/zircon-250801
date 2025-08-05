@@ -12,6 +12,8 @@ licenses.licx
 /mir3z/Client/Map
 /mir3z/Server/Backup
 
+**/Errors
+
 **/Debug
 **/Release
 
