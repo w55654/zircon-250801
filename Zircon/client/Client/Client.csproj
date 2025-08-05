@@ -8,6 +8,7 @@
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 		<SupportedOSPlatformAttribute>windows</SupportedOSPlatformAttribute>
 		<Platforms>AnyCPU;x64</Platforms>
+		<NoWarn>$(NoWarn);CA1416;MSB3277</NoWarn>
 	</PropertyGroup>
 
 	<PropertyGroup>
