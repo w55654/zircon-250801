@@ -23,7 +23,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="autofac" Version="8.1.1" />
+		<PackageReference Include="autofac" Version="8.4.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\shared\LibraryCore\LibraryCore.csproj" />

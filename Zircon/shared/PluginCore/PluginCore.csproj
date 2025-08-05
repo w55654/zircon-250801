@@ -22,15 +22,15 @@
 		<ProjectReference Include="..\LibraryCore\LibraryCore.csproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.0" />
+		<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.8" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
 		<PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
-		<PackageReference Include="System.Drawing.Common" Version="8.0.11" />
-		<PackageReference Include="System.Formats.Asn1" Version="9.0.0" />
-		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.1" />
-		<PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.2" />
-		<PackageReference Include="System.Text.Json" Version="9.0.0" />
+		<PackageReference Include="System.Drawing.Common" Version="9.0.8" />
+		<PackageReference Include="System.Formats.Asn1" Version="9.0.8" />
+		<PackageReference Include="System.Security.Cryptography.Pkcs" Version="9.0.8" />
+		<PackageReference Include="System.Security.Cryptography.Xml" Version="9.0.8" />
+		<PackageReference Include="System.Text.Json" Version="9.0.8" />
 	</ItemGroup>
 	<ItemGroup>
 		<Reference Include="DevExpress.BonusSkins.v22.2">
