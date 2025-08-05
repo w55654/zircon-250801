@@ -1,4 +1,10 @@
-﻿using System;
+﻿using Client.Controls;
+using Client.Envir;
+using Client.Models;
+using Client.UserModels;
+using Library;
+using Library.SystemModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -7,14 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
-using Client.Controls;
-using Client.Envir;
-using Client.Models;
-using Client.UserModels;
-using Library;
-using Library.SystemModels;
 using C = Library.Network.ClientPackets;
-
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -26,6 +25,7 @@ namespace Client.Scenes.Views
         public DXTabControl TabControl;
 
         #region Search
+
         public DXTab SearchTab;
         public DXTextBox ItemNameBox, BuyTotalBox, SearchNumberSoldBox, SearchLastPriceBox, SearchAveragePriceBox;
         public DXNumberBox BuyCountBox, BuyPriceBox;
@@ -38,9 +38,11 @@ namespace Client.Scenes.Views
 
         public MarketPlaceRow[] SearchRows;
         public ClientMarketPlaceInfo[] SearchResults;
+
         #endregion
 
         #region Consign
+
         public DXTab ConsignTab;
 
         public DXTextBox ConsignPriceBox, ConsignCostBox, NumberSoldBox, LastPriceBox, AveragePriceBox, ConsignMessageBox;
@@ -52,22 +54,25 @@ namespace Client.Scenes.Views
         public DXVScrollBar ConsignScrollBar;
 
         public MarketPlaceRow[] ConsignRows;
+
         #endregion
 
         #region Store
+
         public DXTab StoreTab;
 
         public DXTextBox StoreItemNameBox, StoreBuyTotalBox;
         public DXNumberBox StoreBuyCountBox, StoreBuyPriceBox, GameGoldBox, HuntGoldBox;
         public DXComboBox StoreItemTypeBox, StoreSortBox;
         public DXControl StoreBuyPanel;
-        public DXButton StoreBuyButton,  StoreSearchButton;
+        public DXButton StoreBuyButton, StoreSearchButton;
         public DXCheckBox UseHuntGoldBox;
         public DXVScrollBar StoreScrollBar;
         public DXLabel StoreBuyPriceLabel;
 
         public MarketPlaceStoreRow[] StoreRows;
         public List<StoreInfo> StoreSearchResults;
+
         #endregion
 
         #region SelectedRow
@@ -85,8 +90,11 @@ namespace Client.Scenes.Views
                 OnSelectedRowChanged(oldValue, value);
             }
         }
+
         private MarketPlaceRow _SelectedRow;
+
         public event EventHandler<EventArgs> SelectedRowChanged;
+
         public void OnSelectedRowChanged(MarketPlaceRow oValue, MarketPlaceRow nValue)
         {
             if (oValue != null)
@@ -158,8 +166,11 @@ namespace Client.Scenes.Views
                 OnSelectedStoreRowChanged(oldValue, value);
             }
         }
+
         private MarketPlaceStoreRow _SelectedStoreRow;
+
         public event EventHandler<EventArgs> SelectedStoreRowChanged;
+
         public void OnSelectedStoreRowChanged(MarketPlaceStoreRow oValue, MarketPlaceStoreRow nValue)
         {
             if (oValue != null)
@@ -211,8 +222,11 @@ namespace Client.Scenes.Views
                 OnPriceChanged(oldValue, value);
             }
         }
+
         private int _Price;
+
         public event EventHandler<EventArgs> PriceChanged;
+
         public void OnPriceChanged(int oValue, int nValue)
         {
             ConsignCostBox.TextBox.Text = Cost.ToString("#,##0");
@@ -227,7 +241,7 @@ namespace Client.Scenes.Views
         public List<ClientMarketPlaceInfo> ConsignItems = new List<ClientMarketPlaceInfo>();
 
         public DateTime NextSearchTime;
-        
+
         public override void OnVisibleChanged(bool oValue, bool nValue)
         {
             base.OnVisibleChanged(oValue, nValue);
@@ -239,7 +253,6 @@ namespace Client.Scenes.Views
                 ConsignGrid.ClearLinks();
                 return;
             }
-
 
             if (SearchResults == null)
                 Search();
@@ -260,15 +273,12 @@ namespace Client.Scenes.Views
             TitleLabel.Text = CEnvir.Language.MarketPlaceDialogTitle;
             SetClientSize(new Size(740, 461));
 
-
             TabControl = new DXTabControl
             {
                 Parent = this,
                 Size = ClientArea.Size,
                 Location = ClientArea.Location,
             };
-
-
 
             #region Search
 
@@ -278,7 +288,6 @@ namespace Client.Scenes.Views
                 TabButton = { Label = { Text = CEnvir.Language.MarketPlaceDialogSearchTabLabel } },
                 Border = true,
             };
-
 
             DXControl filterPanel = new DXControl
             {
@@ -304,16 +313,12 @@ namespace Client.Scenes.Views
             };
             ItemNameBox.TextBox.KeyPress += TextBox_KeyPress;
 
-
-
             label = new DXLabel
             {
                 Parent = filterPanel,
                 Location = new Point(ItemNameBox.Location.X + ItemNameBox.Size.Width + 10, 5),
                 Text = CEnvir.Language.MarketPlaceDialogSearchTabItemLabel,
             };
-
-
 
             ItemTypeBox = new DXComboBox
             {
@@ -322,7 +327,6 @@ namespace Client.Scenes.Views
                 Size = new Size(95, DXComboBox.DefaultNormalHeight),
                 DropDownHeight = 198
             };
-
 
             new DXListBoxItem
             {
@@ -348,7 +352,6 @@ namespace Client.Scenes.Views
             }
 
             ItemTypeBox.ListBox.SelectItem(null);
-
 
             label = new DXLabel
             {
@@ -380,7 +383,6 @@ namespace Client.Scenes.Views
             }
 
             SortBox.ListBox.SelectItem(MarketPlaceSort.Newest);
-
 
             SearchButton = new DXButton
             {
@@ -419,14 +421,13 @@ namespace Client.Scenes.Views
             };
             SearchScrollBar.ValueChanged += SearchScrollBar_ValueChanged;
 
-
             for (int i = 0; i < SearchRows.Length; i++)
             {
                 int index = i;
                 SearchRows[index] = new MarketPlaceRow
                 {
                     Parent = SearchTab,
-                    Location = new Point(10, 46 + i*43),
+                    Location = new Point(10, 46 + i * 43),
                 };
                 SearchRows[index].MouseClick += (o, e) => { SelectedRow = SearchRows[index]; };
                 SearchRows[index].MouseWheel += SearchScrollBar.DoMouseWheel;
@@ -441,7 +442,6 @@ namespace Client.Scenes.Views
                 BorderColour = Color.FromArgb(198, 166, 99),
                 Enabled = false,
             };
-
 
             new DXLabel
             {
@@ -500,7 +500,6 @@ namespace Client.Scenes.Views
                 ReadOnly = true,
                 Editable = false
             };
-
 
             MessagePanel = new DXControl
             {
@@ -572,7 +571,6 @@ namespace Client.Scenes.Views
             };
             BuyCountBox.ValueTextBox.ValueChanged += UpdateBuyTotal;
 
-
             label = new DXLabel
             {
                 Parent = BuyPanel,
@@ -622,7 +620,6 @@ namespace Client.Scenes.Views
                 ForeColour = Color.FromArgb(198, 166, 99),
             };
 
-
             BuyGuildBox = new DXCheckBox
             {
                 Parent = BuyPanel,
@@ -659,7 +656,6 @@ namespace Client.Scenes.Views
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99)
             };
-
 
             new DXLabel
             {
@@ -707,7 +703,6 @@ namespace Client.Scenes.Views
                     CEnvir.Enqueue(new C.MarketPlaceHistory { Index = ConsignGrid.Grid[0].Item.Info.Index, PartIndex = ConsignGrid.Grid[0].Item.AddedStats[Stat.ItemIndex], Display = 2 });
                 }
                 ConsignCostBox.TextBox.Text = Cost.ToString("#,##0");
-
             };
 
             new DXLabel
@@ -721,7 +716,6 @@ namespace Client.Scenes.Views
                 Location = new Point(0, 60)
                 //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
-
 
             label = new DXLabel
             {
@@ -812,7 +806,6 @@ namespace Client.Scenes.Views
                 Price = price;
             };
 
-
             DXControl ConsignMesagePanel = new DXControl
             {
                 Parent = ConsignTab,
@@ -832,7 +825,7 @@ namespace Client.Scenes.Views
                 Size = new Size(175, 15)
                 //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
-            
+
             ConsignMessageBox = new DXTextBox
             {
                 Location = new Point(10, 25),
@@ -903,7 +896,7 @@ namespace Client.Scenes.Views
                 ConsignRows[index] = new MarketPlaceRow
                 {
                     Parent = ConsignTab,
-                    Location = new Point(190, 10 + index*42),
+                    Location = new Point(190, 10 + index * 42),
                 };
                 ConsignRows[index].MouseClick += (o, e) =>
                 {
@@ -918,7 +911,6 @@ namespace Client.Scenes.Views
 
                         CEnvir.Enqueue(new C.MarketPlaceCancelConsign { Index = info.Index, Count = window.Amount });
                     };
-
                 };
             }
 
@@ -935,7 +927,7 @@ namespace Client.Scenes.Views
             #endregion
 
             #region Store
-            
+
             StoreTab = new DXTab
             {
                 Parent = TabControl,
@@ -967,16 +959,12 @@ namespace Client.Scenes.Views
             };
             StoreItemNameBox.TextBox.KeyPress += StoreTextBox_KeyPress;
 
-
-
             label = new DXLabel
             {
                 Parent = filterPanel,
                 Location = new Point(StoreItemNameBox.Location.X + StoreItemNameBox.Size.Width + 10, 5),
                 Text = CEnvir.Language.MarketPlaceDialogGameStoreTabItemLabel,
             };
-
-
 
             StoreItemTypeBox = new DXComboBox
             {
@@ -985,7 +973,6 @@ namespace Client.Scenes.Views
                 Size = new Size(95, DXComboBox.DefaultNormalHeight),
                 DropDownHeight = 198
             };
-
 
             new DXListBoxItem
             {
@@ -1020,7 +1007,6 @@ namespace Client.Scenes.Views
 
             StoreItemTypeBox.ListBox.SelectItem(null);
 
-
             label = new DXLabel
             {
                 Parent = filterPanel,
@@ -1051,7 +1037,6 @@ namespace Client.Scenes.Views
             }
 
             StoreSortBox.ListBox.SelectItem(MarketPlaceStoreSort.Alphabetical);
-
 
             StoreSearchButton = new DXButton
             {
@@ -1089,7 +1074,6 @@ namespace Client.Scenes.Views
                 Change = 3,
             };
             StoreScrollBar.ValueChanged += StoreScrollBar_ValueChanged;
-
 
             for (int i = 0; i < StoreRows.Length; i++)
             {
@@ -1207,7 +1191,7 @@ namespace Client.Scenes.Views
                     });
                 };
             };
-            
+
             StoreBuyPanel = new DXControl
             {
                 Location = new Point(555, 279),
@@ -1248,7 +1232,6 @@ namespace Client.Scenes.Views
                 UpButton = { Location = new Point(108, 1) }
             };
             StoreBuyCountBox.ValueTextBox.ValueChanged += UpdateStoreBuyTotal;
-
 
             StoreBuyPriceLabel = new DXLabel
             {
@@ -1307,7 +1290,6 @@ namespace Client.Scenes.Views
             UseHuntGoldBox.Location = new Point(158 - UseHuntGoldBox.Size.Width, 101);
             UseHuntGoldBox.CheckedChanged += UpdateStoreBuyTotal;
 
-
             StoreBuyButton = new DXButton
             {
                 Size = new Size(85, SmallButtonHeight),
@@ -1320,9 +1302,8 @@ namespace Client.Scenes.Views
 
             #endregion
         }
-        
-        #region Methods
 
+        #region Methods
 
         public void Search()
         {
@@ -1330,13 +1311,11 @@ namespace Client.Scenes.Views
 
             SearchScrollBar.MaxValue = 0;
 
-
             foreach (MarketPlaceRow row in SearchRows)
             {
                 row.Loading = true;
                 row.Visible = true;
             }
-
 
             CEnvir.Enqueue(new C.MarketPlaceSearch
             {
@@ -1348,12 +1327,12 @@ namespace Client.Scenes.Views
                 Sort = (MarketPlaceSort)SortBox.SelectedItem,
             });
         }
+
         public void StoreSearch()
         {
             StoreSearchResults = new List<StoreInfo>();
 
             StoreScrollBar.MaxValue = 0;
-
 
             foreach (MarketPlaceStoreRow row in StoreRows)
                 row.Visible = true;
@@ -1378,12 +1357,15 @@ namespace Client.Scenes.Views
                 case MarketPlaceStoreSort.Alphabetical:
                     StoreSearchResults.Sort((x1, x2) => string.Compare(x1.Item.ItemName, x2.Item.ItemName, StringComparison.Ordinal));
                     break;
+
                 case MarketPlaceStoreSort.HighestPrice:
                     StoreSearchResults.Sort((x1, x2) => x2.Price.CompareTo(x1.Price));
                     break;
+
                 case MarketPlaceStoreSort.LowestPrice:
                     StoreSearchResults.Sort((x1, x2) => x1.Price.CompareTo(x2.Price));
                     break;
+
                 case MarketPlaceStoreSort.Favourite:
                     // TODO StoreSearchResults.Sort((x1, x2) => x1.Price.CompareTo(x2.Price));
                     break;
@@ -1422,8 +1404,8 @@ namespace Client.Scenes.Views
                 SearchRows[i].Loading = false;
                 SearchRows[i].MarketInfo = SearchResults[i + SearchScrollBar.Value];
             }
-
         }
+
         public void RefreshConsignList()
         {
             ConsignScrollBar.MaxValue = ConsignItems.Count;
@@ -1441,8 +1423,8 @@ namespace Client.Scenes.Views
 
                 ConsignRows[i].MarketInfo = ConsignItems[i + ConsignScrollBar.Value];
             }
-
         }
+
         public void RefreshStoreList()
         {
             if (StoreSearchResults == null) return;
@@ -1460,7 +1442,6 @@ namespace Client.Scenes.Views
 
                 StoreRows[i].StoreInfo = StoreSearchResults[i + StoreScrollBar.Value];
             }
-
         }
 
         private void BuyButton_MouseClick(object sender, MouseEventArgs e)
@@ -1474,12 +1455,10 @@ namespace Client.Scenes.Views
             if (SelectedRow.MarketInfo.Item.Info.ItemEffect == ItemEffect.ItemPart)
                 displayInfo = Globals.ItemInfoList.Binding.First(x => x.Index == SelectedRow.MarketInfo.Item.AddedStats[Stat.ItemIndex]);
 
-
             message.Append($"Item: {displayInfo.ItemName}");
 
             if (SelectedRow.MarketInfo.Item.Info.ItemEffect == ItemEffect.ItemPart)
                 message.Append(" - [Part]");
-
 
             if (BuyCountBox.Value > 1)
                 message.Append($" x{BuyCountBox.Value:#,##0}");
@@ -1498,7 +1477,6 @@ namespace Client.Scenes.Views
             if (BuyGuildBox.Checked)
                 message.Append(" (Using Guild Funds)");
 
-
             DXMessageBox box = new DXMessageBox(message.ToString(), "Buy Confirmation", DXMessageBoxButtons.YesNo);
 
             box.YesButton.MouseClick += (o1, e1) =>
@@ -1509,12 +1487,13 @@ namespace Client.Scenes.Views
                 BuyGuildBox.Checked = false;
             };
         }
+
         private void StoreBuyButton_MouseClick(object sender, MouseEventArgs e)
         {
             if (SelectedStoreRow?.StoreInfo?.Item == null) return;
 
             StringBuilder message = new StringBuilder();
-            
+
             message.Append($"Item: {SelectedStoreRow.StoreInfo.Item.ItemName}");
 
             if (StoreBuyCountBox.Value > 1)
@@ -1537,18 +1516,18 @@ namespace Client.Scenes.Views
             {
                 StoreBuyButton.Enabled = false;
 
-                CEnvir.Enqueue(new C.MarketPlaceStoreBuy { Index = SelectedStoreRow.StoreInfo.Index, Count = StoreBuyCountBox.Value, UseHuntGold = UseHuntGoldBox.Checked});
+                CEnvir.Enqueue(new C.MarketPlaceStoreBuy { Index = SelectedStoreRow.StoreInfo.Index, Count = StoreBuyCountBox.Value, UseHuntGold = UseHuntGoldBox.Checked });
             };
         }
+
         private void UpdateBuyTotal(object sender, EventArgs e)
         {
             BuyTotalBox.TextBox.Text = (BuyCountBox.Value * BuyPriceBox.Value).ToString("#,##0");
         }
+
         private void UpdateStoreBuyTotal(object sender, EventArgs e)
         {
             StoreInfo info = SelectedStoreRow?.StoreInfo;
-
-
 
             if (UseHuntGoldBox.Checked)
             {
@@ -1567,14 +1546,17 @@ namespace Client.Scenes.Views
 
             StoreBuyTotalBox.TextBox.Text = (StoreBuyCountBox.Value * StoreBuyPriceBox.Value).ToString("#,##0");
         }
+
         private void ConsignScrollBar_ValueChanged(object sender, EventArgs e)
         {
             RefreshConsignList();
         }
+
         private void SearchScrollBar_ValueChanged(object sender, EventArgs e)
         {
             RefreshList();
         }
+
         private void ConsignButton_MouseClick(object sender, MouseEventArgs e)
         {
             DXItemCell cell = ConsignGrid.Grid[0];
@@ -1590,7 +1572,7 @@ namespace Client.Scenes.Views
                 GameScene.Game.ReceiveChat(CEnvir.Language.MarketInvalidPrice, MessageType.System);
                 return;
             }
-            
+
             StringBuilder message = new StringBuilder();
 
             ItemInfo displayInfo = cell.Item.Info;
@@ -1598,12 +1580,10 @@ namespace Client.Scenes.Views
             if (cell.Item.Info.ItemEffect == ItemEffect.ItemPart)
                 displayInfo = Globals.ItemInfoList.Binding.First(x => x.Index == cell.Item.AddedStats[Stat.ItemIndex]);
 
-
             message.Append($"Item: {displayInfo.ItemName}");
 
             if (cell.Item.Info.ItemEffect == ItemEffect.ItemPart)
                 message.Append(" - [Part]");
-
 
             if (cell.LinkedCount > 1)
                 message.Append($" x{cell.LinkedCount:#,##0}");
@@ -1640,10 +1620,12 @@ namespace Client.Scenes.Views
                 ConsignGuildBox.Checked = false;
             };
         }
+
         private void StoreScrollBar_ValueChanged(object sender, EventArgs e)
         {
             RefreshStoreList();
         }
+
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != (char)Keys.Enter) return;
@@ -1653,6 +1635,7 @@ namespace Client.Scenes.Views
             if (SearchButton.Enabled)
                 Search();
         }
+
         private void StoreTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar != (char)Keys.Enter) return;
@@ -1662,6 +1645,7 @@ namespace Client.Scenes.Views
             if (StoreSearchButton.Enabled)
                 StoreSearch();
         }
+
         #endregion
 
         #region IDisposable
@@ -1681,7 +1665,7 @@ namespace Client.Scenes.Views
                 }
 
                 #region Search
-                
+
                 if (SearchTab != null)
                 {
                     if (!SearchTab.IsDisposed)
@@ -1825,7 +1809,7 @@ namespace Client.Scenes.Views
 
                     SearchScrollBar = null;
                 }
-                
+
                 if (SearchRows != null)
                 {
                     for (int i = 0; i < SearchRows.Length; i++)
@@ -1967,7 +1951,7 @@ namespace Client.Scenes.Views
 
                     ConsignScrollBar = null;
                 }
-                
+
                 if (ConsignRows != null)
                 {
                     for (int i = 0; i < ConsignRows.Length; i++)
@@ -2133,7 +2117,6 @@ namespace Client.Scenes.Views
 
                 NextSearchTime = DateTime.MinValue;
             }
-
         }
 
         #endregion
@@ -2141,7 +2124,6 @@ namespace Client.Scenes.Views
 
     public sealed class MarketPlaceRow : DXControl
     {
-
         #region Properties
 
         #region Selected
@@ -2159,8 +2141,11 @@ namespace Client.Scenes.Views
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
@@ -2184,8 +2169,11 @@ namespace Client.Scenes.Views
                 OnMarketInfoChanged(oldValue, value);
             }
         }
+
         private ClientMarketPlaceInfo _MarketInfo;
+
         public event EventHandler<EventArgs> MarketInfoChanged;
+
         public void OnMarketInfoChanged(ClientMarketPlaceInfo oValue, ClientMarketPlaceInfo nValue)
         {
             Visible = MarketInfo != null;
@@ -2214,13 +2202,11 @@ namespace Client.Scenes.Views
             else
                 NameLabel.ForeColour = Color.FromArgb(198, 166, 99);
 
-
             PriceLabel.Text = MarketInfo.Price.ToString("#,##0");
-            
+
             SellerLabel.Text = MarketInfo.Seller;
 
             SellerLabel.ForeColour = MarketInfo.IsOwner ? Color.Yellow : Color.FromArgb(198, 166, 99);
-
 
             if (GameScene.Game.MarketPlaceBox.SelectedRow == this)
                 GameScene.Game.MarketPlaceBox.SelectedRow = null;
@@ -2245,8 +2231,11 @@ namespace Client.Scenes.Views
                 OnLoadingChanged(oldValue, value);
             }
         }
+
         private bool _Loading;
+
         public event EventHandler<EventArgs> LoadingChanged;
+
         public void OnLoadingChanged(bool oValue, bool nValue)
         {
             ItemCell.Visible = !Loading;
@@ -2263,7 +2252,6 @@ namespace Client.Scenes.Views
             else
                 NameLabel.Text = "";
 
-
             if (GameScene.Game.MarketPlaceBox.SelectedRow == this)
                 GameScene.Game.MarketPlaceBox.SelectedRow = null;
 
@@ -2271,7 +2259,7 @@ namespace Client.Scenes.Views
         }
 
         #endregion
-        
+
         public DXItemCell ItemCell;
         public DXLabel NameLabel, PriceLabel, PriceLabelLabel, SellerLabel, SellerLabelLabel;
 
@@ -2304,14 +2292,13 @@ namespace Client.Scenes.Views
                 Location = new Point(ItemCell.Location.X + ItemCell.Size.Width, 12),
                 IsControl = false,
             };
-            
+
             PriceLabelLabel = new DXLabel
             {
                 Parent = this,
                 Text = "Price:",
                 ForeColour = Color.White,
                 IsControl = false,
-
             };
             PriceLabelLabel.Location = new Point(290 - PriceLabelLabel.Size.Width, 12);
 
@@ -2328,7 +2315,6 @@ namespace Client.Scenes.Views
                 Text = "Seller:",
                 ForeColour = Color.White,
                 IsControl = false,
-
             };
             SellerLabelLabel.Location = new Point(425 - SellerLabelLabel.Size.Width, 12);
 
@@ -2364,7 +2350,7 @@ namespace Client.Scenes.Views
 
                     ItemCell = null;
                 }
-                
+
                 if (NameLabel != null)
                 {
                     if (!NameLabel.IsDisposed)
@@ -2380,7 +2366,7 @@ namespace Client.Scenes.Views
 
                     PriceLabel = null;
                 }
-                
+
                 if (PriceLabelLabel != null)
                 {
                     if (!PriceLabelLabel.IsDisposed)
@@ -2388,7 +2374,7 @@ namespace Client.Scenes.Views
 
                     PriceLabelLabel = null;
                 }
-                
+
                 if (SellerLabel != null)
                 {
                     if (!SellerLabel.IsDisposed)
@@ -2396,7 +2382,7 @@ namespace Client.Scenes.Views
 
                     SellerLabel = null;
                 }
-                
+
                 if (SellerLabelLabel != null)
                 {
                     if (!SellerLabelLabel.IsDisposed)
@@ -2404,9 +2390,7 @@ namespace Client.Scenes.Views
 
                     SellerLabelLabel = null;
                 }
-                
             }
-
         }
 
         #endregion
@@ -2431,8 +2415,11 @@ namespace Client.Scenes.Views
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
@@ -2442,7 +2429,7 @@ namespace Client.Scenes.Views
         }
 
         #endregion
-        
+
         #region StoreInfo
 
         public StoreInfo StoreInfo
@@ -2458,8 +2445,11 @@ namespace Client.Scenes.Views
                 OnStoreInfoChanged(oldValue, value);
             }
         }
+
         private StoreInfo _StoreInfo;
+
         public event EventHandler<EventArgs> StoreInfoChanged;
+
         public void OnStoreInfoChanged(StoreInfo oValue, StoreInfo nValue)
         {
             Visible = StoreInfo?.Item != null;
@@ -2467,16 +2457,15 @@ namespace Client.Scenes.Views
 
             UserItemFlags flags = UserItemFlags.Worthless;
             TimeSpan duration = TimeSpan.FromSeconds(StoreInfo.Duration);
-            
+
             if (duration != TimeSpan.Zero)
                 flags |= UserItemFlags.Expirable;
-            
+
             ItemCell.Item = new ClientUserItem(StoreInfo.Item, 1)
             {
                 Flags = flags,
                 ExpireTime = duration
             };
-            
 
             ItemCell.RefreshItem();
 
@@ -2487,29 +2476,25 @@ namespace Client.Scenes.Views
             if (!StoreInfo.Available)
                 PriceLabel.Text = "(Not Available)";
 
-
-
             HuntPriceLabel.Visible = StoreInfo.HuntGoldPrice != 0;
 
             HuntPriceLabelLabel.Visible = StoreInfo.HuntGoldPrice != 0;
-            
+
             HuntPriceLabel.Text = (StoreInfo.HuntGoldPrice == 0 ? StoreInfo.Price : StoreInfo.HuntGoldPrice).ToString("#,##0");
 
             if (!StoreInfo.Available)
                 HuntPriceLabel.Text = "(Not Available)";
 
-
             if (GameScene.Game.MarketPlaceBox.SelectedStoreRow == this)
                 GameScene.Game.MarketPlaceBox.SelectedStoreRow = null;
 
-            //TODO If Favourite 
-            
+            //TODO If Favourite
+
             StoreInfoChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
-        
-        
+
         public DXItemCell ItemCell;
         public DXLabel NameLabel, PriceLabel, HuntPriceLabel, PriceLabelLabel, HuntPriceLabelLabel;
         public DXButton FavouriteImage;
@@ -2523,7 +2508,7 @@ namespace Client.Scenes.Views
             DrawTexture = true;
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
 
-           // Visible = false;
+            // Visible = false;
 
             ItemCell = new DXItemCell
             {
@@ -2545,7 +2530,6 @@ namespace Client.Scenes.Views
                 IsControl = false,
             };
 
-
             PriceLabel = new DXLabel
             {
                 Parent = this,
@@ -2559,10 +2543,8 @@ namespace Client.Scenes.Views
                 Text = "Game Gold:",
                 ForeColour = Color.White,
                 IsControl = false,
-
             };
             PriceLabelLabel.Location = new Point(290 - PriceLabelLabel.Size.Width, 12);
-            
 
             HuntPriceLabel = new DXLabel
             {
@@ -2577,10 +2559,8 @@ namespace Client.Scenes.Views
                 Text = "Hunt Gold:",
                 ForeColour = Color.White,
                 IsControl = false,
-
             };
             HuntPriceLabelLabel.Location = new Point(420 - HuntPriceLabelLabel.Size.Width, 12);
-
 
             FavouriteImage = new DXButton
             {
@@ -2589,10 +2569,9 @@ namespace Client.Scenes.Views
                 Parent = this,
                 Hint = "Favourite (NOT YET ENABLED)",
                 Enabled = false,
-                Visible =  false,
+                Visible = false,
             };
-            FavouriteImage.Location = new Point(Size.Width - FavouriteImage.Size.Width - 10, (Size.Height - FavouriteImage.Size.Height)/2);
-
+            FavouriteImage.Location = new Point(Size.Width - FavouriteImage.Size.Width - 10, (Size.Height - FavouriteImage.Size.Height) / 2);
         }
 
         #region IDisposable
@@ -2665,10 +2644,8 @@ namespace Client.Scenes.Views
                     FavouriteImage = null;
                 }
             }
-
         }
 
         #endregion
     }
-
 }

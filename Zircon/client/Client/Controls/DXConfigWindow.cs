@@ -1,11 +1,10 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using Client.Envir;
-using Client.Envir.Translations;
+﻿using Client.Envir;
 using Client.Scenes;
 using Client.Scenes.Views;
 using Client.UserModels;
 using Library;
+using System.Drawing;
+using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 
 //Cleaned
@@ -14,6 +13,7 @@ namespace Client.Controls
     public sealed class DXConfigWindow : DXWindow
     {
         #region Properties
+
         public static DXConfigWindow ActiveConfig;
         public DXKeyBindWindow KeyBindWindow;
 
@@ -21,31 +21,37 @@ namespace Client.Controls
 
         //Grpahics
         public DXTab GraphicsTab;
+
         public DXCheckBox FullScreenCheckBox, VSyncCheckBox, LimitFPSCheckBox, ClipMouseCheckBox, DebugLabelCheckBox, SmoothMoveCheckBox;
         private DXComboBox GameSizeComboBox, LanguageComboBox;
 
         //Sound
         public DXTab SoundTab;
+
         private DXNumberBox SystemVolumeBox, MusicVolumeBox, SpellVolumeBox, PlayerVolumeBox, MonsterVolumeBox;
         private DXCheckBox BackgroundSoundBox;
 
-        //Game 
+        //Game
         public DXTab GameTab;
-        private DXCheckBox ItemNameCheckBox, MonsterNameCheckBox, PlayerNameCheckBox, UserHealthCheckBox, MonsterHealthCheckBox, DamageNumbersCheckBox, 
-            EscapeCloseAllCheckBox, ShiftOpenChatCheckBox, RightClickDeTargetCheckBox, MonsterBoxVisibleCheckBox, LogChatCheckBox, DrawEffectsCheckBox, 
+
+        private DXCheckBox ItemNameCheckBox, MonsterNameCheckBox, PlayerNameCheckBox, UserHealthCheckBox, MonsterHealthCheckBox, DamageNumbersCheckBox,
+            EscapeCloseAllCheckBox, ShiftOpenChatCheckBox, RightClickDeTargetCheckBox, MonsterBoxVisibleCheckBox, LogChatCheckBox, DrawEffectsCheckBox,
             DrawParticlesCheckBox, DrawWeatherCheckBox;
+
         public DXCheckBox DisplayHelmetCheckBox, HideChatBarCheckBox;
 
         public DXButton KeyBindButton;
 
         //Network
         public DXTab NetworkTab;
+
         private DXCheckBox UseNetworkConfigCheckBox;
         private DXTextBox IPAddressTextBox;
         private DXNumberBox PortBox;
 
         //Colours
         public DXTab ColourTab;
+
         public DXColourControl LocalForeColourBox, GMWhisperInForeColourBox, WhisperInForeColourBox, WhisperOutForeColourBox, GroupForeColourBox, GuildForeColourBox, ShoutForeColourBox, GlobalForeColourBox, ObserverForeColourBox, HintForeColourBox, SystemForeColourBox, GainsForeColourBox, AnnouncementForeColourBox;
         public DXColourControl LocalBackColourBox, GMWhisperInBackColourBox, WhisperInBackColourBox, WhisperOutBackColourBox, GroupBackColourBox, GuildBackColourBox, ShoutBackColourBox, GlobalBackColourBox, ObserverBackColourBox, HintBackColourBox, SystemBackColourBox, GainsBackColourBox, AnnouncementBackColourBox;
         public DXButton ResetColoursButton;
@@ -77,7 +83,7 @@ namespace Client.Controls
             IPAddressTextBox.TextBox.Text = Config.IPAddress;
             PortBox.ValueTextBox.TextBox.Text = Config.Port.ToString();
 
-            ItemNameCheckBox.Checked= Config.ShowItemNames;
+            ItemNameCheckBox.Checked = Config.ShowItemNames;
             MonsterNameCheckBox.Checked = Config.ShowMonsterNames;
             PlayerNameCheckBox.Checked = Config.ShowPlayerNames;
             UserHealthCheckBox.Checked = Config.ShowUserHealth;
@@ -121,6 +127,7 @@ namespace Client.Controls
             GainsBackColourBox.BackColour = Config.GainsTextBackColour;
             AnnouncementBackColourBox.BackColour = Config.AnnouncementTextBackColour;
         }
+
         public override void OnParentChanged(DXControl oValue, DXControl nValue)
         {
             base.OnParentChanged(oValue, nValue);
@@ -131,6 +138,7 @@ namespace Client.Controls
         public override WindowType Type => WindowType.ConfigBox;
         public override bool CustomSize => false;
         public override bool AutomaticVisibility => false;
+
         #endregion
 
         public DXConfigWindow()
@@ -182,14 +190,13 @@ namespace Client.Controls
                 TabButton = { Label = { Text = CEnvir.Language.CommonControlConfigWindowColoursTabLabel }, Visible = false },
             };
 
-
             KeyBindWindow = new DXKeyBindWindow
             {
-                Visible =  false
+                Visible = false
             };
 
             #region Graphics
-            
+
             FullScreenCheckBox = new DXCheckBox
             {
                 Label = { Text = CEnvir.Language.CommonControlConfigWindowGraphicsTabFullScreenLabel },
@@ -278,6 +285,7 @@ namespace Client.Controls
                     Label = { Text = language },
                     Item = language
                 };
+
             #endregion
 
             #region Sound
@@ -368,7 +376,6 @@ namespace Client.Controls
                 MaxValue = 100,
                 Location = new Point(104, 135)
             };
-
 
             #endregion
 
@@ -509,7 +516,7 @@ namespace Client.Controls
                 Label = { Text = CEnvir.Language.CommonControlConfigWindowGameTabKeyBindButtonLabel }
             };
             KeyBindButton.MouseClick += (o, e) => KeyBindWindow.Visible = !KeyBindWindow.Visible;
-            
+
             #endregion
 
             #region Network
@@ -552,6 +559,7 @@ namespace Client.Controls
                 MaxValue = ushort.MaxValue,
                 Location = new Point(104, 60)
             };
+
             #endregion
 
             #region Colours
@@ -916,10 +924,12 @@ namespace Client.Controls
         }
 
         #region Methods
+
         private void CancelSettings(object o, MouseEventArgs e)
         {
             Visible = false;
         }
+
         private void SaveSettings(object o, MouseEventArgs e)
         {
             if (Config.FullScreen != FullScreenCheckBox.Checked)
@@ -940,14 +950,13 @@ namespace Client.Controls
 
             if (LanguageComboBox.SelectedItem is string && Config.Language != (string)LanguageComboBox.SelectedItem)
             {
-                Config.Language = (string) LanguageComboBox.SelectedItem;
+                Config.Language = (string)LanguageComboBox.SelectedItem;
 
                 CEnvir.LoadLanguage();
 
                 if (CEnvir.Connection != null && CEnvir.Connection.ServerConnected)
                     CEnvir.Enqueue(new C.SelectLanguage { Language = Config.Language });
             }
-
 
             if (Config.VSync != VSyncCheckBox.Checked)
             {
@@ -969,24 +978,20 @@ namespace Client.Controls
 
                 DXSoundManager.UpdateFlags();
             }
-            
 
             bool volumeChanged = false;
 
-
             if (Config.SystemVolume != SystemVolumeBox.Value)
             {
-                Config.SystemVolume = (int) SystemVolumeBox.Value;
+                Config.SystemVolume = (int)SystemVolumeBox.Value;
                 volumeChanged = true;
             }
-
 
             if (Config.MusicVolume != MusicVolumeBox.Value)
             {
                 Config.MusicVolume = (int)MusicVolumeBox.Value;
                 volumeChanged = true;
             }
-
 
             if (Config.PlayerVolume != PlayerVolumeBox.Value)
             {
@@ -1030,7 +1035,6 @@ namespace Client.Controls
             Config.IPAddress = IPAddressTextBox.TextBox.Text;
             Config.Port = (int)PortBox.Value;
 
-
             bool coloursChanged = false;
 
             //Fore Colours
@@ -1046,25 +1050,25 @@ namespace Client.Controls
                 Config.GMWhisperInTextForeColour = GMWhisperInForeColourBox.BackColour;
                 coloursChanged = true;
             }
-            
+
             if (Config.WhisperInTextForeColour != WhisperInForeColourBox.BackColour)
             {
                 Config.WhisperInTextForeColour = WhisperInForeColourBox.BackColour;
                 coloursChanged = true;
             }
-            
+
             if (Config.WhisperOutTextForeColour != WhisperOutForeColourBox.BackColour)
             {
                 Config.WhisperOutTextForeColour = WhisperOutForeColourBox.BackColour;
                 coloursChanged = true;
             }
-            
+
             if (Config.GroupTextForeColour != GroupForeColourBox.BackColour)
             {
                 Config.GroupTextForeColour = GroupForeColourBox.BackColour;
                 coloursChanged = true;
             }
-            
+
             if (Config.GuildTextForeColour != GuildForeColourBox.BackColour)
             {
                 Config.GuildTextForeColour = GuildForeColourBox.BackColour;
@@ -1193,7 +1197,6 @@ namespace Client.Controls
                 coloursChanged = true;
             }
 
-
             if (coloursChanged && GameScene.Game != null)
             {
                 foreach (ChatTab tab in ChatTab.Tabs)
@@ -1212,6 +1215,7 @@ namespace Client.Controls
                     break;
             }
         }
+
         #endregion
 
         #region IDisposable
@@ -1242,6 +1246,7 @@ namespace Client.Controls
                 }
 
                 #region Graphics
+
                 if (GraphicsTab != null)
                 {
                     if (!GraphicsTab.IsDisposed)
@@ -1309,10 +1314,11 @@ namespace Client.Controls
 
                     LanguageComboBox = null;
                 }
-                
+
                 #endregion
 
                 #region Sound
+
                 if (SoundTab != null)
                 {
                     if (!SoundTab.IsDisposed)
@@ -1368,9 +1374,11 @@ namespace Client.Controls
 
                     BackgroundSoundBox = null;
                 }
+
                 #endregion
 
                 #region Game
+
                 if (GameTab != null)
                 {
                     if (!GameTab.IsDisposed)
@@ -1427,7 +1435,6 @@ namespace Client.Controls
                     DamageNumbersCheckBox = null;
                 }
 
-
                 if (DrawParticlesCheckBox != null)
                 {
                     if (!DrawParticlesCheckBox.IsDisposed)
@@ -1436,7 +1443,6 @@ namespace Client.Controls
                     DrawParticlesCheckBox = null;
                 }
 
-
                 if (DisplayHelmetCheckBox != null)
                 {
                     if (!DisplayHelmetCheckBox.IsDisposed)
@@ -1444,7 +1450,6 @@ namespace Client.Controls
 
                     DisplayHelmetCheckBox = null;
                 }
-
 
                 if (HideChatBarCheckBox != null)
                 {
@@ -1477,7 +1482,7 @@ namespace Client.Controls
 
                     RightClickDeTargetCheckBox = null;
                 }
-                
+
                 if (MonsterBoxVisibleCheckBox != null)
                 {
                     if (!MonsterBoxVisibleCheckBox.IsDisposed)
@@ -1493,7 +1498,7 @@ namespace Client.Controls
 
                     LogChatCheckBox = null;
                 }
-                
+
                 if (KeyBindButton != null)
                 {
                     if (!KeyBindButton.IsDisposed)
@@ -1501,9 +1506,11 @@ namespace Client.Controls
 
                     KeyBindButton = null;
                 }
+
                 #endregion
 
                 #region Network
+
                 if (NetworkTab != null)
                 {
                     if (!NetworkTab.IsDisposed)
@@ -1511,7 +1518,7 @@ namespace Client.Controls
 
                     NetworkTab = null;
                 }
-                
+
                 if (UseNetworkConfigCheckBox != null)
                 {
                     if (!UseNetworkConfigCheckBox.IsDisposed)
@@ -1535,9 +1542,11 @@ namespace Client.Controls
 
                     PortBox = null;
                 }
+
                 #endregion
 
                 #region Colours
+
                 if (ColourTab != null)
                 {
                     if (!ColourTab.IsDisposed)
@@ -1641,6 +1650,7 @@ namespace Client.Controls
 
                     GainsForeColourBox = null;
                 }
+
                 #endregion
 
                 if (SaveButton != null)

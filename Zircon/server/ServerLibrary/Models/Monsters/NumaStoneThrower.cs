@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
 {
-   public class NumaStoneThrower : SkeletonAxeThrower
+    public class NumaStoneThrower : SkeletonAxeThrower
     {
-
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -31,7 +26,6 @@ namespace Server.Models.Monsters
                                    GetDC(),
                                    AttackElement));
             }
-
         }
     }
 }

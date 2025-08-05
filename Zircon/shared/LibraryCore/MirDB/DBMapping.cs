@@ -28,6 +28,7 @@ namespace MirDB
                 Properties.Add(new DBValue(property));
             }
         }
+
         public DBMapping(Assembly[] assemblies, BinaryReader reader)
         {
             Assemblies = assemblies;
@@ -46,6 +47,7 @@ namespace MirDB
             for (int i = 0; i < count; i++)
                 Properties.Add(new DBValue(reader, Type));
         }
+
         public void Save(BinaryWriter writer)
         {
             writer.Write(Type.FullName);

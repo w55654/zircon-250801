@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Drawing;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -17,7 +17,6 @@ namespace Server.Models.Monsters
             int y = Math.Abs(Target.CurrentLocation.Y - CurrentLocation.Y);
 
             if (x > 2 || y > 2) return false;
-
 
             return x == 0 || x == y || y == 0;
         }
@@ -66,8 +65,6 @@ namespace Server.Models.Monsters
                         break;
                     }
                 }
-
-
             }
         }
     }

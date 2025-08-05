@@ -24,6 +24,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "QuestInfo");
             }
         }
+
         private QuestInfo _QuestInfo;
 
         [Association("Quests")]
@@ -40,6 +41,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         [Association("Quests")]
@@ -56,6 +58,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public bool Completed
@@ -71,6 +74,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Completed");
             }
         }
+
         private bool _Completed;
 
         public int SelectedReward
@@ -86,6 +90,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "SelectedReward");
             }
         }
+
         private int _SelectedReward;
 
         public bool Track
@@ -101,6 +106,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Track");
             }
         }
+
         private bool _Track;
 
         public DateTime DateTaken
@@ -116,6 +122,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DateTaken");
             }
         }
+
         private DateTime _DateTaken;
 
         public DateTime DateCompleted
@@ -131,12 +138,11 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DateCompleted");
             }
         }
-        private DateTime _DateCompleted;
 
+        private DateTime _DateCompleted;
 
         [IgnoreProperty]
         public bool IsComplete => Tasks.Count == QuestInfo.Tasks.Count && Tasks.All(x => x.Completed);
-
 
         [Association("Tasks", true)]
         public DBBindingList<UserQuestTask> Tasks { get; set; }
@@ -158,14 +164,14 @@ namespace Server.DBModels
             return new ClientUserQuest
             {
                 Index = Index,
-                QuestIndex =  QuestInfo.Index,
+                QuestIndex = QuestInfo.Index,
                 Completed = Completed,
                 SelectedReward = SelectedReward,
                 Track = Track,
                 DateTaken = DateTaken,
                 DateCompleted = DateCompleted,
 
-                Tasks = Tasks.Select(x=> x.ToClientInfo()).ToList(),
+                Tasks = Tasks.Select(x => x.ToClientInfo()).ToList(),
             };
         }
 
@@ -176,7 +182,6 @@ namespace Server.DBModels
             Track = true;
         }
     }
-
 
     [UserObject]
     public sealed class UserQuestTask : DBObject
@@ -195,6 +200,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Quest");
             }
         }
+
         private UserQuest _Quest;
 
         public QuestTask Task
@@ -210,8 +216,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Task");
             }
         }
+
         private QuestTask _Task;
-        
+
         public long Amount
         {
             get { return _Amount; }
@@ -225,6 +232,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private long _Amount;
 
         [IgnoreProperty]

@@ -1,10 +1,4 @@
-﻿using Library.SystemModels;
-using MirDB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MirDB;
 
 namespace Server.DBModels
 {
@@ -24,6 +18,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Category");
             }
         }
+
         private string _Category;
 
         public string TypeValue
@@ -39,6 +34,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TypeValue");
             }
         }
+
         private string _TypeValue;
 
         public int IntValue1
@@ -54,6 +50,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "IntValue1");
             }
         }
+
         private int _IntValue1;
     }
 }

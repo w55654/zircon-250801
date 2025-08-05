@@ -5,7 +5,6 @@ namespace Server.Envir.Events
 {
     public interface IEventAction
     {
-
     }
 
     public interface IWorldEventAction

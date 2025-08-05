@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public DarkConversion(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override bool CheckCost()
@@ -76,7 +75,6 @@ namespace Server.Models.Magics
 
         public override void MagicFinalise()
         {
-            
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Server.Models.Magics
 
         public ElementalHurricane(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override bool CheckCost()

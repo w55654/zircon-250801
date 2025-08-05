@@ -1,5 +1,4 @@
-﻿using Server.DBModels;
-using Server.Envir.Commands.Exceptions;
+﻿using Server.Envir.Commands.Exceptions;
 using Server.Models;
 using System.Linq;
 
@@ -7,10 +6,8 @@ namespace Server.Envir.Commands.Command.Admin
 {
     public class RemovePlayerCaption : AbstractParameterizedCommand<IAdminCommand>
     {
-
         public override string VALUE => "REMOVECAPTION";
         public override int PARAMS_LENGTH => 1;
-
 
         public override void Action(PlayerObject player, string[] vals)
         {
@@ -31,10 +28,8 @@ namespace Server.Envir.Commands.Command.Admin
 
             if (isPlayerActive)
             {
-               SEnvir.Players.FirstOrDefault(x => x.Name == characterName)?.SendChangeUpdate();
+                SEnvir.Players.FirstOrDefault(x => x.Name == characterName)?.SendChangeUpdate();
             }
-
         }
     }
 }
-

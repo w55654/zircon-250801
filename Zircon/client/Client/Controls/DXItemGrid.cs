@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Client.Envir;
+﻿using Client.Envir;
 using Library;
 using SlimDX;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 //Cleaned
 namespace Client.Controls
@@ -27,8 +27,11 @@ namespace Client.Controls
                 OnGridTypeChanged(oldValue, value);
             }
         }
+
         private GridType _GridType;
+
         public event EventHandler<EventArgs> GridTypeChanged;
+
         public void OnGridTypeChanged(GridType oValue, GridType nValue)
         {
             foreach (DXItemCell cell in Grid)
@@ -54,8 +57,11 @@ namespace Client.Controls
                 OnGridSizeChanged(oldValue, value);
             }
         }
+
         private Size _GridSize;
+
         public event EventHandler<EventArgs> GridSizeChanged;
+
         public void OnGridSizeChanged(Size oValue, Size nValue)
         {
             Size = new Size((int)(GridSize.Width * (DXItemCell.CellWidth - 1 + (GridPadding * 2)) + 1), (int)(Math.Min(GridSize.Height, VisibleHeight) * (DXItemCell.CellHeight - 1 + (GridPadding * 2)) + 1));
@@ -81,8 +87,11 @@ namespace Client.Controls
                 OnGridPaddingChanged(oldValue, value);
             }
         }
+
         private float _GridPadding;
+
         public event EventHandler<EventArgs> GridPaddingChanged;
+
         public void OnGridPaddingChanged(float oValue, float nValue)
         {
             Size = new Size((int)(GridSize.Width * (DXItemCell.CellWidth - 1 + (GridPadding * 2)) + 1), (int)(Math.Min(GridSize.Height, VisibleHeight) * (DXItemCell.CellHeight - 1 + (GridPadding * 2)) + 1));
@@ -108,8 +117,11 @@ namespace Client.Controls
                 OnItemGridChanged(oldValue, value);
             }
         }
+
         private ClientUserItem[] _ItemGrid;
+
         public event EventHandler<EventArgs> ItemGridChanged;
+
         public void OnItemGridChanged(ClientUserItem[] oValue, ClientUserItem[] nValue)
         {
             ItemGridChanged?.Invoke(this, EventArgs.Empty);
@@ -135,8 +147,11 @@ namespace Client.Controls
                 OnLinkedChanged(oldValue, value);
             }
         }
+
         private bool _Linked;
+
         public event EventHandler<EventArgs> LinkedChanged;
+
         public void OnLinkedChanged(bool oValue, bool nValue)
         {
             foreach (DXItemCell cell in Grid)
@@ -162,8 +177,11 @@ namespace Client.Controls
                 OnAllowLinkChanged(oldValue, value);
             }
         }
+
         private bool _AllowLink;
+
         public event EventHandler<EventArgs> AllowLinkChanged;
+
         public void OnAllowLinkChanged(bool oValue, bool nValue)
         {
             if (Grid == null) return;
@@ -191,8 +209,11 @@ namespace Client.Controls
                 OnReadOnlyChanged(oldValue, value);
             }
         }
+
         private bool _ReadOnly;
+
         public event EventHandler<EventArgs> ReadOnlyChanged;
+
         public void OnReadOnlyChanged(bool oValue, bool nValue)
         {
             if (Grid == null) return;
@@ -220,8 +241,11 @@ namespace Client.Controls
                 OnScrollValueChanged(oldValue, value);
             }
         }
+
         private int _ScrollValue;
+
         public event EventHandler<EventArgs> ScrollValueChanged;
+
         public void OnScrollValueChanged(int oValue, int nValue)
         {
             UpdateGridDisplay();
@@ -245,8 +269,11 @@ namespace Client.Controls
                 OnVisibleHeightChanged(oldValue, value);
             }
         }
+
         private int _VisibleHeight;
+
         public event EventHandler<EventArgs> VisibleHeightChanged;
+
         public void OnVisibleHeightChanged(int oValue, int nValue)
         {
             Size = new Size(GridSize.Width * (DXItemCell.CellWidth - 1) + 1, Math.Min(GridSize.Height, VisibleHeight) * (DXItemCell.CellHeight - 1) + 1);
@@ -270,7 +297,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         public DXItemGrid()
         {
             DrawTexture = true;
@@ -318,8 +345,8 @@ namespace Client.Controls
             for (int y = 0; y < GridSize.Height; y++)
                 for (int x = 0; x < GridSize.Width; x++)
                 {
-                    DXItemCell cell = Grid[y*GridSize.Width + x];
-                    
+                    DXItemCell cell = Grid[y * GridSize.Width + x];
+
                     if (y < ScrollValue || y >= ScrollValue + VisibleHeight)
                     {
                         cell.Visible = false;
@@ -342,21 +369,21 @@ namespace Client.Controls
 
             for (int i = 0; i <= GridSize.Width; i++)
             {
-                DXManager.Line.Draw(new[] { 
-                    new Vector2(((DXItemCell.CellWidth - 1 + (GridPadding * 2)) * i), 0), 
-                    new Vector2(((DXItemCell.CellWidth - 1 + (GridPadding * 2)) * i), Size.Height) 
+                DXManager.Line.Draw(new[] {
+                    new Vector2(((DXItemCell.CellWidth - 1 + (GridPadding * 2)) * i), 0),
+                    new Vector2(((DXItemCell.CellWidth - 1 + (GridPadding * 2)) * i), Size.Height)
                 }, BorderColour);
             }
 
             for (int i = 0; i <= Math.Min(GridSize.Height, VisibleHeight); i++)
             {
-                DXManager.Line.Draw(new[] { 
-                    new Vector2(0, ((DXItemCell.CellHeight - 1 + (GridPadding * 2)) * i)), 
+                DXManager.Line.Draw(new[] {
+                    new Vector2(0, ((DXItemCell.CellHeight - 1 + (GridPadding * 2)) * i)),
                     new Vector2(Size.Width, ((DXItemCell.CellHeight - 1 + (GridPadding * 2)) * i))
                 }, BorderColour);
             }
         }
-        
+
         protected internal override void UpdateBorderInformation()
         {
             BorderInformation = null;
@@ -370,7 +397,6 @@ namespace Client.Controls
                 new Vector2(0, Size.Height - 1),
                 new Vector2(0, 0)
             };
-
 
             BorderInformation = border.ToArray();
         }
@@ -395,6 +421,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -419,7 +446,6 @@ namespace Client.Controls
                 ScrollValueChanged = null;
                 VisibleHeightChanged = null;
 
-
                 for (int i = 0; i < Grid.Length; i++)
                 {
                     if (Grid[i] == null) continue;
@@ -431,8 +457,8 @@ namespace Client.Controls
 
                 Grid = null;
             }
-
         }
+
         #endregion
     }
 }

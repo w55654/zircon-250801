@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 
 namespace Server.Models.Monsters
 {
@@ -27,6 +23,7 @@ namespace Server.Models.Monsters
 
             base.ProcessTarget();
         }
+
         protected override void Attack()
         {
             Cast--;
@@ -34,5 +31,4 @@ namespace Server.Models.Monsters
             base.Attack();
         }
     }
-
 }

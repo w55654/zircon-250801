@@ -1,9 +1,8 @@
-﻿using System;
+﻿using Library;
+using SlimDX;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Client.Envir;
-using Library;
-using SlimDX;
 
 //Cleaned
 namespace Client.Controls
@@ -27,10 +26,13 @@ namespace Client.Controls
                 OnValueChanged(oldValue, value);
             }
         }
+
         private int _Value;
+
         public event EventHandler<EventArgs> ValueChanged;
+
         public void OnValueChanged(int oValue, int nValue)
-        {          
+        {
             if (Value != Math.Max(MinValue, Math.Min(MaxValue - VisibleSize, Value)))
             {
                 Value = Math.Max(MinValue, Math.Min(MaxValue - VisibleSize, Value));
@@ -59,8 +61,11 @@ namespace Client.Controls
                 OnMaxValueChanged(oldValue, value);
             }
         }
+
         private int _MaxValue;
+
         public event EventHandler<EventArgs> MaxValueChanged;
+
         public void OnMaxValueChanged(int oValue, int nValue)
         {
             if (Value + VisibleSize > MaxValue)
@@ -88,8 +93,11 @@ namespace Client.Controls
                 OnMinValueChanged(oldValue, value);
             }
         }
+
         private int _MinValue;
+
         public event EventHandler<EventArgs> MinValueChanged;
+
         public void OnMinValueChanged(int oValue, int nValue)
         {
             UpdateScrollBar();
@@ -114,8 +122,11 @@ namespace Client.Controls
                 OnVisibleSizeChanged(oldValue, value);
             }
         }
+
         private int _VisibleSize;
+
         public event EventHandler<EventArgs> VisibleSizeChanged;
+
         public void OnVisibleSizeChanged(int oValue, int nValue)
         {
             UpdateScrollBar();
@@ -140,8 +151,11 @@ namespace Client.Controls
                 OnHideWhenNoScrollChanged(oldValue, value);
             }
         }
+
         private bool _HideWhenNoScroll;
+
         public event EventHandler<EventArgs> HideWhenNoScrollChanged;
+
         public void OnHideWhenNoScrollChanged(bool oValue, bool nValue)
         {
             UpdateScrollBar();
@@ -149,9 +163,7 @@ namespace Client.Controls
             HideWhenNoScrollChanged?.Invoke(this, EventArgs.Empty);
         }
 
-
         #endregion
-
 
         private int ScrollHeight => Size.Height - 50;
 
@@ -206,7 +218,7 @@ namespace Client.Controls
             {
                 Index = 45,
                 LibraryFile = LibraryFile.Interface,
-                Location = new Point(UpButton.Location.X, UpButton.Size.Height + 4), // | - Space - Button - Space - | - Space - Bar 
+                Location = new Point(UpButton.Location.X, UpButton.Size.Height + 4), // | - Space - Button - Space - | - Space - Bar
                 Enabled = false,
                 Parent = this,
                 Movable = true,
@@ -215,8 +227,6 @@ namespace Client.Controls
             };
             PositionBar.Moving += PositionBar_Moving;
             PositionBar.MouseWheel += DoMouseWheel;
-
-
         }
 
         #region Methods
@@ -228,7 +238,7 @@ namespace Client.Controls
             PositionBar.Enabled = MaxValue - MinValue > VisibleSize;
 
             if (MaxValue - MinValue - VisibleSize != 0)
-                PositionBar.Location = new Point(UpButton.Location.X, 16 + (int) (ScrollHeight*(Value/(float) (MaxValue - MinValue - VisibleSize))));
+                PositionBar.Location = new Point(UpButton.Location.X, 16 + (int)(ScrollHeight * (Value / (float)(MaxValue - MinValue - VisibleSize))));
 
             if (HideWhenNoScroll)
                 Visible = UpButton.Enabled || DownButton.Enabled;
@@ -236,7 +246,7 @@ namespace Client.Controls
 
         public void DoMouseWheel(object sender, MouseEventArgs e)
         {
-            Value -= e.Delta/SystemInformation.MouseWheelScrollDelta * Change;
+            Value -= e.Delta / SystemInformation.MouseWheelScrollDelta * Change;
         }
 
         protected internal override void UpdateBorderInformation()
@@ -255,31 +265,32 @@ namespace Client.Controls
                 new Vector2(Size.Width + 1, 14),
                 new Vector2(Size.Width + 1, Size.Height - 13),
                 new Vector2(0, Size.Height - 13),
-
             };
         }
 
         private void PositionBar_Moving(object sender, MouseEventArgs e)
         {
-            Value = (int) Math.Round((PositionBar.Location.Y - 16)*(MaxValue - MinValue - VisibleSize)/(float) ScrollHeight);
+            Value = (int)Math.Round((PositionBar.Location.Y - 16) * (MaxValue - MinValue - VisibleSize) / (float)ScrollHeight);
 
             if (MaxValue - MinValue - VisibleSize == 0) return;
 
-            PositionBar.Location = new Point(UpButton.Location.X, 16 + (int) (ScrollHeight*(Value/(float) (MaxValue - MinValue - VisibleSize))));
+            PositionBar.Location = new Point(UpButton.Location.X, 16 + (int)(ScrollHeight * (Value / (float)(MaxValue - MinValue - VisibleSize))));
         }
 
         public override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
 
-            Value = (int) Math.Round((e.Location.Y - DisplayArea.Top - 32)*(MaxValue - MinValue - VisibleSize)/(float) ScrollHeight);
+            Value = (int)Math.Round((e.Location.Y - DisplayArea.Top - 32) * (MaxValue - MinValue - VisibleSize) / (float)ScrollHeight);
         }
+
         public override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
 
             DoMouseWheel(this, e);
         }
+
         #endregion
 
         #region IDisposable
@@ -328,7 +339,6 @@ namespace Client.Controls
                     PositionBar = null;
                 }
             }
-
         }
 
         #endregion

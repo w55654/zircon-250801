@@ -6,7 +6,7 @@ using System;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class GiveHorse : AbstractParameterizedCommand<IAdminCommand>
+    internal class GiveHorse : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "GIVEHORSE";
         public override int PARAMS_LENGTH => 2;

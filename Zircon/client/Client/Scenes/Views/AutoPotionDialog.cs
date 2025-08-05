@@ -1,11 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using System;
+using System.Drawing;
+using System.Linq;
 using C = Library.Network.ClientPackets;
 
 //Cleaned
@@ -14,6 +14,7 @@ namespace Client.Scenes.Views
     public sealed class AutoPotionDialog : DXWindow
     {
         #region Properties
+
         public ClientAutoPotionLink[] Links;
 
         public AutoPotionRow[] Rows;
@@ -35,7 +36,6 @@ namespace Client.Scenes.Views
             Links = new ClientAutoPotionLink[Globals.MaxAutoPotionCount];
             Rows = new AutoPotionRow[Globals.MaxAutoPotionCount];
 
-
             ScrollBar = new DXVScrollBar
             {
                 Parent = this,
@@ -43,7 +43,6 @@ namespace Client.Scenes.Views
                 Location = new Point(ClientArea.Right - 14, ClientArea.Top + 1),
                 VisibleSize = ClientArea.Height,
                 MaxValue = Rows.Length * 50 - 2
-
             };
             DXControl panel = new DXControl
             {
@@ -68,6 +67,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public void UpdateLocations()
         {
             int y = -ScrollBar.Value;
@@ -131,7 +131,6 @@ namespace Client.Scenes.Views
                     ScrollBar = null;
                 }
             }
-
         }
 
         #endregion
@@ -156,8 +155,11 @@ namespace Client.Scenes.Views
                 OnUseItemChanged(oldValue, value);
             }
         }
+
         private ItemInfo _UseItem;
+
         public event EventHandler<EventArgs> UseItemChanged;
+
         public void OnUseItemChanged(ItemInfo oValue, ItemInfo nValue)
         {
             UseItemChanged?.Invoke(this, EventArgs.Empty);
@@ -180,8 +182,11 @@ namespace Client.Scenes.Views
                 OnIndexChanged(oldValue, value);
             }
         }
+
         private int _Index;
+
         public event EventHandler<EventArgs> IndexChanged;
+
         public void OnIndexChanged(int oValue, int nValue)
         {
             IndexChanged?.Invoke(this, EventArgs.Empty);
@@ -293,7 +298,6 @@ namespace Client.Scenes.Views
                 Location = new Point(-2, -1)
             };
 
-
             HealthTargetBox = new DXNumberBox
             {
                 Parent = this,
@@ -326,7 +330,6 @@ namespace Client.Scenes.Views
             };
             HealthLabel.Location = new Point(HealthTargetBox.Location.X - HealthLabel.Size.Width, HealthTargetBox.Location.Y + (HealthTargetBox.Size.Height - HealthLabel.Size.Height) / 2);
 
-
             ManaLabel = new DXLabel
             {
                 Parent = this,
@@ -355,6 +358,7 @@ namespace Client.Scenes.Views
 
             CEnvir.Enqueue(new C.AutoPotionLinkChanged { Slot = Index, LinkIndex = ItemCell.Item?.Info.Index ?? -1, Enabled = EnabledCheckBox.Checked, Health = (int)HealthTargetBox.Value, Mana = (int)ManaTargetBox.Value });
         }
+
         #endregion
 
         #region IDisposable
@@ -442,12 +446,9 @@ namespace Client.Scenes.Views
 
                     DownButton = null;
                 }
-
             }
-
         }
 
         #endregion
     }
-
 }

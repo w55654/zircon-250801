@@ -36,7 +36,6 @@ namespace Server.Envir.Commands
                     }
                 }
 
-
                 if (matchingHandler != null)
                 {
                     matchingHandler.Handle(player, commandParts);

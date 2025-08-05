@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "QuestName");
             }
         }
+
         private string _QuestName;
 
         public QuestType QuestType
@@ -38,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "QuestType");
             }
         }
+
         private QuestType _QuestType;
 
         public string AcceptText
@@ -53,8 +50,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AcceptText");
             }
         }
+
         private string _AcceptText;
-        
+
         public string ProgressText
         {
             get { return _ProgressText; }
@@ -68,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ProgressText");
             }
         }
+
         private string _ProgressText;
 
         public string CompletedText
@@ -83,6 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CompletedText");
             }
         }
+
         private string _CompletedText;
 
         public string ArchiveText
@@ -98,8 +98,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ArchiveText");
             }
         }
+
         private string _ArchiveText;
-              
+
         [Association("Requirements", true)]
         public DBBindingList<QuestRequirement> Requirements { get; set; }
 
@@ -117,6 +118,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StartNPC");
             }
         }
+
         private NPCInfo _StartNPC;
 
         [Association("FinishQuests")]
@@ -133,8 +135,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FinishNPC");
             }
         }
-        private NPCInfo _FinishNPC;
 
+        private NPCInfo _FinishNPC;
 
         [Association("Rewards", true)]
         public DBBindingList<QuestReward> Rewards { get; set; }
@@ -170,6 +172,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Quest");
             }
         }
+
         private QuestInfo _Quest;
 
         public ItemInfo Item
@@ -185,6 +188,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Amount
@@ -200,6 +204,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
 
         public bool Choice
@@ -215,6 +220,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Choice");
             }
         }
+
         private bool _Choice;
 
         public bool Bound
@@ -230,6 +236,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Bound");
             }
         }
+
         private bool _Bound;
 
         public int Duration
@@ -245,6 +252,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Duration");
             }
         }
+
         private int _Duration;
 
         public RequiredClass Class
@@ -260,6 +268,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private RequiredClass _Class;
 
         protected internal override void OnCreated()
@@ -271,8 +280,6 @@ namespace Library.SystemModels
             Class = RequiredClass.All;
         }
     }
-
-
 
     public sealed class QuestRequirement : DBObject
     {
@@ -290,6 +297,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Quest");
             }
         }
+
         private QuestInfo _Quest;
 
         public QuestRequirementType Requirement
@@ -305,8 +313,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Requirement");
             }
         }
+
         private QuestRequirementType _Requirement;
-        
+
         public int IntParameter1
         {
             get { return _IntParameter1; }
@@ -320,6 +329,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IntParameter1");
             }
         }
+
         private int _IntParameter1;
 
         public QuestInfo QuestParameter
@@ -335,6 +345,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "QuestParameter");
             }
         }
+
         private QuestInfo _QuestParameter;
 
         public RequiredClass Class
@@ -350,8 +361,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private RequiredClass _Class;
-        
     }
 
     public sealed class QuestTask : DBObject
@@ -370,6 +381,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Quest");
             }
         }
+
         private QuestInfo _Quest;
 
         public QuestTaskType Task
@@ -385,8 +397,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Task");
             }
         }
+
         private QuestTaskType _Task;
-        
+
         public ItemInfo ItemParameter
         {
             get { return _ItemParameter; }
@@ -400,6 +413,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemParameter");
             }
         }
+
         private ItemInfo _ItemParameter;
 
         public MapRegion RegionParameter
@@ -415,6 +429,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RegionParameter");
             }
         }
+
         private MapRegion _RegionParameter;
 
         public string MobDescription
@@ -430,8 +445,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MobDescription");
             }
         }
+
         private string _MobDescription;
-        
+
         public int Amount
         {
             get { return _Amount; }
@@ -445,6 +461,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
 
         [Association("MonsterDetails", true)]
@@ -467,6 +484,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Task");
             }
         }
+
         private QuestTask _Task;
 
         [Association("QuestDetails")]
@@ -483,6 +501,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         //Can Be null
@@ -499,8 +518,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Map");
             }
         }
+
         private MapInfo _Map;
-        
+
         public int Chance
         {
             get { return _Chance; }
@@ -514,6 +534,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Chance");
             }
         }
+
         private int _Chance;
 
         public int Amount
@@ -529,8 +550,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
-        private int _Amount;
 
+        private int _Amount;
 
         //Can be 0
         public int DropSet
@@ -546,6 +567,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DropSet");
             }
         }
+
         private int _DropSet;
 
         protected internal override void OnCreated()

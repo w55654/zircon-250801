@@ -4,7 +4,7 @@ using System;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class Reboot : AbstractCommand<IAdminCommand>
+    internal class Reboot : AbstractCommand<IAdminCommand>
     {
         public override string VALUE => "REBOOT";
 

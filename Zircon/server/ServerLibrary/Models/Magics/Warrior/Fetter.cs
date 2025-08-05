@@ -9,11 +9,10 @@ namespace Server.Models.Magics
     [MagicType(MagicType.Fetter)]
     public class Fetter : MagicObject
     {
-        protected override Element Element => Element.None;       
+        protected override Element Element => Element.None;
 
         public Fetter(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)

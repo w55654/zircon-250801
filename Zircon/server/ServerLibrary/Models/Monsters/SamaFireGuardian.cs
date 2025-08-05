@@ -1,7 +1,5 @@
 ﻿using Library;
 using Server.Envir;
-using S = Library.Network.ServerPackets;
-
 
 namespace Server.Models.Monsters
 {
@@ -16,7 +14,6 @@ namespace Server.Models.Monsters
             return Target.CurrentLocation != CurrentLocation && Functions.InRange(CurrentLocation, Target.CurrentLocation, 2);
         }
 
-
         public override void ProcessTarget()
         {
             if (Target == null) return;
@@ -28,7 +25,6 @@ namespace Server.Models.Monsters
                     if (SEnvir.Random.Next(RangeChance) == 0)
                         RangeAttack();
                 }
-
 
                 if (CurrentLocation == Target.CurrentLocation)
                 {
@@ -63,12 +59,15 @@ namespace Server.Models.Monsters
                 case 0:
                     AttackMagic(MagicType.AdamantineFireBall, Element.Fire, true);
                     break;
+
                 case 1:
                     LineAoE(10, -2, 2, MagicType.ScortchedEarth, Element.Fire);
                     break;
+
                 case 2:
                     AttackAoE(2, MagicType.FireStorm, Element.Fire);
                     break;
+
                 case 3:
                     AttackAoE(3, MagicType.SamaGuardianFire, Element.Fire);
                     break;

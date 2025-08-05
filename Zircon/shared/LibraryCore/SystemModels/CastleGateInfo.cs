@@ -1,5 +1,4 @@
-﻿using Library.SystemModels;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -20,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Castle");
             }
         }
+
         private CastleInfo _Castle;
 
         [IsIdentity]
@@ -36,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         [IsIdentity]
@@ -52,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "X");
             }
         }
+
         private int _X;
 
         [IsIdentity]
@@ -68,6 +70,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Y");
             }
         }
+
         private int _Y;
 
         public int RepairCost
@@ -83,6 +86,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RepairCost");
             }
         }
+
         private int _RepairCost;
     }
 }

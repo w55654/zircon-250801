@@ -19,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SetName");
             }
         }
+
         private string _SetName;
 
         [JsonIgnore]

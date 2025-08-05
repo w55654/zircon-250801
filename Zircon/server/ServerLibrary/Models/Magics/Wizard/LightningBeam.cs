@@ -1,5 +1,4 @@
 ﻿using Library;
-using Library.Network.ClientPackets;
 using Server.DBModels;
 using Server.Envir;
 using System.Collections.Generic;
@@ -14,7 +13,6 @@ namespace Server.Models.Magics
 
         public LightningBeam(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetShock(int shock, Stats stats = null)
@@ -58,6 +56,7 @@ namespace Server.Models.Magics
                         ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, CurrentMap.GetCell(Functions.Move(loc, Functions.ShiftDirection(direction, -2))), false));
                         ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, CurrentMap.GetCell(Functions.Move(loc, Functions.ShiftDirection(direction, 2))), false));
                         break;
+
                     case MirDirection.UpRight:
                     case MirDirection.DownRight:
                     case MirDirection.DownLeft:

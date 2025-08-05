@@ -3,9 +3,7 @@ using MirDB;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Library
 {
@@ -15,6 +13,7 @@ namespace Library
         {
             return value1 > value2 ? value1 : value2;
         }
+
         public static TimeSpan Min(TimeSpan value1, TimeSpan value2)
         {
             return value1 < value2 ? value1 : value2;
@@ -121,7 +120,7 @@ namespace Library
         public static MirAnimation GetAttackAnimation(MirClass @class, int weaponShape, MagicType magicType)
         {
             MirAnimation animation;
-     
+
             switch (magicType)
             {
                 case MagicType.Slaying:
@@ -130,16 +129,20 @@ namespace Library
                 case MagicType.DefensiveBlow:
                     animation = MirAnimation.Combat3;
                     break;
+
                 case MagicType.HalfMoon:
                 case MagicType.DestructiveSurge:
                     animation = MirAnimation.Combat4;
                     break;
+
                 case MagicType.DragonRise:
                     animation = MirAnimation.Combat5;
                     break;
+
                 case MagicType.BladeStorm:
                     animation = MirAnimation.Combat6;
                     break;
+
                 case MagicType.FullBloom:
                 case MagicType.WhiteLotus:
                 case MagicType.RedLotus:
@@ -151,6 +154,7 @@ namespace Library
                     else
                         animation = MirAnimation.Combat3;
                     break;
+
                 case MagicType.SweetBrier:
                 case MagicType.Karma:
                     if (weaponShape >= 1200)
@@ -160,6 +164,7 @@ namespace Library
                     else
                         animation = MirAnimation.Combat3;
                     break;
+
                 default:
                     switch (@class)
                     {
@@ -171,6 +176,7 @@ namespace Library
                             else
                                 animation = MirAnimation.Combat3;
                             break;
+
                         default:
                             animation = MirAnimation.Combat3;
                             //switch weapon shape
@@ -338,21 +344,27 @@ namespace Library
                 case Element.Fire:
                     colour = Globals.FireColour;
                     break;
+
                 case Element.Ice:
                     colour = Globals.IceColour;
                     break;
+
                 case Element.Lightning:
                     colour = Globals.LightningColour;
                     break;
+
                 case Element.Wind:
                     colour = Globals.WindColour;
                     break;
+
                 case Element.Holy:
                     colour = Globals.HolyColour;
                     break;
+
                 case Element.Dark:
                     colour = Globals.DarkColour;
                     break;
+
                 case Element.Phantom:
                     colour = Globals.PhantomColour;
                     break;
@@ -371,6 +383,7 @@ namespace Library
 
             return true;
         }
+
         public static bool IsMatch(Stats a, Stats b)
         {
             if (a == null || b == null || a.Values.Count != b.Values.Count) return false;
@@ -410,14 +423,17 @@ namespace Library
         {
             return Math.Abs(source.X - dest.X) + Math.Abs(source.Y - dest.Y);
         }
+
         public static bool InRange(Point a, Point b, int i)
         {
             return InRange(a.X, a.Y, b.X, b.Y, i);
         }
+
         public static bool InRange(int x1, int y1, int x2, int y2, int i)
         {
             return Math.Abs(x1 - x2) <= i && Math.Abs(y1 - y2) <= i;
         }
+
         public static MirDirection DirectionFromPoint(Point source, Point dest)
         {
             if (source.X < dest.X)
@@ -440,16 +456,19 @@ namespace Library
 
             return source.Y < dest.Y ? MirDirection.Down : MirDirection.Up;
         }
+
         public static double Distance(PointF p1, PointF p2)
         {
             double x = p2.X - p1.X;
             double y = p2.Y - p1.Y;
             return Math.Sqrt(x * x + y * y);
         }
+
         public static MirDirection ShiftDirection(MirDirection dir, int i)
         {
             return (MirDirection)(((int)dir + i + 8) % 8);
         }
+
         public static Point Move(Point location, MirDirection direction, int distance = 1)
         {
             switch (direction)
@@ -457,92 +476,125 @@ namespace Library
                 case MirDirection.Up:
                     location.Offset(0, -distance);
                     break;
+
                 case MirDirection.UpRight:
                     location.Offset(distance, -distance);
                     break;
+
                 case MirDirection.Right:
                     location.Offset(distance, 0);
                     break;
+
                 case MirDirection.DownRight:
                     location.Offset(distance, distance);
                     break;
+
                 case MirDirection.Down:
                     location.Offset(0, distance);
                     break;
+
                 case MirDirection.DownLeft:
                     location.Offset(-distance, distance);
                     break;
+
                 case MirDirection.Left:
                     location.Offset(-distance, 0);
                     break;
+
                 case MirDirection.UpLeft:
                     location.Offset(-distance, -distance);
                     break;
             }
             return location;
         }
+
         public static bool CorrectSlot(ItemType type, EquipmentSlot slot)
         {
             switch (slot)
             {
                 case EquipmentSlot.Weapon:
                     return type == ItemType.Weapon;
+
                 case EquipmentSlot.Armour:
                     return type == ItemType.Armour;
+
                 case EquipmentSlot.Helmet:
                     return type == ItemType.Helmet;
+
                 case EquipmentSlot.Torch:
                     return type == ItemType.Torch;
+
                 case EquipmentSlot.Necklace:
                     return type == ItemType.Necklace;
+
                 case EquipmentSlot.BraceletL:
                 case EquipmentSlot.BraceletR:
                     return type == ItemType.Bracelet;
+
                 case EquipmentSlot.RingL:
                 case EquipmentSlot.RingR:
                     return type == ItemType.Ring;
+
                 case EquipmentSlot.Shoes:
                     return type == ItemType.Shoes;
+
                 case EquipmentSlot.Poison:
                     return type == ItemType.Poison;
+
                 case EquipmentSlot.Amulet:
                     return type == ItemType.Amulet || type == ItemType.DarkStone;
+
                 case EquipmentSlot.Flower:
                     return type == ItemType.Flower;
+
                 case EquipmentSlot.Emblem:
                     return type == ItemType.Emblem;
+
                 case EquipmentSlot.HorseArmour:
                     return type == ItemType.HorseArmour;
+
                 case EquipmentSlot.Shield:
                     return type == ItemType.Shield;
+
                 case EquipmentSlot.Costume:
                     return type == ItemType.Costume;
+
                 case EquipmentSlot.Hook:
                     return type == ItemType.Hook;
+
                 case EquipmentSlot.Float:
                     return type == ItemType.Float;
+
                 case EquipmentSlot.Bait:
                     return type == ItemType.Bait;
+
                 case EquipmentSlot.Finder:
                     return type == ItemType.Finder;
+
                 case EquipmentSlot.Reel:
                     return type == ItemType.Reel;
+
                 default:
                     return false;
             }
         }
+
         public static bool CorrectSlot(ItemType type, CompanionSlot slot)
         {
             switch (slot)
             {
                 case CompanionSlot.Bag:
                     return type == ItemType.CompanionBag;
+
                 case CompanionSlot.Head:
                     return type == ItemType.CompanionHead;
+
                 case CompanionSlot.Back:
                     return type == ItemType.CompanionBack;
+
                 case CompanionSlot.Food:
                     return type == ItemType.CompanionFood;
+
                 default:
                     return false;
             }
@@ -630,10 +682,13 @@ namespace Library
                 default:
                 case 1:
                     return throwDistance <= 4;
+
                 case 2:
                     return throwDistance <= 6;
+
                 case 3:
                     return throwDistance <= 8;
+
                 case 4:
                     return throwDistance <= 9;
             }
@@ -646,12 +701,15 @@ namespace Library
                 default:
                 case 4:
                     return 1;
+
                 case 5:
                 case 6:
                     return 2;
+
                 case 7:
                 case 8:
                     return 3;
+
                 case 9:
                     return 4;
             }
@@ -677,7 +735,6 @@ namespace Library
             }
 
             return null;
-
         }
 
         public static Point[] CreateGridPoints(int gridSize, int middleIgnore = -1)

@@ -14,17 +14,19 @@ namespace Client.Envir
 
         [ConfigSection("Network")]
         public static bool UseNetworkConfig { get; set; } = false;
+
         public static string IPAddress { get; set; } = DefaultIPAddress;
         public static int Port { get; set; } = DefaultPort;
         public static TimeSpan TimeOutDuration { get; set; } = TimeSpan.FromSeconds(15);
 
         [ConfigSection("Audit")]
         public static bool SentryEnabled { get; set; } = false;
-        public static string SentryDSN { get; set; } = "";
 
+        public static string SentryDSN { get; set; } = "";
 
         [ConfigSection("Graphics")]
         public static bool FullScreen { get; set; } = true;
+
         public static bool VSync { get; set; }
         public static bool LimitFPS { get; set; }
         public static Size GameSize { get; set; } = IntroSceneSize;
@@ -37,9 +39,9 @@ namespace Client.Envir
         public static bool Borderless { get; set; } = false;
         public static bool SmoothMove { get; set; } = false;
 
-
         [ConfigSection("Sound")]
         public static bool SoundInBackground { get; set; } = true;
+
         public static int SoundOverLap { get; set; } = 5;
         public static int SystemVolume { get; set; } = 25;
         public static int MusicVolume { get; set; } = 25;
@@ -49,11 +51,13 @@ namespace Client.Envir
 
         [ConfigSection("Login")]
         public static bool RememberDetails { get; set; } = false;
+
         public static string RememberedEMail { get; set; } = string.Empty;
         public static string RememberedPassword { get; set; } = string.Empty;
 
         [ConfigSection("Game")]
         public static bool DrawEffects { get; set; } = true;
+
         public static bool DrawParticles { get; set; } = false;
         public static bool DrawWeather { get; set; } = true;
         public static bool ShowItemNames { get; set; } = true;
@@ -80,6 +84,7 @@ namespace Client.Envir
 
         [ConfigSection("Colours")]
         public static Color LocalTextForeColour { get; set; } = Color.White;
+
         public static Color GMWhisperInTextForeColour { get; set; } = Color.Red;
         public static Color WhisperInTextForeColour { get; set; } = Color.Cyan;
         public static Color WhisperOutTextForeColour { get; set; } = Color.Aquamarine;

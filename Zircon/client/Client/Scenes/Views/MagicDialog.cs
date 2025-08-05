@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Client.Controls;
+using Client.Envir;
+using Client.Models;
+using Client.UserModels;
+using Library;
+using Library.SystemModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using Client.Controls;
-using Client.Envir;
-using Client.Models;
-using Client.UserModels;
-using Library;
-using Library.Network.ClientPackets;
-using Library.SystemModels;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using C = Library.Network.ClientPackets;
 
 namespace Client.Scenes.Views
@@ -181,12 +179,15 @@ namespace Client.Scenes.Views
                 case MirClass.Warrior:
                     HeaderImage.Index = 160;
                     break;
+
                 case MirClass.Wizard:
                     HeaderImage.Index = 161;
                     break;
+
                 case MirClass.Taoist:
                     HeaderImage.Index = 162;
                     break;
+
                 case MirClass.Assassin:
                     HeaderImage.Index = 163;
                     break;
@@ -210,7 +211,7 @@ namespace Client.Scenes.Views
                     SchoolTabs[magic.School] = tab = new MagicTab(magic.School);
                     tab.MouseWheel += tab.ScrollBar.DoMouseWheel;
                     tab.PassThrough = false;
-                }                   
+                }
 
                 MagicCell cell = new MagicCell
                 {
@@ -301,7 +302,7 @@ namespace Client.Scenes.Views
                     SchoolTabs.Clear();
                     SchoolTabs = null;
                 }
-                
+
                 if (Magics != null)
                 {
                     foreach (KeyValuePair<MagicInfo, MagicCell> pair in Magics)
@@ -314,9 +315,7 @@ namespace Client.Scenes.Views
                     Magics.Clear();
                     Magics = null;
                 }
-
             }
-
         }
 
         #endregion
@@ -348,7 +347,7 @@ namespace Client.Scenes.Views
             ScrollBar.VisibleSize = Size.Height;
             UpdateLocations();
         }
-        
+
         #endregion
 
         public MagicTab(MagicSchool school)
@@ -368,76 +367,91 @@ namespace Client.Scenes.Views
                     TabButton.HoverIndex = 167;
                     TabButton.PressedIndex = 167;
                     break;
+
                 case MagicSchool.Passive:
                     TabButton.Index = 168;
                     TabButton.HoverIndex = 169;
                     TabButton.PressedIndex = 169;
                     break;
+
                 case MagicSchool.Toggle:
                     TabButton.Index = 170;
                     TabButton.HoverIndex = 171;
                     TabButton.PressedIndex = 171;
                     break;
+
                 case MagicSchool.Horse:
                     TabButton.Index = 172;
                     TabButton.HoverIndex = 173;
                     TabButton.PressedIndex = 173;
                     break;
+
                 case MagicSchool.Fire:
                     TabButton.Index = 174;
                     TabButton.HoverIndex = 175;
                     TabButton.PressedIndex = 175;
                     break;
+
                 case MagicSchool.Ice:
                     TabButton.Index = 176;
                     TabButton.HoverIndex = 177;
                     TabButton.PressedIndex = 177;
                     break;
+
                 case MagicSchool.Lightning:
                     TabButton.Index = 178;
                     TabButton.HoverIndex = 179;
                     TabButton.PressedIndex = 179;
                     break;
+
                 case MagicSchool.Wind:
                     TabButton.Index = 180;
                     TabButton.HoverIndex = 181;
                     TabButton.PressedIndex = 181;
                     break;
+
                 case MagicSchool.Phantom:
                     TabButton.Index = 182;
                     TabButton.HoverIndex = 183;
                     TabButton.PressedIndex = 183;
                     break;
+
                 case MagicSchool.Holy:
                     TabButton.Index = 184;
                     TabButton.HoverIndex = 185;
                     TabButton.PressedIndex = 185;
                     break;
+
                 case MagicSchool.Dark:
                     TabButton.Index = 186;
                     TabButton.HoverIndex = 187;
                     TabButton.PressedIndex = 187;
                     break;
+
                 case MagicSchool.Physical:
                     TabButton.Index = 188;
                     TabButton.HoverIndex = 189;
                     TabButton.PressedIndex = 189;
                     break;
+
                 case MagicSchool.Atrocity:
                     TabButton.Index = 190;
                     TabButton.HoverIndex = 191;
                     TabButton.PressedIndex = 191;
                     break;
+
                 case MagicSchool.Kill:
                     TabButton.Index = 192;
                     TabButton.HoverIndex = 193;
                     TabButton.PressedIndex = 193;
                     break;
+
                 case MagicSchool.Assassination:
                     TabButton.Index = 194;
                     TabButton.HoverIndex = 195;
                     TabButton.PressedIndex = 195;
                     break;
+
                 case MagicSchool.None:
                     TabButton.Index = 170;
                     TabButton.HoverIndex = 171;
@@ -595,8 +609,8 @@ namespace Client.Scenes.Views
                 Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 IsControl = false,
                 ForeColour = Color.Aquamarine,
-                AutoSize =  false,
-                Size = new Size(36,36),
+                AutoSize = false,
+                Size = new Size(36, 36),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter
             };
             KeyLabel.SizeChanged += (o, e) => KeyLabel.Location = new Point(Image.Size.Width - KeyLabel.Size.Width, Image.Size.Height - KeyLabel.Size.Height);
@@ -632,16 +646,18 @@ namespace Client.Scenes.Views
                 case 1:
                     magic.Set1Key = SpellKey.None;
                     break;
+
                 case 2:
                     magic.Set2Key = SpellKey.None;
                     break;
+
                 case 3:
                     magic.Set3Key = SpellKey.None;
                     break;
+
                 case 4:
                     magic.Set4Key = SpellKey.None;
                     break;
-
             }
 
             CEnvir.Enqueue(new C.MagicKey { Magic = magic.Info.Magic, Set1Key = magic.Set1Key, Set2Key = magic.Set2Key, Set3Key = magic.Set3Key, Set4Key = magic.Set4Key });
@@ -665,79 +681,103 @@ namespace Client.Scenes.Views
                     case KeyBindAction.SpellUse01:
                         key = SpellKey.Spell01;
                         break;
+
                     case KeyBindAction.SpellUse02:
                         key = SpellKey.Spell02;
                         break;
+
                     case KeyBindAction.SpellUse03:
                         key = SpellKey.Spell03;
                         break;
+
                     case KeyBindAction.SpellUse04:
                         key = SpellKey.Spell04;
                         break;
+
                     case KeyBindAction.SpellUse05:
                         key = SpellKey.Spell05;
                         break;
+
                     case KeyBindAction.SpellUse06:
                         key = SpellKey.Spell06;
                         break;
+
                     case KeyBindAction.SpellUse07:
                         key = SpellKey.Spell07;
                         break;
+
                     case KeyBindAction.SpellUse08:
                         key = SpellKey.Spell08;
                         break;
+
                     case KeyBindAction.SpellUse09:
                         key = SpellKey.Spell09;
                         break;
+
                     case KeyBindAction.SpellUse10:
                         key = SpellKey.Spell10;
                         break;
+
                     case KeyBindAction.SpellUse11:
                         key = SpellKey.Spell11;
                         break;
+
                     case KeyBindAction.SpellUse12:
                         key = SpellKey.Spell12;
                         break;
+
                     case KeyBindAction.SpellUse13:
                         key = SpellKey.Spell13;
                         break;
+
                     case KeyBindAction.SpellUse14:
                         key = SpellKey.Spell14;
                         break;
+
                     case KeyBindAction.SpellUse15:
                         key = SpellKey.Spell15;
                         break;
+
                     case KeyBindAction.SpellUse16:
                         key = SpellKey.Spell16;
                         break;
+
                     case KeyBindAction.SpellUse17:
                         key = SpellKey.Spell17;
                         break;
+
                     case KeyBindAction.SpellUse18:
                         key = SpellKey.Spell18;
                         break;
+
                     case KeyBindAction.SpellUse19:
                         key = SpellKey.Spell19;
                         break;
+
                     case KeyBindAction.SpellUse20:
                         key = SpellKey.Spell20;
                         break;
+
                     case KeyBindAction.SpellUse21:
                         key = SpellKey.Spell21;
                         break;
+
                     case KeyBindAction.SpellUse22:
                         key = SpellKey.Spell22;
                         break;
+
                     case KeyBindAction.SpellUse23:
                         key = SpellKey.Spell23;
                         break;
+
                     case KeyBindAction.SpellUse24:
                         key = SpellKey.Spell24;
                         break;
+
                     default:
                         continue;
                 }
-                
+
                 e.Handled = true;
             }
 
@@ -752,16 +792,18 @@ namespace Client.Scenes.Views
                 case 1:
                     magic.Set1Key = key;
                     break;
+
                 case 2:
                     magic.Set2Key = key;
                     break;
+
                 case 3:
                     magic.Set3Key = key;
                     break;
+
                 case 4:
                     magic.Set4Key = key;
                     break;
-
             }
 
             foreach (KeyValuePair<MagicInfo, ClientUserMagic> pair in MapObject.User.Magics)
@@ -799,9 +841,8 @@ namespace Client.Scenes.Views
                     GameScene.Game.MagicBox.RefreshMagic(pair.Key);
                     GameScene.Game.CharacterBox.RefreshDisciplineMagic(pair.Key);
                 }
-
             }
-            
+
             CEnvir.Enqueue(new C.MagicKey { Magic = magic.Info.Magic, Set1Key = magic.Set1Key, Set2Key = magic.Set2Key, Set3Key = magic.Set3Key, Set4Key = magic.Set4Key });
             Refresh();
             GameScene.Game.MagicBarBox.UpdateIcons();
@@ -840,14 +881,17 @@ namespace Client.Scenes.Views
                         if (magic.Info.Experience1 == 0) return;
                         percent = (float)Math.Min(1, Math.Max(0, magic.Experience / (decimal)magic.Info.Experience1));
                         break;
+
                     case 1:
                         if (magic.Info.Experience2 == 0) return;
                         percent = (float)Math.Min(1, Math.Max(0, magic.Experience / (decimal)magic.Info.Experience2));
                         break;
+
                     case 2:
                         if (magic.Info.Experience3 == 0) return;
                         percent = (float)Math.Min(1, Math.Max(0, magic.Experience / (decimal)magic.Info.Experience3));
                         break;
+
                     default:
                         if (magic.Info.Experience3 == 0) return;
                         percent = (float)Math.Min(1, Math.Max(0, magic.Experience / (decimal)((magic.Level - 2) * 500)));
@@ -859,7 +903,7 @@ namespace Client.Scenes.Views
 
             PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y, (int)(image.Width * percent), image.Height), Color.White, ExperienceBar);
         }
-        
+
         public void Refresh()
         {
             if (MapObject.User == null) return;
@@ -886,12 +930,15 @@ namespace Client.Scenes.Views
                     case 1:
                         key = magic.Set1Key;
                         break;
+
                     case 2:
                         key = magic.Set2Key;
                         break;
+
                     case 3:
                         key = magic.Set3Key;
                         break;
+
                     case 4:
                         key = magic.Set4Key;
                         break;
@@ -921,12 +968,15 @@ namespace Client.Scenes.Views
                             case 0:
                                 ExperienceLabel.Text = $"Experience: {magic.Experience}/{magic.Info.Experience1}";
                                 break;
+
                             case 1:
                                 ExperienceLabel.Text = $"Experience: {magic.Experience}/{magic.Info.Experience2}";
                                 break;
+
                             case 2:
                                 ExperienceLabel.Text = $"Experience: {magic.Experience}/{magic.Info.Experience3}";
                                 break;
+
                             default:
                                 ExperienceLabel.Text = $"Experience: {magic.Experience}/{(magic.Level - 2) * 500}";
                                 break;
@@ -976,45 +1026,59 @@ namespace Client.Scenes.Views
                 case MagicSchool.Passive:
                     index = 860;
                     break;
+
                 case MagicSchool.Active:
                     index = 861;
                     break;
+
                 case MagicSchool.Toggle:
                     index = 862;
                     break;
+
                 case MagicSchool.Fire:
                     index = 870;
                     break;
+
                 case MagicSchool.Ice:
                     index = 871;
                     break;
+
                 case MagicSchool.Lightning:
                     index = 872;
                     break;
+
                 case MagicSchool.Wind:
                     index = 873;
                     break;
+
                 case MagicSchool.Phantom:
                     index = 874;
                     break;
+
                 case MagicSchool.Holy:
                     index = 880;
                     break;
+
                 case MagicSchool.Dark:
                     index = 881;
                     break;
+
                 case MagicSchool.Physical:
                     index = 883;
                     break;
+
                 case MagicSchool.Atrocity:
                     index = 890;
                     break;
+
                 case MagicSchool.Kill:
                     index = 891;
                     break;
+
                 case MagicSchool.Assassination:
                     index = 892;
                     break;
+
                 case MagicSchool.None:
                     break;
             }
@@ -1087,5 +1151,4 @@ namespace Client.Scenes.Views
 
         #endregion
     }
-
 }

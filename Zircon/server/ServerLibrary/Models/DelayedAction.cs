@@ -8,14 +8,12 @@ namespace Server.Models
         public ActionType Type;
         public object[] Data;
 
-
         public DelayedAction(DateTime time, ActionType type, params object[] data)
         {
             Time = time;
             Type = type;
             Data = data;
         }
-
     }
 
     public enum ActionType

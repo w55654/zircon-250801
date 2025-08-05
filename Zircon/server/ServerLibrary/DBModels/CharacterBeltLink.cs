@@ -20,8 +20,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
-        
+
         public int Slot
         {
             get { return _Slot; }
@@ -35,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Slot");
             }
         }
+
         private int _Slot;
 
         public int LinkInfoIndex
@@ -50,8 +52,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LinkInfoIndex");
             }
         }
+
         private int _LinkInfoIndex;
-        
 
         public int LinkItemIndex
         {
@@ -66,6 +68,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LinkItemIndex");
             }
         }
+
         private int _LinkItemIndex;
 
         protected override void OnDeleted()
@@ -74,7 +77,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         public ClientBeltLink ToClientInfo()
         {

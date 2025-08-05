@@ -17,7 +17,7 @@ namespace MirDB
             Parent = parent;
             Property = property;
             Link = property.GetCustomAttribute<AssociationAttribute>();
-            
+
             RaiseListChangedEvents = Session.GetCollection(property.PropertyType.GetGenericArguments()[0]).RaisePropertyChanges;
         }
 
@@ -27,6 +27,7 @@ namespace MirDB
 
             e.NewObject = Session.CreateObject<T>();
         }
+
         protected override void InsertItem(int index, T item)
         {
             if (Items.Contains(item)) return;
@@ -35,6 +36,7 @@ namespace MirDB
 
             CreateLink(item);
         }
+
         protected override void RemoveItem(int index)
         {
             T ob = Items[index];
@@ -70,9 +72,9 @@ namespace MirDB
                 return;
             }
 
-
             throw new ArgumentException($"Unable to find Association {Parent.ThisType.Name}, Link: {Link.Identity ?? "Empty"} -> {ob.GetType()}");
         }
+
         public void RemoveLink(T ob)
         {
             if (ob == null || Link == null) return;

@@ -1,6 +1,5 @@
 ﻿using Library;
 using Server.DBModels;
-using System.Collections.Generic;
 
 namespace Server.Models.Magics
 {
@@ -9,11 +8,9 @@ namespace Server.Models.Magics
     {
         protected override Element Element => Element.None;
         public override bool AttackSkill => true;
-        
 
         public AugmentDestructiveSurge(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int ModifyPowerAdditionner(bool primary, int power, MapObject ob, Stats stats = null, int extra = 0)

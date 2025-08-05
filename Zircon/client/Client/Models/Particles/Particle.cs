@@ -1,14 +1,7 @@
 ﻿using Client.Envir;
-using Client.Scenes;
-using Library;
-using Newtonsoft.Json.Linq;
 using SlimDX;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Models.Particles
 {
@@ -25,7 +18,7 @@ namespace Client.Models.Particles
         public MirLibrary Library { get; set; }
 
         /// <summary>
-        /// The current position of the particle 
+        /// The current position of the particle
         /// </summary>
         public Vector2 Position { get; set; }
 
@@ -104,7 +97,6 @@ namespace Client.Models.Particles
         /// Location of user at the time of particle creation
         /// </summary>
         public Point UserLocationOnCreation { get; set; }
-
 
         /// <summary>
         /// Real expiry time
@@ -190,7 +182,7 @@ namespace Client.Models.Particles
                         {
                             Remove = true;
                         }
-                    } 
+                    }
                     else
                     {
                         Remove = true;
@@ -226,6 +218,7 @@ namespace Client.Models.Particles
         #region IDisposable
 
         public bool IsDisposed { get; private set; }
+
         public void Dispose()
         {
             Dispose(!IsDisposed);

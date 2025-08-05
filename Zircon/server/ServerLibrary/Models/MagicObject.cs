@@ -26,6 +26,7 @@ namespace Server.Models
 
         //Magic variables
         public virtual bool MagicSkill => false; //TODO
+
         public virtual bool CanStruck => true;
         protected virtual int Slow => 0;
         protected virtual int SlowLevel => 0;
@@ -37,16 +38,19 @@ namespace Server.Models
 
         //Attack variables
         public virtual bool AttackSkill => false;
+
         public virtual bool IgnoreAccuracy => false;
         public virtual bool IgnorePhysicalDefense => false;
         public virtual int MaxLifeSteal => 750;
+
         public virtual bool HasFlameSplash(bool primary)
         {
             return false;
         }
+
         public virtual bool HasMassacre => false;
 
-        public MagicObject(PlayerObject player, UserMagic magic) 
+        public MagicObject(PlayerObject player, UserMagic magic)
         {
             Player = player;
             Magic = magic;
@@ -85,7 +89,6 @@ namespace Server.Models
 
         public virtual void MagicComplete(params object[] data)
         {
-
         }
 
         public virtual void MagicConsume()
@@ -119,17 +122,14 @@ namespace Server.Models
 
         public virtual void Process()
         {
-
         }
 
         public virtual void RefreshToggle()
         {
-            
         }
 
         public virtual void Toggle(bool canUse)
         {
-
         }
 
         /// <summary>
@@ -149,16 +149,14 @@ namespace Server.Models
         /// <param name="attackDelay">Millisecond delay until next attack can occur</param>
         public virtual void AttackLocationSuccess(int attackDelay)
         {
-
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="magics">List of magics enabled from attack, should be passed through to the actual attack call</param>
         public virtual void SecondaryAttackLocation(List<MagicType> magics)
         {
-
         }
 
         public virtual decimal LifeSteal(bool primary, decimal lifestealAmount)
@@ -300,7 +298,6 @@ namespace Server.Models
         /// <param name="types">List of magics used in attack</param>
         public virtual void MagicAttackSuccessPassive(MapObject ob, List<MagicType> types)
         {
-
         }
 
         public static List<MagicType> GetOrderedMagic(List<MagicType> types)
@@ -336,12 +333,12 @@ namespace Server.Models
         /// <summary>
         /// List of locations spell has locked on to
         /// </summary>
-        public List<Point> Locations = new ();
+        public List<Point> Locations = new();
 
         /// <summary>
         /// List of targets spell has locked on to
         /// </summary>
-        public List<uint> Targets = new ();
+        public List<uint> Targets = new();
 
         /// <summary>
         /// Targetted object for the spell. Will be used to automatically update players direction to face target
@@ -381,6 +378,7 @@ namespace Server.Models
     public class MagicTypeAttribute : Attribute
     {
         public readonly MagicType Type;
+
         public MagicTypeAttribute(MagicType type)
         {
             Type = type;

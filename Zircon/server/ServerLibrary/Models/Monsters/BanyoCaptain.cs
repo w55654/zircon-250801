@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Library;
 using Server.Envir;
-using Library;
+using System;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -27,7 +27,6 @@ namespace Server.Models.Monsters
 
                     if (distance > 2)
                         damage += 50;
-
 
                     if (distance > 4)
                         damage += 50;
@@ -60,4 +59,3 @@ namespace Server.Models.Monsters
         }
     }
 }
-

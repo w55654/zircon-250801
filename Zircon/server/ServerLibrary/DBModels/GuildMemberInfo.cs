@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using MirDB;
 using Server.Envir;
+using System;
+using System.Linq;
 using S = Library.Network.ServerPackets;
 
 namespace Server.DBModels
@@ -27,6 +24,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Guild");
             }
         }
+
         private GuildInfo _Guild;
 
         public string Rank
@@ -42,6 +40,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Rank");
             }
         }
+
         private string _Rank;
 
         [Association("Member")]
@@ -58,6 +57,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public DateTime JoinDate
@@ -73,6 +73,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "JoinDate");
             }
         }
+
         private DateTime _JoinDate;
 
         public long TotalContribution
@@ -88,6 +89,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TotalContribution");
             }
         }
+
         private long _TotalContribution;
 
         public long DailyContribution
@@ -103,6 +105,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DailyContribution");
             }
         }
+
         private long _DailyContribution;
 
         public GuildPermission Permission
@@ -118,6 +121,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Permission");
             }
         }
+
         private GuildPermission _Permission;
 
         protected override void OnDeleted()
@@ -127,7 +131,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         public void Contribute(long amount)
         {
@@ -170,7 +173,6 @@ namespace Server.DBModels
             }
             else
                 info.Online = SEnvir.Now - Account.Characters.Max(x => x.LastLogin);
-
 
             return info;
         }

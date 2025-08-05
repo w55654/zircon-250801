@@ -14,13 +14,11 @@ namespace Server.Models.Monsters
         public int MinSpawn = 20;
         public int RandomSpawn = 5;
 
-
         public ArchLichTaedu()
         {
             AvoidFireWall = false;
             MaxMinions = 50;
         }
-
 
         protected override void OnSpawned()
         {
@@ -28,13 +26,12 @@ namespace Server.Models.Monsters
 
             Stage = MaxStage;
         }
-        
+
         public override void Process()
         {
             base.Process();
 
             if (Dead) return;
-
 
             if (CurrentHP * MaxStage / Stats[Stat.Health] >= Stage || Stage <= 0) return;
 
@@ -46,7 +43,6 @@ namespace Server.Models.Monsters
 
             SpawnMinions(MinSpawn, RandomSpawn, Target);
         }
-        
 
         public override void ProcessTarget()
         {
@@ -59,7 +55,6 @@ namespace Server.Models.Monsters
                     if (SEnvir.Random.Next(2) == 0)
                         RangeAttack();
                 }
-
 
                 if (CurrentLocation == Target.CurrentLocation)
                 {

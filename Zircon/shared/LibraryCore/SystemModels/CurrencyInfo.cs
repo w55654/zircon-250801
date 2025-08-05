@@ -18,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public string Abbreviation
@@ -33,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Abbreviation");
             }
         }
+
         private string _Abbreviation;
 
         public CurrencyType Type
@@ -48,6 +50,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private CurrencyType _Type;
 
         public CurrencyCategory Category
@@ -63,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Category");
             }
         }
+
         private CurrencyCategory _Category;
 
         public ItemInfo DropItem
@@ -78,6 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DropItem");
             }
         }
+
         private ItemInfo _DropItem;
 
         public decimal ExchangeRate
@@ -93,6 +98,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ExchangeRate");
             }
         }
+
         private decimal _ExchangeRate;
 
         [Association("Images", true)]
@@ -122,6 +128,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Currency");
             }
         }
+
         private CurrencyInfo _Currency;
 
         public int Image
@@ -137,6 +144,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Image");
             }
         }
+
         private int _Image;
 
         public long Amount
@@ -152,6 +160,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private long _Amount;
     }
 }

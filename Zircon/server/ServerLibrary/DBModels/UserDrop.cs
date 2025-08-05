@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library.SystemModels;
+﻿using Library.SystemModels;
 using MirDB;
 
 namespace Server.DBModels
@@ -25,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public ItemInfo Item
@@ -40,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public decimal Progress
@@ -55,6 +52,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Progress");
             }
         }
+
         private decimal _Progress;
 
         public long DropCount
@@ -70,6 +68,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DropCount");
             }
         }
+
         private long _DropCount;
 
         protected override void OnDeleted()
@@ -79,6 +78,5 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
     }
 }

@@ -1,10 +1,8 @@
 ﻿using Library;
 using Server.DBModels;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Server.Envir
@@ -23,7 +21,6 @@ namespace Server.Envir
             {
                 try
                 {
-
                     SmtpClient client = new SmtpClient(Config.MailServer, Config.MailPort)
                     {
                         EnableSsl = Config.MailUseSSL,
@@ -242,6 +239,5 @@ namespace Server.Envir
                 }
             });
         }
-
     }
 }

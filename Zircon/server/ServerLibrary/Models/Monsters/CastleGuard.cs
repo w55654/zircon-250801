@@ -1,7 +1,6 @@
 ﻿using Library;
 using Library.SystemModels;
 using Server.Envir;
-using Server.Envir.Commands.Command.Player;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -80,10 +79,12 @@ namespace Server.Models.Monsters
                     PlayerObject player = (PlayerObject)ob;
 
                     return player.Character.Account.GuildMember?.Guild.Castle != War.Castle;
+
                 default:
                     throw new NotImplementedException();
             }
         }
+
         public override bool CanAttackTarget(MapObject ob)
         {
             if (ob == this || ob?.Node == null || ob.Dead || !ob.Visible || War == null) return false;
@@ -103,6 +104,7 @@ namespace Server.Models.Monsters
                     PlayerObject player = (PlayerObject)ob;
 
                     return player.Character.Account.GuildMember?.Guild.Castle != War.Castle;
+
                 default:
                     throw new NotImplementedException();
             }

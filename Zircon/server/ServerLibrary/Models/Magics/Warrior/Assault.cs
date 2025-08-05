@@ -7,10 +7,9 @@ namespace Server.Models.Magics
     public class Assault : MagicObject
     {
         protected override Element Element => Element.None;
-        
+
         public Assault(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
     }
 }

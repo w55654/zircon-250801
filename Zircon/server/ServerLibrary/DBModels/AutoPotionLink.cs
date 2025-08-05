@@ -20,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         public int Slot
@@ -35,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Slot");
             }
         }
+
         private int _Slot;
 
         public int LinkInfoIndex
@@ -50,6 +52,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LinkInfoIndex");
             }
         }
+
         private int _LinkInfoIndex;
 
         public int Health
@@ -65,6 +68,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Health");
             }
         }
+
         private int _Health;
 
         public int Mana
@@ -80,6 +84,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Mana");
             }
         }
+
         private int _Mana;
 
         public bool Enabled
@@ -95,8 +100,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Enabled");
             }
         }
-        private bool _Enabled;
 
+        private bool _Enabled;
 
         protected override void OnDeleted()
         {
@@ -104,7 +109,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         public ClientAutoPotionLink ToClientInfo()
         {

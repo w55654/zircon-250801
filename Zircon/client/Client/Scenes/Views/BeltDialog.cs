@@ -1,10 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using System;
+using System.Drawing;
+using System.Linq;
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -16,6 +16,7 @@ namespace Client.Scenes.Views
         public ClientBeltLink[] Links;
 
         public DXItemGrid Grid;
+
         public override void OnClientAreaChanged(Rectangle oValue, Rectangle nValue)
         {
             base.OnClientAreaChanged(oValue, nValue);
@@ -92,6 +93,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public void UpdateLinks()
         {
             foreach (ClientBeltLink link in Links)
@@ -104,6 +106,7 @@ namespace Client.Scenes.Views
                     Grid.Grid[link.Slot].QuickItem = GameScene.Game.Inventory.FirstOrDefault(x => x?.Index == link.LinkItemIndex);
             }
         }
+
         public override Size GetAcceptableResize(Size size)
         {
             Rectangle area = GetClientArea(size);
@@ -153,7 +156,6 @@ namespace Client.Scenes.Views
                     Grid = null;
                 }
             }
-
         }
 
         #endregion

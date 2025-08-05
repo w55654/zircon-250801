@@ -46,6 +46,7 @@ namespace Server.Models.Magics
                         ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, CurrentMap.GetCell(Functions.Move(loc, Functions.ShiftDirection(direction, -2))), false));
                         ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, CurrentMap.GetCell(Functions.Move(loc, Functions.ShiftDirection(direction, 2))), false));
                         break;
+
                     case MirDirection.UpRight:
                     case MirDirection.DownRight:
                     case MirDirection.DownLeft:

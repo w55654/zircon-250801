@@ -12,7 +12,6 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 using C = Library.Network.ClientPackets;
 using S = Library.Network.ServerPackets;
 
@@ -62,6 +61,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectEquipment : GameScene.Game.Equipment;
             }
         }
+
         public Stats Stats
         {
             get
@@ -69,6 +69,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectStats : MapObject.User.Stats;
             }
         }
+
         public Stats HermitStats
         {
             get
@@ -76,6 +77,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectHermitStats : MapObject.User.HermitStats;
             }
         }
+
         public int HermitPoints
         {
             get
@@ -83,6 +85,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectHermitPoints : MapObject.User.HermitPoints;
             }
         }
+
         public MirClass Class
         {
             get
@@ -90,6 +93,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectClass : MapObject.User.Class;
             }
         }
+
         public MirGender Gender
         {
             get
@@ -97,6 +101,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectGender : MapObject.User.Gender;
             }
         }
+
         public int HairType
         {
             get
@@ -104,6 +109,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectHairType : MapObject.User.HairType;
             }
         }
+
         public Color HairColour
         {
             get
@@ -111,6 +117,7 @@ namespace Client.Scenes.Views
                 return Inspect ? _inspectHairColour : MapObject.User.HairColour;
             }
         }
+
         public int Level
         {
             get
@@ -237,6 +244,7 @@ namespace Client.Scenes.Views
         #region Settings
 
         public WindowSetting Settings;
+
         public WindowType Type
         {
             get { return Inspect ? WindowType.InspectBox : WindowType.CharacterBox; }
@@ -660,7 +668,7 @@ namespace Client.Scenes.Views
             {
                 Parent = StatsTabControl,
                 TabButton =
-                { 
+                {
                     Label =
                     {
                         Text = CEnvir.Language.CharacterCharacterTabStatsAttackTabLabel
@@ -676,7 +684,7 @@ namespace Client.Scenes.Views
             {
                 Parent = StatsTabControl,
                 TabButton =
-                { 
+                {
                     Label =
                     {
                         Text = CEnvir.Language.CharacterCharacterTabStatsDefenseTabLabel
@@ -691,7 +699,7 @@ namespace Client.Scenes.Views
             {
                 Parent = StatsTabControl,
                 TabButton =
-                { 
+                {
                     Label =
                     {
                         Text = CEnvir.Language.CharacterCharacterTabStatsWeightTabLabel
@@ -706,10 +714,10 @@ namespace Client.Scenes.Views
             {
                 Parent = StatsTabControl,
                 TabButton =
-                { 
+                {
                     Label =
                     {
-                        Text = CEnvir.Language.CharacterCharacterTabStatsOtherTabLabel            
+                        Text = CEnvir.Language.CharacterCharacterTabStatsOtherTabLabel
                     },
                     Hint = CEnvir.Language.CharacterCharacterTabStatsOtherTabHint
                 },
@@ -721,10 +729,10 @@ namespace Client.Scenes.Views
             {
                 Parent = StatsTabControl,
                 TabButton =
-                { 
+                {
                     Label =
                     {
-                        Text = CEnvir.Language.CharacterCharacterTabStatsElementAttackTabLabel    
+                        Text = CEnvir.Language.CharacterCharacterTabStatsElementAttackTabLabel
                     },
                     Hint = CEnvir.Language.CharacterCharacterTabStatsElementAttackTabHint
                 },
@@ -736,10 +744,10 @@ namespace Client.Scenes.Views
             {
                 Parent = StatsTabControl,
                 TabButton =
-                { 
+                {
                     Label =
                     {
-                        Text = CEnvir.Language.CharacterCharacterTabStatsElementAdvantageTabLabel    
+                        Text = CEnvir.Language.CharacterCharacterTabStatsElementAdvantageTabLabel
                     },
                     Hint = CEnvir.Language.CharacterCharacterTabStatsElementAdvantageTabHint
                 },
@@ -750,11 +758,11 @@ namespace Client.Scenes.Views
             StatsElementDisadvantageTab = new DXTab
             {
                 Parent = StatsTabControl,
-                TabButton = 
-                { 
-                    Label = 
-                    { 
-                        Text = CEnvir.Language.CharacterCharacterTabStatsElementDisadvantageTabLabel                
+                TabButton =
+                {
+                    Label =
+                    {
+                        Text = CEnvir.Language.CharacterCharacterTabStatsElementDisadvantageTabLabel
                     },
                     Hint = CEnvir.Language.CharacterCharacterTabStatsElementDisadvantageTabHint
                 },
@@ -2104,6 +2112,7 @@ namespace Client.Scenes.Views
             #endregion
 
             #region Hermit Stats
+
             int xOffset = 40;
 
             label = new DXLabel
@@ -2210,7 +2219,6 @@ namespace Client.Scenes.Views
                 ForeColour = Color.White,
                 Text = "0"
             };
-
 
             #region Attack
 
@@ -2355,7 +2363,6 @@ namespace Client.Scenes.Views
             };
 
             #endregion
-
 
             #endregion
 
@@ -2556,6 +2563,7 @@ namespace Client.Scenes.Views
                     case MirGender.Male:
                         library.Draw(0, DisplayArea.X + x, DisplayArea.Y + y, Color.White, true, 1F, ImageType.Image);
                         break;
+
                     case MirGender.Female:
                         library.Draw(1, DisplayArea.X + x, DisplayArea.Y + y, Color.White, true, 1F, ImageType.Image);
                         break;
@@ -2660,17 +2668,20 @@ namespace Client.Scenes.Views
                             case MirGender.Male:
                                 library.Draw(60 + HairType - 1, DisplayArea.X + x, DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
+
                             case MirGender.Female:
                                 library.Draw(80 + HairType - 1, DisplayArea.X + x, DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
                         }
                         break;
+
                     case MirClass.Assassin:
                         switch (Gender)
                         {
                             case MirGender.Male:
                                 library.Draw(1100 + HairType - 1, DisplayArea.X + x, DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
+
                             case MirGender.Female:
                                 library.Draw(1120 + HairType - 1, DisplayArea.X + x, DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
@@ -2791,10 +2802,8 @@ namespace Client.Scenes.Views
                 }
             }
 
-
             foreach (KeyValuePair<Stat, DXLabel> pair in HermitDisplayStats)
                 pair.Value.Text = HermitStats.GetFormat(pair.Key);
-
 
             foreach (KeyValuePair<Stat, DXLabel> pair in HermitAttackStats)
             {
@@ -2950,7 +2959,6 @@ namespace Client.Scenes.Views
 
         #endregion
 
-
         #region IDisposable
 
         protected override void Dispose(bool disposing)
@@ -3038,7 +3046,6 @@ namespace Client.Scenes.Views
 
                     MarriageLabel = null;
                 }
-
 
                 if (StatsAttackTab != null)
                 {
@@ -3286,6 +3293,7 @@ namespace Client.Scenes.Views
         #region Properties
 
         #region Info
+
         public MagicInfo Info
         {
             get => _Info;
@@ -3299,14 +3307,18 @@ namespace Client.Scenes.Views
                 OnInfoChanged(oldValue, value);
             }
         }
+
         private MagicInfo _Info;
+
         public event EventHandler<EventArgs> InfoChanged;
+
         public void OnInfoChanged(MagicInfo oValue, MagicInfo nValue)
         {
             Image.Index = Info.Icon;
             Refresh();
             InfoChanged?.Invoke(this, EventArgs.Empty);
         }
+
         #endregion
 
         public DXImageControl Image;
@@ -3346,6 +3358,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         private void Image_MouseClick(object sender, MouseEventArgs e)
         {
             if (GameScene.Game.Observer) return;
@@ -3359,16 +3372,18 @@ namespace Client.Scenes.Views
                 case 1:
                     magic.Set1Key = SpellKey.None;
                     break;
+
                 case 2:
                     magic.Set2Key = SpellKey.None;
                     break;
+
                 case 3:
                     magic.Set3Key = SpellKey.None;
                     break;
+
                 case 4:
                     magic.Set4Key = SpellKey.None;
                     break;
-
             }
 
             CEnvir.Enqueue(new C.MagicKey { Magic = magic.Info.Magic, Set1Key = magic.Set1Key, Set2Key = magic.Set2Key, Set3Key = magic.Set3Key, Set4Key = magic.Set4Key });
@@ -3392,75 +3407,99 @@ namespace Client.Scenes.Views
                     case KeyBindAction.SpellUse01:
                         key = SpellKey.Spell01;
                         break;
+
                     case KeyBindAction.SpellUse02:
                         key = SpellKey.Spell02;
                         break;
+
                     case KeyBindAction.SpellUse03:
                         key = SpellKey.Spell03;
                         break;
+
                     case KeyBindAction.SpellUse04:
                         key = SpellKey.Spell04;
                         break;
+
                     case KeyBindAction.SpellUse05:
                         key = SpellKey.Spell05;
                         break;
+
                     case KeyBindAction.SpellUse06:
                         key = SpellKey.Spell06;
                         break;
+
                     case KeyBindAction.SpellUse07:
                         key = SpellKey.Spell07;
                         break;
+
                     case KeyBindAction.SpellUse08:
                         key = SpellKey.Spell08;
                         break;
+
                     case KeyBindAction.SpellUse09:
                         key = SpellKey.Spell09;
                         break;
+
                     case KeyBindAction.SpellUse10:
                         key = SpellKey.Spell10;
                         break;
+
                     case KeyBindAction.SpellUse11:
                         key = SpellKey.Spell11;
                         break;
+
                     case KeyBindAction.SpellUse12:
                         key = SpellKey.Spell12;
                         break;
+
                     case KeyBindAction.SpellUse13:
                         key = SpellKey.Spell13;
                         break;
+
                     case KeyBindAction.SpellUse14:
                         key = SpellKey.Spell14;
                         break;
+
                     case KeyBindAction.SpellUse15:
                         key = SpellKey.Spell15;
                         break;
+
                     case KeyBindAction.SpellUse16:
                         key = SpellKey.Spell16;
                         break;
+
                     case KeyBindAction.SpellUse17:
                         key = SpellKey.Spell17;
                         break;
+
                     case KeyBindAction.SpellUse18:
                         key = SpellKey.Spell18;
                         break;
+
                     case KeyBindAction.SpellUse19:
                         key = SpellKey.Spell19;
                         break;
+
                     case KeyBindAction.SpellUse20:
                         key = SpellKey.Spell20;
                         break;
+
                     case KeyBindAction.SpellUse21:
                         key = SpellKey.Spell21;
                         break;
+
                     case KeyBindAction.SpellUse22:
                         key = SpellKey.Spell22;
                         break;
+
                     case KeyBindAction.SpellUse23:
                         key = SpellKey.Spell23;
                         break;
+
                     case KeyBindAction.SpellUse24:
                         key = SpellKey.Spell24;
                         break;
+
                     default:
                         continue;
                 }
@@ -3479,12 +3518,15 @@ namespace Client.Scenes.Views
                 case 1:
                     magic.Set1Key = key;
                     break;
+
                 case 2:
                     magic.Set2Key = key;
                     break;
+
                 case 3:
                     magic.Set3Key = key;
                     break;
+
                 case 4:
                     magic.Set4Key = key;
                     break;
@@ -3536,6 +3578,7 @@ namespace Client.Scenes.Views
         {
             GameScene.Game.MouseMagic = Info;
         }
+
         public override void OnMouseLeave()
         {
             GameScene.Game.MouseMagic = null;
@@ -3553,12 +3596,15 @@ namespace Client.Scenes.Views
                     case 1:
                         key = magic.Set1Key;
                         break;
+
                     case 2:
                         key = magic.Set2Key;
                         break;
+
                     case 3:
                         key = magic.Set3Key;
                         break;
+
                     case 4:
                         key = magic.Set4Key;
                         break;

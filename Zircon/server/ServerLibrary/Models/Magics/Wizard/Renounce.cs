@@ -17,7 +17,6 @@ namespace Server.Models.Magics
 
         public Renounce(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override Stats GetPassiveStats()
@@ -65,7 +64,7 @@ namespace Server.Models.Magics
         {
             if (Player.Buffs.Any(x => x.Type == BuffType.Renounce))
             {
-               Player.LevelMagic(Magic);
+                Player.LevelMagic(Magic);
             }
         }
     }

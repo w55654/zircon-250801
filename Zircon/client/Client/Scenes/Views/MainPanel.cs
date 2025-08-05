@@ -1,11 +1,11 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.Models;
 using Client.UserModels;
 using Library;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -20,7 +20,8 @@ namespace Client.Scenes.Views
         public DXImageControl ClassImage, LevelImage, ACImage, MACImage, DCImage, MCImage, SCImage, FPImage, CPImage;
         public DXLabel ClassLabel, LevelLabel, FPLabel, CPLabel, ACLabel, DCLabel, SCLabel, MACLabel, MCLabel, HealthLabel, ManaLabel, FocusLabel, AttackModeLabel, PetModeLabel;
 
-        DXButton CharacterButton, InventoryButton, SpellButton, QuestButton, MailButton, BeltButton, GroupButton, MenuButton, CashShopButton;
+        private DXButton CharacterButton, InventoryButton, SpellButton, QuestButton, MailButton, BeltButton, GroupButton, MenuButton, CashShopButton;
+
         #endregion
 
         public MainPanel()
@@ -53,14 +54,11 @@ namespace Client.Scenes.Views
                 int x = (ExperienceBar.Size.Width - image.Width) / 2;
                 int y = (ExperienceBar.Size.Height - image.Height) / 2;
 
-
                 float percent = (float)Math.Min(1, Math.Max(0, MapObject.User.Experience / maxExperience));
 
                 if (percent == 0) return;
 
-
-
-                PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y - 1, (int) (image.Width * percent), image.Height), Color.White, ExperienceBar);
+                PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y - 1, (int)(image.Width * percent), image.Height), Color.White, ExperienceBar);
             };
 
             HealthBar = new DXControl
@@ -83,7 +81,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(HealthBar.DisplayArea.X, HealthBar.DisplayArea.Y, (int) (image.Width*percent), image.Height), Color.White, HealthBar);
+                PresentTexture(image.Image, this, new Rectangle(HealthBar.DisplayArea.X, HealthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, HealthBar);
             };
             ManaBar = new DXControl
             {
@@ -105,10 +103,10 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(ManaBar.DisplayArea.X, ManaBar.DisplayArea.Y, (int) (image.Width * percent), image.Height), Color.White, ManaBar);
+                PresentTexture(image.Image, this, new Rectangle(ManaBar.DisplayArea.X, ManaBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, ManaBar);
             };
 
-            FocusBar =  new DXImageControl
+            FocusBar = new DXImageControl
             {
                 Parent = this,
                 Location = new Point(35, 50),
@@ -219,7 +217,7 @@ namespace Client.Scenes.Views
                 if (AvailableQuestIcon.Visible)
                     CompletedQuestIcon.Location = new Point(2, QuestButton.Size.Height - CompletedQuestIcon.Size.Height);
                 else
-                CompletedQuestIcon.Location = new Point(2, 2);
+                    CompletedQuestIcon.Location = new Point(2, 2);
             };
 
             CompletedQuestIcon = new DXImageControl
@@ -252,7 +250,7 @@ namespace Client.Scenes.Views
                 Hint = string.Format(CEnvir.Language.MainPanelGroupButtonHint, CEnvir.GetKeyBindLabel(KeyBindAction.GroupWindow)),
                 HintPosition = HintPosition.TopLeft
             };
-            GroupButton.MouseClick += (o,e) => GameScene.Game.GroupBox.Visible = !GameScene.Game.GroupBox.Visible;
+            GroupButton.MouseClick += (o, e) => GameScene.Game.GroupBox.Visible = !GameScene.Game.GroupBox.Visible;
 
             MenuButton = new DXButton
             {
@@ -286,6 +284,7 @@ namespace Client.Scenes.Views
             };
 
             #region Image Stat Labels
+
             ClassImage = new DXImageControl
             {
                 Parent = this,
@@ -396,7 +395,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 Parent = this,
                 Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
-                
+
                 Location = new Point(385, 40),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -512,7 +511,7 @@ namespace Client.Scenes.Views
             AttackModeLabel.SizeChanged += (o, e) =>
             {
                 AttackModeLabel.Location = new Point(FocusBar.Location.X, FocusBar.Location.Y + (FocusBar.Size.Height - AttackModeLabel.Size.Height) / 2 - 2);
-            }; 
+            };
 
             PetModeLabel = new DXLabel
             {
@@ -525,7 +524,7 @@ namespace Client.Scenes.Views
             };
             PetModeLabel.SizeChanged += (o, e) =>
             {
-                PetModeLabel.Location = new Point(FocusBar.Location.X + FocusBar.Size.Width - PetModeLabel.Size.Width, FocusBar.Location.Y + (FocusBar.Size.Height - PetModeLabel.Size.Height)/2 - 2);
+                PetModeLabel.Location = new Point(FocusBar.Location.X + FocusBar.Size.Width - PetModeLabel.Size.Width, FocusBar.Location.Y + (FocusBar.Size.Height - PetModeLabel.Size.Height) / 2 - 2);
             };
         }
 
@@ -825,7 +824,6 @@ namespace Client.Scenes.Views
                     PetModeLabel = null;
                 }
             }
-
         }
 
         #endregion

@@ -1,5 +1,4 @@
-﻿
-using Client.Envir;
+﻿using Client.Envir;
 using Client.Models.Player;
 using Client.Scenes;
 using Library;
@@ -21,6 +20,7 @@ namespace Client.Models
         public const int FemaleOffSet = 5000, AssassinOffSet = 50000, RightHandOffSet = 50;
 
         #region Shield Librarys
+
         public Dictionary<int, LibraryFile> ShieldList = new Dictionary<int, LibraryFile>
         {
             [0] = LibraryFile.M_Shield1,
@@ -28,9 +28,11 @@ namespace Client.Models
             [0 + FemaleOffSet] = LibraryFile.WM_Shield1,
             [1 + FemaleOffSet] = LibraryFile.WM_Shield2
         };
+
         #endregion
 
         #region Weapon Librarys
+
         public Dictionary<int, LibraryFile> WeaponList = new Dictionary<int, LibraryFile>
         {
             [0] = LibraryFile.M_Weapon1,
@@ -92,11 +94,12 @@ namespace Client.Models
             [120 + FemaleOffSet + RightHandOffSet] = LibraryFile.WM_WeaponADR1,
             [122 + FemaleOffSet + RightHandOffSet] = LibraryFile.WM_WeaponADR2,
             [126 + FemaleOffSet + RightHandOffSet] = LibraryFile.WM_WeaponADR6,
-
         };
+
         #endregion
 
         #region Helmet Librarys
+
         public Dictionary<int, LibraryFile> HelmetList = new Dictionary<int, LibraryFile>
         {
             [0] = LibraryFile.M_Helmet1,
@@ -131,9 +134,11 @@ namespace Client.Models
             [2 + AssassinOffSet + FemaleOffSet] = LibraryFile.WM_HelmetA3,
             [3 + AssassinOffSet + FemaleOffSet] = LibraryFile.WM_HelmetA4,
         };
+
         #endregion
 
         #region Armour Librarys
+
         public Dictionary<int, LibraryFile> ArmourList = new Dictionary<int, LibraryFile>
         {
             [0] = LibraryFile.M_Hum,
@@ -146,7 +151,6 @@ namespace Client.Models
             [12] = LibraryFile.M_HumEx12,
             [13] = LibraryFile.M_HumEx13,
 
-
             [0 + FemaleOffSet] = LibraryFile.WM_Hum,
             [1 + FemaleOffSet] = LibraryFile.WM_HumEx1,
             [2 + FemaleOffSet] = LibraryFile.WM_HumEx2,
@@ -156,7 +160,6 @@ namespace Client.Models
             [11 + FemaleOffSet] = LibraryFile.WM_HumEx11,
             [12 + FemaleOffSet] = LibraryFile.WM_HumEx12,
             [13 + FemaleOffSet] = LibraryFile.WM_HumEx13,
-
 
             [0 + AssassinOffSet] = LibraryFile.M_HumA,
             [1 + AssassinOffSet] = LibraryFile.M_HumAEx1,
@@ -168,9 +171,11 @@ namespace Client.Models
             [2 + AssassinOffSet + FemaleOffSet] = LibraryFile.WM_HumAEx2,
             [3 + AssassinOffSet + FemaleOffSet] = LibraryFile.WM_HumAEx3,
         };
+
         #endregion
 
         #region Costume Librarys
+
         public Dictionary<int, LibraryFile> CostumeList = new()
         {
             [0] = LibraryFile.M_Costume,
@@ -203,8 +208,8 @@ namespace Client.Models
                 NameChanged();
             }
         }
-        private string _GuildRank;
 
+        private string _GuildRank;
 
         public virtual MirClass Class { get; set; }
 
@@ -253,7 +258,8 @@ namespace Client.Models
 
         public bool HideHead;
 
-        public PlayerObject() { }
+        public PlayerObject()
+        { }
 
         public PlayerObject(S.ObjectPlayer info)
         {
@@ -334,35 +340,39 @@ namespace Client.Models
             else
                 WeaponShape = LibraryWeaponShape;
 
-
             switch (HorseShape)
             {
                 case 1:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseIron, out HorseShapeLibrary);
                     break;
+
                 case 2:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseSilver, out HorseShapeLibrary);
                     break;
+
                 case 3:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseGold, out HorseShapeLibrary);
                     break;
+
                 case 4:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseBlue, out HorseShapeLibrary);
                     break;
+
                 case 5:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseDark, out HorseShapeLibrary);
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseDarkEffect, out HorseShapeLibrary2);
                     break;
+
                 case 6:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseRoyal, out HorseShapeLibrary);
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseRoyalEffect, out HorseShapeLibrary2);
                     break;
+
                 case 7:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseBlueDragon, out HorseShapeLibrary);
                     CEnvir.LibraryList.TryGetValue(LibraryFile.HorseBlueDragonEffect, out HorseShapeLibrary2);
                     break;
             }
-
 
             switch (Class)
             {
@@ -408,6 +418,7 @@ namespace Client.Models
                                 CEnvir.LibraryList.TryGetValue(file, out ShieldLibrary);
                             }
                             break;
+
                         case MirGender.Female:
                             if (!ArmourList.TryGetValue(ArmourShape / 11 + FemaleOffSet, out file))
                             {
@@ -442,6 +453,7 @@ namespace Client.Models
                             break;
                     }
                     break;
+
                 case MirClass.Assassin:
                     ArmourShapeOffSet = 3000;
                     WeaponShapeOffSet = 5000;
@@ -494,6 +506,7 @@ namespace Client.Models
                                 }
                             }
                             break;
+
                         case MirGender.Female:
                             if (!ArmourList.TryGetValue(ArmourShape / 11 + AssassinOffSet + FemaleOffSet, out file))
                             {
@@ -542,7 +555,6 @@ namespace Client.Models
                     }
                     break;
             }
-
         }
 
         public override void SetAnimation(ObjectAction action)
@@ -574,6 +586,7 @@ namespace Client.Models
                         animation = MirAnimation.ChannellingMiddle;
 
                     break;
+
                 case MirAction.Moving:
                     //if(VisibleBuffs.Contains(BuffType.Stealth))
 
@@ -593,16 +606,20 @@ namespace Client.Models
                             animation = MirAnimation.HorseRunning;
                     }
                     break;
+
                 case MirAction.Pushed:
                     animation = MirAnimation.Pushed;
                     break;
+
                 case MirAction.Attack:
                     type = (MagicType)action.Extra[1];
                     animation = Functions.GetAttackAnimation(Class, LibraryWeaponShape, type);
                     break;
+
                 case MirAction.Mining:
                     animation = Functions.GetAttackAnimation(Class, LibraryWeaponShape, MagicType.None);
                     break;
+
                 case MirAction.Fishing:
                     var state = (FishingState)action.Extra[0];
 
@@ -611,9 +628,11 @@ namespace Client.Models
                     else
                         animation = CurrentAnimation == MirAnimation.FishingWait ? MirAnimation.FishingReel : MirAnimation.Standing;
                     break;
+
                 case MirAction.RangeAttack:
                     animation = MirAnimation.Combat1;
                     break;
+
                 case MirAction.Spell:
                     type = (MagicType)action.Extra[0];
 
@@ -626,20 +645,25 @@ namespace Client.Models
                         animation = MirAnimation.ChannellingEnd;
 
                     break;
+
                 case MirAction.Struck:
                     animation = MirAnimation.Struck;
                     if (Horse != HorseType.None)
                         animation = MirAnimation.HorseStruck;
                     break;
+
                 case MirAction.Die:
                     animation = MirAnimation.Die;
                     break;
+
                 case MirAction.Dead:
                     animation = MirAnimation.Dead;
                     break;
+
                 case MirAction.Harvest:
                     animation = MirAnimation.Harvest;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -649,7 +673,7 @@ namespace Client.Models
                 CurrentFrame = Frame.EmptyFrame;
         }
 
-        public sealed override void SetFrame(ObjectAction action, int frameStartDelay = 0)
+        public override sealed void SetFrame(ObjectAction action, int frameStartDelay = 0)
         {
             base.SetFrame(action, frameStartDelay);
 
@@ -669,100 +693,130 @@ namespace Client.Models
                         case MirAnimation.Standing:
                             ArmourShift = 0;
                             break;
+
                         case MirAnimation.Walking:
                             ArmourShift = 1600;
                             break;
+
                         case MirAnimation.Running:
                             ArmourShift = 1600;
                             break;
+
                         case MirAnimation.CreepStanding:
                             ArmourShift = 240;
                             break;
+
                         case MirAnimation.CreepWalkSlow:
                         case MirAnimation.CreepWalkFast:
                             ArmourShift = 240;
                             break;
+
                         case MirAnimation.Pushed:
                             ArmourShift = 160;
                             //pushed 2 = 160
                             break;
+
                         case MirAnimation.Combat1:
                             ArmourShift = -400;
                             break;
+
                         case MirAnimation.Combat2:
                             ;//  throw new NotImplementedException();
                             break;
+
                         case MirAnimation.Combat3:
                             ArmourShift = 0;
                             break;
+
                         case MirAnimation.Combat4:
                             ArmourShift = 80;
                             break;
+
                         case MirAnimation.Combat5:
                             ArmourShift = 400;
                             break;
+
                         case MirAnimation.Combat6:
                             ArmourShift = 400;
                             break;
+
                         case MirAnimation.Combat7:
                             ArmourShift = 400;
                             break;
+
                         case MirAnimation.Combat8:
                             ArmourShift = 720;
                             break;
+
                         case MirAnimation.Combat9:
                             ArmourShift = -960;
                             break;
+
                         case MirAnimation.Combat10:
                             ArmourShift = -480;
                             break;
+
                         case MirAnimation.Combat11:
                             ArmourShift = -400;
                             break;
+
                         case MirAnimation.Combat12:
                             ArmourShift = -400;
                             break;
+
                         case MirAnimation.Combat13:
                             ArmourShift = -400;
                             break;
+
                         case MirAnimation.Combat14:
                         case MirAnimation.DragonRepulseStart:
                         case MirAnimation.DragonRepulseMiddle:
                         case MirAnimation.DragonRepulseEnd:
                             ArmourShift = 0;
                             break;
+
                         case MirAnimation.Harvest:
                             ArmourShift = 160;
                             break;
+
                         case MirAnimation.Stance:
                             ArmourShift = 160;
                             break;
+
                         case MirAnimation.Struck:
                             ArmourShift = -640;
                             break;
+
                         case MirAnimation.Die:
                             ArmourShift = -400;
                             break;
+
                         case MirAnimation.Dead:
                             ArmourShift = -400;
                             break;
+
                         case MirAnimation.HorseStanding:
                             ArmourShift = 80;
                             break;
+
                         case MirAnimation.HorseWalking:
                             ArmourShift = 80;
                             break;
+
                         case MirAnimation.HorseRunning:
                             ArmourShift = 80;
                             break;
+
                         case MirAnimation.HorseStruck:
                             ArmourShift = 80;
                             break;
+
                         case MirAnimation.FishingCast:
                         case MirAnimation.FishingWait:
                         case MirAnimation.FishingReel:
                             ArmourShift = 80;
                             break;
+
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -780,6 +834,7 @@ namespace Client.Models
                     switch (MagicType)
                     {
                         #region Sweet Brier and Karma (Karma should have different attack will do later if can be bothered)
+
                         case MagicType.SweetBrier:
                         case MagicType.Karma:
                             if (LibraryWeaponShape >= 1200)
@@ -808,11 +863,11 @@ namespace Client.Models
                             else
                                 DXSoundManager.Play(SoundIndex.SweetBrierFemale);
                             break;
+
                             #endregion
                     }
                     break;
             }
-
         }
 
         public override void DoNextAction()
@@ -826,6 +881,7 @@ namespace Client.Models
                     case MirAction.Dead:
                         ActionQueue.Add(new ObjectAction(MirAction.Dead, Direction, CurrentLocation));
                         break;
+
                     default:
                         if (FishingState == FishingState.Cast)
                             ActionQueue.Add(new ObjectAction(MirAction.Fishing, Direction, CurrentLocation, FishingState, FloatLocation, FishFound));
@@ -857,6 +913,7 @@ namespace Client.Models
                                 });
                             }
                             break;
+
                         case MagicType.CrushingWave:
                             if (FrameIndex == 4)
                             {
@@ -881,6 +938,7 @@ namespace Client.Models
                             break;
                     }
                     break;
+
                 case MirAction.Fishing:
                     if (FrameIndex != 1) return;
 
@@ -889,6 +947,7 @@ namespace Client.Models
                         case MirAnimation.FishingCast:
                             DXSoundManager.Play(SoundIndex.FishingCast);
                             break;
+
                         case MirAnimation.FishingWait:
                             {
                                 if (FishFound)
@@ -905,6 +964,7 @@ namespace Client.Models
                                 }
                             }
                             break;
+
                         case MirAnimation.FishingReel:
                             DXSoundManager.Play(SoundIndex.FishingReel);
                             break;
@@ -912,7 +972,6 @@ namespace Client.Models
                     break;
             }
         }
-
 
         public override void Draw()
         {
@@ -963,6 +1022,7 @@ namespace Client.Models
                             if (image == null) break;
                             HorseLibrary?.Draw(HorseFrame, DrawX, DrawY, Color.White, true, 1F, ImageType.Image);
                             break;
+
                         case 1://iron
                         case 2://silver
                         case 3://gold
@@ -970,17 +1030,20 @@ namespace Client.Models
                             if (image == null) break;
                             HorseShapeLibrary?.Draw(HorseFrame, DrawX, DrawY, Color.White, true, 1F, ImageType.Image);
                             break;
+
                         case 4://blue
                             image = HorseShapeLibrary?.GetImage(DrawFrame);
                             if (image == null) break;
                             HorseShapeLibrary?.Draw(DrawFrame, DrawX, DrawY, Color.White, true, 1F, ImageType.Image);
                             break;
+
                         case 5://dark
                         case 6://royal
                             image = HorseShapeLibrary?.GetImage(DrawFrame);
                             if (image == null) break;
                             HorseShapeLibrary?.Draw(DrawFrame, DrawX, DrawY, Color.White, true, 1F, ImageType.Image);
                             break;
+
                         case 7://bluedragon
                             image = HorseShapeLibrary?.GetImage(DrawFrame);
                             if (image == null) break;
@@ -1017,6 +1080,7 @@ namespace Client.Models
 
                         WeaponLibrary1.Draw(WeaponFrame, DrawX, DrawY, Color.White, true, 1F, ImageType.Image);
                         break;
+
                     default:
                         if (!DrawWeapon) break;
                         image = WeaponLibrary2?.GetImage(WeaponFrame);
@@ -1116,6 +1180,7 @@ namespace Client.Models
                         r = Math.Max(r, image.Width + DrawX + image.OffSetX);
                         b = Math.Max(b, image.Height + DrawY + image.OffSetY);
                         break;
+
                     default:
                         if (!DrawWeapon) break;
                         image = WeaponLibrary2?.GetImage(WeaponFrame);
@@ -1167,12 +1232,14 @@ namespace Client.Models
                             default:
                                 HorseLibrary?.Draw(HorseFrame, DrawX, DrawY, Color.Black, true, 0.5F, ImageType.Shadow);
                                 break;
+
                             case 6:
                             case 7:
                                 HorseShapeLibrary?.Draw(DrawFrame, DrawX, DrawY, Color.Black, true, 0.5F, ImageType.Shadow);
                                 break;
                         }
                         break;
+
                     default:
                         DrawShadow2(l, t, r, b);
                         break;
@@ -1195,6 +1262,7 @@ namespace Client.Models
                             if (shadow)
                                 HorseShapeLibrary2?.DrawBlend(DrawFrame, DrawX, DrawY, Color.White, true, Opacity, ImageType.Image);
                             break;
+
                         case 7://bluedragon
                             //if (shadow)
                             //    HorseShapeLibrary2?.Draw(DrawFrame % 10, DrawX, DrawY, Color.White, true, Opacity, ImageType.Image);
@@ -1332,10 +1400,12 @@ namespace Client.Models
             DXSoundManager.Play(Gender == MirGender.Male ? SoundIndex.MaleStruck : SoundIndex.FemaleStruck);
             DXSoundManager.Play(SoundIndex.GenericStruckPlayer);
         }
+
         public override void PlayDieSound()
         {
             DXSoundManager.Play(Gender == MirGender.Male ? SoundIndex.MaleDie : SoundIndex.FemaleDie);
         }
+
         public override void PlayAttackSound()
         {
             if (Class != MirClass.Assassin)
@@ -1346,7 +1416,6 @@ namespace Client.Models
 
         private void PlayAssassinSounds()
         {
-
             if (LibraryWeaponShape >= 1200)
                 DXSoundManager.Play(SoundIndex.ClawAttack);
             else if (LibraryWeaponShape >= 1100)
@@ -1354,6 +1423,7 @@ namespace Client.Models
             else
                 PlayCommonSounds(); //?
         }
+
         private void PlayCommonSounds()
         {
             switch (LibraryWeaponShape)
@@ -1361,23 +1431,29 @@ namespace Client.Models
                 case 100:
                     DXSoundManager.Play(SoundIndex.WandSwing);
                     break;
+
                 case 9:
                 case 101:
                     DXSoundManager.Play(SoundIndex.WoodSwing);
                     break;
+
                 case 102:
                     DXSoundManager.Play(SoundIndex.AxeSwing);
                     break;
+
                 case 103:
                     DXSoundManager.Play(SoundIndex.DaggerSwing);
                     break;
+
                 case 104:
                     DXSoundManager.Play(SoundIndex.ShortSwordSwing);
                     break;
+
                 case 26:
                 case 105:
                     DXSoundManager.Play(SoundIndex.IronSwordSwing);
                     break;
+
                 default:
                     DXSoundManager.Play(SoundIndex.FistSwing);
                     break;

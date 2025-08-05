@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredClass");
             }
         }
+
         private RequiredClass _RequiredClass;
 
         [IsIdentity]
@@ -39,6 +35,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int MinValue
@@ -54,6 +51,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinValue");
             }
         }
+
         private int _MinValue;
 
         public int MaxValue
@@ -69,6 +67,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxValue");
             }
         }
+
         private int _MaxValue;
 
         [IsIdentity]
@@ -85,7 +84,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Weight");
             }
         }
+
         private int _Weight;
-        
     }
 }

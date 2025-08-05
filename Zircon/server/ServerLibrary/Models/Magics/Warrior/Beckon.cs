@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public Beckon(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -59,6 +58,7 @@ namespace Server.Models.Magics
                     if (SEnvir.Random.Next(10) > 4 + Magic.Level) return;
 
                     break;
+
                 case ObjectType.Monster:
                     if (!Player.CanAttackTarget(ob)) return;
 
@@ -67,9 +67,11 @@ namespace Server.Models.Magics
 
                     if (SEnvir.Random.Next(9) > 2 + Magic.Level * 2) return;
                     break;
+
                 case ObjectType.Item:
                     if (SEnvir.Random.Next(9) > 2 + Magic.Level * 2) return;
                     break;
+
                 default:
                     return;
             }
@@ -85,7 +87,6 @@ namespace Server.Models.Magics
                    UseItemTime = (UseItemTime < SEnvir.Now ? SEnvir.Now : UseItemTime) + delay;
                    Enqueue(new S.ItemUseDelay { Delay = SEnvir.Now - UseItemTime });
                }*/
-
 
             if (ob.Race != ObjectType.Item)
             {
@@ -107,6 +108,5 @@ namespace Server.Models.Magics
 
             Player.LevelMagic(Magic);
         }
-
     }
 }

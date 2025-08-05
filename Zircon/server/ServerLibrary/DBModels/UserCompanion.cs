@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Library.SystemModels;
 using MirDB;
+using System.Linq;
 
 namespace Server.DBModels
 {
@@ -26,8 +22,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
-        
+
         [Association("Companion")]
         public CharacterInfo Character
         {
@@ -42,6 +39,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         public CompanionInfo Info
@@ -57,9 +55,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Info");
             }
         }
+
         private CompanionInfo _Info;
-        
-        
+
         public string Name
         {
             get { return _Name; }
@@ -73,8 +71,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
-        
+
         public int Level
         {
             get { return _Level; }
@@ -88,6 +87,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public int Hunger
@@ -103,6 +103,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Hunger");
             }
         }
+
         private int _Hunger;
 
         public int Experience
@@ -118,6 +119,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Experience");
             }
         }
+
         private int _Experience;
 
         public Stats Level3
@@ -133,6 +135,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level3");
             }
         }
+
         private Stats _Level3;
 
         public Stats Level5
@@ -148,8 +151,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level5");
             }
         }
+
         private Stats _Level5;
-        
+
         public Stats Level7
         {
             get { return _Level7; }
@@ -163,6 +167,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level7");
             }
         }
+
         private Stats _Level7;
 
         public Stats Level10
@@ -178,6 +183,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level10");
             }
         }
+
         private Stats _Level10;
 
         public Stats Level11
@@ -193,8 +199,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level11");
             }
         }
+
         private Stats _Level11;
-        
+
         public Stats Level13
         {
             get { return _Level13; }
@@ -208,6 +215,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level13");
             }
         }
+
         private Stats _Level13;
 
         public Stats Level15
@@ -223,12 +231,11 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level15");
             }
         }
-        private Stats _Level15;
 
+        private Stats _Level15;
 
         [Association("Items", true)]
         public DBBindingList<UserItem> Items { get; set; }
-
 
         protected override void OnDeleted()
         {
@@ -238,7 +245,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         public ClientUserCompanion ToClientInfo()
         {
@@ -262,7 +268,6 @@ namespace Server.DBModels
                 Items = Items.Select(x => x.ToClientInfo()).ToList(),
             };
         }
-
 
         public override string ToString()
         {

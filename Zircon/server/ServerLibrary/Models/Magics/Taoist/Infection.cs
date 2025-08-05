@@ -8,10 +8,9 @@ namespace Server.Models.Magics
     public class Infection : MagicObject
     {
         protected override Element Element => Element.None;
-        
+
         public Infection(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void MagicComplete(params object[] data)

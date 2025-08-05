@@ -109,10 +109,12 @@ namespace Server.Models.Monsters
                     if (InSafeZone || player.InSafeZone) return false;
 
                     return true;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)ob;
 
                     return true;
+
                 default:
                     throw new NotImplementedException();
             }

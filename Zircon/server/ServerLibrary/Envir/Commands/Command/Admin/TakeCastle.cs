@@ -9,7 +9,7 @@ using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class TakeCastle : AbstractParameterizedCommand<IAdminCommand>
+    internal class TakeCastle : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "TAKECASTLE";
         public override int PARAMS_LENGTH => 2;
@@ -38,6 +38,7 @@ namespace Server.Envir.Commands.Command.Admin
                         case GameStage.Observer:
                             con.ReceiveChat(string.Format(con.Language.ConquestLost, ownerGuild.GuildName, castle.Name), MessageType.System);
                             break;
+
                         default:
                             continue;
                     }
@@ -61,6 +62,7 @@ namespace Server.Envir.Commands.Command.Admin
                         case GameStage.Observer:
                             con.ReceiveChat(string.Format(con.Language.ConquestCapture, player.Character.Account.GuildMember.Guild.GuildName, castle.Name), MessageType.System);
                             break;
+
                         default:
                             continue;
                     }

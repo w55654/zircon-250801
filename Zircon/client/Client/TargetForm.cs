@@ -25,9 +25,9 @@ namespace Client
             AutoScaleDimensions = new SizeF(96F, 96F);
 
             ClientSize = new Size(1024, 768);
-            
+
             Icon = Properties.Resources.Zircon;
-            
+
             FormBorderStyle = (Config.FullScreen || Config.Borderless) ? FormBorderStyle.None : FormBorderStyle.FixedSingle;
 
             MaximizeBox = false;
@@ -83,7 +83,6 @@ namespace Client
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-
             if (GameScene.Game != null)
                 GameScene.Game.MapControl.MapButtons &= ~e.Button;
 
@@ -148,7 +147,7 @@ namespace Client
                     DXManager.ToggleFullScreen();
                     return;
                 }
-                
+
                 DXControl.ActiveScene?.OnKeyDown(e);
                 e.Handled = true;
             }
@@ -165,7 +164,7 @@ namespace Client
             CEnvir.Ctrl = e.Control;
 
             if (e.KeyCode == Keys.Pause || e.KeyCode == Keys.PrintScreen)
-               CreateScreenShot();
+                CreateScreenShot();
 
             try
             {
@@ -247,20 +246,27 @@ namespace Client
         #region ScreenCapture
 
         [DllImport("user32.dll")]
-        static extern IntPtr GetWindowDC(IntPtr handle);
+        private static extern IntPtr GetWindowDC(IntPtr handle);
+
         [DllImport("gdi32.dll")]
         public static extern IntPtr CreateCompatibleDC(IntPtr handle);
+
         [DllImport("gdi32.dll")]
         public static extern IntPtr CreateCompatibleBitmap(IntPtr handle, int width, int height);
+
         [DllImport("gdi32.dll")]
         public static extern IntPtr SelectObject(IntPtr handle, IntPtr handle2);
+
         [DllImport("gdi32.dll")]
         public static extern bool BitBlt(IntPtr handle, int destX, int desty, int width, int height,
                                          IntPtr handle2, int sourX, int sourY, int flag);
+
         [DllImport("gdi32.dll")]
         public static extern int DeleteDC(IntPtr handle);
+
         [DllImport("user32.dll")]
         public static extern int ReleaseDC(IntPtr handle, IntPtr handle2);
+
         [DllImport("gdi32.dll")]
         public static extern int DeleteObject(IntPtr handle);
 
@@ -271,7 +277,6 @@ namespace Client
             location = new Point(-location.X, -location.Y);
 
             Rectangle r = new Rectangle(location, ClientSize);
-
 
             IntPtr sourceDc = GetWindowDC(Handle);
             IntPtr destDc = CreateCompatibleDC(sourceDc);

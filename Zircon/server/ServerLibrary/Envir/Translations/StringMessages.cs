@@ -9,6 +9,7 @@ namespace Server.Envir
 
         [ConfigSection("Payment")]
         public abstract string PaymentComplete { get; set; }
+
         public abstract string PaymentFailed { get; set; }
         public abstract string ReferralPaymentComplete { get; set; }
         public abstract string ReferralPaymentFailed { get; set; }
@@ -18,6 +19,7 @@ namespace Server.Envir
 
         [ConfigSection("System")]
         public abstract string Welcome { get; set; }
+
         public abstract string WelcomeObserver { get; set; }
         public abstract string ObserverChangeFail { get; set; }
         public abstract string OnlineCount { get; set; }
@@ -52,6 +54,7 @@ namespace Server.Envir
 
         [ConfigSection("Movement")]
         public abstract string NeedLevel { get; set; }
+
         public abstract string NeedMaxLevel { get; set; }
         public abstract string NeedItem { get; set; }
         public abstract string NeedMonster { get; set; }
@@ -59,6 +62,7 @@ namespace Server.Envir
 
         [ConfigSection("Conquest")]
         public abstract string ConquestStarted { get; set; }
+
         public abstract string ConquestFinished { get; set; }
         public abstract string ConquestCapture { get; set; }
         public abstract string ConquestOwner { get; set; }
@@ -69,6 +73,7 @@ namespace Server.Envir
 
         [ConfigSection("Monster")]
         public abstract string BossSpawn { get; set; }
+
         public abstract string HarvestRare { get; set; }
         public abstract string NetherGateOpen { get; set; }
         public abstract string NetherGateClosed { get; set; }
@@ -80,6 +85,7 @@ namespace Server.Envir
 
         [ConfigSection("Items")]
         public abstract string Expired { get; set; }
+
         public abstract string CannotTownTeleport { get; set; }
         public abstract string CannotRandomTeleport { get; set; }
         public abstract string ConnotResetCompanionSkill { get; set; }
@@ -97,6 +103,7 @@ namespace Server.Envir
 
         [ConfigSection("Marriage")]
         public abstract string MarryAlreadyMarried { get; set; }
+
         public abstract string MarryNeedLevel { get; set; }
         public abstract string MarryNeedGold { get; set; }
         public abstract string MarryNotFacing { get; set; }
@@ -118,6 +125,7 @@ namespace Server.Envir
 
         [ConfigSection("Companion")]
         public abstract string CompanionAppearanceAlready { get; set; }
+
         public abstract string CompanionNeedTicket { get; set; }
         public abstract string CompanionSkillEnabled { get; set; }
         public abstract string CompanionSkillDisabled { get; set; }
@@ -128,10 +136,12 @@ namespace Server.Envir
 
         [ConfigSection("Quest")]
         public abstract string QuestSelectReward { get; set; }
+
         public abstract string QuestNeedSpace { get; set; }
 
         [ConfigSection("Mail")]
         public abstract string MailSafeZone { get; set; }
+
         public abstract string MailNeedSpace { get; set; }
         public abstract string MailHasItems { get; set; }
         public abstract string MailNotFound { get; set; }
@@ -142,6 +152,7 @@ namespace Server.Envir
 
         [ConfigSection("Market Place")]
         public abstract string ConsignSafeZone { get; set; }
+
         public abstract string ConsignLimit { get; set; }
         public abstract string ConsignGuildFundsGuild { get; set; }
         public abstract string ConsignGuildFundsPermission { get; set; }
@@ -163,6 +174,7 @@ namespace Server.Envir
 
         [ConfigSection("Guild")]
         public abstract string GuildNeedHorn { get; set; }
+
         public abstract string GuildNeedGold { get; set; }
         public abstract string GuildBadName { get; set; }
         public abstract string GuildNameTaken { get; set; }
@@ -216,6 +228,7 @@ namespace Server.Envir
 
         [ConfigSection("Group")]
         public abstract string GroupNoGroup { get; set; }
+
         public abstract string GroupNotLeader { get; set; }
         public abstract string GroupMemberNotFound { get; set; }
         public abstract string GroupAlreadyGrouped { get; set; }
@@ -232,6 +245,7 @@ namespace Server.Envir
 
         [ConfigSection("Trade")]
         public abstract string TradeAlreadyTrading { get; set; }
+
         public abstract string TradeAlreadyHaveRequest { get; set; }
         public abstract string TradeNeedFace { get; set; }
         public abstract string TradeTargetNotAllowed { get; set; }
@@ -253,6 +267,7 @@ namespace Server.Envir
 
         [ConfigSection("NPC")]
         public abstract string NPCFundsGuild { get; set; }
+
         public abstract string NPCFundsPermission { get; set; }
         public abstract string NPCFundsCost { get; set; }
         public abstract string NPCFundsCurrency { get; set; }
@@ -292,6 +307,7 @@ namespace Server.Envir
 
         [ConfigSection("Skills")]
         public abstract string ChargeExpire { get; set; }
+
         public abstract string ChargeFail { get; set; }
         public abstract string CloakCombat { get; set; }
         public abstract string DashFailed { get; set; }
@@ -302,11 +318,13 @@ namespace Server.Envir
 
         [ConfigSection("Horse")]
         public abstract string HorseDead { get; set; }
+
         public abstract string HorseOwner { get; set; }
         public abstract string HorseMap { get; set; }
 
         [ConfigSection("Instance")]
         public abstract string InstanceNoAction { get; set; }
+
         public abstract string InstanceInvalid { get; set; }
         public abstract string InstanceInsufficientLevel { get; set; }
         public abstract string InstanceSafeZoneOnly { get; set; }
@@ -326,6 +344,7 @@ namespace Server.Envir
 
         [ConfigSection("Discipline")]
         public abstract string DisciplineMaxLevel { get; set; }
+
         public abstract string DisciplineRequiredLevel { get; set; }
         public abstract string DisciplineRequiredGold { get; set; }
         public abstract string DisciplineRequiredExp { get; set; }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private MirClass _Class;
 
         [IsIdentity]
@@ -39,6 +35,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public int Health
@@ -54,6 +51,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Health");
             }
         }
+
         private int _Health;
 
         public int Mana
@@ -69,6 +67,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Mana");
             }
         }
+
         private int _Mana;
 
         public int BagWeight
@@ -84,6 +83,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "BagWeight");
             }
         }
+
         private int _BagWeight;
 
         public int WearWeight
@@ -99,6 +99,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "WearWeight");
             }
         }
+
         private int _WearWeight;
 
         public int HandWeight
@@ -114,6 +115,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "HandWeight");
             }
         }
+
         private int _HandWeight;
 
         public int Accuracy
@@ -129,6 +131,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Accuracy");
             }
         }
+
         private int _Accuracy;
 
         public int Agility
@@ -144,9 +147,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Agility");
             }
         }
+
         private int _Agility;
-
-
 
         public int MinAC
         {
@@ -161,6 +163,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinAC");
             }
         }
+
         private int _MinAC;
 
         public int MaxAC
@@ -176,6 +179,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxAC");
             }
         }
+
         private int _MaxAC;
 
         public int MinMR
@@ -191,6 +195,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinMR");
             }
         }
+
         private int _MinMR;
 
         public int MaxMR
@@ -206,8 +211,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxMR");
             }
         }
-        private int _MaxMR;
 
+        private int _MaxMR;
 
         public int MinDC
         {
@@ -222,6 +227,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinDC");
             }
         }
+
         private int _MinDC;
 
         public int MaxDC
@@ -237,8 +243,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxDC");
             }
         }
-        private int _MaxDC;
 
+        private int _MaxDC;
 
         public int MinMC
         {
@@ -253,6 +259,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinMC");
             }
         }
+
         private int _MinMC;
 
         public int MaxMC
@@ -268,6 +275,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxMC");
             }
         }
+
         private int _MaxMC;
 
         public int MinSC
@@ -283,6 +291,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinSC");
             }
         }
+
         private int _MinSC;
 
         public int MaxSC
@@ -298,6 +307,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxSC");
             }
         }
+
         private int _MaxSC;
     }
 }

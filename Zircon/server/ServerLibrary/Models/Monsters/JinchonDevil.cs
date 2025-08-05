@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
 {
-    public  class JinchonDevil : SpittingSpider
+    public class JinchonDevil : SpittingSpider
     {
         public DateTime CastTime;
         public TimeSpan CastDelay = TimeSpan.FromSeconds(15);
@@ -24,10 +21,8 @@ namespace Server.Models.Monsters
 
             if (x > 3 || y > 3) return false;
 
-
             return x == 0 || x == y || y == 0;
         }
-
 
         public override void ProcessTarget()
         {
@@ -39,7 +34,6 @@ namespace Server.Models.Monsters
 
                 if (targets.Count > 0)
                 {
-
                     foreach (MapObject ob in targets)
                     {
                         if (CurrentHP > Stats[Stat.Health] / 2 && SEnvir.Random.Next(2) > 0) continue;
@@ -51,7 +45,6 @@ namespace Server.Models.Monsters
                     Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = MagicType.None, Targets = new List<uint> { Target.ObjectID } });
                     CastTime = SEnvir.Now + CastDelay;
                 }
-
             }
 
             if (!InAttackRange())
@@ -105,6 +98,5 @@ namespace Server.Models.Monsters
 
             UpdateAttackTime();
         }
-
     }
 }

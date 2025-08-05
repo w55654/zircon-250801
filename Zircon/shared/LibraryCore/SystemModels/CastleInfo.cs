@@ -19,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         [Association("Castles", true)]
@@ -35,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Map");
             }
         }
+
         private MapInfo _Map;
 
         public TimeSpan StartTime
@@ -50,6 +52,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StartTime");
             }
         }
+
         private TimeSpan _StartTime;
 
         public TimeSpan Duration
@@ -65,6 +68,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Duration");
             }
         }
+
         private TimeSpan _Duration;
 
         public MapRegion CastleRegion
@@ -80,6 +84,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CastleRegion");
             }
         }
+
         private MapRegion _CastleRegion;
 
         public MapRegion ObjectiveRegion
@@ -95,6 +100,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ObjectiveRegion");
             }
         }
+
         private MapRegion _ObjectiveRegion;
 
         public MapRegion AttackSpawnRegion
@@ -110,6 +116,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AttackSpawnRegion");
             }
         }
+
         private MapRegion _AttackSpawnRegion;
 
         public ItemInfo Item
@@ -125,8 +132,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
-        
+
         public MonsterInfo Monster
         {
             get => _Monster;
@@ -140,6 +148,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         public decimal Discount
@@ -155,6 +164,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Discount");
             }
         }
+
         private decimal _Discount;
 
         [Association("Flags", true)]
@@ -179,6 +189,3 @@ namespace Library.SystemModels
         }
     }
 }
-
-
-

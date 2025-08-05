@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
 {
     public class EmperorSaWoo : MonsterObject
     {
-
         public override void ProcessTarget()
         {
             if (Target == null) return;
@@ -20,7 +18,6 @@ namespace Server.Models.Monsters
                     if (SEnvir.Random.Next(3) == 0)
                         RangeAttack();
                 }
-
 
                 if (CurrentLocation == Target.CurrentLocation)
                 {
@@ -55,7 +52,6 @@ namespace Server.Models.Monsters
 
             UpdateAttackTime();
 
-
             ActionList.Add(new DelayedAction(
                                SEnvir.Now.AddMilliseconds(400),
                                ActionType.DelayAttack,
@@ -64,7 +60,6 @@ namespace Server.Models.Monsters
                                AttackElement));
         }
 
-
         public void RangeAttack()
         {
             switch (SEnvir.Random.Next(3))
@@ -72,6 +67,7 @@ namespace Server.Models.Monsters
                 case 0:
                     MassCyclone();
                     break;
+
                 default:
                     Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
 

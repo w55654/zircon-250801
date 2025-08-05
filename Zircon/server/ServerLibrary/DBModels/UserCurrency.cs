@@ -20,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Info");
             }
         }
+
         private CurrencyInfo _Info;
 
         public long Amount
@@ -35,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private long _Amount;
 
         [Association("Currencies")]
@@ -51,7 +53,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
+
         protected override void OnDeleted()
         {
             Info = null;

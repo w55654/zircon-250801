@@ -18,7 +18,6 @@ namespace Server.Models.Magics
 
         public DragonBlood(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override AttackCast AttackCast(MagicType attackType)

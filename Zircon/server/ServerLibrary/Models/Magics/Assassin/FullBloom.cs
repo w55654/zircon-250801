@@ -17,7 +17,6 @@ namespace Server.Models.Magics
 
         public FullBloom(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override AttackCast AttackCast(MagicType attackType)

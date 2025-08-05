@@ -1,11 +1,8 @@
 ﻿using Library;
 using Library.Network;
 using Server.Envir;
-using Server.Models.Magics;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -48,8 +45,8 @@ namespace Server.Models.Monsters
                 SetHP(0);
                 return;
             }
-
         }
+
         protected override bool InAttackRange()
         {
             if (Target.CurrentMap != CurrentMap) return false;
@@ -73,12 +70,15 @@ namespace Server.Models.Monsters
                 case Element.Fire:
                     AttackAoE(2, MagicType.FireStorm, Element.Ice, Player.GetMC());
                     break;
+
                 case Element.Ice:
                     AttackAoE(2, MagicType.IceStorm, Element.Ice, Player.GetMC());
                     break;
+
                 case Element.Lightning:
                     AttackAoE(2, MagicType.ChainLightning, Element.Ice, Player.GetMC());
                     break;
+
                 case Element.Wind:
                     AttackAoE(2, MagicType.DragonTornado, Element.Ice, Player.GetMC());
                     break;
@@ -91,6 +91,7 @@ namespace Server.Models.Monsters
         {
             return 0;
         }
+
         public override void OnDespawned()
         {
             base.OnDespawned();
@@ -132,6 +133,5 @@ namespace Server.Models.Monsters
 
             return packet;
         }
-
     }
 }

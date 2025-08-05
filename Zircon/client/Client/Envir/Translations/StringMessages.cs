@@ -6,6 +6,7 @@ namespace Client.Envir.Translations
     {
         [ConfigSection("Message")]
         public abstract string CannotChangeGenderWhileWearingArmour { get; set; }
+
         public abstract string WearingArmourBeforeDye { get; set; }
         public abstract string UnableToRepairHere { get; set; }
         public abstract string UnableToRepairFullyRepaired { get; set; }
@@ -112,6 +113,7 @@ namespace Client.Envir.Translations
 
         [ConfigSection("Common")]
         public abstract string CommonControlApply { get; set; }
+
         public abstract string CommonControlCancel { get; set; }
         public abstract string CommonControlClose { get; set; }
         public abstract string CommonControlConfirm { get; set; }
@@ -207,6 +209,7 @@ namespace Client.Envir.Translations
 
         [ConfigSection("Scenes")]
         public abstract string LoginConnectionAttemptMessage { get; set; }
+
         public abstract string LoginConnectionAttemptCaption { get; set; }
         public abstract string LoginLoadingMessage { get; set; }
         public abstract string LoginLoadingCaption { get; set; }
@@ -221,7 +224,7 @@ namespace Client.Envir.Translations
         public abstract string LoginDialogChangePasswordButtonLabel { get; set; }
         public abstract string LoginDialogRememberCheckBoxLabel { get; set; }
         public abstract string LoginDialogForgotPasswordLabel { get; set; }
-        
+
         public abstract string NewAccountDialogTitle { get; set; }
         public abstract string NewAccountDialogCreateButtonLabel { get; set; }
         public abstract string NewAccountDialogEMailLabel { get; set; }
@@ -509,9 +512,9 @@ namespace Client.Envir.Translations
         public abstract string GuildDialogManageTabTreasuryLabel { get; set; }
         public abstract string GuildDialogManageTabTreasuryChangeButtonLabel { get; set; }
         public abstract string GuildDialogManageTabTreasuryTaxConfirmMessage { get; set; }
-       
+
         public abstract string GuildDialogManageTabMembershipMembersIncreaseButtonLabel { get; set; }
-        
+
         public abstract string GuildDialogManageTabUpgradeStorageLabel { get; set; }
         public abstract string GuildDialogManageTabUpgradeStorageIncreaseButtonLabel { get; set; }
         public abstract string GuildDialogManageTabUpgradeStorageConfirmMessage { get; set; }

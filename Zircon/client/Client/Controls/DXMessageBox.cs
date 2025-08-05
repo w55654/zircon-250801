@@ -1,7 +1,7 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using Client.Envir;
+﻿using Client.Envir;
 using Client.UserModels;
+using System.Drawing;
+using System.Windows.Forms;
 
 //Cleaned
 namespace Client.Controls
@@ -9,6 +9,7 @@ namespace Client.Controls
     public sealed class DXMessageBox : DXWindow
     {
         #region Properties
+
         public DXLabel Label { get; private set; }
         public DXButton OKButton, CancelButton, NoButton, YesButton;
         public DXMessageBoxButtons Buttons;
@@ -18,7 +19,6 @@ namespace Client.Controls
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
-
 
             if (Parent != null)
                 Location = new Point((Parent.DisplayArea.Width - DisplayArea.Width) / 2, (Parent.DisplayArea.Height - DisplayArea.Height) / 2);
@@ -34,8 +34,8 @@ namespace Client.Controls
                 NoButton.Location = new Point(NoButton.Location.X, Size.Height - 44);
             if (YesButton != null)
                 YesButton.Location = new Point(YesButton.Location.X, Size.Height - 44);
-
         }
+
         public override void OnParentChanged(DXControl oValue, DXControl nValue)
         {
             base.OnParentChanged(oValue, nValue);
@@ -44,6 +44,7 @@ namespace Client.Controls
 
             Location = new Point((Parent.DisplayArea.Width - DisplayArea.Width) / 2, (Parent.DisplayArea.Height - DisplayArea.Height) / 2);
         }
+
         public override void OnIsVisibleChanged(bool oValue, bool nValue)
         {
             base.OnIsVisibleChanged(oValue, nValue);
@@ -55,12 +56,12 @@ namespace Client.Controls
             }
             else if (HiddenBox != null)
                 DXTextBox.ActiveTextBox = HiddenBox;
-
         }
 
         public override WindowType Type => WindowType.MessageBox;
         public override bool CustomSize => false;
         public override bool AutomaticVisibility => false;
+
         #endregion
 
         public DXMessageBox(string message, string caption, DXMessageBoxButtons buttons = DXMessageBoxButtons.OK)
@@ -73,7 +74,6 @@ namespace Client.Controls
 
             Parent = ActiveScene;
             MessageBoxList.Add(this);
-
 
             Label = new DXLabel
             {
@@ -89,7 +89,6 @@ namespace Client.Controls
 
             Location = new Point((ActiveScene.DisplayArea.Width - DisplayArea.Width) / 2, (ActiveScene.DisplayArea.Height - DisplayArea.Height) / 2);
 
-
             switch (Buttons)
             {
                 case DXMessageBoxButtons.OK:
@@ -102,6 +101,7 @@ namespace Client.Controls
                     };
                     OKButton.MouseClick += (o, e) => Dispose();
                     break;
+
                 case DXMessageBoxButtons.YesNo:
                     YesButton = new DXButton
                     {
@@ -120,6 +120,7 @@ namespace Client.Controls
                     };
                     NoButton.MouseClick += (o, e) => Dispose();
                     break;
+
                 case DXMessageBoxButtons.Cancel:
                     CancelButton = new DXButton
                     {
@@ -145,10 +146,12 @@ namespace Client.Controls
             {
                 case DialogAction.None:
                     break;
+
                 case DialogAction.Close:
                     box.OKButton.MouseClick += (o, e) => CEnvir.Target.Close();
                     box.CloseButton.MouseClick += (o, e) => CEnvir.Target.Close();
                     break;
+
                 case DialogAction.ReturnToLogin:
                     box.OKButton.MouseClick += (o, e) => CEnvir.ReturnToLogin();
                     box.CloseButton.MouseClick += (o, e) => CEnvir.ReturnToLogin();
@@ -157,7 +160,7 @@ namespace Client.Controls
 
             return box;
         }
-        
+
         public override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
@@ -169,13 +172,13 @@ namespace Client.Controls
                     case DXMessageBoxButtons.OK:
                         if (OKButton != null && !OKButton.IsDisposed) OKButton.InvokeMouseClick();
                         break;
+
                     case DXMessageBoxButtons.YesNo:
                         if (NoButton != null && !NoButton.IsDisposed) NoButton.InvokeMouseClick();
                         break;
                 }
                 e.Handled = true;
             }
-
             else if (e.KeyChar == (char)Keys.Enter)
             {
                 switch (Buttons)
@@ -183,14 +186,15 @@ namespace Client.Controls
                     case DXMessageBoxButtons.OK:
                         if (OKButton != null && !OKButton.IsDisposed) OKButton.InvokeMouseClick();
                         break;
+
                     case DXMessageBoxButtons.YesNo:
                         if (YesButton != null && !YesButton.IsDisposed) YesButton.InvokeMouseClick();
                         break;
-
                 }
                 e.Handled = true;
             }
         }
+
         public override void ResolutionChanged()
         {
             base.ResolutionChanged();
@@ -198,9 +202,11 @@ namespace Client.Controls
             if (Parent != null)
                 Location = new Point((Parent.DisplayArea.Width - DisplayArea.Width) / 2, (Parent.DisplayArea.Height - DisplayArea.Height) / 2);
         }
+
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -252,9 +258,9 @@ namespace Client.Controls
                 MessageBoxList.Remove(this);
             }
         }
+
         #endregion
     }
-
 
     public enum DXMessageBoxButtons
     {

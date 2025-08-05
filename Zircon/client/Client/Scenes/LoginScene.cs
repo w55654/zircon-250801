@@ -34,8 +34,11 @@ namespace Client.Scenes
                 OnLoadedChanged(oldValue, value);
             }
         }
+
         private bool _Loaded;
+
         public event EventHandler<EventArgs> LoadedChanged;
+
         public void OnLoadedChanged(bool oValue, bool nValue)
         {
             foreach (DXWindow window in DXWindow.Windows)
@@ -61,8 +64,11 @@ namespace Client.Scenes
                 OnConnectionAttemptChanged(oldValue, value);
             }
         }
+
         private int _ConnectionAttempt;
+
         public event EventHandler<EventArgs> ConnectionAttemptChanged;
+
         public virtual void OnConnectionAttemptChanged(int oValue, int nValue)
         {
             ConnectionAttemptChanged?.Invoke(this, EventArgs.Empty);
@@ -352,9 +358,11 @@ namespace Client.Scenes
                     case KeyBindAction.ConfigWindow:
                         ConfigBox.Visible = !ConfigBox.Visible;
                         break;
+
                     case KeyBindAction.RankingWindow:
                         RankingBox.Visible = !RankingBox.Visible && CEnvir.Connection != null;
                         break;
+
                     default:
                         continue;
                 }
@@ -398,7 +406,6 @@ namespace Client.Scenes
             ConnectionTime = DateTime.MinValue;
             ConnectingClient = null;
 
-
             if (LoginBox != null) LoginBox.LoginAttempted = false;
             if (AccountBox != null) AccountBox.CreateAttempted = false;
             if (ChangeBox != null) ChangeBox.ChangeAttempted = false;
@@ -411,9 +418,11 @@ namespace Client.Scenes
             ActivationBox.PreviousWindow = window;
             ActivationBox.BringToFront();
         }
+
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -518,9 +527,9 @@ namespace Client.Scenes
                 ConnectingClient = null;
                 _ConnectionAttempt = 0;
                 ConnectionTime = DateTime.MinValue;
-
             }
         }
+
         #endregion
 
         public sealed class LoginDialog : DXImageControl
@@ -542,8 +551,11 @@ namespace Client.Scenes
                     OnEMailValidChanged(oldValue, value);
                 }
             }
+
             private bool _EMailValid;
+
             public event EventHandler<EventArgs> EMailValidChanged;
+
             public void OnEMailValidChanged(bool oValue, bool nValue)
             {
                 EMailValidChanged?.Invoke(this, EventArgs.Empty);
@@ -568,8 +580,11 @@ namespace Client.Scenes
                     OnPasswordValidChanged(oldValue, value);
                 }
             }
+
             private bool _PasswordValid;
+
             public event EventHandler<EventArgs> PasswordValidChanged;
+
             public void OnPasswordValidChanged(bool oValue, bool nValue)
             {
                 PasswordValidChanged?.Invoke(this, EventArgs.Empty);
@@ -594,8 +609,11 @@ namespace Client.Scenes
                     OnLoginAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _LoginAttempted;
+
             public event EventHandler<EventArgs> LoginAttemptedChanged;
+
             public void OnLoginAttemptedChanged(bool oValue, bool nValue)
             {
                 LoginAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -622,6 +640,7 @@ namespace Client.Scenes
 
                 Location = new Point((Parent.DisplayArea.Width - DisplayArea.Width) / 2, (Parent.DisplayArea.Height - DisplayArea.Height) / 2);
             }
+
             public override void OnIsVisibleChanged(bool oValue, bool nValue)
             {
                 base.OnIsVisibleChanged(oValue, nValue);
@@ -742,7 +761,7 @@ namespace Client.Scenes
                     Label = { Text = CEnvir.Language.LoginDialogOptionButtonLabel, ForeColour = Color.FromArgb(255, 227, 165) },
                 };
                 OptionButton.MouseClick += OptionButton_MouseClick;
-                
+
                 NewAccountButton = new DXButton
                 {
                     Parent = this,
@@ -800,6 +819,7 @@ namespace Client.Scenes
 
                 scene.RankingBox.Visible = !scene.RankingBox.Visible;
             }
+
             private void OptionButton_MouseClick(object sender, MouseEventArgs e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -855,6 +875,7 @@ namespace Client.Scenes
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
             }
+
             private void PasswordTextBox_TextChanged(object sender, EventArgs e)
             {
                 PasswordValid = !string.IsNullOrEmpty(PasswordTextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(PasswordTextBox.TextBox.Text);
@@ -875,6 +896,7 @@ namespace Client.Scenes
                 scene.ChangeBox.Visible = true;
                 scene.ChangeBox.EMailTextBox.SetFocus();
             }
+
             private void ForgotPasswordLabel_MouseClick(object sender, MouseEventArgs e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -885,6 +907,7 @@ namespace Client.Scenes
                 scene.RequestPasswordBox.Visible = true;
                 scene.RequestPasswordBox.EMailTextBox.SetFocus();
             }
+
             private void NewAccountButton_MouseClick(object sender, MouseEventArgs e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -895,7 +918,6 @@ namespace Client.Scenes
                 scene.AccountBox.Visible = true;
                 scene.AccountBox.EMailTextBox.SetFocus();
             }
-
 
             #endregion
 
@@ -1021,8 +1043,11 @@ namespace Client.Scenes
                     OnEMailValidChanged(oldValue, value);
                 }
             }
+
             private bool _EMailValid;
+
             public event EventHandler<EventArgs> EMailValidChanged;
+
             public void OnEMailValidChanged(bool oValue, bool nValue)
             {
                 EMailValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1047,8 +1072,11 @@ namespace Client.Scenes
                     OnPassword1ValidChanged(oldValue, value);
                 }
             }
+
             private bool _Password1Valid;
+
             public event EventHandler<EventArgs> Password1ValidChanged;
+
             public void OnPassword1ValidChanged(bool oValue, bool nValue)
             {
                 Password1ValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1073,8 +1101,11 @@ namespace Client.Scenes
                     OnPassword2ValidChanged(oldValue, value);
                 }
             }
+
             private bool _Password2Valid;
+
             public event EventHandler<EventArgs> Password2ValidChanged;
+
             public void OnPassword2ValidChanged(bool oValue, bool nValue)
             {
                 Password2ValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1099,8 +1130,11 @@ namespace Client.Scenes
                     OnRealNameValidChanged(oldValue, value);
                 }
             }
+
             private bool _RealNameValid;
+
             public event EventHandler<EventArgs> RealNameValidChanged;
+
             public void OnRealNameValidChanged(bool oValue, bool nValue)
             {
                 RealNameValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1124,8 +1158,11 @@ namespace Client.Scenes
                     OnBirthDateValidChanged(oldValue, value);
                 }
             }
+
             private bool _BirthDateValid;
+
             public event EventHandler<EventArgs> BirthDateValidChanged;
+
             public void OnBirthDateValidChanged(bool oValue, bool nValue)
             {
                 BirthDateValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1149,8 +1186,11 @@ namespace Client.Scenes
                     OnReferralValidChanged(oldValue, value);
                 }
             }
+
             private bool _ReferralValid;
+
             public event EventHandler<EventArgs> ReferralValidChanged;
+
             public void OnReferralValidChanged(bool oValue, bool nValue)
             {
                 ReferralValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1174,8 +1214,11 @@ namespace Client.Scenes
                     OnCreateAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _CreateAttempted;
+
             public event EventHandler<EventArgs> CreateAttemptedChanged;
+
             public void OnCreateAttemptedChanged(bool oValue, bool nValue)
             {
                 CreateAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -1202,6 +1245,7 @@ namespace Client.Scenes
             public override WindowType Type => WindowType.None;
             public override bool CustomSize => false;
             public override bool AutomaticVisibility => false;
+
             #endregion
 
             public NewAccountDialog()
@@ -1230,7 +1274,6 @@ namespace Client.Scenes
                     Size = new Size(80, DefaultHeight),
                 };
                 CreateButton.MouseClick += (o, e) => Create();
-
 
                 EMailTextBox = new DXTextBox
                 {
@@ -1283,7 +1326,6 @@ namespace Client.Scenes
                 RealNameTextBox.TextBox.LostFocus += (o, e) => RealNameHelpLabel.Visible = false;
                 RealNameTextBox.TextBox.KeyPress += TextBox_KeyPress;
 
-
                 BirthDateTextBox = new DXTextBox
                 {
                     Location = new Point(85, 145),
@@ -1295,7 +1337,6 @@ namespace Client.Scenes
                 BirthDateTextBox.TextBox.GotFocus += (o, e) => BirthDateHelpLabel.Visible = true;
                 BirthDateTextBox.TextBox.LostFocus += (o, e) => BirthDateHelpLabel.Visible = false;
                 BirthDateTextBox.TextBox.KeyPress += TextBox_KeyPress;
-
 
                 ReferralTextBox = new DXTextBox
                 {
@@ -1344,14 +1385,12 @@ namespace Client.Scenes
                 };
                 label.Location = new Point(BirthDateTextBox.Location.X - label.Size.Width - 5, (BirthDateTextBox.Size.Height - label.Size.Height) / 2 + BirthDateTextBox.Location.Y);
 
-
                 label = new DXLabel
                 {
                     Parent = this,
                     Text = CEnvir.Language.NewAccountDialogReferralLabel,
                 };
                 label.Location = new Point(ReferralTextBox.Location.X - label.Size.Width - 5, (ReferralTextBox.Size.Height - label.Size.Height) / 2 + ReferralTextBox.Location.Y);
-
 
                 EMailHelpLabel = new DXLabel
                 {
@@ -1380,7 +1419,6 @@ namespace Client.Scenes
                 };
                 Password2HelpLabel.Location = new Point(Password2TextBox.Location.X + Password2TextBox.Size.Width + 2, (Password2TextBox.Size.Height - Password2HelpLabel.Size.Height) / 2 + Password2TextBox.Location.Y);
 
-
                 RealNameHelpLabel = new DXLabel
                 {
                     Visible = false,
@@ -1408,7 +1446,6 @@ namespace Client.Scenes
                 };
                 ReferralHelpLabel.Location = new Point(ReferralTextBox.Location.X + ReferralTextBox.Size.Width + 2, (ReferralTextBox.Size.Height - ReferralHelpLabel.Size.Height) / 2 + ReferralTextBox.Location.Y);
 
-
                 RealNameValid = !Globals.RealNameRequired;
                 BirthDateValid = !Globals.BirthDateRequired;
                 ReferralValid = true;
@@ -1435,6 +1472,7 @@ namespace Client.Scenes
 
                 CEnvir.Enqueue(packet);
             }
+
             public void Clear()
             {
                 EMailTextBox.TextBox.Text = string.Empty;
@@ -1445,6 +1483,7 @@ namespace Client.Scenes
 
                 Close();
             }
+
             private void Close()
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -1492,6 +1531,7 @@ namespace Client.Scenes
                 if (CreateButton.IsEnabled)
                     Create();
             }
+
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
                 EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
@@ -1500,8 +1540,8 @@ namespace Client.Scenes
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
-
             }
+
             private void Password1TextBox_TextChanged(object sender, EventArgs e)
             {
                 Password1Valid = !string.IsNullOrEmpty(Password1TextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(Password1TextBox.TextBox.Text);
@@ -1516,8 +1556,8 @@ namespace Client.Scenes
                     Password2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     Password2TextBox.BorderColour = Password2Valid ? Color.Green : Color.Red;
-
             }
+
             private void Password2TextBox_TextChanged(object sender, EventArgs e)
             {
                 Password2Valid = Password1Valid && Password1TextBox.TextBox.Text == Password2TextBox.TextBox.Text;
@@ -1526,8 +1566,8 @@ namespace Client.Scenes
                     Password2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     Password2TextBox.BorderColour = Password2Valid ? Color.Green : Color.Red;
-
             }
+
             private void RealNameTextBox_TextChanged(object sender, EventArgs e)
             {
                 RealNameValid = (!Globals.RealNameRequired && string.IsNullOrEmpty(RealNameTextBox.TextBox.Text)) ||
@@ -1537,8 +1577,8 @@ namespace Client.Scenes
                     RealNameTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     RealNameTextBox.BorderColour = RealNameValid ? Color.Green : Color.Red;
-
             }
+
             private void BirthDateTextBox_TextChanged(object sender, EventArgs e)
             {
                 DateTime temp;
@@ -1548,8 +1588,8 @@ namespace Client.Scenes
                     BirthDateTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     BirthDateTextBox.BorderColour = BirthDateValid ? Color.Green : Color.Red;
-
             }
+
             private void ReferralTextBox_TextChanged(object sender, EventArgs e)
             {
                 ReferralValid = string.IsNullOrEmpty(ReferralTextBox.TextBox.Text) || (Globals.EMailRegex.IsMatch(ReferralTextBox.TextBox.Text) && ReferralTextBox.TextBox.Text.Length <= Globals.MaxEMailLength);
@@ -1558,11 +1598,12 @@ namespace Client.Scenes
                     ReferralTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     ReferralTextBox.BorderColour = ReferralValid ? Color.Green : Color.Red;
-
             }
+
             #endregion
 
             #region IDisposable
+
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
@@ -1690,6 +1731,7 @@ namespace Client.Scenes
                     _CreateAttempted = false;
                 }
             }
+
             #endregion
         }
 
@@ -1712,8 +1754,11 @@ namespace Client.Scenes
                     OnEMailValidChanged(oldValue, value);
                 }
             }
+
             private bool _EMailValid;
+
             public event EventHandler<EventArgs> EMailValidChanged;
+
             public void OnEMailValidChanged(bool oValue, bool nValue)
             {
                 EMailValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1737,8 +1782,11 @@ namespace Client.Scenes
                     OnCurrentPasswordValidChanged(oldValue, value);
                 }
             }
+
             private bool _CurrentPasswordValid;
+
             public event EventHandler<EventArgs> CurrentPasswordValidChanged;
+
             public void OnCurrentPasswordValidChanged(bool oValue, bool nValue)
             {
                 CurrentPasswordValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1762,8 +1810,11 @@ namespace Client.Scenes
                     OnNewPassword1ValidChanged(oldValue, value);
                 }
             }
+
             private bool _NewPassword1Valid;
+
             public event EventHandler<EventArgs> NewPassword1ValidChanged;
+
             public void OnNewPassword1ValidChanged(bool oValue, bool nValue)
             {
                 NewPassword1ValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1787,8 +1838,11 @@ namespace Client.Scenes
                     OnNewPassword2ValidChanged(oldValue, value);
                 }
             }
+
             private bool _NewPassword2Valid;
+
             public event EventHandler<EventArgs> NewPassword2ValidChanged;
+
             public void OnNewPassword2ValidChanged(bool oValue, bool nValue)
             {
                 NewPassword2ValidChanged?.Invoke(this, EventArgs.Empty);
@@ -1812,8 +1866,11 @@ namespace Client.Scenes
                     OnChangeAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _ChangeAttempted;
+
             public event EventHandler<EventArgs> ChangeAttemptedChanged;
+
             public void OnChangeAttemptedChanged(bool oValue, bool nValue)
             {
                 ChangeAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -1870,7 +1927,6 @@ namespace Client.Scenes
                     Size = new Size(80, DefaultHeight),
                 };
                 ChangeButton.MouseClick += (o, e) => Change();
-
 
                 EMailTextBox = new DXTextBox
                 {
@@ -1952,7 +2008,6 @@ namespace Client.Scenes
                 };
                 label.Location = new Point(NewPassword2TextBox.Location.X - label.Size.Width - 5, (NewPassword2TextBox.Size.Height - label.Size.Height) / 2 + NewPassword2TextBox.Location.Y);
 
-
                 EMailHelpLabel = new DXLabel
                 {
                     Visible = false,
@@ -1988,10 +2043,10 @@ namespace Client.Scenes
                     Hint = string.Format(CEnvir.Language.ChangePasswordNewPassword2HelpHint, Globals.MinPasswordLength, Globals.MaxPasswordLength),
                 };
                 NewPassword2HelpLabel.Location = new Point(NewPassword2TextBox.Location.X + NewPassword2TextBox.Size.Width + 2, (NewPassword2TextBox.Size.Height - NewPassword2HelpLabel.Size.Height) / 2 + NewPassword2TextBox.Location.Y);
-
             }
 
             #region Methods
+
             public void Change()
             {
                 ChangeAttempted = true;
@@ -2006,6 +2061,7 @@ namespace Client.Scenes
 
                 CEnvir.Enqueue(packet);
             }
+
             public void Clear()
             {
                 EMailTextBox.TextBox.Text = string.Empty;
@@ -2015,6 +2071,7 @@ namespace Client.Scenes
 
                 Close();
             }
+
             private void Close()
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -2057,6 +2114,7 @@ namespace Client.Scenes
                 if (ChangeButton.IsEnabled)
                     Change();
             }
+
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
                 EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
@@ -2065,8 +2123,8 @@ namespace Client.Scenes
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
-
             }
+
             private void CurrentPasswordTextBox_TextChanged(object sender, EventArgs e)
             {
                 CurrentPasswordValid = Globals.PasswordRegex.IsMatch(CurrentPasswordTextBox.TextBox.Text);
@@ -2076,6 +2134,7 @@ namespace Client.Scenes
                 else
                     CurrentPasswordTextBox.BorderColour = CurrentPasswordValid ? Color.Green : Color.Red;
             }
+
             private void NewPassword1TextBox_TextChanged(object sender, EventArgs e)
             {
                 NewPassword1Valid = !string.IsNullOrEmpty(NewPassword1TextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(NewPassword1TextBox.TextBox.Text);
@@ -2090,8 +2149,8 @@ namespace Client.Scenes
                     NewPassword2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword2TextBox.BorderColour = NewPassword2Valid ? Color.Green : Color.Red;
-
             }
+
             private void NewPassword2TextBox_TextChanged(object sender, EventArgs e)
             {
                 NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.TextBox.Text == NewPassword2TextBox.TextBox.Text;
@@ -2100,11 +2159,12 @@ namespace Client.Scenes
                     NewPassword2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword2TextBox.BorderColour = NewPassword2Valid ? Color.Green : Color.Red;
-
             }
+
             #endregion
 
             #region IDisposable
+
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
@@ -2198,6 +2258,7 @@ namespace Client.Scenes
                     _ChangeAttempted = false;
                 }
             }
+
             #endregion
         }
 
@@ -2220,8 +2281,11 @@ namespace Client.Scenes
                     OnEMailValidChanged(oldValue, value);
                 }
             }
+
             private bool _EMailValid;
+
             public event EventHandler<EventArgs> EMailValidChanged;
+
             public void OnEMailValidChanged(bool oValue, bool nValue)
             {
                 EMailValidChanged?.Invoke(this, EventArgs.Empty);
@@ -2245,8 +2309,11 @@ namespace Client.Scenes
                     OnRequestAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _RequestAttempted;
+
             public event EventHandler<EventArgs> RequestAttemptedChanged;
+
             public void OnRequestAttemptedChanged(bool oValue, bool nValue)
             {
                 RequestAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -2304,7 +2371,6 @@ namespace Client.Scenes
                 };
                 RequestButton.MouseClick += (o, e) => Request();
 
-
                 EMailTextBox = new DXTextBox
                 {
                     Location = new Point(105, 45),
@@ -2359,12 +2425,14 @@ namespace Client.Scenes
 
                 CEnvir.Enqueue(packet);
             }
+
             public void Clear()
             {
                 EMailTextBox.TextBox.Text = string.Empty;
 
                 Close();
             }
+
             private void Close()
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -2391,6 +2459,7 @@ namespace Client.Scenes
                 if (RequestButton.IsEnabled)
                     Request();
             }
+
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
                 EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
@@ -2399,8 +2468,8 @@ namespace Client.Scenes
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
-
             }
+
             private void HaveKeyLabel_MouseClick(object sender, MouseEventArgs e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -2411,9 +2480,11 @@ namespace Client.Scenes
                 scene.ResetBox.Visible = true;
                 scene.ResetBox.ResetKeyTextBox.SetFocus();
             }
+
             #endregion
 
             #region IDisposable
+
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
@@ -2464,6 +2535,7 @@ namespace Client.Scenes
                     _RequestAttempted = false;
                 }
             }
+
             #endregion
         }
 
@@ -2486,8 +2558,11 @@ namespace Client.Scenes
                     OnResetKeyValidChanged(oldValue, value);
                 }
             }
+
             private bool _ResetKeyValid;
+
             public event EventHandler<EventArgs> ResetKeyValidChanged;
+
             public void OnResetKeyValidChanged(bool oValue, bool nValue)
             {
                 ResetKeyValidChanged?.Invoke(this, EventArgs.Empty);
@@ -2511,8 +2586,11 @@ namespace Client.Scenes
                     OnNewPassword1ValidChanged(oldValue, value);
                 }
             }
+
             private bool _NewPassword1Valid;
+
             public event EventHandler<EventArgs> NewPassword1ValidChanged;
+
             public void OnNewPassword1ValidChanged(bool oValue, bool nValue)
             {
                 NewPassword1ValidChanged?.Invoke(this, EventArgs.Empty);
@@ -2536,8 +2614,11 @@ namespace Client.Scenes
                     OnNewPassword2ValidChanged(oldValue, value);
                 }
             }
+
             private bool _NewPassword2Valid;
+
             public event EventHandler<EventArgs> NewPassword2ValidChanged;
+
             public void OnNewPassword2ValidChanged(bool oValue, bool nValue)
             {
                 NewPassword2ValidChanged?.Invoke(this, EventArgs.Empty);
@@ -2561,8 +2642,11 @@ namespace Client.Scenes
                     OnResetAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _ResetAttempted;
+
             public event EventHandler<EventArgs> ResetAttemptedChanged;
+
             public void OnResetAttemptedChanged(bool oValue, bool nValue)
             {
                 ResetAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -2619,7 +2703,6 @@ namespace Client.Scenes
                     Size = new Size(80, DefaultHeight),
                 };
                 ResetButton.MouseClick += (o, e) => Reset();
-
 
                 ResetKeyTextBox = new DXTextBox
                 {
@@ -2681,7 +2764,6 @@ namespace Client.Scenes
                 };
                 label.Location = new Point(NewPassword2TextBox.Location.X - label.Size.Width - 5, (NewPassword2TextBox.Size.Height - label.Size.Height) / 2 + NewPassword2TextBox.Location.Y);
 
-
                 ResetHelpLabel = new DXLabel
                 {
                     Visible = false,
@@ -2708,10 +2790,10 @@ namespace Client.Scenes
                     Hint = string.Format(CEnvir.Language.ResetPasswordNewPassword2HelpHint, Globals.MinPasswordLength, Globals.MaxPasswordLength),
                 };
                 NewPassword2HelpLabel.Location = new Point(NewPassword2TextBox.Location.X + NewPassword2TextBox.Size.Width + 2, (NewPassword2TextBox.Size.Height - NewPassword2HelpLabel.Size.Height) / 2 + NewPassword2TextBox.Location.Y);
-
             }
 
             #region Methods
+
             public void Reset()
             {
                 ResetAttempted = true;
@@ -2725,6 +2807,7 @@ namespace Client.Scenes
 
                 CEnvir.Enqueue(packet);
             }
+
             public void Clear()
             {
                 ResetKeyTextBox.TextBox.Text = string.Empty;
@@ -2733,6 +2816,7 @@ namespace Client.Scenes
 
                 Close();
             }
+
             private void Close()
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -2769,6 +2853,7 @@ namespace Client.Scenes
                 if (ResetButton.IsEnabled)
                     Reset();
             }
+
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
                 ResetKeyValid = !string.IsNullOrEmpty(ResetKeyTextBox.TextBox.Text);
@@ -2777,8 +2862,8 @@ namespace Client.Scenes
                     ResetKeyTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     ResetKeyTextBox.BorderColour = ResetKeyValid ? Color.Green : Color.Red;
-
             }
+
             private void NewPassword1TextBox_TextChanged(object sender, EventArgs e)
             {
                 NewPassword1Valid = !string.IsNullOrEmpty(NewPassword1TextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(NewPassword1TextBox.TextBox.Text);
@@ -2788,8 +2873,8 @@ namespace Client.Scenes
                     NewPassword1TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword1TextBox.BorderColour = NewPassword1Valid ? Color.Green : Color.Red;
-
             }
+
             private void NewPassword2TextBox_TextChanged(object sender, EventArgs e)
             {
                 NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.TextBox.Text == NewPassword2TextBox.TextBox.Text;
@@ -2798,11 +2883,12 @@ namespace Client.Scenes
                     NewPassword2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword2TextBox.BorderColour = NewPassword2Valid ? Color.Green : Color.Red;
-
             }
+
             #endregion
 
             #region IDisposable
+
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
@@ -2879,12 +2965,14 @@ namespace Client.Scenes
                     _ResetAttempted = false;
                 }
             }
+
             #endregion
         }
 
         public sealed class ActivationDialog : DXWindow
         {
             #region Properties
+
             #region ActivationKeyValid
 
             public bool ActivationKeyValid
@@ -2900,8 +2988,11 @@ namespace Client.Scenes
                     OnActivationKeyValidChanged(oldValue, value);
                 }
             }
+
             private bool _ActivationKeyValid;
+
             public event EventHandler<EventArgs> ActivationKeyValidChanged;
+
             public void OnActivationKeyValidChanged(bool oValue, bool nValue)
             {
                 ActivationKeyValidChanged?.Invoke(this, EventArgs.Empty);
@@ -2925,8 +3016,11 @@ namespace Client.Scenes
                     OnActivationAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _ActivationAttempted;
+
             public event EventHandler<EventArgs> ActivationAttemptedChanged;
+
             public void OnActivationAttemptedChanged(bool oValue, bool nValue)
             {
                 ActivationAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -2985,7 +3079,6 @@ namespace Client.Scenes
                 };
                 ActivateButton.MouseClick += (o, e) => Activate();
 
-
                 ActivationKeyTextBox = new DXTextBox
                 {
                     Location = new Point(105, 45),
@@ -3027,6 +3120,7 @@ namespace Client.Scenes
             }
 
             #region Methods
+
             public void Activate()
             {
                 ActivationAttempted = true;
@@ -3039,11 +3133,13 @@ namespace Client.Scenes
 
                 CEnvir.Enqueue(packet);
             }
+
             public void Clear()
             {
                 ActivationKeyTextBox.TextBox.Text = string.Empty;
                 Close();
             }
+
             private void Close()
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -3069,6 +3165,7 @@ namespace Client.Scenes
                 if (ActivateButton.IsEnabled)
                     Activate();
             }
+
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
                 ActivationKeyValid = !string.IsNullOrEmpty(ActivationKeyTextBox.TextBox.Text);
@@ -3077,8 +3174,8 @@ namespace Client.Scenes
                     ActivationKeyTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     ActivationKeyTextBox.BorderColour = ActivationKeyValid ? Color.Green : Color.Red;
-
             }
+
             private void ResendLabel_MouseClick(object sender, MouseEventArgs e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -3089,9 +3186,11 @@ namespace Client.Scenes
                 scene.RequestActivationBox.Visible = true;
                 scene.RequestActivationBox.EMailTextBox.SetFocus();
             }
+
             #endregion
 
             #region IDisposable
+
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
@@ -3144,6 +3243,7 @@ namespace Client.Scenes
                     _ActivationAttempted = false;
                 }
             }
+
             #endregion
         }
 
@@ -3166,8 +3266,11 @@ namespace Client.Scenes
                     OnEMailValidChanged(oldValue, value);
                 }
             }
+
             private bool _EMailValid;
+
             public event EventHandler<EventArgs> EMailValidChanged;
+
             public void OnEMailValidChanged(bool oValue, bool nValue)
             {
                 EMailValidChanged?.Invoke(this, EventArgs.Empty);
@@ -3192,8 +3295,11 @@ namespace Client.Scenes
                     OnRequestAttemptedChanged(oldValue, value);
                 }
             }
+
             private bool _RequestAttempted;
+
             public event EventHandler<EventArgs> RequestAttemptedChanged;
+
             public void OnRequestAttemptedChanged(bool oValue, bool nValue)
             {
                 RequestAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -3221,6 +3327,7 @@ namespace Client.Scenes
             public override WindowType Type => WindowType.None;
             public override bool CustomSize => false;
             public override bool AutomaticVisibility => false;
+
             #endregion
 
             public RequestActivationKeyDialog()
@@ -3249,7 +3356,6 @@ namespace Client.Scenes
                     Size = new Size(80, DefaultHeight),
                 };
                 RequestButton.MouseClick += (o, e) => Request();
-
 
                 EMailTextBox = new DXTextBox
                 {
@@ -3283,6 +3389,7 @@ namespace Client.Scenes
             }
 
             #region Methods
+
             public void Request()
             {
                 RequestAttempted = true;
@@ -3295,12 +3402,14 @@ namespace Client.Scenes
 
                 CEnvir.Enqueue(packet);
             }
+
             public void Clear()
             {
                 EMailTextBox.TextBox.Text = string.Empty;
 
                 Close();
             }
+
             private void Close()
             {
                 LoginScene scene = ActiveScene as LoginScene;
@@ -3326,6 +3435,7 @@ namespace Client.Scenes
                 if (RequestButton.IsEnabled)
                     Request();
             }
+
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
                 EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
@@ -3334,11 +3444,12 @@ namespace Client.Scenes
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
-
             }
+
             #endregion
 
             #region IDisposable
+
             protected override void Dispose(bool disposing)
             {
                 base.Dispose(disposing);
@@ -3381,8 +3492,8 @@ namespace Client.Scenes
                     _RequestAttempted = false;
                 }
             }
+
             #endregion
         }
     }
 }
-

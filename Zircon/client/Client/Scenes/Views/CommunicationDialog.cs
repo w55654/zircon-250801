@@ -32,8 +32,11 @@ namespace Client.Scenes.Views
                 OnRecipientValidChanged(oldValue, value);
             }
         }
+
         private bool _RecipientValid;
+
         public event EventHandler<EventArgs> RecipientValidChanged;
+
         public void OnRecipientValidChanged(bool oValue, bool nValue)
         {
             RecipientValidChanged?.Invoke(this, EventArgs.Empty);
@@ -57,15 +60,19 @@ namespace Client.Scenes.Views
                 OnGoldValidChanged(oldValue, value);
             }
         }
+
         private bool _GoldValid;
+
         public event EventHandler<EventArgs> GoldValidChanged;
+
         public void OnGoldValidChanged(bool oValue, bool nValue)
         {
             GoldValidChanged?.Invoke(this, EventArgs.Empty);
             SendButton.Enabled = CanSend;
         }
+
         #endregion
-        
+
         #region SendAttempted
 
         public bool SendAttempted
@@ -81,14 +88,17 @@ namespace Client.Scenes.Views
                 OnSendAttemptedChanged(oldValue, value);
             }
         }
+
         private bool _SendAttempted;
+
         public event EventHandler<EventArgs> SendAttemptedChanged;
+
         public void OnSendAttemptedChanged(bool oValue, bool nValue)
         {
             SendAttemptedChanged?.Invoke(this, EventArgs.Empty);
             SendButton.Enabled = CanSend;
         }
-       
+
         #endregion
 
         #region ReadMail
@@ -104,8 +114,11 @@ namespace Client.Scenes.Views
                 OnReadMailChanged(oldValue, value);
             }
         }
+
         private ClientMailInfo _ReadMail;
+
         public event EventHandler<EventArgs> ReadMailChanged;
+
         public void OnReadMailChanged(ClientMailInfo oValue, ClientMailInfo nValue)
         {
             ReadTab.Visible = ReadMail != null;
@@ -141,7 +154,7 @@ namespace Client.Scenes.Views
 
             ReadMailChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         #endregion
 
         #region OnlineState
@@ -162,8 +175,11 @@ namespace Client.Scenes.Views
                 OnOnlineStateChanged(oldValue, value);
             }
         }
+
         private OnlineState _OnlineState;
+
         public event EventHandler<EventArgs> OnlineStateChanged;
+
         public void OnOnlineStateChanged(OnlineState oValue, OnlineState nValue)
         {
             OnlineStateChanged?.Invoke(this, EventArgs.Empty);
@@ -184,6 +200,7 @@ namespace Client.Scenes.Views
 
         //Friends
         private DXComboBox FriendOnlineStateBox, FriendViewStatusBox;
+
         private DXListBox FriendListBox;
         private DXButton FriendAddButton, FriendRemoveButton;
         private List<FriendRow> FriendListBoxItems = new List<FriendRow>();
@@ -191,6 +208,7 @@ namespace Client.Scenes.Views
 
         //Received
         private DXLabel RecievedCategoryLabel, RecievedTitleLabel, ReceivedDateLabel;
+
         private DXVScrollBar RecievedScrollBar;
         public CommunicationReceivedRow[] ReceivedRows;
         public List<ClientMailInfo> ReceivedMailList = new List<ClientMailInfo>();
@@ -198,6 +216,7 @@ namespace Client.Scenes.Views
 
         //Send Mail
         private DXTextBox SendRecipientBox, SendSubjectBox, SendMessageBox;
+
         private DXVScrollBar SendMessageScrollBar;
         private ClientUserItem[] SendMailItems;
         public DXItemGrid SendGrid;
@@ -206,6 +225,7 @@ namespace Client.Scenes.Views
 
         //Read Mail
         public DXTextBox ReadSenderBox, ReadSubjectBox, ReadDateBox;
+
         public DXControl ReadMessageContainer;
         public DXLabel ReadMessageLabel;
         public DXVScrollBar ReadMessageScrollBar;
@@ -215,6 +235,7 @@ namespace Client.Scenes.Views
 
         //Blocked
         private DXButton BlockAddButton, BlockRemoveButton;
+
         private DXListBox BlockListBox;
         private List<DXListBoxItem> BlockListBoxItems = new List<DXListBoxItem>();
 
@@ -951,7 +972,7 @@ namespace Client.Scenes.Views
                     CEnvir.Enqueue(new C.BlockAdd { Name = window.Value });
                 };
             };
-            
+
             BlockRemoveButton = new DXButton
             {
                 Label = { Text = CEnvir.Language.CommunicationDialogBlockedTabRemoveButtonLabel },
@@ -1150,7 +1171,6 @@ namespace Client.Scenes.Views
                 ReceivedTab.TabButton.InvokeMouseClick();
             };
 
-
             #endregion
         }
 
@@ -1167,11 +1187,11 @@ namespace Client.Scenes.Views
             return SendMessage(SendMessageBox.TextBox.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
         }
 
-        const int EM_GETFIRSTVISIBLELINE = 0x00CE;
-        const int EM_LINESCROLL = 0x00B6;
+        private const int EM_GETFIRSTVISIBLELINE = 0x00CE;
+        private const int EM_LINESCROLL = 0x00B6;
 
         [DllImport("user32.dll")]
-        static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         private void SetSendMessageLineIndex(int lineIndex)
         {
@@ -1620,7 +1640,7 @@ namespace Client.Scenes.Views
 
                     ReadDateBox = null;
                 }
-                
+
                 if (ReadMessageContainer != null)
                 {
                     if (!ReadMessageContainer.IsDisposed)
@@ -1642,7 +1662,7 @@ namespace Client.Scenes.Views
                         ReadMessageScrollBar.Dispose();
 
                     ReadMessageScrollBar = null;
-                }   
+                }
 
                 if (ReadReplyButton != null)
                 {
@@ -1705,7 +1725,6 @@ namespace Client.Scenes.Views
 
                 BlockListBoxItems = null;
             }
-
         }
 
         #endregion
@@ -1716,7 +1735,7 @@ namespace Client.Scenes.Views
         public DXLabel StatusLabel { get; protected set; }
 
         //Needed as default value still needs setting the first time
-        private bool _StateSet = false; 
+        private bool _StateSet = false;
 
         #region OnlineState
 
@@ -1734,8 +1753,11 @@ namespace Client.Scenes.Views
                 OnOnlineStateChanged(oldValue, value);
             }
         }
+
         private OnlineState _OnlineState;
+
         public event EventHandler<EventArgs> OnlineStateChanged;
+
         public void OnOnlineStateChanged(OnlineState oValue, OnlineState nValue)
         {
             OnlineStateChanged?.Invoke(this, EventArgs.Empty);
@@ -1756,6 +1778,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public override void UpdateColours()
         {
             if (Selected)
@@ -1774,7 +1797,7 @@ namespace Client.Scenes.Views
                 BackColour = Color.Empty;
             }
         }
-        
+
         public void UpdateStateLabel()
         {
             StatusLabel.Text = $"({OnlineState})";
@@ -1785,12 +1808,15 @@ namespace Client.Scenes.Views
                 case OnlineState.Online:
                     StatusLabel.ForeColour = Color.LimeGreen;
                     break;
+
                 case OnlineState.Away:
                     StatusLabel.ForeColour = Color.Orange;
                     break;
+
                 case OnlineState.Busy:
                     StatusLabel.ForeColour = Color.Red;
                     break;
+
                 case OnlineState.Offline:
                     StatusLabel.ForeColour = Color.Gray;
                     break;
@@ -1840,8 +1866,11 @@ namespace Client.Scenes.Views
                 OnMailChanged(oldValue, value);
             }
         }
+
         private ClientMailInfo _Mail;
+
         public event EventHandler<EventArgs> MailChanged;
+
         public void OnMailChanged(ClientMailInfo oValue, ClientMailInfo nValue)
         {
             Visible = nValue != null;
@@ -1855,6 +1884,7 @@ namespace Client.Scenes.Views
 
             MailChanged?.Invoke(this, EventArgs.Empty);
         }
+
         #endregion
 
         public DXImageControl Icon;
@@ -1913,6 +1943,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public override void OnMouseEnter()
         {
             base.OnMouseEnter();
@@ -1936,6 +1967,7 @@ namespace Client.Scenes.Views
 
             Icon.Index = Mail.Opened ? 0 : 3680;
         }
+
         #endregion
 
         #region IDisposable

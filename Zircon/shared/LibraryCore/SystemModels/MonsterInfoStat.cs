@@ -1,5 +1,4 @@
 ﻿using MirDB;
-using System.Text.Json.Serialization;
 
 namespace Library.SystemModels
 {
@@ -20,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         [IsIdentity]
@@ -36,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -51,6 +52,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 }

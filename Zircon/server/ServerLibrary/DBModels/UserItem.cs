@@ -1,9 +1,9 @@
-﻿using System;
-using System.Drawing;
-using Library;
+﻿using Library;
 using Library.SystemModels;
 using MirDB;
 using Server.Envir;
+using System;
+using System.Drawing;
 
 namespace Server.DBModels
 {
@@ -23,8 +23,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Info");
             }
         }
+
         private ItemInfo _Info;
-        
+
         public int CurrentDurability
         {
             get { return _CurrentDurability; }
@@ -38,6 +39,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CurrentDurability");
             }
         }
+
         private int _CurrentDurability;
 
         public int MaxDurability
@@ -53,6 +55,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "MaxDurability");
             }
         }
+
         private int _MaxDurability;
 
         public long Count
@@ -68,6 +71,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Count");
             }
         }
+
         private long _Count;
 
         public int Slot
@@ -83,6 +87,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Slot");
             }
         }
+
         private int _Slot;
 
         public int Level
@@ -98,6 +103,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public decimal Experience
@@ -113,6 +119,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Experience");
             }
         }
+
         private decimal _Experience;
 
         public Color Colour
@@ -128,6 +135,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Colour");
             }
         }
+
         private Color _Colour;
 
         public DateTime SpecialRepairCoolDown
@@ -143,6 +151,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "SpecialRepairCoolDown");
             }
         }
+
         private DateTime _specialRepairCoolDown;
 
         public DateTime ResetCoolDown
@@ -158,12 +167,10 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ResetCoolDown");
             }
         }
-        private DateTime _ResetCoolDown;
-        
 
+        private DateTime _ResetCoolDown;
 
         public UserQuestTask UserTask;
-
 
         [Association("Items")]
         public CharacterInfo Character
@@ -179,6 +186,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         [Association("Items")]
@@ -195,6 +203,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         [Association("Items")]
@@ -211,6 +220,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Guild");
             }
         }
+
         private GuildInfo _Guild;
 
         [Association("Items")]
@@ -227,8 +237,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Companion");
             }
         }
-        private UserCompanion _Companion;
 
+        private UserCompanion _Companion;
 
         [Association("Refine")]
         public RefineInfo Refine
@@ -244,8 +254,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Refine");
             }
         }
+
         private RefineInfo _Refine;
-        
+
         [Association("Auction")]
         public AuctionInfo Auction
         {
@@ -260,6 +271,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Auction");
             }
         }
+
         private AuctionInfo _Auction;
 
         [Association("Mail")]
@@ -276,6 +288,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Mail");
             }
         }
+
         private MailInfo _Mail;
 
         public UserItemFlags Flags
@@ -291,8 +304,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Flags");
             }
         }
+
         private UserItemFlags _Flags;
-        
+
         public TimeSpan ExpireTime
         {
             get { return _ExpireTime; }
@@ -306,10 +320,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ExpireTime");
             }
         }
+
         private TimeSpan _ExpireTime;
 
-        
-        
         [Association("AddedStats", true)]
         public DBBindingList<UserItemStat> AddedStats { get; set; }
 
@@ -323,6 +336,7 @@ namespace Server.DBModels
                     case ItemType.Poison:
                     case ItemType.Amulet:
                         return Info.Weight;
+
                     default:
                         return (int)Math.Min(int.MaxValue, Info.Weight * Count);
                 }
@@ -348,6 +362,7 @@ namespace Server.DBModels
                         Companion = null;
                     }
                     break;
+
                 case "Character":
                     if (Character != null)
                     {
@@ -359,6 +374,7 @@ namespace Server.DBModels
                         Companion = null;
                     }
                     break;
+
                 case "Refine":
                     if (Refine != null)
                     {
@@ -370,6 +386,7 @@ namespace Server.DBModels
                         Companion = null;
                     }
                     break;
+
                 case "Auction":
                     if (Auction != null)
                     {
@@ -381,6 +398,7 @@ namespace Server.DBModels
                         Companion = null;
                     }
                     break;
+
                 case "Mail":
                     if (Mail != null)
                     {
@@ -392,6 +410,7 @@ namespace Server.DBModels
                         Companion = null;
                     }
                     break;
+
                 case "Guild":
                     if (Guild != null)
                     {
@@ -403,6 +422,7 @@ namespace Server.DBModels
                         Companion = null;
                     }
                     break;
+
                 case "Companion":
                     if (Companion != null)
                     {
@@ -414,7 +434,6 @@ namespace Server.DBModels
                         Guild = null;
                     }
                     break;
-
             }
         }
 
@@ -447,6 +466,7 @@ namespace Server.DBModels
             Slot = -1;
             Level = 1;
         }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();
@@ -461,6 +481,7 @@ namespace Server.DBModels
             foreach (UserItemStat stat in AddedStats)
                 Stats[stat.Stat] += stat.Amount;
         }
+
         public void AddStat(Stat stat, int amount, StatSource source)
         {
             foreach (UserItemStat addedStat in AddedStats)
@@ -486,7 +507,7 @@ namespace Server.DBModels
         {
             return new ClientUserItem
             {
-                Index =  Index,
+                Index = Index,
 
                 InfoIndex = Info.Index,
 
@@ -494,7 +515,7 @@ namespace Server.DBModels
                 MaxDurability = MaxDurability,
 
                 Count = Count,
-                
+
                 Slot = Slot,
 
                 Level = Level,
@@ -509,7 +530,7 @@ namespace Server.DBModels
 
                 Flags = Flags,
 
-                ExpireTime =  ExpireTime,
+                ExpireTime = ExpireTime,
             };
         }
 
@@ -544,6 +565,7 @@ namespace Server.DBModels
 
             return (long)(p * count * Info.SellRate);
         }
+
         public long RepairCost(bool special)
         {
             if (Info.Durability == 0 || CurrentDurability >= MaxDurability) return 0;
@@ -555,6 +577,7 @@ namespace Server.DBModels
 
             return (long)(p * Count - Price(Count)) * rate;
         }
+
         public bool CanFragment()
         {
             if ((Flags & UserItemFlags.Worthless) == UserItemFlags.Worthless || (Flags & UserItemFlags.NonRefinable) == UserItemFlags.NonRefinable) return false;
@@ -564,8 +587,10 @@ namespace Server.DBModels
                 case Rarity.Common:
                     if (Info.RequiredAmount <= 15) return false;
                     break;
+
                 case Rarity.Superior:
                     break;
+
                 case Rarity.Elite:
                     break;
             }
@@ -580,12 +605,14 @@ namespace Server.DBModels
                 case ItemType.Ring:
                 case ItemType.Shoes:
                     break;
+
                 default:
                     return false;
             }
 
             return true;
         }
+
         public int FragmentCost()
         {
             switch (Info.Rarity)
@@ -601,12 +628,12 @@ namespace Server.DBModels
                         case ItemType.Ring:
                         case ItemType.Shoes:
                             return Info.RequiredAmount * 10000 / 9;
-                      /*  case ItemType.Helmet:
-                        case ItemType.Necklace:
-                        case ItemType.Bracelet:
-                        case ItemType.Ring:
-                        case ItemType.Shoes:
-                            return Info.RequiredAmount * 7000 / 9;*/
+                        /*  case ItemType.Helmet:
+                          case ItemType.Necklace:
+                          case ItemType.Bracelet:
+                          case ItemType.Ring:
+                          case ItemType.Shoes:
+                              return Info.RequiredAmount * 7000 / 9;*/
                         default:
                             return 0;
                     }
@@ -621,12 +648,12 @@ namespace Server.DBModels
                         case ItemType.Ring:
                         case ItemType.Shoes:
                             return Info.RequiredAmount * 10000 / 2;
-                      /*  case ItemType.Helmet:
-                        case ItemType.Necklace:
-                        case ItemType.Bracelet:
-                        case ItemType.Ring:
-                        case ItemType.Shoes:
-                            return Info.RequiredAmount * 10000 / 10;*/
+                        /*  case ItemType.Helmet:
+                          case ItemType.Necklace:
+                          case ItemType.Bracelet:
+                          case ItemType.Ring:
+                          case ItemType.Shoes:
+                              return Info.RequiredAmount * 10000 / 10;*/
                         default:
                             return 0;
                     }
@@ -636,14 +663,18 @@ namespace Server.DBModels
                         case ItemType.Weapon:
                         case ItemType.Armour:
                             return 250000;
+
                         case ItemType.Helmet:
                             return 50000;
+
                         case ItemType.Necklace:
                         case ItemType.Bracelet:
                         case ItemType.Ring:
                             return 150000;
+
                         case ItemType.Shoes:
                             return 30000;
+
                         default:
                             return 0;
                     }
@@ -651,6 +682,7 @@ namespace Server.DBModels
                     return 0;
             }
         }
+
         public int FragmentCount()
         {
             switch (Info.Rarity)
@@ -666,16 +698,20 @@ namespace Server.DBModels
                         case ItemType.Ring:
                         case ItemType.Shoes:
                             return Math.Max(1, Info.RequiredAmount / 2 + 5);
-                      /*  case ItemType.Helmet:
-                            return Math.Max(1, (Info.RequiredAmount - 30) / 6);
-                        case ItemType.Necklace:
-                            return Math.Max(1, Info.RequiredAmount / 8);
-                        case ItemType.Bracelet:
-                            return Math.Max(1, Info.RequiredAmount / 15);
-                        case ItemType.Ring:
-                            return Math.Max(1, Info.RequiredAmount / 9);
-                        case ItemType.Shoes:
-                            return Math.Max(1, (Info.RequiredAmount - 35) / 6);*/
+                        /*  case ItemType.Helmet:
+                              return Math.Max(1, (Info.RequiredAmount - 30) / 6);
+
+                          case ItemType.Necklace:
+                              return Math.Max(1, Info.RequiredAmount / 8);
+
+                          case ItemType.Bracelet:
+                              return Math.Max(1, Info.RequiredAmount / 15);
+
+                          case ItemType.Ring:
+                              return Math.Max(1, Info.RequiredAmount / 9);
+
+                          case ItemType.Shoes:
+                              return Math.Max(1, (Info.RequiredAmount - 35) / 6);*/
                         default:
                             return 0;
                     }
@@ -690,16 +726,20 @@ namespace Server.DBModels
                         case ItemType.Ring:
                         case ItemType.Shoes:
                             return Math.Max(1, Info.RequiredAmount / 2 + 5);
-                     /*   case ItemType.Helmet:
-                            return Math.Max(1, (Info.RequiredAmount - 30) / 6);
-                        case ItemType.Necklace:
-                            return Math.Max(1, Info.RequiredAmount / 10);
-                        case ItemType.Bracelet:
-                            return Math.Max(1, Info.RequiredAmount / 15);
-                        case ItemType.Ring:
-                            return Math.Max(1, Info.RequiredAmount / 10);
-                        case ItemType.Shoes:
-                            return Math.Max(1, (Info.RequiredAmount - 35) / 6);*/
+                        /*   case ItemType.Helmet:
+                               return Math.Max(1, (Info.RequiredAmount - 30) / 6);
+
+                           case ItemType.Necklace:
+                               return Math.Max(1, Info.RequiredAmount / 10);
+
+                           case ItemType.Bracelet:
+                               return Math.Max(1, Info.RequiredAmount / 15);
+
+                           case ItemType.Ring:
+                               return Math.Max(1, Info.RequiredAmount / 10);
+
+                           case ItemType.Shoes:
+                               return Math.Max(1, (Info.RequiredAmount - 35) / 6);*/
                         default:
                             return 0;
                     }
@@ -709,14 +749,18 @@ namespace Server.DBModels
                         case ItemType.Armour:
                         case ItemType.Weapon:
                             return 50;
+
                         case ItemType.Helmet:
                             return 5;
+
                         case ItemType.Necklace:
                         case ItemType.Bracelet:
                         case ItemType.Ring:
                             return 10;
+
                         case ItemType.Shoes:
                             return 3;
+
                         default:
                             return 0;
                     }
@@ -748,7 +792,6 @@ namespace Server.DBModels
                         stat.Delete();
                         break;
                 }
-
             }
 
             if (value > 0 && element != Stat.None)
@@ -756,7 +799,6 @@ namespace Server.DBModels
 
             return value;
         }
-
 
         public override string ToString()
         {

@@ -43,7 +43,9 @@ namespace PluginCore
         public Session Session { get; set; }
 
         public event EventHandler<LogEventArgs> Log;
+
         public event EventHandler<ShowViewEventArgs> View;
+
         public event EventHandler<ShowMapViewerEventArgs> MapViewer;
 
         public virtual void LogMessage(string message)

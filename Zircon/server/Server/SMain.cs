@@ -218,7 +218,6 @@ namespace Server
             else
                 TotalUploadLabel.Caption = string.Format(@"Uploaded: {0:#,##0}B", SEnvir.TotalBytesSent);
 
-
             if (SEnvir.DownloadSpeed > GB)
                 DownloadSpeedLabel.Caption = string.Format(@"D/L Speed: {0:#,##0.0}GBps", SEnvir.DownloadSpeed / GB);
             else if (SEnvir.DownloadSpeed > MB)
@@ -277,10 +276,12 @@ namespace Server
         {
             ShowView(typeof(MapInfoView));
         }
+
         private void InstanceInfoButton_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             ShowView(typeof(InstanceInfoView));
         }
+
         private void MonsterInfoButton_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             ShowView(typeof(MonsterInfoView));
@@ -294,6 +295,7 @@ namespace Server
             view.OptionsSelection.MultiSelect = true;
             view.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CellSelect;
         }
+
         private static void DeleteRows_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Delete) return;
@@ -314,6 +316,7 @@ namespace Server
             foreach (DBObject ob in objects)
                 ob?.Delete();
         }
+
         private static void PasteData_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 0x16)
@@ -334,7 +337,6 @@ namespace Server
                         view.AddNewRow();
                         string[] row = copied[i].Split('\t');
 
-
                         for (int c = 0; c < row.Length; c++)
                         {
                             if (c >= view.Columns.Count) break;
@@ -349,7 +351,6 @@ namespace Server
                                 if (tmep == null) return;
 
                                 view.SetRowCellValue(view.FocusedRowHandle, column, Session.GetObject(column.ColumnType, tmep.DisplayMember, row[c]));
-
                             }
                             else if (column.ColumnType == typeof(bool))
                                 view.SetRowCellValue(view.FocusedRowHandle, column, row[c] == "Checked");
@@ -387,7 +388,6 @@ namespace Server
                             if (tmep == null) return;
 
                             view.SetRowCellValue(rows[i], column, Session.GetObject(column.ColumnType, tmep.DisplayMember, row[c]));
-
                         }
                         else if (column.ColumnType == typeof(bool))
                             view.SetRowCellValue(rows[i], column, row[c] == "Checked");
@@ -397,7 +397,6 @@ namespace Server
                             view.SetRowCellValue(rows[i], column, row[c]);
                     }
                 }
-
             }
         }
 
@@ -441,7 +440,6 @@ namespace Server
             ShowView(typeof(MovementInfoView));
         }
 
-
         private void ItemInfoStatButton_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             ShowView(typeof(ItemInfoStatView));
@@ -450,7 +448,6 @@ namespace Server
         private void SetInfoButton_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
         {
             ShowView(typeof(SetInfoView));
-
         }
 
         private void StoreInfoButton_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)
@@ -463,10 +460,8 @@ namespace Server
             ShowView(typeof(BaseStatView));
         }
 
-
-
-
         #region Idle Check
+
         private static bool AppStillIdle
         {
             get
@@ -475,7 +470,6 @@ namespace Server
                 return !PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
             }
         }
-
 
         [SuppressUnmanagedCodeSecurity]
         [DllImport("User32.dll", CharSet = CharSet.Auto)]
@@ -492,6 +486,7 @@ namespace Server
             private readonly uint time;
             private readonly Point p;
         }
+
         #endregion
 
         private void SafeZoneInfoButton_LinkClicked(object sender, DevExpress.XtraNavBar.NavBarLinkEventArgs e)

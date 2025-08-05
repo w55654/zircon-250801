@@ -1,5 +1,4 @@
-﻿using System;
-using Library;
+﻿using Library;
 using Server.Envir;
 using S = Library.Network.ServerPackets;
 
@@ -41,7 +40,6 @@ namespace Server.Models.Monsters
                 SEnvir.Now.AddMilliseconds(600),
                 ActionType.Function));
         }
-
 
         public override bool SpawnMinion(MonsterObject mob)
         {

@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Drawing;
 
 namespace Server.Models.Monsters
 {
-    public class JinamStoneGate :MonsterObject
+    public class JinamStoneGate : MonsterObject
     {
         public override bool CanMove => false;
         public override bool CanAttack => false;
 
         public DateTime DespawnTime;
-
 
         public JinamStoneGate()
         {
@@ -31,13 +26,11 @@ namespace Server.Models.Monsters
         {
             base.OnSpawned();
 
-
             DespawnTime = SEnvir.Now.AddMinutes(20);
 
             foreach (SConnection con in SEnvir.Connections)
                 con.ReceiveChat(string.Format(con.Language.LairGateOpen, CurrentMap.Info.Description, CurrentLocation), MessageType.System);
-
-           }
+        }
 
         public override void Process()
         {
@@ -84,13 +77,12 @@ namespace Server.Models.Monsters
 
                             ob.Teleport(map, SEnvir.LairMapRegion.PointList[SEnvir.Random.Next(SEnvir.LairMapRegion.PointList.Count)]);
                             break;
+
                         default:
                             continue;
                     }
-
                 }
             }
-
         }
 
         public override void ProcessSearch()
@@ -101,6 +93,7 @@ namespace Server.Models.Monsters
         {
             return 0;
         }
+
         public override bool ApplyPoison(Poison p)
         {
             return false;

@@ -12,13 +12,13 @@ using System.Windows.Forms;
 
 namespace Client
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Console.WriteLine($"当前app路径: {AppInfo.AppPath}");
 
@@ -37,7 +37,7 @@ namespace Client
             ConfigReader.Save(typeof(Config).Assembly);
         }
 
-        static void Init()
+        private static void Init()
         {
             Application.EnableVisualStyles();
             Application.SetHighDpiMode(HighDpiMode.SystemAware);

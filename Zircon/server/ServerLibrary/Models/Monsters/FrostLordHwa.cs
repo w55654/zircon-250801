@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 
 namespace Server.Models.Monsters
 {
@@ -21,21 +17,27 @@ namespace Server.Models.Monsters
                 case DayOfWeek.Monday:
                     Affinity = Stat.FireAffinity;
                     break;
+
                 case DayOfWeek.Tuesday:
                     Affinity = Stat.IceAffinity;
                     break;
+
                 case DayOfWeek.Wednesday:
                     Affinity = Stat.LightningAffinity;
                     break;
+
                 case DayOfWeek.Thursday:
                     Affinity = Stat.WindAffinity;
                     break;
+
                 case DayOfWeek.Friday:
                     Affinity = Stat.HolyAffinity;
                     break;
+
                 case DayOfWeek.Saturday:
                     Affinity = Stat.DarkAffinity;
                     break;
+
                 case DayOfWeek.Sunday:
                     Affinity = Stat.PhantomAffinity;
                     break;
@@ -52,7 +54,6 @@ namespace Server.Models.Monsters
         public override void ProcessAI()
         {
             base.ProcessAI();
-
 
             if (Dead) return;
 
@@ -96,9 +97,6 @@ namespace Server.Models.Monsters
                         TickCount = 1,
                     });
                 }
-
-
-
             }
         }
 
@@ -130,7 +128,6 @@ namespace Server.Models.Monsters
                     TeleportTime = SEnvir.Now.AddSeconds(5);
                 }
             }
-            
 
             if (Target.Race == ObjectType.Monster)
             {
@@ -140,6 +137,5 @@ namespace Server.Models.Monsters
 
             base.ProcessTarget();
         }
-
     }
 }

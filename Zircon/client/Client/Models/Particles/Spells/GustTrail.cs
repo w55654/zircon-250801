@@ -43,7 +43,6 @@ namespace Client.Models.Particles
 
                 return new Particle(Library, texture, opacity, position, direction16, velocity, startingAngle, angularVelocity, Color, scale, scaleRate, ttl, fade, fadeRate);
             }
-
         }
 
         public GustTrail(MirEffect owner) : base(owner)

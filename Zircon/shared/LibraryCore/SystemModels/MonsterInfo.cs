@@ -19,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MonsterName");
             }
         }
+
         private string _MonsterName;
 
         public MonsterImage Image
@@ -34,6 +35,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Image");
             }
         }
+
         private MonsterImage _Image;
 
         public int AI
@@ -49,6 +51,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AI");
             }
         }
+
         private int _AI;
 
         public int Level
@@ -64,6 +67,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public int ViewRange
@@ -79,6 +83,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ViewRange");
             }
         }
+
         private int _ViewRange;
 
         public int CoolEye
@@ -94,6 +99,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CoolEye");
             }
         }
+
         private int _CoolEye;
 
         public decimal Experience
@@ -109,6 +115,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Experience");
             }
         }
+
         private decimal _Experience;
 
         public bool Undead
@@ -124,8 +131,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Undead");
             }
         }
-        private bool _Undead;
 
+        private bool _Undead;
 
         public bool CanPush
         {
@@ -140,6 +147,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanPush");
             }
         }
+
         private bool _CanPush;
 
         public bool CanTame
@@ -155,8 +163,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanTame");
             }
         }
+
         private bool _CanTame;
-        
 
         public int AttackDelay
         {
@@ -171,6 +179,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AttackDelay");
             }
         }
+
         private int _AttackDelay;
 
         public int MoveDelay
@@ -186,6 +195,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MoveDelay");
             }
         }
+
         private int _MoveDelay;
 
         public bool IsBoss
@@ -201,6 +211,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IsBoss");
             }
         }
+
         private bool _IsBoss;
 
         public MonsterFlag Flag
@@ -216,6 +227,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Flag");
             }
         }
+
         private MonsterFlag _Flag;
 
         public int FaceImage
@@ -231,8 +243,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FaceImage");
             }
         }
-        private int _FaceImage;
 
+        private int _FaceImage;
 
         /*
         public MonsterEffect Effect
@@ -249,7 +261,6 @@ namespace Library.SystemModels
             }
         }
         private MonsterEffect _Effect;*/
-
 
         [Association("MonsterInfoStats", true)]
         public DBBindingList<MonsterInfoStat> MonsterInfoStats { get; set; }

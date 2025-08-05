@@ -13,7 +13,6 @@ namespace Server.Models.Magics
 
         public LightningBall(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetShock(int shock, Stats stats = null)

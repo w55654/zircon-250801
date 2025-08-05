@@ -1,7 +1,5 @@
 ﻿using Library;
-using Library.Network.ClientPackets;
 using Server.DBModels;
-using Server.Envir;
 
 namespace Server.Models.Magics
 {
@@ -12,7 +10,6 @@ namespace Server.Models.Magics
 
         public PotionMastery(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
     }
 }

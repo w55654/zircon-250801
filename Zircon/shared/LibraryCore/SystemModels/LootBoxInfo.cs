@@ -1,5 +1,4 @@
 ﻿using MirDB;
-using System;
 
 namespace Library.SystemModels
 {
@@ -19,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public CurrencyInfo Currency
@@ -34,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Currency");
             }
         }
+
         private CurrencyInfo _Currency;
 
         [Association("Contents", true)]
@@ -69,6 +70,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "LootBox");
             }
         }
+
         private LootBoxInfo _LootBox;
 
         public ItemInfo Item
@@ -84,6 +86,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Amount
@@ -99,6 +102,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount = 1;
     }
 }

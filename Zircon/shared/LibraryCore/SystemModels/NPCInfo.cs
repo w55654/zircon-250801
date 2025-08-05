@@ -20,6 +20,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Region");
             }
         }
+
         private MapRegion _Region;
 
         [IsIdentity]
@@ -36,6 +37,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NPCName");
             }
         }
+
         private string _NPCName;
 
         public int Image
@@ -51,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Image");
             }
         }
+
         private int _Image;
 
         public int FaceImage
@@ -66,6 +69,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FaceImage");
             }
         }
+
         private int _FaceImage;
 
         public MapIcon MapIcon
@@ -81,6 +85,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MapIcon");
             }
         }
+
         private MapIcon _MapIcon;
 
         public NPCPage EntryPage
@@ -96,6 +101,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "EntryPage");
             }
         }
+
         private NPCPage _EntryPage;
 
         [JsonIgnore]
@@ -145,6 +151,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public NPCDialogType DialogType
@@ -160,6 +167,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DialogType");
             }
         }
+
         private NPCDialogType _DialogType;
 
         public string Say
@@ -175,6 +183,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Say");
             }
         }
+
         private string _Say;
 
         public NPCPage SuccessPage
@@ -190,6 +199,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SuccessPage");
             }
         }
+
         private NPCPage _SuccessPage;
 
         public string Arguments
@@ -205,6 +215,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Arguments");
             }
         }
+
         private string _Arguments;
 
         public CurrencyInfo Currency
@@ -220,6 +231,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Currency");
             }
         }
+
         private CurrencyInfo _Currency;
 
         [Association("Checks", true)]
@@ -257,8 +269,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Page");
             }
         }
-        private NPCPage _Page;
 
+        private NPCPage _Page;
 
         public ItemInfo Item
         {
@@ -273,6 +285,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public decimal Rate
@@ -288,8 +301,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Rate");
             }
         }
-        private decimal _Rate;
 
+        private decimal _Rate;
 
         protected internal override void OnCreated()
         {
@@ -319,6 +332,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Page");
             }
         }
+
         private NPCPage _Page;
 
         public ItemType ItemType
@@ -334,6 +348,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemType");
             }
         }
+
         private ItemType _ItemType;
     }
 
@@ -353,6 +368,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Page");
             }
         }
+
         private NPCPage _Page;
 
         public NPCCheckType CheckType
@@ -368,6 +384,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CheckType");
             }
         }
+
         private NPCCheckType _CheckType;
 
         public Operator Operator
@@ -383,6 +400,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Operator");
             }
         }
+
         private Operator _Operator;
 
         public string StringParameter1
@@ -398,6 +416,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StringParameter1");
             }
         }
+
         private string _StringParameter1;
 
         public int IntParameter1
@@ -413,6 +432,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IntParameter1");
             }
         }
+
         private int _IntParameter1;
 
         public int IntParameter2
@@ -428,6 +448,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IntParameter2");
             }
         }
+
         private int _IntParameter2;
 
         public ItemInfo ItemParameter1
@@ -443,8 +464,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemParameter1");
             }
         }
-        private ItemInfo _ItemParameter1;
 
+        private ItemInfo _ItemParameter1;
 
         public Stat StatParameter1
         {
@@ -459,6 +480,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StatParameter1");
             }
         }
+
         private Stat _StatParameter1;
 
         public NPCPage FailPage
@@ -474,6 +496,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FailPage");
             }
         }
+
         private NPCPage _FailPage;
     }
 
@@ -493,6 +516,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Page");
             }
         }
+
         private NPCPage _Page;
 
         public NPCActionType ActionType
@@ -508,6 +532,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ActionType");
             }
         }
+
         private NPCActionType _ActionType;
 
         public string StringParameter1
@@ -523,6 +548,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StringParameter1");
             }
         }
+
         private string _StringParameter1;
 
         public int IntParameter1
@@ -538,6 +564,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IntParameter1");
             }
         }
+
         private int _IntParameter1;
 
         public int IntParameter2
@@ -553,6 +580,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IntParameter2");
             }
         }
+
         private int _IntParameter2;
 
         public ItemInfo ItemParameter1
@@ -568,8 +596,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemParameter1");
             }
         }
+
         private ItemInfo _ItemParameter1;
-        
+
         public MapInfo MapParameter1
         {
             get { return _MapParameter1; }
@@ -583,8 +612,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MapParameter1");
             }
         }
-        private MapInfo _MapParameter1;
 
+        private MapInfo _MapParameter1;
 
         public InstanceInfo InstanceParameter1
         {
@@ -599,6 +628,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "InstanceParameter1");
             }
         }
+
         private InstanceInfo _InstanceParameter1;
 
         public Stat StatParameter1
@@ -614,6 +644,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StatParameter1");
             }
         }
+
         private Stat _StatParameter1;
     }
 
@@ -633,6 +664,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Page");
             }
         }
+
         private NPCPage _Page;
 
         public int ButtonID
@@ -648,6 +680,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ButtonID");
             }
         }
+
         private int _ButtonID;
 
         public NPCPage DestinationPage
@@ -663,6 +696,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DestinationPage");
             }
         }
+
         private NPCPage _DestinationPage;
     }
 
@@ -682,6 +716,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NPC");
             }
         }
+
         private NPCInfo _NPC;
 
         public NPCRequirementType Requirement
@@ -697,6 +732,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Requirement");
             }
         }
+
         private NPCRequirementType _Requirement;
 
         public int IntParameter1
@@ -712,6 +748,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "IntParameter1");
             }
         }
+
         private int _IntParameter1;
 
         public QuestInfo QuestParameter
@@ -727,6 +764,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "QuestParameter");
             }
         }
+
         private QuestInfo _QuestParameter;
 
         public RequiredClass Class
@@ -742,6 +780,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private RequiredClass _Class;
 
         public DaysOfWeek DaysOfWeek
@@ -757,9 +796,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DaysOfWeek");
             }
         }
+
         private DaysOfWeek _DayOfWeek;
     }
-
 
     public sealed class NPCValue : DBObject
     {
@@ -777,6 +816,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Page");
             }
         }
+
         private NPCPage _Page;
 
         public int ValueID
@@ -792,6 +832,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ValueID");
             }
         }
+
         private int _ValueID;
 
         public NPCValueType ValueType
@@ -807,6 +848,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ValueType");
             }
         }
+
         private NPCValueType _ValueType;
 
         public string DataCategory
@@ -822,6 +864,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DataCategory");
             }
         }
+
         private string _DataCategory;
 
         public NPCDataType DataType
@@ -837,6 +880,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DataType");
             }
         }
+
         private NPCDataType _DataType;
 
         public NPCFieldType FieldType
@@ -852,6 +896,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FieldType");
             }
         }
+
         private NPCFieldType _FieldType;
     }
 
@@ -962,7 +1007,7 @@ namespace Library.SystemModels
 
         Name = 1,
         GuildName = 2,
-        
+
         FameCost = 100
     }
 }

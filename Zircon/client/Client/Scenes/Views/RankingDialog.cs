@@ -33,12 +33,15 @@ namespace Client.Scenes.Views
                 OnStartIndexChanged(oldValue, value);
             }
         }
+
         private int _StartIndex;
+
         public event EventHandler<EventArgs> StartIndexChanged;
+
         public void OnStartIndexChanged(int oValue, int nValue)
         {
             UpdateTime = CEnvir.Now.AddMilliseconds(250);
-            
+
             if (nValue > oValue)
                 for (int i = 0; i < Lines.Length; i++)
                 {
@@ -53,7 +56,6 @@ namespace Client.Scenes.Views
                     }
                     else
                         Lines[i].Loading = true;
-
                 }
             else
                 for (int i = Lines.Length - 1; i >= 0; i--)
@@ -61,15 +63,13 @@ namespace Client.Scenes.Views
                     if (nValue - oValue + i >= 0)
                     {
                         if (Lines[i + nValue - oValue].Rank != null)
-                        Lines[i].Rank = Lines[i + nValue - oValue].Rank;
+                            Lines[i].Rank = Lines[i + nValue - oValue].Rank;
                         else
                             Lines[i].Loading = true;
                     }
                     else
                         Lines[i].Loading = true;
                 }
-
-
 
             StartIndexChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -91,8 +91,11 @@ namespace Client.Scenes.Views
                 OnFilterClassChanged(oldValue, value);
             }
         }
+
         private RequiredClass _FilterClass;
+
         public event EventHandler<EventArgs> FilterClassChanged;
+
         public void OnFilterClassChanged(RequiredClass oValue, RequiredClass nValue)
         {
             ScrollBar.Value = 0;
@@ -121,8 +124,11 @@ namespace Client.Scenes.Views
                 OnOnlineOnlyChanged(oldValue, value);
             }
         }
+
         private bool _OnlineOnly;
+
         public event EventHandler<EventArgs> OnlineOnlyChanged;
+
         public void OnOnlineOnlyChanged(bool oValue, bool nValue)
         {
             ScrollBar.Value = 0;
@@ -131,12 +137,10 @@ namespace Client.Scenes.Views
             foreach (RankingLine line in Lines)
                 line.Loading = true;
 
-
             OnlineOnlyChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
-
 
         #region AllowObservation
 
@@ -153,8 +157,11 @@ namespace Client.Scenes.Views
                 OnAllowObservationChanged(oldValue, value);
             }
         }
+
         private bool _AllowObservation;
+
         public event EventHandler<EventArgs> AllowObservationChanged;
+
         public void OnAllowObservationChanged(bool oValue, bool nValue)
         {
             ObservableBox.Visible = nValue;
@@ -180,8 +187,11 @@ namespace Client.Scenes.Views
                 OnObserverableChanged(oldValue, value);
             }
         }
+
         private bool _Observable;
+
         public event EventHandler<EventArgs> ObserverableChanged;
+
         public void OnObserverableChanged(bool oValue, bool nValue)
         {
             ObservableBox.Checked = nValue;
@@ -206,8 +216,11 @@ namespace Client.Scenes.Views
                 OnSelectedRowChanged(oldValue, value);
             }
         }
+
         private RankingLine _SelectedRow;
+
         public event EventHandler<EventArgs> SelectedRowChanged;
+
         public void OnSelectedRowChanged(RankingLine oValue, RankingLine nValue)
         {
             if (oValue != null)
@@ -337,7 +350,7 @@ namespace Client.Scenes.Views
         #endregion
 
         public RankingDialog(bool fullRanking = false)
-        {   
+        {
             Index = fullRanking ? 211 : 210;
             LibraryFile = LibraryFile.Interface;
             Size = new Size(fullRanking ? 576 : 330, 456);
@@ -710,7 +723,6 @@ namespace Client.Scenes.Views
                 };
             }
 
-
             #endregion
 
             #region Ranking
@@ -732,6 +744,7 @@ namespace Client.Scenes.Views
                         if (SearchButton != null && !SearchButton.IsDisposed)
                             SearchButton.InvokeMouseClick();
                         break;
+
                     default: return;
                 }
                 e.Handled = true;
@@ -839,7 +852,7 @@ namespace Client.Scenes.Views
             };
             RequiredClassBox.SelectedItemChanged += (o, e) =>
             {
-                FilterClass = (RequiredClass?) RequiredClassBox.SelectedItem ?? RequiredClass.All;
+                FilterClass = (RequiredClass?)RequiredClassBox.SelectedItem ?? RequiredClass.All;
                 Config.RankingClass = (int)FilterClass;
                 SelectedRow = null;
             };
@@ -914,7 +927,7 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.ObservableSwitch { Allow = !Observable });
             };
             ObservableBox.Location = new Point(OnlineOnlyBox.Location.X + OnlineOnlyBox.Size.Width + 5, 38);
-            
+
             LastUpdate = new DXLabel
             {
                 Parent = this,
@@ -967,6 +980,7 @@ namespace Client.Scenes.Views
                 case MirGender.Male:
                     library.Draw(0, InspectPanel.DisplayArea.X + x, InspectPanel.DisplayArea.Y + y, Color.White, true, 1F, ImageType.Image);
                     break;
+
                 case MirGender.Female:
                     library.Draw(1, InspectPanel.DisplayArea.X + x, InspectPanel.DisplayArea.Y + y, Color.White, true, 1F, ImageType.Image);
                     break;
@@ -1047,17 +1061,20 @@ namespace Client.Scenes.Views
                             case MirGender.Male:
                                 library.Draw(60 + HairType - 1, InspectPanel.DisplayArea.X + x, InspectPanel.DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
+
                             case MirGender.Female:
                                 library.Draw(80 + HairType - 1, InspectPanel.DisplayArea.X + x, InspectPanel.DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
                         }
                         break;
+
                     case MirClass.Assassin:
                         switch (Gender)
                         {
                             case MirGender.Male:
                                 library.Draw(1100 + HairType - 1, InspectPanel.DisplayArea.X + x, InspectPanel.DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
+
                             case MirGender.Female:
                                 library.Draw(1120 + HairType - 1, InspectPanel.DisplayArea.X + x, InspectPanel.DisplayArea.Y + y, HairColour, true, 1F, ImageType.Image);
                                 break;
@@ -1406,7 +1423,6 @@ namespace Client.Scenes.Views
                     Grid = null;
                 }
             }
-
         }
 
         #endregion
@@ -1431,8 +1447,11 @@ namespace Client.Scenes.Views
                 OnRankChanged(oldValue, value);
             }
         }
+
         private RankInfo _Rank;
+
         public event EventHandler<EventArgs> RankChanged;
+
         public void OnRankChanged(RankInfo oValue, RankInfo nValue)
         {
             if (Rank == null)
@@ -1463,7 +1482,8 @@ namespace Client.Scenes.Views
                     ChangeLabel.Text = " - ";
                     ChangeLabel.ForeColour = Color.White;
                 }
-                else {
+                else
+                {
                     ChangeLabel.Text = $"{(change > 0 ? "▲" : "▼")}{Math.Abs(Rank.RankChange)}";
                     ChangeLabel.ForeColour = change > 0 ? Color.OrangeRed : Color.DodgerBlue;
                 }
@@ -1496,8 +1516,11 @@ namespace Client.Scenes.Views
                 OnLoadingChanged(oldValue, value);
             }
         }
+
         private bool _Loading;
+
         public event EventHandler<EventArgs> LoadingChanged;
+
         public void OnLoadingChanged(bool oValue, bool nValue)
         {
             if (!Loading)
@@ -1536,8 +1559,11 @@ namespace Client.Scenes.Views
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             BackColour = Selected ? Color.FromArgb(50, 255, 16, 16) : Color.Empty;
@@ -1703,5 +1729,4 @@ namespace Client.Scenes.Views
 
         #endregion
     }
-
 }

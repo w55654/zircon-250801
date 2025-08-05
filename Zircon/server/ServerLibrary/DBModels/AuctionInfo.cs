@@ -20,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         [Association("Auction")]
@@ -36,6 +37,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private UserItem _Item;
 
         public CharacterInfo Character
@@ -51,8 +53,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
-        
+
         public int Price
         {
             get { return _Price; }
@@ -66,6 +69,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Price");
             }
         }
+
         private int _Price;
 
         public string Message
@@ -81,6 +85,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Message");
             }
         }
+
         private string _Message;
 
         protected override void OnDeleted()
@@ -91,7 +96,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         public ClientMarketPlaceInfo ToClientInfo(AccountInfo account)
         {
@@ -110,8 +114,6 @@ namespace Server.DBModels
                 Price = Price,
             };
         }
-
-
 
         public override string ToString()
         {

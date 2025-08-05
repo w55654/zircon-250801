@@ -1,7 +1,5 @@
 ﻿using Library;
 using Server.Envir;
-using S = Library.Network.ServerPackets;
-
 
 namespace Server.Models.Monsters
 {
@@ -16,8 +14,6 @@ namespace Server.Models.Monsters
             return Target.CurrentLocation != CurrentLocation && Functions.InRange(CurrentLocation, Target.CurrentLocation, 2);
         }
 
-
-
         public override void ProcessTarget()
         {
             if (Target == null) return;
@@ -30,10 +26,9 @@ namespace Server.Models.Monsters
                         RangeAttack();
                 }
 
-
                 if (CurrentLocation == Target.CurrentLocation)
                 {
-                    MirDirection direction = (MirDirection) SEnvir.Random.Next(8);
+                    MirDirection direction = (MirDirection)SEnvir.Random.Next(8);
                     int rotation = SEnvir.Random.Next(2) == 0 ? 1 : -1;
 
                     for (int d = 0; d < 8; d++)
@@ -64,12 +59,15 @@ namespace Server.Models.Monsters
                 case 0:
                     AttackMagic(MagicType.IceBlades, Element.Ice, true);
                     break;
+
                 case 1:
                     LineAoE(10, -2, 2, MagicType.GreaterFrozenEarth, Element.Ice);
                     break;
+
                 case 2:
                     AttackAoE(2, MagicType.IceStorm, Element.Ice);
                     break;
+
                 case 3:
                     AttackAoE(3, MagicType.SamaGuardianIce, Element.Ice);
                     break;

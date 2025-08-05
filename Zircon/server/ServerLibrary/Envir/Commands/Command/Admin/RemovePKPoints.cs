@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class RemovePKPoints : AbstractParameterizedCommand<IAdminCommand>
+    internal class RemovePKPoints : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "REMOVEPKPOINTS";
         public override int PARAMS_LENGTH => 2;

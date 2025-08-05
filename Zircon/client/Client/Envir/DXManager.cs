@@ -47,6 +47,7 @@ namespace Client.Envir
 
         public static byte[] PalleteData;
         private static Texture _ColourPallete;
+
         public static Texture ColourPallete
         {
             get
@@ -74,6 +75,7 @@ namespace Client.Envir
 
         public static byte[] LightData;
         private static Texture _LightTexture;
+
         public static Texture LightTexture
         {
             get
@@ -86,6 +88,7 @@ namespace Client.Envir
         }
 
         private static Surface _LightSurface;
+
         public static Surface LightSurface
         {
             get
@@ -104,7 +107,6 @@ namespace Client.Envir
             Graphics = Graphics.FromHwnd(IntPtr.Zero);
             ConfigureGraphics(Graphics);
         }
-
 
         public static void Create()
         {
@@ -294,6 +296,7 @@ namespace Client.Envir
             for (int i = TextureList.Count - 1; i >= 0; i--)
                 TextureList[i].DisposeTexture();
         }
+
         public static void MemoryClear()
         {
             for (int i = ControlList.Count - 1; i >= 0; i--)
@@ -345,6 +348,7 @@ namespace Client.Envir
             CurrentSurface = surface;
             Device.SetRenderTarget(0, surface);
         }
+
         public static void SetOpacity(float opacity)
         {
             if (Opacity == opacity)
@@ -372,6 +376,7 @@ namespace Client.Envir
             Opacity = opacity;
             Sprite.Flush();
         }
+
         public static void SetBlend(bool value, float rate = 1F, BlendMode mode = BlendMode.NORMAL)
         {
             if (Blending == value && BlendRate == rate && BlendMode == mode) return;
@@ -397,22 +402,27 @@ namespace Client.Envir
                         Device.SetRenderState(RenderState.SourceBlend, Blend.BlendFactor);
                         Device.SetRenderState(RenderState.DestinationBlend, Blend.InverseSourceColor);
                         break;
+
                     case BlendMode.COLORFY:
                         Device.SetRenderState(RenderState.SourceBlend, Blend.SourceAlpha);
                         Device.SetRenderState(RenderState.DestinationBlend, Blend.One);
                         break;
+
                     case BlendMode.MASK:
                         Device.SetRenderState(RenderState.SourceBlend, Blend.Zero);
                         Device.SetRenderState(RenderState.DestinationBlend, Blend.InverseSourceAlpha);
                         break;
+
                     case BlendMode.EFFECTMASK:
                         Device.SetRenderState(RenderState.SourceBlend, Blend.DestinationAlpha);
                         Device.SetRenderState(RenderState.DestinationBlend, Blend.One);
                         break;
+
                     case BlendMode.HIGHLIGHT:
                         Device.SetRenderState(RenderState.SourceBlend, Blend.BlendFactor);
                         Device.SetRenderState(RenderState.DestinationBlend, Blend.One);
                         break;
+
                     default:
                         Device.SetRenderState(RenderState.SourceBlend, Blend.InverseDestinationColor);
                         Device.SetRenderState(RenderState.DestinationBlend, Blend.One);
@@ -428,6 +438,7 @@ namespace Client.Envir
 
             Device.SetRenderTarget(0, CurrentSurface);
         }
+
         public static void SetColour(int colour)
         {
             Sprite.Flush();
@@ -439,7 +450,6 @@ namespace Client.Envir
             }
             else
             {
-
                 Device.SetTextureStageState(0, TextureStage.ColorOperation, TextureOperation.SelectArg1);
                 Device.SetTextureStageState(0, TextureStage.ColorArg1, TextureArgument.Current);
             }
@@ -463,6 +473,7 @@ namespace Client.Envir
             Device.Reset(Parameters);
             LoadTextures();
         }
+
         public static void AttemptReset()
         {
             try
@@ -486,6 +497,7 @@ namespace Client.Envir
                 CEnvir.SaveException(ex);
             }
         }
+
         public static void AttemptRecovery()
         {
             try

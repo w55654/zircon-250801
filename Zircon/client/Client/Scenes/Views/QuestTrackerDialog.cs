@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -14,6 +14,7 @@ namespace Client.Scenes.Views
     public sealed class QuestTrackerDialog : DXWindow
     {
         #region Properties
+
         public List<DXLabel> Lines = new List<DXLabel>();
 
         private DXVScrollBar ScrollBar;
@@ -31,7 +32,7 @@ namespace Client.Scenes.Views
             ScrollBar.HideWhenNoScroll = true;
 
             TextPanel.Location = new Point(0, ResizeBuffer);
-            TextPanel.Size = new Size(Size.Width - ScrollBar.Size.Width - 1 - ResizeBuffer , Size.Height - ResizeBuffer * 2);
+            TextPanel.Size = new Size(Size.Width - ScrollBar.Size.Width - 1 - ResizeBuffer, Size.Height - ResizeBuffer * 2);
 
             ScrollBar.VisibleSize = TextPanel.Size.Height;
             ScrollBar.Location = new Point(Size.Width - ScrollBar.Size.Width - ResizeBuffer, ResizeBuffer);
@@ -52,10 +53,10 @@ namespace Client.Scenes.Views
             this.Opacity = 0.0F;
         }
 
-
         public override WindowType Type => WindowType.QuestTrackerBox;
         public override bool CustomSize => true;
         public override bool AutomaticVisibility => true;
+
         #endregion
 
         public QuestTrackerDialog()
@@ -125,7 +126,6 @@ namespace Client.Scenes.Views
                     IsControl = false,
                     Location = new Point(15, Lines.Count * 15)
                 };
-                
 
                 DXAnimatedControl QuestIcon = new DXAnimatedControl
                 {
@@ -157,18 +157,23 @@ namespace Client.Scenes.Views
                     case QuestType.General:
                         startIndex = 16;
                         break;
+
                     case QuestType.Daily:
                         startIndex = 76;
                         break;
+
                     case QuestType.Weekly:
                         startIndex = 76;
                         break;
+
                     case QuestType.Repeatable:
                         startIndex = 16;
                         break;
+
                     case QuestType.Story:
                         startIndex = 56;
                         break;
+
                     case QuestType.Account:
                         startIndex = 36;
                         break;
@@ -179,16 +184,17 @@ namespace Client.Scenes.Views
                     case Library.QuestIcon.New:
                         startIndex += 0;
                         break;
+
                     case Library.QuestIcon.Incomplete:
                         startIndex = 2;
                         break;
+
                     case Library.QuestIcon.Complete:
                         startIndex += 2;
                         break;
                 }
 
                 QuestIcon.BaseIndex = startIndex;
-
 
                 if (userQuest.IsComplete)
                 {
@@ -235,13 +241,13 @@ namespace Client.Scenes.Views
                     }
                 }
             }
-            
 
             Visible = Lines.Count > 0;
             UpdateScrollBar();
         }
+
         #endregion
-        
+
         #region IDisposable
 
         protected override void Dispose(bool disposing)
@@ -282,7 +288,6 @@ namespace Client.Scenes.Views
                     TextPanel = null;
                 }
             }
-
         }
 
         #endregion

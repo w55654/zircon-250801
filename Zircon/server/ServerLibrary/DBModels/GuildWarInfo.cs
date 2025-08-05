@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
+using System;
 
 namespace Server.DBModels
 {
-
     [UserObject]
     public sealed class GuildWarInfo : DBObject
     {
@@ -24,6 +19,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Guild1");
             }
         }
+
         private GuildInfo _Guild1;
 
         public GuildInfo Guild2
@@ -39,8 +35,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Guild2");
             }
         }
+
         private GuildInfo _Guild2;
-        
+
         public TimeSpan Duration
         {
             get { return _Duration; }
@@ -54,6 +51,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Duration");
             }
         }
+
         private TimeSpan _Duration;
     }
 }

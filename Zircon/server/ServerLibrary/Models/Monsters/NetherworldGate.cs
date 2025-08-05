@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Drawing;
 
 namespace Server.Models.Monsters
 {
@@ -11,7 +11,6 @@ namespace Server.Models.Monsters
         public override bool CanAttack => false;
 
         public DateTime DespawnTime;
-        
 
         public NetherworldGate()
         {
@@ -77,16 +76,14 @@ namespace Server.Models.Monsters
 
                             if (ob.Dead || !Functions.InRange(ob.CurrentLocation, CurrentLocation, MonsterInfo.ViewRange)) continue;
 
-
                             ob.Teleport(map, SEnvir.MysteryShipMapRegion.PointList[SEnvir.Random.Next(SEnvir.MysteryShipMapRegion.PointList.Count)]);
                             break;
+
                         default:
                             continue;
                     }
-
                 }
             }
-
         }
 
         public override void ProcessSearch()
@@ -100,6 +97,7 @@ namespace Server.Models.Monsters
             Activated = true;
             SEnvir.ActiveObjects.Add(this);
         }
+
         public override void DeActivate()
         {
             return;
@@ -109,6 +107,7 @@ namespace Server.Models.Monsters
         {
             return 0;
         }
+
         public override bool ApplyPoison(Poison p)
         {
             return false;

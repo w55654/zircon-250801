@@ -1,13 +1,12 @@
-﻿using System;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
 {
     public class EvilElephant : MonsterObject
     {
-
         public override void ProcessAction(DelayedAction action)
         {
             switch (action.Type)
@@ -29,7 +28,7 @@ namespace Server.Models.Monsters
             }
 
             if (Attack(ob, GetDC(), AttackElement) <= 0) return;
-                
+
             ob.ApplyPoison(new Poison
             {
                 Value = GetSC(),
@@ -39,7 +38,6 @@ namespace Server.Models.Monsters
                 TickCount = 10,
             });
         }
-
 
         protected override void Attack()
         {
@@ -70,7 +68,6 @@ namespace Server.Models.Monsters
                                        true));
                 }
             }
-
         }
     }
 }

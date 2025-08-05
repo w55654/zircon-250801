@@ -1,6 +1,6 @@
-﻿using System;
-using Library;
+﻿using Library;
 using MirDB;
+using System;
 
 namespace Server.DBModels
 {
@@ -21,6 +21,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         [Association("Buffs")]
@@ -37,8 +38,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
-        
+
         public BuffType Type
         {
             get { return _Type; }
@@ -52,8 +54,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private BuffType _Type;
-        
+
         public Stats Stats
         {
             get { return _Stats; }
@@ -67,6 +70,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Stats");
             }
         }
+
         private Stats _Stats;
 
         public TimeSpan RemainingTime
@@ -82,6 +86,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "RemainingTime");
             }
         }
+
         private TimeSpan _RemainingTime;
 
         public TimeSpan TickFrequency
@@ -97,6 +102,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TickFrequency");
             }
         }
+
         private TimeSpan _TickFrequency;
 
         public TimeSpan TickTime
@@ -112,6 +118,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TickTime");
             }
         }
+
         private TimeSpan _TickTime;
 
         public int ItemIndex
@@ -127,8 +134,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ItemIndex");
             }
         }
+
         private int _ItemIndex;
-        
 
         public bool Visible
         {
@@ -143,6 +150,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Visible");
             }
         }
+
         private bool _Visible;
 
         public bool Pause
@@ -158,6 +166,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Pause");
             }
         }
+
         private bool _Pause;
 
         protected override void OnDeleted()
@@ -167,7 +176,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         protected override void OnChanged(object oldValue, object newValue, string propertyName)
         {
@@ -180,6 +188,7 @@ namespace Server.DBModels
 
                     Account = null;
                     break;
+
                 case "Account":
                     if (newValue == null) break;
 
@@ -187,7 +196,6 @@ namespace Server.DBModels
                     break;
             }
         }
-
 
         public ClientBuffInfo ToClientInfo()
         {

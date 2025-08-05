@@ -6,7 +6,7 @@ using G = Library.Network.GeneralPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class Kick : AbstractParameterizedCommand<IAdminCommand>
+    internal class Kick : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "KICK";
         public override int PARAMS_LENGTH => 2;

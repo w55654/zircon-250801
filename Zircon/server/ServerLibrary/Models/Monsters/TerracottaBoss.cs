@@ -61,7 +61,6 @@ namespace Server.Models.Monsters
                 LineAoE(12, 1, 1, MagicType.None, Element.Dark);
             else
             {
-
                 Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation }); //Animation ?
 
                 foreach (MapObject ob in GetTargets(CurrentMap, Functions.Move(CurrentLocation, Direction, 3), 2))

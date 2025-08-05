@@ -19,7 +19,6 @@ namespace Server.Models.Magics
 
         public SweetBrier(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override AttackCast AttackCast(MagicType attackType)

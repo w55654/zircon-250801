@@ -34,6 +34,7 @@ namespace Client.Models.Particles
         #region IDisposable
 
         public bool IsDisposed { get; private set; }
+
         public void Dispose()
         {
             Dispose(!IsDisposed);

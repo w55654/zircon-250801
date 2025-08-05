@@ -18,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SourceRegion");
             }
         }
+
         private MapRegion _SourceRegion;
 
         [IsIdentity]
@@ -34,6 +35,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DestinationRegion");
             }
         }
+
         private MapRegion _DestinationRegion;
 
         public MapIcon Icon
@@ -49,6 +51,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Icon");
             }
         }
+
         private MapIcon _Icon;
 
         public ItemInfo NeedItem
@@ -64,6 +67,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedItem");
             }
         }
+
         private ItemInfo _NeedItem;
 
         public RespawnInfo NeedSpawn
@@ -79,6 +83,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedSpawn");
             }
         }
+
         private RespawnInfo _NeedSpawn;
 
         public bool NeedHole
@@ -94,6 +99,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedHole");
             }
         }
+
         private bool _NeedHole;
 
         public InstanceInfo NeedInstance
@@ -109,6 +115,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedInstance");
             }
         }
+
         private InstanceInfo _NeedInstance;
 
         public MovementEffect Effect
@@ -124,6 +131,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Effect");
             }
         }
+
         private MovementEffect _Effect;
 
         public RequiredClass RequiredClass
@@ -139,8 +147,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredClass");
             }
         }
-        private RequiredClass _RequiredClass;
 
+        private RequiredClass _RequiredClass;
 
         protected internal override void OnCreated()
         {

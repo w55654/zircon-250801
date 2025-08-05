@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         [IsIdentity]
@@ -39,8 +35,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StatType");
             }
         }
+
         private Stat _StatType;
-        
+
         public int MaxAmount
         {
             get { return _MaxAmount; }
@@ -54,6 +51,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxAmount");
             }
         }
+
         private int _MaxAmount;
 
         public int Weight
@@ -69,6 +67,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Weight");
             }
         }
+
         private int _Weight;
     }
 }

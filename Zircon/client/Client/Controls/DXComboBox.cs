@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Library;
 
 //Cleaned
 namespace Client.Controls
@@ -10,8 +10,8 @@ namespace Client.Controls
     public sealed class DXComboBox : DXControl
     {
         #region Properties
-        public static List<DXComboBox> ComboBoxes = new List<DXComboBox>();
 
+        public static List<DXComboBox> ComboBoxes = new List<DXComboBox>();
 
         #region NormalHeight
 
@@ -28,8 +28,11 @@ namespace Client.Controls
                 OnNormalHeightChanged(oldValue, value);
             }
         }
+
         private int _NormalHeight;
+
         public event EventHandler<EventArgs> NormalHeightChanged;
+
         public void OnNormalHeightChanged(int oValue, int nValue)
         {
             NormalHeightChanged?.Invoke(this, EventArgs.Empty);
@@ -55,8 +58,11 @@ namespace Client.Controls
                 OnDropDownHeightChanged(oldValue, value);
             }
         }
+
         private int _DropDownHeight;
+
         public event EventHandler<EventArgs> DropDownHeightChanged;
+
         public void OnDropDownHeightChanged(int oValue, int nValue)
         {
             DropDownHeightChanged?.Invoke(this, EventArgs.Empty);
@@ -82,8 +88,11 @@ namespace Client.Controls
                 OnShowingChanged(oldValue, value);
             }
         }
+
         private bool _Showing;
+
         public event EventHandler<EventArgs> ShowingChanged;
+
         public void OnShowingChanged(bool oValue, bool nValue)
         {
             Size = new Size(Size.Width, Showing ? Math.Min(ListBox.ScrollBar.MaxValue + NormalHeight + 2, DropDownHeight) : NormalHeight);
@@ -111,8 +120,11 @@ namespace Client.Controls
                 OnSelectedItemChanged(oldValue, value);
             }
         }
+
         private object _SelectedItem;
+
         public event EventHandler<EventArgs> SelectedItemChanged;
+
         public void OnSelectedItemChanged(object oValue, object nValue)
         {
             SelectedItemChanged?.Invoke(this, EventArgs.Empty);
@@ -125,7 +137,7 @@ namespace Client.Controls
         public DXButton DownArrow;
         public DXLabel SelectedLabel;
         public DXListBox ListBox;
-        
+
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
@@ -134,7 +146,7 @@ namespace Client.Controls
 
             SelectedLabel.Size = new Size(Size.Width - 3 - DownArrow.Size.Height, NormalHeight);
 
-            DownArrow.Location = new Point(Size.Width - DownArrow.Size.Width, (NormalHeight - DownArrow.Size.Height)/2);
+            DownArrow.Location = new Point(Size.Width - DownArrow.Size.Width, (NormalHeight - DownArrow.Size.Height) / 2);
 
             ListBox.Location = new Point(DisplayArea.Location.X + SelectedLabel.Location.X, DisplayArea.Location.Y + NormalHeight + 2);
             ListBox.BringToFront();
@@ -163,7 +175,7 @@ namespace Client.Controls
 
             SelectedLabel = new DXLabel
             {
-                Location =  new Point(0,-1),
+                Location = new Point(0, -1),
                 AutoSize = false,
                 Parent = this,
                 ForeColour = Color.White,
@@ -174,8 +186,8 @@ namespace Client.Controls
             {
                 Parent = ActiveScene,
                 BackColour = Color.Black,
-                Sort =true,
-                ScrollBar = {Change = 15}
+                Sort = true,
+                ScrollBar = { Change = 15 }
             };
             ListBox.selectedItemChanged += (o, e) =>
             {
@@ -197,6 +209,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -237,6 +250,7 @@ namespace Client.Controls
                 }
             }
         }
+
         #endregion
     }
 }

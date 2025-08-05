@@ -11,9 +11,9 @@ namespace Server.Models.Monsters
         protected override void OnSpawned()
         {
             base.OnSpawned();
-            
+
             ActionTime = SEnvir.Now.AddSeconds(2);
-            
+
             Broadcast(new S.ObjectShow { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
         }
 
@@ -25,9 +25,8 @@ namespace Server.Models.Monsters
         public override int Attacked(MapObject attacker, int power, Element element, bool canReflect = true, bool ignoreShield = false,
             bool canCrit = true, bool canStruck = true)
         {
-
             if (!Functions.InRange(CurrentLocation, attacker.CurrentLocation, 10)) return 0;
-               
+
             return base.Attacked(attacker, power, element, canReflect, ignoreShield, canCrit);
         }
 
@@ -38,7 +37,7 @@ namespace Server.Models.Monsters
             ProcessRegen();
 
             if (!CanAttack) return;
-            
+
             List<MapObject> rightTargets = GetTargets(CurrentMap, Functions.Move(CurrentLocation, MirDirection.Right, 5), 5);
             List<MapObject> leftTargets = GetTargets(CurrentMap, Functions.Move(CurrentLocation, MirDirection.Down, 5), 5);
             List<MapObject> middleTargets = GetTargets(CurrentMap, Functions.Move(CurrentLocation, MirDirection.DownRight, 5), Config.MaxViewRange);
@@ -47,16 +46,15 @@ namespace Server.Models.Monsters
 
             if (SEnvir.Random.Next(20) == 0)
             {
-
                 List<MapObject> allTargerts = GetTargets(CurrentMap, CurrentLocation, Config.MaxViewRange);
                 if (allTargerts.Count == 0) return;
                 //Do Wave
                 Wave(allTargerts);
                 return;
             }
-            
+
             int total = rightTargets.Count + leftTargets.Count + middleTargets.Count;
-            
+
             int value = SEnvir.Random.Next(total);
 
             if ((value -= rightTargets.Count) < 0)
@@ -85,7 +83,6 @@ namespace Server.Models.Monsters
                 Spit(middleTargets);
                 return;
             }
-
         }
 
         public void Wave(List<MapObject> targets)
@@ -105,12 +102,15 @@ namespace Server.Models.Monsters
                         case MirClass.Warrior:
                             damage -= damage * 4 / 10;
                             break;
+
                         case MirClass.Wizard:
                             damage -= damage * 3 / 10;
                             break;
+
                         case MirClass.Taoist:
                             damage -= damage * 6 / 10;
                             break;
+
                         case MirClass.Assassin:
                             damage -= damage * 2 / 10;
                             break;
@@ -126,10 +126,6 @@ namespace Server.Models.Monsters
 
                 ob.Pushed(MirDirection.DownRight, 15);
             }
-
-
-
-
         }
 
         public void Spit(List<MapObject> targets)
@@ -141,7 +137,7 @@ namespace Server.Models.Monsters
             foreach (MapObject ob in targets)
             {
                 int damage = GetDC();
-                
+
                 if (ob.Race == ObjectType.Player)
                 {
                     switch (((PlayerObject)ob).Class)
@@ -149,12 +145,15 @@ namespace Server.Models.Monsters
                         case MirClass.Warrior:
                             damage -= damage * 4 / 10;
                             break;
+
                         case MirClass.Wizard:
                             damage -= damage * 3 / 10;
                             break;
+
                         case MirClass.Taoist:
                             damage -= damage * 6 / 10;
                             break;
+
                         case MirClass.Assassin:
                             damage -= damage * 2 / 10;
                             break;
@@ -167,11 +166,9 @@ namespace Server.Models.Monsters
                     ob,
                     damage,
                     AttackElement));
-
             }
 
             Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = MagicType.DoomClawSpit, Locations = targetsIDs });
-
         }
 
         public void RightPinch(List<MapObject> targets)
@@ -191,12 +188,15 @@ namespace Server.Models.Monsters
                         case MirClass.Warrior:
                             damage -= damage * 4 / 10;
                             break;
+
                         case MirClass.Wizard:
                             damage -= damage * 3 / 10;
                             break;
+
                         case MirClass.Taoist:
                             damage -= damage * 6 / 10;
                             break;
+
                         case MirClass.Assassin:
                             damage -= damage * 2 / 10;
                             break;
@@ -209,9 +209,9 @@ namespace Server.Models.Monsters
                     ob,
                     damage,
                     AttackElement));
-
             }
         }
+
         public void RightSwipe(List<MapObject> targets)
         {
             Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = MagicType.DoomClawRightSwipe });
@@ -220,7 +220,6 @@ namespace Server.Models.Monsters
 
             foreach (MapObject ob in targets)
             {
-
                 int damage = GetDC();
 
                 if (ob.Race == ObjectType.Player)
@@ -230,12 +229,15 @@ namespace Server.Models.Monsters
                         case MirClass.Warrior:
                             damage -= damage * 4 / 10;
                             break;
+
                         case MirClass.Wizard:
                             damage -= damage * 3 / 10;
                             break;
+
                         case MirClass.Taoist:
                             damage -= damage * 6 / 10;
                             break;
+
                         case MirClass.Assassin:
                             damage -= damage * 2 / 10;
                             break;
@@ -251,9 +253,8 @@ namespace Server.Models.Monsters
 
                 ob.Pushed(MirDirection.DownLeft, 5);
             }
-
-
         }
+
         public void LeftPinch(List<MapObject> targets)
         {
             Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = MagicType.DoomClawLeftPinch });
@@ -271,12 +272,15 @@ namespace Server.Models.Monsters
                         case MirClass.Warrior:
                             damage -= damage * 4 / 10;
                             break;
+
                         case MirClass.Wizard:
                             damage -= damage * 3 / 10;
                             break;
+
                         case MirClass.Taoist:
                             damage -= damage * 6 / 10;
                             break;
+
                         case MirClass.Assassin:
                             damage -= damage * 2 / 10;
                             break;
@@ -289,11 +293,9 @@ namespace Server.Models.Monsters
                     ob,
                     damage,
                     AttackElement));
-
             }
-
-
         }
+
         public void LeftSwipe(List<MapObject> targets)
         {
             Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = MagicType.DoomClawLeftSwipe });
@@ -302,7 +304,6 @@ namespace Server.Models.Monsters
 
             foreach (MapObject ob in targets)
             {
-
                 int damage = GetDC();
 
                 if (ob.Race == ObjectType.Player)
@@ -312,12 +313,15 @@ namespace Server.Models.Monsters
                         case MirClass.Warrior:
                             damage -= damage * 4 / 10;
                             break;
+
                         case MirClass.Wizard:
                             damage -= damage * 3 / 10;
                             break;
+
                         case MirClass.Taoist:
                             damage -= damage * 6 / 10;
                             break;
+
                         case MirClass.Assassin:
                             damage -= damage * 2 / 10;
                             break;
@@ -333,9 +337,6 @@ namespace Server.Models.Monsters
 
                 ob.Pushed(MirDirection.UpRight, 5);
             }
-
-
         }
-
     }
 }

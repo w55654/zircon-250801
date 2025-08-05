@@ -3,7 +3,7 @@ using Server.Models;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class Goto : AbstractParameterizedCommand<IAdminCommand>
+    internal class Goto : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "GOTO";
         public override int PARAMS_LENGTH => 2;

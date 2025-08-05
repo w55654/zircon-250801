@@ -1,5 +1,4 @@
 ﻿using MirDB;
-using System;
 using System.Text.Json.Serialization;
 using System.Text.RegularExpressions;
 
@@ -21,6 +20,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FileName");
             }
         }
+
         private string _FileName;
 
         public string Description
@@ -36,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         [JsonIgnore]
@@ -59,6 +60,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MiniMap");
             }
         }
+
         private int _MiniMap;
 
         public LightSetting Light
@@ -74,6 +76,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Light");
             }
         }
+
         private LightSetting _Light;
 
         public Weather Weather
@@ -89,6 +92,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Weather");
             }
         }
+
         private Weather _Weather;
 
         public FightSetting Fight
@@ -104,6 +108,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Fight");
             }
         }
+
         private FightSetting _Fight;
 
         public bool AllowRT
@@ -119,6 +124,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AllowRT");
             }
         }
+
         private bool _AllowRT;
 
         public int SkillDelay
@@ -134,6 +140,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SkillDelay");
             }
         }
+
         private int _SkillDelay;
 
         public bool CanHorse
@@ -149,6 +156,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanHorse");
             }
         }
+
         private bool _CanHorse;
 
         public bool AllowTT
@@ -164,6 +172,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AllowTT");
             }
         }
+
         private bool _AllowTT;
 
         public bool CanMine
@@ -179,6 +188,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanMine");
             }
         }
+
         private bool _CanMine;
 
         public bool CanMarriageRecall
@@ -194,6 +204,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanMarriageRecall");
             }
         }
+
         private bool _CanMarriageRecall;
 
         public bool AllowRecall
@@ -209,6 +220,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AllowRecall");
             }
         }
+
         private bool _AllowRecall;
 
         public int MinimumLevel
@@ -224,6 +236,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinimumLevel");
             }
         }
+
         private int _MinimumLevel;
 
         public int MaximumLevel
@@ -239,6 +252,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaximumLevel");
             }
         }
+
         private int _MaximumLevel;
 
         public MapInfo ReconnectMap
@@ -254,6 +268,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ReconnectMap");
             }
         }
+
         private MapInfo _ReconnectMap;
 
         public SoundIndex Music
@@ -269,6 +284,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Music");
             }
         }
+
         private SoundIndex _Music;
 
         public int Background
@@ -284,6 +300,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Background");
             }
         }
+
         private int _Background;
 
         //DO NOT USE
@@ -301,6 +318,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MonsterHealth");
             }
         }
+
         private int _MonsterHealth;
 
         public int MonsterDamage
@@ -316,6 +334,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MonsterDamage");
             }
         }
+
         private int _MonsterDamage;
 
         public int DropRate
@@ -331,6 +350,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DropRate");
             }
         }
+
         private int _DropRate;
 
         public int ExperienceRate
@@ -346,6 +366,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ExperienceRate");
             }
         }
+
         private int _ExperienceRate;
 
         public int GoldRate
@@ -361,6 +382,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "GoldRate");
             }
         }
+
         private int _GoldRate;
 
         public int MaxMonsterHealth
@@ -376,6 +398,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxMonsterHealth");
             }
         }
+
         private int _MaxMonsterHealth;
 
         public int MaxMonsterDamage
@@ -391,6 +414,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxMonsterDamage");
             }
         }
+
         private int _MaxMonsterDamage;
 
         public int MaxDropRate
@@ -406,6 +430,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxDropRate");
             }
         }
+
         private int _MaxDropRate;
 
         public int MaxExperienceRate
@@ -421,6 +446,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxExperienceRate");
             }
         }
+
         private int _MaxExperienceRate;
 
         public int MaxGoldRate
@@ -436,6 +462,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxGoldRate");
             }
         }
+
         private int _MaxGoldRate;
         //DO NOT USE
 
@@ -454,6 +481,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Instance");
             }
         }
+
         private InstanceInfo _Instance;
 
         public RequiredClass RequiredClass
@@ -467,6 +495,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, nameof(RequiredClass));
             }
         }
+
         private RequiredClass _requiredClass;
 
         [Association("Guards", true)]
@@ -520,7 +549,6 @@ namespace Library.SystemModels
         public static partial Regex TrailingSpaceAndNumberRegex();
     }
 
-
     public sealed class MapInfoStat : DBObject
     {
         [IsIdentity]
@@ -538,6 +566,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Map");
             }
         }
+
         private MapInfo _Map;
 
         [IsIdentity]
@@ -554,6 +583,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -569,6 +599,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 }

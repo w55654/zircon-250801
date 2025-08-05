@@ -35,6 +35,7 @@ namespace Client.Models
                 GameScene.Game.MapControl.TextureValid = false;
             }
         }
+
         public static MapObject TargetObject
         {
             get { return GameScene.Game.TargetObject; }
@@ -47,6 +48,7 @@ namespace Client.Models
                 GameScene.Game.MapControl.TextureValid = false;
             }
         }
+
         public static MapObject MagicObject
         {
             get { return GameScene.Game.MagicObject; }
@@ -99,6 +101,7 @@ namespace Client.Models
                 LocationChanged();
             }
         }
+
         private Point _CurrentLocation;
         public Cell CurrentCell;
 
@@ -116,6 +119,7 @@ namespace Client.Models
                 NameChanged();
             }
         }
+
         private string _Name;
 
         public virtual string Caption
@@ -130,7 +134,9 @@ namespace Client.Models
                 NameChanged();
             }
         }
+
         private string _Caption;
+
         public virtual string Title
         {
             get { return _Title; }
@@ -143,6 +149,7 @@ namespace Client.Models
                 NameChanged();
             }
         }
+
         private string _Title;
 
         public string PetOwner
@@ -157,8 +164,8 @@ namespace Client.Models
                 NameChanged();
             }
         }
-        private string _PetOwner;
 
+        private string _PetOwner;
 
         public Color NameColour
         {
@@ -192,6 +199,7 @@ namespace Client.Models
                 NameChanged();
             }
         }
+
         private Color _NameColour;
 
         public DateTime ChatTime;
@@ -203,6 +211,7 @@ namespace Client.Models
         public PoisonType Poison;
 
         public int MoveDistance;
+
         public int DrawFrame
         {
             get { return _DrawFrame; }
@@ -214,6 +223,7 @@ namespace Client.Models
                 DrawFrameChanged();
             }
         }
+
         private int _DrawFrame;
 
         public int FrameIndex
@@ -227,6 +237,7 @@ namespace Client.Models
                 FrameIndexChanged();
             }
         }
+
         private int _FrameIndex;
 
         public int DrawX;
@@ -235,6 +246,7 @@ namespace Client.Models
         public DateTime DrawHealthTime, StanceTime;
 
         private Point _MovingOffSet;
+
         public Point MovingOffSet
         {
             get
@@ -273,6 +285,7 @@ namespace Client.Models
                 DeadChanged();
             }
         }
+
         private bool _Dead;
 
         public virtual Stats Stats { get; set; }
@@ -301,11 +314,11 @@ namespace Client.Models
                     case MirDirection.UpRight:
                     case MirDirection.UpLeft:
                         return CurrentLocation.Y + MoveDistance;
+
                     default:
                         return CurrentLocation.Y;
                 }
             }
-
         }
 
         public static int CellWidth => MapControl.CellWidth;
@@ -314,7 +327,6 @@ namespace Client.Models
         public static int OffSetY => MapControl.OffSetY;
 
         public List<ObjectAction> ActionQueue = new List<ObjectAction>();
-
 
         public virtual void Process()
         {
@@ -580,30 +592,37 @@ namespace Client.Models
                                 x = 0;
                                 y = (int)(CellHeight * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 break;
+
                             case MirDirection.UpRight:
                                 x = -(int)(CellWidth * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 y = (int)(CellHeight * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 break;
+
                             case MirDirection.Right:
                                 x = -(int)(CellWidth * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 y = 0;
                                 break;
+
                             case MirDirection.DownRight:
                                 x = -(int)(CellWidth * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 y = -(int)(CellHeight * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 break;
+
                             case MirDirection.Down:
                                 x = 0;
                                 y = -(int)(CellHeight * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 break;
+
                             case MirDirection.DownLeft:
                                 x = (int)(CellWidth * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 y = -(int)(CellHeight * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 break;
+
                             case MirDirection.Left:
                                 x = (int)(CellWidth * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 y = 0;
                                 break;
+
                             case MirDirection.UpLeft:
                                 x = (int)(CellWidth * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
                                 y = (int)(CellHeight * MoveDistance / (float)CurrentFrame.FrameCount * (CurrentFrame.FrameCount - (frame + 1)));
@@ -619,30 +638,37 @@ namespace Client.Models
                                 x = 0;
                                 y = (int)(((CellHeight * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 break;
+
                             case MirDirection.UpRight:
                                 x = -(int)(((CellWidth * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 y = (int)(((CellHeight * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 break;
+
                             case MirDirection.Right:
                                 x = -(int)(((CellWidth * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 y = 0;
                                 break;
+
                             case MirDirection.DownRight:
                                 x = -(int)(((CellWidth * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 y = -(int)(((CellHeight * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 break;
+
                             case MirDirection.Down:
                                 x = 0;
                                 y = -(int)(((CellHeight * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 break;
+
                             case MirDirection.DownLeft:
                                 x = (int)(((CellWidth * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 y = -(int)(((CellHeight * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 break;
+
                             case MirDirection.Left:
                                 x = (int)(((CellWidth * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 y = 0;
                                 break;
+
                             case MirDirection.UpLeft:
                                 x = (int)(((CellWidth * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
                                 y = (int)(((CellHeight * MoveDistance) / sum) * (sum - Math.Min((CEnvir.Now - FrameStart).TotalMilliseconds, sum)));
@@ -668,10 +694,10 @@ namespace Client.Models
 
             FrameIndex = frame;
             DrawFrame = FrameIndex + CurrentFrame.StartIndex + CurrentFrame.OffSet * (int)Direction;
-
         }
 
         public abstract void SetAnimation(ObjectAction action);
+
         public virtual void SetFrame(ObjectAction action, int frameStartDelay = 0)
         {
             SetAnimation(action);
@@ -686,14 +712,17 @@ namespace Client.Models
                 case MirAction.Dead:
                     Interupt = true;
                     break;
+
                 case MirAction.Fishing:
                     Interupt = CurrentAnimation == MirAnimation.FishingWait;
                     break;
+
                 default:
                     Interupt = false;
                     break;
             }
         }
+
         public virtual void SetAction(ObjectAction action)
         {
             MirEffect spell;
@@ -712,6 +741,7 @@ namespace Client.Models
                         Skip = 10,
                     });
                     break;
+
                 case MirAction.Spell:
                     if (!MagicCast) break;
 
@@ -1181,7 +1211,6 @@ namespace Client.Models
                                         StartTime = CEnvir.Now.AddMilliseconds(Functions.Distance(point, CurrentLocation) * 50),
                                         BlendRate = 1F,
                                     });
-
                                 }
                             break;
 
@@ -1324,6 +1353,7 @@ namespace Client.Models
 
                             DXSoundManager.Play(SoundIndex.LightningWaveEnd);
                             break;
+
                         #endregion
 
                         #region Ice Storm
@@ -2114,6 +2144,7 @@ namespace Client.Models
                             });
                             DXSoundManager.Play(SoundIndex.DarkSoulPrison);
                             break;
+
                         #endregion
 
                         #region Corpse Exploder
@@ -2331,7 +2362,7 @@ namespace Client.Models
 
                         //Karma - Removed
 
-                        //Touch Of Departed 
+                        //Touch Of Departed
 
                         //Waning Moon
 
@@ -2474,7 +2505,6 @@ namespace Client.Models
 
                         #endregion
 
-
                         #region Chain
 
                         case MagicType.Chain:
@@ -2490,9 +2520,9 @@ namespace Client.Models
                             }
 
                             //if (AttackTargets.Count > 0)
-                                //  DXSoundManager.Play(SoundIndex.Chain);
+                            //  DXSoundManager.Play(SoundIndex.Chain);
 
-                                break;
+                            break;
 
                         #endregion
 
@@ -2640,7 +2670,6 @@ namespace Client.Models
                             }
                             break;
 
-
                         case MagicType.MonsterThunderStorm:
                             foreach (Point point in MagicLocations)
                             {
@@ -2669,6 +2698,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaGuardianIce:
                             if (Config.DrawEffects)
                                 foreach (Point point in MagicLocations)
@@ -2681,6 +2711,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaGuardianLightning:
                             if (Config.DrawEffects)
                                 foreach (Point point in MagicLocations)
@@ -2693,6 +2724,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaGuardianWind:
                             if (Config.DrawEffects)
                                 foreach (Point point in MagicLocations)
@@ -2718,6 +2750,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaBlackIce:
                             if (Config.DrawEffects)
                                 foreach (Point point in MagicLocations)
@@ -2730,6 +2763,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaBlueLightning:
                             if (Config.DrawEffects)
                                 foreach (Point point in MagicLocations)
@@ -2742,6 +2776,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaWhiteWind:
                             if (Config.DrawEffects)
                                 foreach (Point point in MagicLocations)
@@ -2754,6 +2789,7 @@ namespace Client.Models
                                     spell.Process();
                                 }
                             break;
+
                         case MagicType.SamaProphetFire:
                             //   foreach (Point point in MagicLocations)
 
@@ -2765,6 +2801,7 @@ namespace Client.Models
                             spell.Process();
 
                             break;
+
                         case MagicType.SamaProphetLightning:
                             //    foreach (Point point in MagicLocations)
 
@@ -2776,6 +2813,7 @@ namespace Client.Models
                             spell.Process();
 
                             break;
+
                         case MagicType.SamaProphetWind:
                             //     foreach (Point point in MagicLocations)
 
@@ -2788,8 +2826,7 @@ namespace Client.Models
 
                             break;
 
-                        #endregion
-
+                            #endregion
                     }
 
                     break;
@@ -2821,9 +2858,11 @@ namespace Client.Models
                     if (FishingState == FishingState.Reel)
                         FishingState = FishingState.None;
                     break;
+
                 case MirAction.Mining:
                     MiningEffect = (bool)action.Extra[0];
                     break;
+
                 case MirAction.Moving:
                     MoveDistance = (int)action.Extra[0];
                     MagicType = (MagicType)action.Extra[1];
@@ -2837,6 +2876,7 @@ namespace Client.Models
                     }
 
                     break;
+
                 case MirAction.Standing:
                     bool haselementalhurricane = VisibleBuffs.Contains(BuffType.ElementalHurricane);
                     bool hasdragonrepulse = VisibleBuffs.Contains(BuffType.DragonRepulse);
@@ -2864,9 +2904,11 @@ namespace Client.Models
                         EndMagicEffect(MagicEffect.DragonRepulse);
                     }
                     break;
+
                 case MirAction.Pushed:
                     MoveDistance = 1;
                     break;
+
                 case MirAction.RangeAttack:
 
                     targets = new List<uint>();
@@ -2883,7 +2925,6 @@ namespace Client.Models
 
                     if (action.Extra[1] is MagicType magicType && magicType == MagicType.Shuriken)
                     {
-
                         foreach (uint target in targets)
                         {
                             MapObject attackTarget = GameScene.Game.MapControl.Objects.FirstOrDefault(x => x.ObjectID == target);
@@ -2900,7 +2941,6 @@ namespace Client.Models
                             });
                             spell.Process();
                         }
-
                     }
                     AttackTargets = new List<MapObject>();
                     foreach (uint target in targets)
@@ -2910,6 +2950,7 @@ namespace Client.Models
                         AttackTargets.Add(attackTarget);
                     }
                     break;
+
                 case MirAction.Struck:
 
                     if (GameScene.Game.StruckEnabled)
@@ -2935,6 +2976,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Fire:
                                 Effects.Add(new MirEffect(790, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.FireColour)
                                 {
@@ -2942,6 +2984,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Ice:
                                 Effects.Add(new MirEffect(810, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.IceColour)
                                 {
@@ -2949,6 +2992,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Lightning:
                                 Effects.Add(new MirEffect(830, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.LightningColour)
                                 {
@@ -2956,6 +3000,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Wind:
                                 Effects.Add(new MirEffect(850, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.WindColour)
                                 {
@@ -2963,6 +3008,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Holy:
                                 Effects.Add(new MirEffect(870, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.HolyColour)
                                 {
@@ -2970,6 +3016,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Dark:
                                 Effects.Add(new MirEffect(890, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.DarkColour)
                                 {
@@ -2977,6 +3024,7 @@ namespace Client.Models
                                     Target = this,
                                 });
                                 break;
+
                             case Element.Phantom:
                                 Effects.Add(new MirEffect(910, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.PhantomColour)
                                 {
@@ -2987,12 +3035,13 @@ namespace Client.Models
                         }
                     }
                     break;
+
                 case MirAction.Attack:
                     MagicType = (MagicType)action.Extra[1];
                     AttackElement = (Element)action.Extra[2];
 
                     attackColour = Functions.GetElementColour(AttackElement);
-                    
+
                     switch (MagicType)
                     {
                         case MagicType.None:
@@ -3179,10 +3228,10 @@ namespace Client.Models
                             DXSoundManager.Play(SoundIndex.CalamityOfFullMoon);
                             break;
 
-                        #endregion
-
+                            #endregion
                     }
                     break;
+
                 case MirAction.Spell:
                     MagicType = (MagicType)action.Extra[0];
 
@@ -3203,7 +3252,6 @@ namespace Client.Models
                     Point location;
                     switch (MagicType)
                     {
-
                         #region Warrior
 
                         #region Interchange
@@ -3816,7 +3864,7 @@ namespace Client.Models
                             //{
                             //    Blend = true,
                             //    Target = this,
-                                
+
                             //});
                             DXSoundManager.Play(SoundIndex.TornadoStart);
                             break;
@@ -4003,6 +4051,7 @@ namespace Client.Models
                         #endregion
 
                         #region Summon Shinsu
+
                         case MagicType.SummonShinsu:
                             Effects.Add(new MirEffect(2590, 19, TimeSpan.FromMilliseconds(60), LibraryFile.Magic, 10, 35, Globals.PhantomColour)
                             {
@@ -4010,6 +4059,7 @@ namespace Client.Models
                             });
                             DXSoundManager.Play(SoundIndex.SummonShinsuStart);
                             break;
+
                         #endregion
 
                         #region Mass Heal
@@ -4141,7 +4191,7 @@ namespace Client.Models
                                 Blend = true,
                                 Target = this,
                             });
-                            
+
                             DXSoundManager.Play(SoundIndex.SummonSkeletonStart);
                             break;
 
@@ -4338,18 +4388,22 @@ namespace Client.Models
                                 case MirDirection.Up:
                                     startIndex = 1200;
                                     break;
+
                                 case MirDirection.UpLeft:
                                 case MirDirection.UpRight:
                                     startIndex = 1210;
                                     break;
+
                                 case MirDirection.Left:
                                 case MirDirection.Right:
                                     startIndex = 1220;
                                     break;
+
                                 case MirDirection.DownLeft:
                                 case MirDirection.DownRight:
                                     startIndex = 1230;
                                     break;
+
                                 case MirDirection.Down:
                                     startIndex = 1240;
                                     break;
@@ -4382,7 +4436,7 @@ namespace Client.Models
 
                         //Karma - Removed
 
-                        //Touch Of Departed 
+                        //Touch Of Departed
 
                         //Waning Moon
 
@@ -4408,8 +4462,8 @@ namespace Client.Models
                             Effects.Add(spell = new MirEffect(2200, 8, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 60, 60, Globals.NoneColour)
                             {
                                 Blend = true,
-                                MapTarget = CurrentLocation              
-                            }) ;
+                                MapTarget = CurrentLocation
+                            });
                             DXSoundManager.Play(SoundIndex.TheNewBeginning);
                             break;
 
@@ -4575,6 +4629,7 @@ namespace Client.Models
                             //   DXSoundManager.Play(SoundIndex.LavaStrikeEnd);
 
                             break;
+
                         case MagicType.DoomClawRightPinch:
 
                             spell = new MirEffect(2640, 7, TimeSpan.FromMilliseconds(100), LibraryFile.MonMagicEx19, 0, 0, Globals.NoneColour)
@@ -4595,6 +4650,7 @@ namespace Client.Models
                             };
 
                             break;
+
                         case MagicType.DoomClawLeftPinch:
 
                             spell = new MirEffect(2660, 7, TimeSpan.FromMilliseconds(100), LibraryFile.MonMagicEx19, 0, 0, Globals.NoneColour)
@@ -4614,6 +4670,7 @@ namespace Client.Models
                                 spell.Process();
                             };
                             break;
+
                         case MagicType.DoomClawRightSwipe:
 
                             spell = new MirEffect(2700, 8, TimeSpan.FromMilliseconds(100), LibraryFile.MonMagicEx19, 0, 0, Globals.NoneColour)
@@ -4623,6 +4680,7 @@ namespace Client.Models
                             };
                             spell.Process();
                             break;
+
                         case MagicType.DoomClawLeftSwipe:
 
                             spell = new MirEffect(2720, 8, TimeSpan.FromMilliseconds(100), LibraryFile.MonMagicEx19, 0, 0, Globals.NoneColour)
@@ -4632,6 +4690,7 @@ namespace Client.Models
                             };
                             spell.Process();
                             break;
+
                         case MagicType.DoomClawSpit:
                             foreach (Point point in MagicLocations)
                             {
@@ -4653,15 +4712,11 @@ namespace Client.Models
                                         Blend = true,
                                     });
                                 };
-
                             }
                             break;
 
                             #endregion
-
-
                     }
-
 
                     break;
             }
@@ -4678,6 +4733,7 @@ namespace Client.Models
                     case MirAction.Dead:
                         ActionQueue.Add(new ObjectAction(MirAction.Dead, Direction, CurrentLocation));
                         break;
+
                     default:
                         ActionQueue.Add(new ObjectAction(MirAction.Standing, Direction, CurrentLocation));
                         break;
@@ -4701,8 +4757,8 @@ namespace Client.Models
         public virtual void DrawFrameChanged()
         {
             GameScene.Game.MapControl.TextureValid = false;
-
         }
+
         public virtual void FrameIndexChanged()
         {
             switch (CurrentAction)
@@ -4711,11 +4767,13 @@ namespace Client.Models
                     if (FrameIndex != 1) return;
                     PlayAttackSound();
                     break;
+
                 case MirAction.RangeAttack:
                     if (FrameIndex != 4) return;
                     CreateProjectile();
                     PlayAttackSound();
                     break;
+
                 case MirAction.Struck:
                     if (GameScene.Game.StruckEnabled)
                     {
@@ -4723,6 +4781,7 @@ namespace Client.Models
                             PlayStruckSound();
                     }
                     break;
+
                 case MirAction.Die:
                     if (FrameIndex == 0)
                         PlayDieSound();
@@ -4780,6 +4839,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Fire:
                     Effects.Add(new MirEffect(790, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4787,6 +4847,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Ice:
                     Effects.Add(new MirEffect(810, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4794,6 +4855,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Lightning:
                     Effects.Add(new MirEffect(830, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4801,6 +4863,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Wind:
                     Effects.Add(new MirEffect(850, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4808,6 +4871,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Holy:
                     Effects.Add(new MirEffect(870, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4815,6 +4879,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Dark:
                     Effects.Add(new MirEffect(890, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4822,6 +4887,7 @@ namespace Client.Models
                         Target = this,
                     });
                     break;
+
                 case Element.Phantom:
                     Effects.Add(new MirEffect(910, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, color)
                     {
@@ -4834,13 +4900,10 @@ namespace Client.Models
 
         public virtual void Draw()
         {
-
-
         }
 
         public virtual void DrawBlend()
         {
-
         }
 
         public void Chat(string text)
@@ -4869,7 +4932,6 @@ namespace Client.Models
             ChatLabel.Size = DXLabel.GetHeight(ChatLabel, chatWidth);
             ChatLabel.Disposing += (o, e) => ChatLabels.Remove(ChatLabel);
             ChatLabels.Add(ChatLabel);
-
         }
 
         public virtual void NameChanged()
@@ -5057,16 +5119,14 @@ namespace Client.Models
 
         public virtual void PlayAttackSound()
         {
-
         }
+
         public virtual void PlayStruckSound()
         {
-
         }
+
         public virtual void PlayDieSound()
         {
-
-
         }
 
         public void DrawPoison()
@@ -5107,14 +5167,12 @@ namespace Client.Models
 
         public virtual void DrawHealth()
         {
-
         }
 
         public abstract bool MouseOver(Point p);
 
         public virtual void UpdateQuests()
         {
-
         }
 
         public List<MirEffect> CreateMagicEffect(MagicEffect magic)
@@ -5146,6 +5204,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.MagicShield:
                     {
                         if (MagicEffects.TryGetValue(MagicEffect.MagicShieldStruck, out effects))
@@ -5164,6 +5223,7 @@ namespace Client.Models
                         };
                     }
                     break;
+
                 case MagicEffect.MagicShieldStruck:
                     {
                         EndMagicEffect(MagicEffect.MagicShield);
@@ -5179,6 +5239,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.SuperiorMagicShield:
                     {
                         if (MagicEffects.TryGetValue(MagicEffect.SuperiorMagicShieldStruck, out effects))
@@ -5197,6 +5258,7 @@ namespace Client.Models
                         };
                     }
                     break;
+
                 case MagicEffect.SuperiorMagicShieldStruck:
                     {
                         EndMagicEffect(MagicEffect.SuperiorMagicShield);
@@ -5212,6 +5274,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.CelestialLight:
                     {
                         if (MagicEffects.TryGetValue(MagicEffect.CelestialLightStruck, out effects))
@@ -5230,6 +5293,7 @@ namespace Client.Models
                         };
                     }
                     break;
+
                 case MagicEffect.CelestialLightStruck:
                     {
                         EndMagicEffect(MagicEffect.CelestialLight);
@@ -5245,6 +5309,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Assault:
                     {
                         effects.Add(new MirEffect(740, 3, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx2, 40, 40, Globals.NoneColour)
@@ -5256,6 +5321,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.DefensiveBlow:
                     {
                         effects.Add(new MirEffect(880, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx7, 40, 40, Globals.NoneColour)
@@ -5273,6 +5339,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.ReflectDamage:
                     {
                         effects.Add(new MirEffect(1240, 3, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx2, 40, 40, Globals.NoneColour)
@@ -5283,6 +5350,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.LifeSteal:
                     {
                         //TODO - Incorrect image used
@@ -5294,6 +5362,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.FrostBite:
                     {
                         effects.Add(new MirEffect(600, 7, TimeSpan.FromMilliseconds(150), LibraryFile.MagicEx5, 40, 40, Globals.IceColour)
@@ -5304,6 +5373,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Silence:
                     {
                         effects.Add(new MirEffect(680, 6, TimeSpan.FromMilliseconds(150), LibraryFile.ProgUse, 0, 0, Globals.NoneColour)
@@ -5314,6 +5384,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Blind:
                     {
                         effects.Add(new MirEffect(680, 6, TimeSpan.FromMilliseconds(150), LibraryFile.ProgUse, 0, 0, Globals.NoneColour)
@@ -5336,6 +5407,7 @@ namespace Client.Models
                         }
                     }
                     break;
+
                 case MagicEffect.Fear:
                     {
                         //TODO - Incorrect image used
@@ -5347,6 +5419,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Parasite:
                     {
                         effects.Add(new MirEffect(900, 7, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx5, 0, 0, Globals.NoneColour)
@@ -5358,6 +5431,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Neutralize:
                     {
                         effects.Add(new MirEffect(470, 6, TimeSpan.FromMilliseconds(120), LibraryFile.MagicEx7, 0, 0, Globals.NoneColour)
@@ -5369,6 +5443,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.DragonRepulse:
                     {
                         MirEffect effect;
@@ -5420,6 +5495,7 @@ namespace Client.Models
                         };
                     }
                     break;
+
                 case MagicEffect.Containment:
                     {
                         effects.Add(new MirEffect(2040, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx2, 40, 40, Globals.NoneColour)
@@ -5430,6 +5506,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Chain:
                     {
                         effects.Add(new MirEffect(27, 4, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx7, 40, 40, Globals.NoneColour)
@@ -5440,6 +5517,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Hemorrhage:
                     {
                         effects.Add(new MirEffect(1290, 1, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx7, 40, 40, Globals.NoneColour)
@@ -5450,6 +5528,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.ElementalHurricane:
                     {
                         Color attackColour = Functions.GetElementColour(AttackElement);
@@ -5471,6 +5550,7 @@ namespace Client.Models
                         };
                     }
                     break;
+
                 case MagicEffect.Burn:
                     {
                         effects.Add(new MirEffect(790, 6, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx, 10, 30, Globals.FireColour)
@@ -5481,6 +5561,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Ranking:
                     {
                         effects.Add(new MirEffect(3420, 7, TimeSpan.FromMilliseconds(150), LibraryFile.GameInter, 0, 0, Globals.NoneColour)
@@ -5492,6 +5573,7 @@ namespace Client.Models
                         });
                     }
                     break;
+
                 case MagicEffect.Developer:
                     {
                         effects.Add(new MirEffect(3410, 7, TimeSpan.FromMilliseconds(150), LibraryFile.GameInter, 0, 0, Globals.NoneColour)
@@ -5517,6 +5599,7 @@ namespace Client.Models
 
             return effects;
         }
+
         public void EndMagicEffect(MagicEffect magic)
         {
             if (!MagicEffects.TryGetValue(magic, out List<MirEffect> effects))

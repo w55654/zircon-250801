@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -23,7 +20,6 @@ namespace Server.Models.Monsters
 
         public override void ProcessAction(DelayedAction action)
         {
-
             switch (action.Type)
             {
                 case ActionType.Function:
@@ -70,12 +66,9 @@ namespace Server.Models.Monsters
                 Attack();
         }
 
-
-
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
-
 
             if (SEnvir.Random.Next(2) == 0)
             {
@@ -93,6 +86,5 @@ namespace Server.Models.Monsters
                 AttackAoE(1, MagicType.MonsterIceStorm, Element.Ice);
             }
         }
-
     }
 }

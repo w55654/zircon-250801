@@ -18,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public MagicType Magic
@@ -33,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Magic");
             }
         }
+
         private MagicType _Magic;
 
         public MirClass Class
@@ -48,6 +50,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private MirClass _Class;
 
         public MagicSchool School
@@ -63,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "School");
             }
         }
+
         private MagicSchool _School;
 
         public MagicProperty Property
@@ -78,6 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Property");
             }
         }
+
         private MagicProperty _Property;
 
         public int Icon
@@ -93,6 +98,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Icon");
             }
         }
+
         private int _Icon;
 
         public int MinBasePower
@@ -108,6 +114,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinBasePower");
             }
         }
+
         private int _MinBasePower;
 
         public int MaxBasePower
@@ -123,6 +130,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxBasePower");
             }
         }
+
         private int _MaxBasePower;
 
         public int MinLevelPower
@@ -138,6 +146,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinLevelPower");
             }
         }
+
         private int _MinLevelPower;
 
         public int MaxLevelPower
@@ -153,6 +162,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxLevelPower");
             }
         }
+
         private int _MaxLevelPower;
 
         public int BaseCost
@@ -168,6 +178,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "BaseCost");
             }
         }
+
         private int _BaseCost;
 
         public int LevelCost
@@ -183,8 +194,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "LevelCost");
             }
         }
+
         private int _LevelCost;
-        
 
         public int NeedLevel1
         {
@@ -199,6 +210,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedLevel1");
             }
         }
+
         private int _NeedLevel1;
 
         public int NeedLevel2
@@ -214,6 +226,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedLevel2");
             }
         }
+
         private int _NeedLevel2;
 
         public int NeedLevel3
@@ -229,6 +242,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "NeedLevel3");
             }
         }
+
         private int _NeedLevel3;
 
         public int Experience1
@@ -244,6 +258,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Experience1");
             }
         }
+
         private int _Experience1;
 
         public int Experience2
@@ -259,6 +274,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Experience2");
             }
         }
+
         private int _Experience2;
 
         public int Experience3
@@ -274,8 +290,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Experience3");
             }
         }
-        private int _experience3;
 
+        private int _experience3;
 
         public int Delay
         {
@@ -290,6 +306,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Delay");
             }
         }
+
         private int _Delay;
 
         public string Description
@@ -305,7 +322,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
-        
     }
 }

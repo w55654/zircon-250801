@@ -1,11 +1,10 @@
 ﻿using Server.DBModels;
 using Server.Envir.Commands.Exceptions;
 using Server.Models;
-using System;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class ChatBan : AbstractParameterizedCommand<IAdminCommand>
+    internal class ChatBan : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "CHATBAN";
         public override int PARAMS_LENGTH => 2;

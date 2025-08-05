@@ -1,12 +1,8 @@
-﻿using System;
+﻿using MirDB;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using MirDB;
 
 namespace Library.SystemModels
 {
@@ -27,6 +23,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Map");
             }
         }
+
         private MapInfo _Map;
 
         [IsIdentity]
@@ -43,6 +40,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         [JsonIgnore]
@@ -59,6 +57,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "BitRegion");
             }
         }
+
         private BitArray _BitRegion;
 
         public Point[] PointRegion
@@ -74,6 +73,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "PointRegion");
             }
         }
+
         private Point[] _PointRegion;
 
         [JsonIgnore]
@@ -93,6 +93,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RegionType");
             }
         }
+
         private RegionType _RegionType;
 
         public int Size
@@ -108,6 +109,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Size");
             }
         }
+
         private int _Size;
 
         [JsonIgnore]
@@ -115,7 +117,7 @@ namespace Library.SystemModels
 
         public HashSet<Point> GetPoints(int width)
         {
-            HashSet<Point> points = new HashSet<Point>(); 
+            HashSet<Point> points = new HashSet<Point>();
 
             if (BitRegion != null)
             {
@@ -133,9 +135,10 @@ namespace Library.SystemModels
 
             return points;
         }
+
         public void CreatePoints(int width)
         {
-            PointList  = new List<Point>();
+            PointList = new List<Point>();
 
             if (BitRegion != null)
             {
@@ -152,7 +155,6 @@ namespace Library.SystemModels
                 foreach (Point p in PointRegion)
                     PointList.Add(p);
             }
-
         }
     }
 }

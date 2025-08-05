@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class MapMove : AbstractParameterizedCommand<IAdminCommand>
+    internal class MapMove : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "MOVE";
         public override int PARAMS_LENGTH => 2;

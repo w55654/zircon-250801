@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Library.MirDB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
-using Library.MirDB;
 
 namespace MirDB
 {
@@ -19,7 +19,6 @@ namespace MirDB
 
         private bool VersionValid;
         private List<T> SaveList;
-
 
         public DBCollection(Session session)
         {
@@ -45,7 +44,6 @@ namespace MirDB
             }
             else
                 Binding = new List<T>();
-
         }
 
         private T CreateNew()
@@ -59,6 +57,7 @@ namespace MirDB
 
             return ob;
         }
+
         public T CreateNewObject()
         {
             T ob = CreateNew();
@@ -68,7 +67,6 @@ namespace MirDB
             return ob;
         }
 
-
         internal override DBObject GetObjectByIndex(int index)
         {
             index = FastFind(index);
@@ -77,6 +75,7 @@ namespace MirDB
 
             return null;
         }
+
         protected internal override DBObject GetObjectbyFieldName(string fieldName, object value)
         {
             PropertyInfo info = Type.GetProperty(fieldName);
@@ -91,10 +90,11 @@ namespace MirDB
 
             return null;
         }
+
         internal override void Load(byte[] data, DBMapping mapping)
         {
             VersionValid = mapping.IsMatch(Mapping);
-            
+
             using (MemoryStream mStream = new MemoryStream(data))
             using (BinaryReader reader = new BinaryReader(mStream))
             {
@@ -110,7 +110,6 @@ namespace MirDB
                     ob.RawData = reader.ReadBytes(reader.ReadInt32());
                     ob.Load(mapping);
                 }
-
             }
         }
 
@@ -152,9 +151,7 @@ namespace MirDB
                 SaveList = null;
                 return mStream.ToArray();
             }
-
         }
-
 
         internal override void Delete(DBObject ob)
         {
@@ -166,11 +163,11 @@ namespace MirDB
                  break;
              }*/
 
-
             int index = FastFind(ob.Index);
 
             if (index >= 0) Binding.RemoveAt(index);
         }
+
         private int FastFind(int index)
         {
             int pos = 0;
@@ -187,7 +184,6 @@ namespace MirDB
 
                 int cur = Binding[pos].Index;
                 if (cur == index) return pos;
-
 
                 if (cur > index)
                 {
@@ -219,7 +215,6 @@ namespace MirDB
                         dir = true;
                     }
                 }
-
             }
 
             return -1;

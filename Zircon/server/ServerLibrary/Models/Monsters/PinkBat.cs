@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
 
 namespace Server.Models.Monsters
 {
-    class PinkBat : MonsterObject
+    internal class PinkBat : MonsterObject
     {
         public override void ProcessTarget()
         {
@@ -21,7 +16,6 @@ namespace Server.Models.Monsters
                     if (SEnvir.Random.Next(2) == 0)
                         RangeAttack();
                 }
-
 
                 if (CurrentLocation == Target.CurrentLocation)
                 {

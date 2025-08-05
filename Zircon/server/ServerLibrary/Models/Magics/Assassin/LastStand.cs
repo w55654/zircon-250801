@@ -10,6 +10,7 @@ namespace Server.Models.Magics
     {
         protected override Element Element => Element.None;
         private bool Active { get; set; }
+
         public bool LowHP
         {
             get { return (Player.CurrentHP * 100 / Player.Stats[Stat.Health]) < 30; }
@@ -17,7 +18,6 @@ namespace Server.Models.Magics
 
         public LastStand(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void Process()

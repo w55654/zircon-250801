@@ -98,7 +98,6 @@ namespace Client.Scenes.Views
 
     public class CurrencyTree : DXControl
     {
-
         #region Properties
 
         #region SelectedEntry
@@ -114,8 +113,11 @@ namespace Client.Scenes.Views
                 OnSelectedEntryChanged(oldValue, value);
             }
         }
+
         private CurrencyItem _SelectedEntry;
+
         public event EventHandler<EventArgs> SelectedEntryChanged;
+
         public virtual void OnSelectedEntryChanged(CurrencyItem oValue, CurrencyItem nValue)
         {
             SelectedEntryChanged?.Invoke(this, EventArgs.Empty);
@@ -313,14 +315,12 @@ namespace Client.Scenes.Views
 
                             Lines[i] = null;
                         }
-
                     }
 
                     Lines.Clear();
                     Lines = null;
                 }
             }
-
         }
 
         #endregion
@@ -345,8 +345,11 @@ namespace Client.Scenes.Views
                 OnExpandedChanged(oldValue, value);
             }
         }
+
         private bool _Expanded;
+
         public event EventHandler<EventArgs> ExpandedChanged;
+
         public void OnExpandedChanged(bool oValue, bool nValue)
         {
             ExpandButton.Index = Expanded ? 4871 : 4870;
@@ -409,7 +412,6 @@ namespace Client.Scenes.Views
                     HeaderLabel = null;
                 }
             }
-
         }
 
         #endregion
@@ -434,8 +436,11 @@ namespace Client.Scenes.Views
                 OnCurrencyChanged(oldValue, value);
             }
         }
+
         private ClientUserCurrency _Currency;
+
         public event EventHandler<EventArgs> CurrencyChanged;
+
         public void OnCurrencyChanged(ClientUserCurrency oValue, ClientUserCurrency nValue)
         {
             if (Currency.Info.DropItem != null)
@@ -474,8 +479,11 @@ namespace Client.Scenes.Views
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             Border = Selected;
@@ -590,7 +598,6 @@ namespace Client.Scenes.Views
                     CurrencyImage = null;
                 }
             }
-
         }
 
         #endregion

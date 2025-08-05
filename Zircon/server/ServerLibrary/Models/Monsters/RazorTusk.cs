@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -15,6 +14,7 @@ namespace Server.Models.Monsters
 
             return Functions.InRange(CurrentLocation, Target.CurrentLocation, 3);
         }
+
         public override void ProcessAction(DelayedAction action)
         {
             switch (action.Type)
@@ -64,11 +64,10 @@ namespace Server.Models.Monsters
                 Attack();
         }
 
-
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
-            
+
             UpdateAttackTime();
 
             if (Functions.InRange(CurrentLocation, Target.CurrentLocation, 1))
@@ -91,7 +90,6 @@ namespace Server.Models.Monsters
                                    Target,
                                    false));
             }
-
         }
     }
 }

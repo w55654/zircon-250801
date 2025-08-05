@@ -3,7 +3,7 @@ using Server.Models;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class Level : AbstractParameterizedCommand<IAdminCommand>
+    internal class Level : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "LEVEL";
         public override int PARAMS_LENGTH => 2;

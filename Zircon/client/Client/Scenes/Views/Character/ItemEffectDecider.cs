@@ -1,6 +1,5 @@
 ﻿using Client.Envir;
 using Library;
-using System;
 
 namespace Client.Scenes.Views.Character
 {
@@ -17,6 +16,7 @@ namespace Client.Scenes.Views.Character
                 case ItemType.DarkStone:
                     libraryFile = LibraryFile.GameInter;
                     break;
+
                 default:
                     return null;
             }
@@ -47,18 +47,21 @@ namespace Client.Scenes.Views.Character
                             x = -5;
                             y = 20;
                             break;
+
                         case 2: //Frozen
                             startIndex = 2030;
                             animationCount = 10;
                             x = -5;
                             y = 20;
                             break;
+
                         case 3: //Shocking
                             startIndex = 2040;
                             animationCount = 10;
                             x = -5;
                             y = 20;
                             break;
+
                         case 4: //Gusting
                             startIndex = 2050;
                             animationCount = 10;

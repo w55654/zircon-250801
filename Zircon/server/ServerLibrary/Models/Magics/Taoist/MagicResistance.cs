@@ -14,7 +14,6 @@ namespace Server.Models.Magics
 
         public MagicResistance(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -110,7 +109,6 @@ namespace Server.Models.Magics
                     buffStats[Stat.MinMR] = 0;
                     buffStats[Stat.MaxMR] = 0;
                 }
-
 
                 ob.BuffAdd(BuffType.MagicResistance, TimeSpan.FromSeconds(Magic.GetPower() + Player.GetSC() * 2), buffStats, true, false, TimeSpan.Zero);
 

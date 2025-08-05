@@ -38,6 +38,7 @@ namespace Client.Scenes.Views
                 OnMapInfoChanged(oldValue, value);
             }
         }
+
         private MapInfo _MapInfo;
 
         public InstanceInfo InstanceInfo
@@ -52,13 +53,16 @@ namespace Client.Scenes.Views
                 OnInstanceInfoChanged(oldValue, value);
             }
         }
+
         private InstanceInfo _InstanceInfo;
+
         public void OnInstanceInfoChanged(InstanceInfo oValue, InstanceInfo nValue)
         {
             MapInfoChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler<EventArgs> MapInfoChanged;
+
         public void OnMapInfoChanged(MapInfo oValue, MapInfo nValue)
         {
             TextureValid = false;
@@ -95,18 +99,18 @@ namespace Client.Scenes.Views
                 OnAnimationChanged(oldValue, value);
             }
         }
+
         private int _Animation;
+
         public event EventHandler<EventArgs> AnimationChanged;
+
         public void OnAnimationChanged(int oValue, int nValue)
         {
             AnimationChanged?.Invoke(this, EventArgs.Empty);
             TextureValid = false;
         }
 
-
-
         #endregion
-
 
         #region MouseLocation
 
@@ -123,8 +127,11 @@ namespace Client.Scenes.Views
                 OnMouseLocationChanged(oldValue, value);
             }
         }
+
         private Point _MouseLocation;
+
         public event EventHandler<EventArgs> MouseLocationChanged;
+
         public void OnMouseLocationChanged(Point oValue, Point nValue)
         {
             MouseLocationChanged?.Invoke(this, EventArgs.Empty);
@@ -142,7 +149,6 @@ namespace Client.Scenes.Views
 
             if (LLayer != null)
                 LLayer.Size = Size;
-
 
             OffSetX = Size.Width / 2 / CellWidth;
             OffSetY = Size.Height / 2 / CellHeight;
@@ -177,7 +183,6 @@ namespace Client.Scenes.Views
 
         public static int OffSetX;
         public static int OffSetY;
-
 
         #endregion
 
@@ -248,13 +253,17 @@ namespace Client.Scenes.Views
                     case ObjectType.Player:
                         if (!Config.ShowPlayerNames) continue;
                         break;
+
                     case ObjectType.Item:
                         if (!Config.ShowItemNames || ob.CurrentLocation == MapLocation) continue;
                         break;
+
                     case ObjectType.NPC:
                         break;
+
                     case ObjectType.Spell:
                         break;
+
                     case ObjectType.Monster:
                         if (!Config.ShowMonsterNames) continue;
                         break;
@@ -360,8 +369,6 @@ namespace Client.Scenes.Views
                         }
                     }
 
-
-
                     if (Libraries.KROrder.TryGetValue(cell.FrontFile, out file) && file != LibraryFile.Tilesc && CEnvir.LibraryList.TryGetValue(file, out library))
                     {
                         int index = cell.FrontImage - 1;
@@ -374,7 +381,6 @@ namespace Client.Scenes.Views
                         }
 
                         Size s = library.GetSize(index);
-
 
                         if ((s.Width != CellWidth || s.Height != CellHeight) && (s.Width != CellWidth * 2 || s.Height != CellHeight * 2))
                         {
@@ -407,7 +413,6 @@ namespace Client.Scenes.Views
                             ob.Draw();
                     }
                 }
-
             }
 
             if (User.Opacity != 1f) return;
@@ -542,6 +547,7 @@ namespace Client.Scenes.Views
 
             MouseLocation = e.Location;
         }
+
         public override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
@@ -636,9 +642,9 @@ namespace Client.Scenes.Views
                 MapObject.TargetObject = MapObject.MouseObject;
 
                 #region Shuriken
+
                 if (!Functions.InRange(MapObject.TargetObject.CurrentLocation, User.CurrentLocation, Globals.MagicRange) && User.LibraryWeaponShape == Globals.ShurikenLibraryWeaponShape)
                 {
-
                     GameScene.Game.OutputTime = CEnvir.Now.AddSeconds(1);
                     GameScene.Game.ReceiveChat(string.Format(CEnvir.Language.GameSceneThrowTooFar, "Shuriken"), MessageType.Hint);
 
@@ -650,14 +656,12 @@ namespace Client.Scenes.Views
                 if (User.Horse == HorseType.None && User.LibraryWeaponShape == Globals.ShurikenLibraryWeaponShape && MapObject.TargetObject != null &&
                     (MapObject.TargetObject.Race == ObjectType.Monster || MapObject.TargetObject.Race == ObjectType.Player))
                 {
-
                     if (CEnvir.Now < User.AttackTime)
                     {
                         Stop();
 
                         return;
                     }
-
 
                     if (CEnvir.Now >= User.AttackTime)
                     {
@@ -695,8 +699,6 @@ namespace Client.Scenes.Views
 
                         return;
                     }
-
-
                 }
 
                 #endregion Shukiran
@@ -720,6 +722,7 @@ namespace Client.Scenes.Views
             GameScene.Game.FocusObject = null;
             MapObject.TargetObject = null;
         }
+
         public override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
@@ -740,6 +743,7 @@ namespace Client.Scenes.Views
                         CEnvir.Enqueue(new C.NPCCall { ObjectID = npc.ObjectID });
                     }
                     break;
+
                 case MouseButtons.Right:
                     GameScene.Game.AutoRun = false;
 
@@ -825,7 +829,6 @@ namespace Client.Scenes.Views
                 if ((User.CurrentLocation.X == MapLocation.X && User.CurrentLocation.Y == MapLocation.Y) || User.MouseOver(MouseLocation))
                     mouseOb = User;
             }
-
 
             MapObject.MouseObject = mouseOb;
         }
@@ -967,6 +970,7 @@ namespace Client.Scenes.Views
                         if (!haselementalhurricane && GameScene.Game.MoveFrame && (User.Poison & PoisonType.WraithGrip) != PoisonType.WraithGrip)
                             MapObject.User.AttemptAction(new ObjectAction(MirAction.Moving, direction, Functions.Move(MapObject.User.CurrentLocation, direction), 1, MagicType.None));
                         return;
+
                     case MouseButtons.Right:
                         Mining = false;
 
@@ -1101,11 +1105,9 @@ namespace Client.Scenes.Views
 
         public MirDirection MouseDirectionBest(MirDirection dir, int distance) //22.5 = 16
         {
-
             Point loc = Functions.Move(MapObject.User.CurrentLocation, dir, distance);
 
             if (loc.X >= 0 && loc.Y >= 0 && loc.X < Width && loc.Y < Height && !Cells[loc.X, loc.Y].Blocking()) return dir;
-
 
             PointF c = new PointF(OffSetX * CellWidth + CellWidth / 2F, OffSetY * CellHeight + CellHeight / 2F);
             PointF a = new PointF(c.X, 0);
@@ -1138,12 +1140,12 @@ namespace Client.Scenes.Views
 
             return dir;
         }
+
         public MirDirection DirectionBest(MirDirection dir, int distance, Point targetLocation) //22.5 = 16
         {
             Point loc = Functions.Move(MapObject.User.CurrentLocation, dir, distance);
 
             if (loc.X >= 0 && loc.Y >= 0 && loc.X < Width && loc.Y < Height && !Cells[loc.X, loc.Y].Blocking()) return dir;
-
 
             PointF c = new PointF(MapObject.OffSetX * MapObject.CellWidth + MapObject.CellWidth / 2F, MapObject.OffSetY * MapObject.CellHeight + MapObject.CellHeight / 2F);
             PointF a = new PointF(c.X, 0);
@@ -1193,7 +1195,7 @@ namespace Client.Scenes.Views
         {
             PointF p = new PointF(MouseLocation.X / CellWidth, MouseLocation.Y / CellHeight);
 
-            //If close proximity then co by co ords 
+            //If close proximity then co by co ords
             if (Functions.InRange(new Point(OffSetX, OffSetY), Point.Truncate(p), 2))
                 return Functions.DirectionFromPoint(new Point(OffSetX, OffSetY), Point.Truncate(p));
 
@@ -1214,7 +1216,6 @@ namespace Client.Scenes.Views
             if (MouseLocation.X < c.X) angle = 360 - angle;
             angle += 22.5F;
             if (angle > 360) angle -= 360;
-
 
             return (MirDirection)(angle / 45F);
         }
@@ -1243,12 +1244,14 @@ namespace Client.Scenes.Views
             {
                 case ObjectType.Player:
                     break;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)ob;
 
                     if (mob.MonsterInfo.AI < 0) return false;
 
                     break;
+
                 default:
                     return false;
             }
@@ -1306,6 +1309,7 @@ namespace Client.Scenes.Views
 
             return !Cells[location.X, location.Y].Flag;
         }
+
         #endregion
 
         #region IDisposable
@@ -1392,6 +1396,7 @@ namespace Client.Scenes.Views
             }
 
             #region Methods
+
             public void CheckTexture()
             {
                 if (!TextureValid)
@@ -1461,7 +1466,6 @@ namespace Client.Scenes.Views
                                 library.Draw(index, drawX, drawY - CellHeight, Color.White, false, 1F, ImageType.Image);
                         }
 
-
                         if (Libraries.KROrder.TryGetValue(cell.FrontFile, out file) && file != LibraryFile.Tilesc && CEnvir.LibraryList.TryGetValue(file, out library))
                         {
                             int index = cell.FrontImage - 1;
@@ -1481,6 +1485,7 @@ namespace Client.Scenes.Views
             public override void Draw()
             {
             }
+
             protected override void DrawControl()
             {
             }
@@ -1516,7 +1521,6 @@ namespace Client.Scenes.Views
                 DXManager.SetBlend(true);
                 DXManager.Device.SetRenderState(RenderState.SourceBlend, Blend.SourceAlpha);
                 DXManager.Device.SetRenderState(RenderState.DestinationBlend, Blend.One);
-
 
                 const float lightScale = 0.02F; //Players/Monsters
                 const float baseSize = 0.1F;
@@ -1656,14 +1660,17 @@ namespace Client.Scenes.Views
                         BackColour = Color.FromArgb(shading, shading, shading);
                         Visible = true;
                         break;
+
                     case LightSetting.Night:
                         BackColour = Color.FromArgb(15, 15, 15);
                         Visible = true;
                         break;
+
                     case LightSetting.Twilight:
                         BackColour = Color.FromArgb(100, 100, 100);
                         Visible = true;
                         break;
+
                     case LightSetting.Light:
                         BackColour = Color.FromArgb(255, 255, 255);
                         Visible = true;
@@ -1676,6 +1683,7 @@ namespace Client.Scenes.Views
                     Visible = false;
                 }
             }
+
             protected override void DrawControl()
             {
             }
@@ -1683,6 +1691,7 @@ namespace Client.Scenes.Views
             public override void Draw()
             {
             }
+
             #endregion
         }
     }
@@ -1744,5 +1753,4 @@ namespace Client.Scenes.Views
             ob.CurrentCell = null;
         }
     }
-
 }

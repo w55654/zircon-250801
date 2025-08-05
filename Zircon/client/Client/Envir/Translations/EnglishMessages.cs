@@ -7,6 +7,7 @@ namespace Client.Envir.Translations
     {
         [ConfigSection("Message")]
         public override string CannotChangeGenderWhileWearingArmour { get; set; } = "You cannot change gender whilst you are wearing armour.";
+
         public override string WearingArmourBeforeDye { get; set; } = "You need to be wearing an armour before you can apply a dye.";
         public override string UnableToRepairHere { get; set; } = "Unable to repair {0} here.";
         public override string UnableToRepairFullyRepaired { get; set; } = "Unable to repair {0}, it is already fully repaired.";
@@ -112,6 +113,7 @@ namespace Client.Envir.Translations
 
         [ConfigSection("Common")]
         public override string CommonControlApply { get; set; } = "Apply";
+
         public override string CommonControlCancel { get; set; } = "Cancel";
         public override string CommonControlClose { get; set; } = "Close";
         public override string CommonControlConfirm { get; set; } = "Confirm";
@@ -207,6 +209,7 @@ namespace Client.Envir.Translations
 
         [ConfigSection("Scenes")]
         public override string LoginConnectionAttemptMessage { get; set; } = "Attempting to connect to the server.\nAttempt:{0}";
+
         public override string LoginConnectionAttemptCaption { get; set; } = "Connecting";
         public override string LoginLoadingMessage { get; set; } = "Loading Client Information...\nPlease wait...";
         public override string LoginLoadingCaption { get; set; } = "Loading";

@@ -1,13 +1,11 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO.Compression;
-using System.IO;
-using System.Windows.Forms;
-using DevExpress.XtraBars;
+﻿using DevExpress.XtraBars;
 using Library;
 using Library.SystemModels;
 using Server.Envir;
-using Server.Models;
+using System;
+using System.ComponentModel;
+using System.IO;
+using System.Windows.Forms;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Views
@@ -53,6 +51,7 @@ namespace Server.Views
 
             LoadSettings();
         }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             base.OnClosing(e);
@@ -70,7 +69,6 @@ namespace Server.Views
             UserCountPortEdit.EditValue = Config.UserCountPort;
             MaxPacketEdit.EditValue = Config.MaxPacket;
             PacketBanTimeEdit.EditValue = Config.PacketBanTime;
-
 
             //Control
             AllowNewAccountEdit.EditValue = Config.AllowNewAccount;
@@ -128,7 +126,6 @@ namespace Server.Views
             ProcessGameGoldEdit.EditValue = Config.ProcessGameGold;
             AllowBuyGameGoldEdit.EditValue = Config.AllowBuyGameGold;
 
-
             //Players
             MaxViewRangeEdit.EditValue = Config.MaxViewRange;
             ShoutDelayEdit.EditValue = Config.ShoutDelay;
@@ -175,6 +172,7 @@ namespace Server.Views
             SkillRateEdit.EditValue = Config.SkillRate;
             CompanionRateEdit.EditValue = Config.CompanionRate;
         }
+
         public void SaveSettings()
         {
             //Network
@@ -185,7 +183,6 @@ namespace Server.Views
             Config.UserCountPort = (ushort)UserCountPortEdit.EditValue;
             Config.MaxPacket = (int)MaxPacketEdit.EditValue;
             Config.PacketBanTime = (TimeSpan)PacketBanTimeEdit.EditValue;
-
 
             //Control
             Config.AllowNewAccount = (bool)AllowNewAccountEdit.EditValue;
@@ -302,11 +299,11 @@ namespace Server.Views
         {
             SaveSettings();
         }
+
         private void ReloadButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             LoadSettings();
         }
-
 
         private void CheckVersionButton_Click(object sender, EventArgs e)
         {
@@ -318,12 +315,14 @@ namespace Server.Views
 
             SEnvir.Broadcast(new S.Chat { Text = "A new version has been made available, please update when possible.", Type = MessageType.Announcement });
         }
+
         private void VersionPathEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             if (OpenDialog.ShowDialog() != DialogResult.OK) return;
 
             VersionPathEdit.EditValue = OpenDialog.FileName;
         }
+
         private void MapPathEdit_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
         {
             if (FolderDialog.ShowDialog() != DialogResult.OK) return;

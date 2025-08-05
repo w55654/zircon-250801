@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 
 namespace Client.Scenes.Views
@@ -114,7 +114,7 @@ namespace Client.Scenes.Views
         #region Settings
 
         public WindowSetting Settings;
-        public  WindowType Type => WindowType.CompanionBox;
+        public WindowType Type => WindowType.CompanionBox;
 
         public void LoadSettings()
         {
@@ -361,7 +361,7 @@ namespace Client.Scenes.Views
                 Size = new Size(152, 17),
                 Location = new Point(73, 178)
             };
-            
+
             LevelLabelTitle = new DXLabel
             {
                 Parent = CompanionTab,
@@ -760,6 +760,7 @@ namespace Client.Scenes.Views
                     FilterButton.Enabled = true;
                     BagButton.Enabled = true;
                     break;
+
                 case "Filter":
                     FilterControl.Visible = true;
                     BonusButton.Enabled = true;
@@ -767,6 +768,7 @@ namespace Client.Scenes.Views
                     BagButton.Enabled = true;
                     SaveFilterButton.Visible = true;
                     break;
+
                 case "Bag":
                     BagControl.Visible = true;
                     BonusButton.Enabled = true;
@@ -894,6 +896,7 @@ namespace Client.Scenes.Views
             }
             return selected;
         }
+
         private List<Rarity> GetCheckedItemsRarity()
         {
             List<Rarity> selected = new List<Rarity>();
@@ -906,6 +909,7 @@ namespace Client.Scenes.Views
             }
             return selected;
         }
+
         private List<ItemType> GetCheckedItemsType()
         {
             List<ItemType> selected = new List<ItemType>();
@@ -958,6 +962,7 @@ namespace Client.Scenes.Views
                 }
             }
         }
+
         private void DrawClassFilter()
         {
             Array classes = Enum.GetValues(typeof(MirClass));
@@ -991,6 +996,7 @@ namespace Client.Scenes.Views
                 }
             }
         }
+
         private void DrawRarityFilter()
         {
             Array rarities = Enum.GetValues(typeof(Rarity));
@@ -1012,6 +1018,7 @@ namespace Client.Scenes.Views
                     case Rarity.Elite:
                         rarityLabelColor = Color.MediumPurple;
                         break;
+
                     case Rarity.Superior:
                         rarityLabelColor = Color.PaleGreen;
                         break;
@@ -1381,8 +1388,11 @@ namespace Client.Scenes.Views
                 OnIndexChanged(oldValue, value);
             }
         }
+
         private int _Index;
+
         public event EventHandler<EventArgs> IndexChanged;
+
         public void OnIndexChanged(int oValue, int nValue)
         {
             IndexChanged?.Invoke(this, EventArgs.Empty);

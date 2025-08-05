@@ -15,6 +15,7 @@ namespace Client.Scenes.Views
     public sealed class ChatTab : DXTab
     {
         #region Properties
+
         public static List<ChatTab> Tabs = new List<ChatTab>();
 
         public ChatTabPageSetting Settings;
@@ -44,8 +45,11 @@ namespace Client.Scenes.Views
                 OnHideChatChanged(oldValue, value);
             }
         }
+
         private bool _HideChat;
+
         public event EventHandler<EventArgs> HideChatChanged;
+
         public void OnHideChatChanged(bool oValue, bool nValue)
         {
             HideChatChanged?.Invoke(this, EventArgs.Empty);
@@ -80,14 +84,14 @@ namespace Client.Scenes.Views
             if (ScrollBar == null || TextPanel == null) return;
 
             TextPanel.Location = new Point(ResizeBuffer, ResizeBuffer);
-            TextPanel.Size = new Size(Size.Width - ScrollBar.Size.Width - 1 - ResizeBuffer*2, Size.Height - ResizeBuffer*2);
+            TextPanel.Size = new Size(Size.Width - ScrollBar.Size.Width - 1 - ResizeBuffer * 2, Size.Height - ResizeBuffer * 2);
 
             ScrollBar.VisibleSize = TextPanel.Size.Height;
             ScrollBar.Location = new Point(Size.Width - ScrollBar.Size.Width - ResizeBuffer, ResizeBuffer);
-            ScrollBar.Size = new Size(14, Size.Height - ResizeBuffer*2);
+            ScrollBar.Size = new Size(14, Size.Height - ResizeBuffer * 2);
 
             if (!IsResizing)
-                ResizeChat();           
+                ResizeChat();
         }
 
         public override void OnIsResizingChanged(bool oValue, bool nValue)
@@ -130,7 +134,7 @@ namespace Client.Scenes.Views
                 Size = new Size(14, Size.Height),
                 VisibleSize = Size.Height
             };
-            ScrollBar.Location = new Point(Size.Width - ScrollBar.Size.Width - ResizeBuffer , 0);
+            ScrollBar.Location = new Point(Size.Width - ScrollBar.Size.Width - ResizeBuffer, 0);
             ScrollBar.ValueChanged += (o, e) => UpdateItems();
 
             TextPanel = new DXControl
@@ -139,7 +143,6 @@ namespace Client.Scenes.Views
                 PassThrough = true,
                 Location = new Point(ResizeBuffer, ResizeBuffer),
                 Size = new Size(Size.Width - ScrollBar.Size.Width - 1 - ResizeBuffer * 2, Size.Height - ResizeBuffer * 2),
-                
             };
 
             AlertIcon = new DXImageControl
@@ -199,7 +202,7 @@ namespace Client.Scenes.Views
             DXTabControl tab = TabButton.Parent as DXTabControl;
 
             if (tab.SelectedTab == this && !GameScene.Game.ChatOptionsBox.Visible &&
-                GameScene.Game.ChatTextBox.TextBox != DXTextBox.ActiveTextBox && 
+                GameScene.Game.ChatTextBox.TextBox != DXTextBox.ActiveTextBox &&
                 Panel.FadeOutCheckBox.Checked && Panel.TransparentCheckBox.Checked)
             {
                 var newest = History.LastOrDefault();
@@ -327,37 +330,48 @@ namespace Client.Scenes.Views
             {
                 case MessageType.Announcement:
                     break;
+
                 case MessageType.Normal:
                     if (!Panel.LocalCheckBox.Checked) return;
                     break;
+
                 case MessageType.Shout:
                     if (!Panel.ShoutCheckBox.Checked) return;
                     break;
+
                 case MessageType.Global:
                     if (!Panel.GlobalCheckBox.Checked) return;
                     break;
+
                 case MessageType.Group:
                     if (!Panel.GroupCheckBox.Checked) return;
                     break;
+
                 case MessageType.Hint:
                     if (!Panel.HintCheckBox.Checked) return;
                     break;
+
                 case MessageType.System:
                     if (!Panel.SystemCheckBox.Checked) return;
                     break;
+
                 case MessageType.WhisperIn:
                 case MessageType.WhisperOut:
                     if (!Panel.WhisperCheckBox.Checked) return;
                     break;
+
                 case MessageType.Combat:
                     if (!Panel.GainsCheckBox.Checked) return;
                     break;
+
                 case MessageType.ObserverChat:
                     if (!Panel.ObserverCheckBox.Checked) return;
                     break;
+
                 case MessageType.Guild:
                     if (!Panel.GuildCheckBox.Checked) return;
                     break;
+
                 case MessageType.Debug:
                     break;
             }
@@ -419,6 +433,7 @@ namespace Client.Scenes.Views
 
             UpdateItems(update);
         }
+
         public void ReceiveChat(MessageAction action, params object[] args)
         {
             DXLabel label;
@@ -449,6 +464,7 @@ namespace Client.Scenes.Views
                     };
                     label.Tag = MessageType.Announcement;
                     break;
+
                 default:
                     return;
             }
@@ -479,11 +495,13 @@ namespace Client.Scenes.Views
 
             UpdateItems(update);
         }
+
         public void UpdateColours()
         {
             foreach (DXLabel label in History.Select(x => x.Label))
                 UpdateColours(label);
         }
+
         private void UpdateColours(DXLabel label)
         {
             switch ((MessageType)label.Tag)
@@ -492,54 +510,67 @@ namespace Client.Scenes.Views
                     label.BackColour = GetBackColour(Config.LocalTextBackColour);
                     label.ForeColour = Config.LocalTextForeColour;
                     break;
+
                 case MessageType.Shout:
                     label.BackColour = GetBackColour(Config.ShoutTextBackColour);
                     label.ForeColour = Config.ShoutTextForeColour;
                     break;
+
                 case MessageType.Group:
                     label.BackColour = GetBackColour(Config.GroupTextBackColour);
                     label.ForeColour = Config.GroupTextForeColour;
                     break;
+
                 case MessageType.Global:
                     label.BackColour = GetBackColour(Config.GlobalTextBackColour);
                     label.ForeColour = Config.GlobalTextForeColour;
                     break;
+
                 case MessageType.Hint:
                     label.BackColour = GetBackColour(Config.HintTextBackColour);
                     label.ForeColour = Config.HintTextForeColour;
                     break;
+
                 case MessageType.System:
                     label.BackColour = GetBackColour(Config.SystemTextBackColour);
                     label.ForeColour = Config.SystemTextForeColour;
                     break;
+
                 case MessageType.Announcement:
                     label.BackColour = GetBackColour(Config.AnnouncementTextBackColour);
                     label.ForeColour = Config.AnnouncementTextForeColour;
                     break;
+
                 case MessageType.WhisperIn:
                     label.BackColour = GetBackColour(Config.WhisperInTextBackColour);
                     label.ForeColour = Config.WhisperInTextForeColour;
                     break;
+
                 case MessageType.GMWhisperIn:
                     label.BackColour = GetBackColour(Config.GMWhisperInTextBackColour);
                     label.ForeColour = Config.GMWhisperInTextForeColour;
                     break;
+
                 case MessageType.WhisperOut:
                     label.BackColour = GetBackColour(Config.WhisperOutTextBackColour);
                     label.ForeColour = Config.WhisperOutTextForeColour;
                     break;
+
                 case MessageType.Combat:
                     label.BackColour = GetBackColour(Config.GainsTextBackColour);
                     label.ForeColour = Config.GainsTextForeColour;
                     break;
+
                 case MessageType.ObserverChat:
                     label.BackColour = GetBackColour(Config.ObserverTextBackColour);
                     label.ForeColour = Config.ObserverTextForeColour;
                     break;
+
                 case MessageType.Guild:
                     label.BackColour = GetBackColour(Config.GuildTextBackColour);
                     label.ForeColour = Config.GuildTextForeColour;
                     break;
+
                 case MessageType.Debug:
                     label.BackColour = Color.SkyBlue;
                     label.ForeColour = Color.White;
@@ -750,7 +781,6 @@ namespace Client.Scenes.Views
                     ItemLabels = null;
                 }
             }
-
         }
 
         #endregion

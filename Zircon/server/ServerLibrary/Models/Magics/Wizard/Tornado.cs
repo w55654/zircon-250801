@@ -29,7 +29,6 @@ namespace Server.Models.Magics
                 Ob = null
             };
 
-
             if (!Functions.InRange(CurrentLocation, location, Globals.MagicRange))
             {
                 response.Cast = false;

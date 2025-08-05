@@ -14,15 +14,13 @@ namespace MirDB
     [AttributeUsage(AttributeTargets.Class)]
     public class UserObjectAttribute : Attribute
     {
-
     }
 
     [AttributeUsage(AttributeTargets.Property)]
     public class IgnorePropertyAttribute : Attribute
     {
-
     }
-    
+
     [AttributeUsage(AttributeTargets.Property)]
     public class AssociationAttribute : Attribute
     {
@@ -33,10 +31,12 @@ namespace MirDB
         {
             Identity = identity;
         }
+
         public AssociationAttribute(bool aggregate)
         {
             Aggregate = aggregate;
         }
+
         public AssociationAttribute(string identity, bool aggregate)
         {
             Identity = identity;
@@ -47,6 +47,5 @@ namespace MirDB
     [AttributeUsage(AttributeTargets.Property)]
     public class IsIdentityAttribute : Attribute
     {
-
     }
 }

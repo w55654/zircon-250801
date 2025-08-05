@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Library;
 
 //Cleaned
 namespace Client.Controls
@@ -25,8 +25,11 @@ namespace Client.Controls
                 OnCheckedChanged(oldValue, value);
             }
         }
+
         private bool _Checked;
+
         public event EventHandler<EventArgs> CheckedChanged;
+
         public void OnCheckedChanged(bool oValue, bool nValue)
         {
             CheckedChanged?.Invoke(this, EventArgs.Empty);
@@ -51,8 +54,11 @@ namespace Client.Controls
                 OnReadOnlyChanged(oldValue, value);
             }
         }
+
         private bool _ReadOnly;
+
         public event EventHandler<EventArgs> ReadOnlyChanged;
+
         public void OnReadOnlyChanged(bool oValue, bool nValue)
         {
             ReadOnlyChanged?.Invoke(this, EventArgs.Empty);
@@ -62,7 +68,7 @@ namespace Client.Controls
 
         public DXLabel Label { get; private set; }
         public DXImageControl Box { get; private set; }
-        
+
         public override void OnDisplayAreaChanged(Rectangle oValue, Rectangle nValue)
         {
             base.OnDisplayAreaChanged(oValue, nValue);
@@ -71,7 +77,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         public DXCheckBox()
         {
             Label = new DXLabel
@@ -87,7 +93,6 @@ namespace Client.Controls
                 Box.Location = new Point(Label.DisplayArea.Width, 1);
             };
 
-
             Box = new DXImageControl
             {
                 Location = new Point(Label.Size.Width + 2, 1),
@@ -101,7 +106,6 @@ namespace Client.Controls
                 Size = new Size(Label.DisplayArea.Width + Box.DisplayArea.Width, Box.DisplayArea.Height);
                 Box.Location = new Point(Label.DisplayArea.Width, 1);
             };
-
 
             Size = new Size(18, 18);
         }
@@ -137,6 +141,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -164,6 +169,7 @@ namespace Client.Controls
                 ReadOnlyChanged = null;
             }
         }
+
         #endregion
     }
 }

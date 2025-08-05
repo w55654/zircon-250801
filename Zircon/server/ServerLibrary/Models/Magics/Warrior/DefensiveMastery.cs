@@ -1,5 +1,4 @@
 ﻿using Library;
-using Library.Network.ClientPackets;
 using Server.DBModels;
 
 namespace Server.Models.Magics
@@ -11,7 +10,6 @@ namespace Server.Models.Magics
 
         public DefensiveMastery(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override Stats GetPassiveStats()

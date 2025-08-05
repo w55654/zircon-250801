@@ -1,105 +1,97 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Client.Controls;
-using Client.Envir;
+﻿using Client.Envir;
 using Client.Scenes;
 using Library;
+using System;
+using System.Drawing;
 
 namespace Client.Models
 {
-/*
-    public class DamageInfoOld
-    {
-        public static List<DXLabel> Labels = new List<DXLabel>();
-
-        public string Text;
-        public Color ForeColour;
-        public Color OutlineColour;
-
-        public DateTime StartTime;
-        public TimeSpan Duration;
-        public int OffsetX = 25;
-        public int OffsetY = 50;
-        public bool Shift;
-
-        public DXLabel Label;
-
-        public DamageInfo(int damage)
+    /*
+        public class DamageInfoOld
         {
-            Text = damage.ToString("+#,##0;-#,##0");
-            StartTime = CEnvir.Now;
-            Duration = TimeSpan.FromSeconds(2);
-            OutlineColour = Color.Black;
+            public static List<DXLabel> Labels = new List<DXLabel>();
 
-            if (damage <= -500)
-                ForeColour = Color.Orange;
-            else if (damage <= -100)
-                ForeColour = Color.Green;
-            else if (damage < 0)
-                ForeColour = Color.Red;
-            else
-                ForeColour = Color.Blue;
+            public string Text;
+            public Color ForeColour;
+            public Color OutlineColour;
 
+            public DateTime StartTime;
+            public TimeSpan Duration;
+            public int OffsetX = 25;
+            public int OffsetY = 50;
+            public bool Shift;
 
-            CreateLabel();
-        }
-        public DamageInfo(string text, Color textColour)
-        {
-            Text = text;
-            ForeColour = textColour;
-            StartTime = CEnvir.Now;
-            Duration = TimeSpan.FromSeconds(2);
-            OutlineColour = Color.Black;
+            public DXLabel Label;
 
-            CreateLabel();
-        }
-
-        public void CreateLabel()
-        {
-            Label = Labels.FirstOrDefault(x => x.Text == Text && x.ForeColour == ForeColour && x.OutlineColour == OutlineColour);
-
-            if (Label != null) return;
-
-            Label = new DXLabel
+            public DamageInfo(int damage)
             {
-                Text = Text,
-                ForeColour = ForeColour,
-                Outline = true,
-                OutlineColour = OutlineColour,
-                IsVisible = true,
-                Font = new Font(Config.FontName, 10),
-            };
+                Text = damage.ToString("+#,##0;-#,##0");
+                StartTime = CEnvir.Now;
+                Duration = TimeSpan.FromSeconds(2);
+                OutlineColour = Color.Black;
 
-            Labels.Add(Label);
-            Label.Disposing += (o, e) => Labels.Remove(Label);
-        }
+                if (damage <= -500)
+                    ForeColour = Color.Orange;
+                else if (damage <= -100)
+                    ForeColour = Color.Green;
+                else if (damage < 0)
+                    ForeColour = Color.Red;
+                else
+                    ForeColour = Color.Blue;
 
-        public void Draw(int DrawX, int DrawY)
-        {
-            TimeSpan time = CEnvir.Now - StartTime;
+                CreateLabel();
+            }
+            public DamageInfo(string text, Color textColour)
+            {
+                Text = text;
+                ForeColour = textColour;
+                StartTime = CEnvir.Now;
+                Duration = TimeSpan.FromSeconds(2);
+                OutlineColour = Color.Black;
 
-            int x = (int)(time.Ticks / (Duration.Ticks / OffsetX) % OffsetX);
-            int y = (int)(time.Ticks / (Duration.Ticks / OffsetY) % OffsetY);
+                CreateLabel();
+            }
 
-            if (Shift)
-                x -= Label.Size.Width - 5;
+            public void CreateLabel()
+            {
+                Label = Labels.FirstOrDefault(x => x.Text == Text && x.ForeColour == ForeColour && x.OutlineColour == OutlineColour);
 
-            Point location = new Point(GameScene.Game.Location.X + DrawX + x + 13 , GameScene.Game.Location.Y + DrawY - y - 30);
+                if (Label != null) return;
 
+                Label = new DXLabel
+                {
+                    Text = Text,
+                    ForeColour = ForeColour,
+                    Outline = true,
+                    OutlineColour = OutlineColour,
+                    IsVisible = true,
+                    Font = new Font(Config.FontName, 10),
+                };
 
-           // location.X += (48 - Label.Size.Width) / 2;
-            location.Y -= 32  - Label.Size.Height;
+                Labels.Add(Label);
+                Label.Disposing += (o, e) => Labels.Remove(Label);
+            }
 
-            Label.Location = location;
+            public void Draw(int DrawX, int DrawY)
+            {
+                TimeSpan time = CEnvir.Now - StartTime;
 
-            Label.Draw();
-        }
+                int x = (int)(time.Ticks / (Duration.Ticks / OffsetX) % OffsetX);
+                int y = (int)(time.Ticks / (Duration.Ticks / OffsetY) % OffsetY);
 
-    }*/
+                if (Shift)
+                    x -= Label.Size.Width - 5;
+
+                Point location = new Point(GameScene.Game.Location.X + DrawX + x + 13 , GameScene.Game.Location.Y + DrawY - y - 30);
+
+               // location.X += (48 - Label.Size.Width) / 2;
+                location.Y -= 32  - Label.Size.Height;
+
+                Label.Location = location;
+
+                Label.Draw();
+            }
+        }*/
 
     public class DamageInfo
     {
@@ -118,8 +110,11 @@ namespace Client.Models
                 OnValueChanged(oldValue, value);
             }
         }
+
         private int _Value;
+
         public event EventHandler<EventArgs> ValueChanged;
+
         public virtual void OnValueChanged(int oValue, int nValue)
         {
             ValueChanged?.Invoke(this, EventArgs.Empty);
@@ -142,15 +137,18 @@ namespace Client.Models
                 OnBlockChanged(oldValue, value);
             }
         }
+
         private bool _Block;
+
         public event EventHandler<EventArgs> BlockChanged;
+
         public virtual void OnBlockChanged(bool oValue, bool nValue)
         {
             BlockChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
-        
+
         #region Miss
 
         public bool Miss
@@ -166,8 +164,11 @@ namespace Client.Models
                 OnMissChanged(oldValue, value);
             }
         }
+
         private bool _Miss;
+
         public event EventHandler<EventArgs> MissChanged;
+
         public virtual void OnMissChanged(bool oValue, bool nValue)
         {
             MissChanged?.Invoke(this, EventArgs.Empty);
@@ -190,8 +191,11 @@ namespace Client.Models
                 OnCriticalChanged(oldValue, value);
             }
         }
+
         private bool _Critical;
+
         public event EventHandler<EventArgs> CriticalChanged;
+
         public virtual void OnCriticalChanged(bool oValue, bool nValue)
         {
             CriticalChanged?.Invoke(this, EventArgs.Empty);
@@ -201,7 +205,6 @@ namespace Client.Models
 
         public static MirLibrary Library;
 
-        
         public DateTime StartTime { get; set; } = CEnvir.Now;
         public TimeSpan AppearDelay { get; set; } = TimeSpan.FromMilliseconds(500);
         public TimeSpan ShowDelay { get; set; } = TimeSpan.FromSeconds(1);
@@ -232,18 +235,15 @@ namespace Client.Models
 
             if (visibleTime < AppearDelay)
             {
-                decimal percent = visibleTime.Ticks/(decimal)AppearDelay.Ticks;
+                decimal percent = visibleTime.Ticks / (decimal)AppearDelay.Ticks;
 
                 if (DrawY != 0)
                 {
-                    
                 }
 
-
-                DrawY = (int) (DrawHeight * percent);
+                DrawY = (int)(DrawHeight * percent);
 
                 Opacity = (float)(percent * 3);
-
             }
             else if (visibleTime < AppearDelay + ShowDelay)
             {
@@ -256,8 +256,8 @@ namespace Client.Models
                 visibleTime -= AppearDelay + ShowDelay;
                 decimal percent = visibleTime.Ticks / (decimal)HideDelay.Ticks;
 
-                DrawY = DrawHeight + (int) (40*percent);
-                Opacity = 1 - (float) (percent);
+                DrawY = DrawHeight + (int)(40 * percent);
+                Opacity = 1 - (float)(percent);
             }
             else
             {
@@ -269,13 +269,12 @@ namespace Client.Models
                 DrawY = Math.Min(DrawY, previous.Bottom);
 
             if (oldY != DrawY)
-            GameScene.Game.MapControl.TextureValid = false;
+                GameScene.Game.MapControl.TextureValid = false;
         }
 
         public void Draw(int drawX, int drawY)
         {
             if (Library == null) return;
-
 
             drawY -= DrawY + 20;
 
@@ -305,8 +304,6 @@ namespace Client.Models
             {
                 string text = Value.ToString("+#0;-#0");
 
-
-               
                 int index;
                 int width;
                 if (Value <= -1000)
@@ -349,7 +346,7 @@ namespace Client.Models
                     Library.Draw(78, drawX, drawY, Color.White, false, Opacity, ImageType.Image);
                     drawX += size.Width + 5;
                 }
-                
+
                 size = Library.GetSize(index);
 
                 for (int i = 0; i < text.Length; i++)
@@ -365,16 +362,10 @@ namespace Client.Models
                         else continue;
                     }
 
-
-                    Library.Draw(index, drawX, drawY, Color.White, new Rectangle(width*number, 0, Math.Min(size.Width - width*number, width), size.Height), Opacity, ImageType.Image);
+                    Library.Draw(index, drawX, drawY, Color.White, new Rectangle(width * number, 0, Math.Min(size.Width - width * number, width), size.Height), Opacity, ImageType.Image);
                     drawX += width;
                 }
-
             }
-
-
         }
-
-
     }
 }

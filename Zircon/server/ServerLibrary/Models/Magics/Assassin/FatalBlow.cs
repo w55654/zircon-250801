@@ -1,6 +1,5 @@
 ﻿using Library;
 using Server.DBModels;
-using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Magics
 {
@@ -13,7 +12,6 @@ namespace Server.Models.Magics
 
         public FatalBlow(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override AttackCast AttackCast(MagicType attackType)
@@ -39,7 +37,6 @@ namespace Server.Models.Magics
 
         public override void AttackComplete(MapObject target)
         {
-            
         }
     }
 }

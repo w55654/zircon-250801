@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Library;
+using Server.Envir;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Library;
-using Server.Envir;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -20,7 +20,6 @@ namespace Server.Models.Monsters
             int y = Math.Abs(Target.CurrentLocation.Y - CurrentLocation.Y);
 
             if (x > Range || y > Range) return false;
-
 
             return x == 0 || x == y || y == 0;
         }
@@ -44,7 +43,6 @@ namespace Server.Models.Monsters
                 base.Attack(ob, GetDC(), AttackElement);
                 return;
             }
-
 
             base.Attack(ob, GetDC(), AttackElement);
         }
@@ -107,8 +105,6 @@ namespace Server.Models.Monsters
                         break;
                     }
                 }
-
-
             }
         }
 
@@ -134,7 +130,6 @@ namespace Server.Models.Monsters
 
                 LineAttack(Range);
             }
-
         }
     }
 }

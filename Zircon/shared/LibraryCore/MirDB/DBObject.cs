@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Library.MirDB;
+using System;
 using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.IO;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using Library.MirDB;
 
 namespace MirDB
 {
@@ -26,10 +26,12 @@ namespace MirDB
                 CreateBindings();
             }
         }
+
         private ADBCollection _Collection;
 
         [IgnoreProperty]
-        protected Session Session { get { return Collection.Session; } }
+        protected Session Session
+        { get { return Collection.Session; } }
 
         internal readonly Type ThisType;
 
@@ -91,7 +93,6 @@ namespace MirDB
 
                         list.Enqueue(this);
 
-
                         continue;
                     }
 
@@ -117,6 +118,7 @@ namespace MirDB
                 }
             }
         }
+
         internal void Save()
         {
             if (IsTemporary) return;
@@ -163,20 +165,22 @@ namespace MirDB
             Collection.Session.FastDelete(this);
         }
 
-
         protected internal virtual void OnCreated()
         {
             IsModified = true;
             IsLoaded = true;
         }
+
         protected internal virtual void OnLoaded()
         {
             IsLoaded = true;
         }
+
         protected virtual void OnSaved()
         {
             IsModified = false;
         }
+
         protected internal virtual void OnDeleted()
         {
             IsDeleted = true;
@@ -246,9 +250,9 @@ namespace MirDB
                 }
             }
 
-
             throw new ArgumentException($"Unable to find Association {ThisType.Name}, Link: {link.Identity ?? "Empty"} -> {info.PropertyType.Name}");
         }
+
         private void RemoveLink(object ob, PropertyInfo info)
         {
             if (ob == null) return;
@@ -301,7 +305,6 @@ namespace MirDB
                 }
             }
 
-
             throw new ArgumentException($"Unable to find Association {ThisType.Name}, Link: {link.Identity ?? "Empty"} -> {info.PropertyType.Name}");
         }
 
@@ -311,7 +314,9 @@ namespace MirDB
         }
 
         #region OnPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected internal virtual void OnChanged(object oldValue, object newValue, string propertyName)
         {
             if (Collection.Session.Relationships == null)
@@ -328,6 +333,7 @@ namespace MirDB
             if (IsLoaded && Collection.RaisePropertyChanges)
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
         #endregion
     }
 }

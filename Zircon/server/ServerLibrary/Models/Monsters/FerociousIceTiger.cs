@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -32,6 +29,7 @@ namespace Server.Models.Monsters
 
             Spinning = false;
         }
+
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -39,7 +37,7 @@ namespace Server.Models.Monsters
             if (SEnvir.Random.Next(5) == 0 || Spinning)
             {
                 Broadcast(new S.ObjectRangeAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation, Targets = new List<uint>() });
-                
+
                 foreach (MapObject ob in GetTargets(CurrentMap, CurrentLocation, 3))
                 {
                     int damage = GetDC();
@@ -60,11 +58,10 @@ namespace Server.Models.Monsters
                         ob,
                         damage,
                         AttackElement));
-
                 }
 
-                 ActionTime = SEnvir.Now.AddMilliseconds(600);
-                 AttackTime = SEnvir.Now.AddMilliseconds(640);
+                ActionTime = SEnvir.Now.AddMilliseconds(600);
+                AttackTime = SEnvir.Now.AddMilliseconds(640);
 
                 Spinning = true;
             }
@@ -83,8 +80,6 @@ namespace Server.Models.Monsters
                 }
                 UpdateAttackTime();
             }
-
         }
-
     }
 }

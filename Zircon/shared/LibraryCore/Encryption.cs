@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -16,7 +15,7 @@ namespace Library
             get { return _cryptoKey != null && _cryptoKey.Length > 0; }
         }
 
-        private readonly static Aes _algorithm;
+        private static readonly Aes _algorithm;
 
         static Encryption()
         {
@@ -31,7 +30,7 @@ namespace Library
 
             var stringToCompare = Encoding.UTF8.GetString(buffer, 5, 16);
 
-            if (stringToCompare.StartsWith("Plugin.")) 
+            if (stringToCompare.StartsWith("Plugin."))
                 return false;
 
             return !new string[] { "Server.DBModels.", "Library.SystemMo", "Client.UserModel" }.Contains(stringToCompare);

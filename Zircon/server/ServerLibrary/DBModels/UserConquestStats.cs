@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using MirDB;
+using System;
 
 namespace Server.DBModels
 {
@@ -24,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         public DateTime WarStartDate
@@ -39,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "WarStartDate");
             }
         }
+
         private DateTime _WarStartDate;
 
         public string CastleName
@@ -54,8 +52,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CastleName");
             }
         }
+
         private string _CastleName;
-        
 
         public string CharacterName
         {
@@ -70,6 +68,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CharacterName");
             }
         }
+
         private string _CharacterName;
 
         public string GuildName
@@ -85,6 +84,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildName");
             }
         }
+
         private string _GuildName;
 
         public int Level
@@ -100,6 +100,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public MirClass Class
@@ -115,9 +116,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Class");
             }
         }
-        private MirClass _Class;
-        
 
+        private MirClass _Class;
 
         public int BossDamageTaken
         {
@@ -132,6 +132,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BossDamageTaken");
             }
         }
+
         private int _BossDamageTaken;
 
         public int BossDamageDealt
@@ -147,6 +148,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BossDamageDealt");
             }
         }
+
         private int _BossDamageDealt;
 
         public int BossDeathCount
@@ -162,6 +164,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BossDeathCount");
             }
         }
+
         private int _BossDeathCount;
 
         public int BossKillCount
@@ -177,8 +180,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BossKillCount");
             }
         }
+
         private int _BossKillCount;
-        
+
         public int PvPDamageTaken
         {
             get { return _PvPDamageTaken; }
@@ -192,6 +196,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PvPDamageTaken");
             }
         }
+
         private int _PvPDamageTaken;
 
         public int PvPDamageDealt
@@ -207,6 +212,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PvPDamageDealt");
             }
         }
+
         private int _PvPDamageDealt;
 
         public int PvPKillCount
@@ -222,6 +228,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PvPKillCount");
             }
         }
+
         private int _PvPKillCount;
 
         public int PvPDeathCount
@@ -237,6 +244,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PvPDeathCount");
             }
         }
+
         private int _PvPDeathCount;
     }
 }

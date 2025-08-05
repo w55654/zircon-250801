@@ -20,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         [Association("BlockedByList")]
@@ -36,6 +37,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BlockedAccount");
             }
         }
+
         private AccountInfo _BlockedAccount;
 
         public string BlockedName
@@ -51,6 +53,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BlockedName");
             }
         }
+
         private string _BlockedName;
 
         protected override void OnDeleted()

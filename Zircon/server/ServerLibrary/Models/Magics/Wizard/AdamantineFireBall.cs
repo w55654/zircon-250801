@@ -1,6 +1,5 @@
 ﻿using Library;
 using Server.DBModels;
-using Server.Envir;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -13,7 +12,6 @@ namespace Server.Models.Magics
 
         public AdamantineFireBall(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetBurn(int burn, Stats stats = null)

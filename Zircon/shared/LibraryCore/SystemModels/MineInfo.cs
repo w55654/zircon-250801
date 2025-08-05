@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
+using System;
 
 namespace Library.SystemModels
 {
@@ -25,6 +20,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Map");
             }
         }
+
         private MapInfo _Map;
 
         [IsIdentity]
@@ -41,6 +37,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Chance
@@ -56,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Chance");
             }
         }
+
         private int _Chance;
 
         public MapRegion Region
@@ -71,6 +69,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Region");
             }
         }
+
         private MapRegion _Region;
 
         public int Quantity
@@ -86,6 +85,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Quantity");
             }
         }
+
         private int _Quantity = -1;
 
         public int RestockTimeInMinutes
@@ -101,6 +101,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RestockTimeInMinutes");
             }
         }
+
         private int _RestockTimeInMinutes = -1;
 
         public int RemainingQuantity;

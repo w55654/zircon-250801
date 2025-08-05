@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 
 namespace Server.Models.Monsters
 {
@@ -27,12 +23,15 @@ namespace Server.Models.Monsters
                     case 0:
                         LineAoE(12, -2, 2, MagicType.GreaterFrozenEarth, Element.Ice);
                         break;
+
                     case 1:
                         LineAoE(12, -2, 2, MagicType.MonsterScortchedEarth, Element.Fire);
                         break;
+
                     case 2:
                         LineAoE(12, -2, 2, MagicType.LightningBeam, Element.Lightning);
                         break;
+
                     case 3:
                         LineAoE(12, -2, 2, MagicType.BlowEarth, Element.Wind);
                         break;
@@ -41,6 +40,7 @@ namespace Server.Models.Monsters
 
             base.ProcessTarget();
         }
+
         protected override void Attack()
         {
             Cast--;

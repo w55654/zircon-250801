@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 
 namespace Server.Models.Monsters
 {
-    class SamaProphet : MonsterObject
+    internal class SamaProphet : MonsterObject
     {
         public DateTime CheckTime;
+
         protected override bool InAttackRange()
         {
             if (Target.CurrentMap != CurrentMap) return false;
@@ -39,15 +36,15 @@ namespace Server.Models.Monsters
 
                 MonsterObject mob = (MonsterObject)ob;
 
-
                 if (mob.MonsterInfo.Flag != MonsterFlag.SamaSorcerer) continue;
 
                 if (Functions.InRange(mob.CurrentLocation, CurrentLocation, MonsterInfo.ViewRange - 3)) continue;
-                
+
                 mob.Teleport(CurrentMap, CurrentMap.GetRandomLocation(Functions.Move(CurrentLocation, MirDirection.DownLeft, 2), 1));
                 break;
             }
         }
+
         public override bool SpawnMinion(MonsterObject mob)
         {
             return mob.Spawn(CurrentMap, CurrentMap.GetRandomLocation(Functions.Move(CurrentLocation, MirDirection.DownLeft, 5), 4));
@@ -71,7 +68,7 @@ namespace Server.Models.Monsters
             {
                 if (ob.Race != ObjectType.Monster) continue;
 
-                MonsterObject mob = (MonsterObject) ob;
+                MonsterObject mob = (MonsterObject)ob;
 
                 if (mob.MonsterInfo.Flag == MonsterFlag.BloodStone || mob.MonsterInfo.Flag == MonsterFlag.SamaSorcerer) return 0;
             }
@@ -86,9 +83,11 @@ namespace Server.Models.Monsters
                 case 0:
                     AttackAoE(15, MagicType.SamaProphetFire, Element.Fire);
                     break;
+
                 case 1:
                     AttackAoE(15, MagicType.SamaProphetWind, Element.Ice);
                     break;
+
                 case 2:
                     AttackAoE(15, MagicType.SamaProphetLightning, Element.Lightning);
                     break;

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 
 namespace Client.Scenes.Views
@@ -32,8 +28,11 @@ namespace Client.Scenes.Views
                 OnSelectedClassChanged(oldValue, value);
             }
         }
+
         private MirClass _SelectedClass;
+
         public event EventHandler<EventArgs> SelectedClassChanged;
+
         public void OnSelectedClassChanged(MirClass oValue, MirClass nValue)
         {
             SelectedClassChanged?.Invoke(this, EventArgs.Empty);
@@ -44,14 +43,17 @@ namespace Client.Scenes.Views
                     WarriorButton.Index = 120;
                     WarriorButton.Pressed = true;
                     break;
+
                 case MirClass.Wizard:
                     WizardButton.Index = 125;
                     WizardButton.Pressed = true;
                     break;
+
                 case MirClass.Taoist:
                     TaoistButton.Index = 130;
                     TaoistButton.Pressed = true;
                     break;
+
                 case MirClass.Assassin:
                     AssassinButton.Index = 135;
                     AssassinButton.Pressed = true;
@@ -67,14 +69,17 @@ namespace Client.Scenes.Views
                     WarriorButton.Index = 121;
                     WarriorButton.Pressed = false;
                     break;
+
                 case MirClass.Wizard:
                     WizardButton.Index = 126;
                     WizardButton.Pressed = false;
                     break;
+
                 case MirClass.Taoist:
                     TaoistButton.Index = 131;
                     TaoistButton.Pressed = false;
                     break;
+
                 case MirClass.Assassin:
                     AssassinButton.Index = 136;
                     AssassinButton.Pressed = false;
@@ -104,8 +109,11 @@ namespace Client.Scenes.Views
                 OnSelectedGenderChanged(oldValue, value);
             }
         }
+
         private MirGender _SelectedGender;
+
         public event EventHandler<EventArgs> SelectedGenderChanged;
+
         public void OnSelectedGenderChanged(MirGender oValue, MirGender nValue)
         {
             SelectedGenderChanged?.Invoke(this, EventArgs.Empty);
@@ -117,6 +125,7 @@ namespace Client.Scenes.Views
                     MaleButton.Pressed = true;
                     HairNumberBox.MaxValue = SelectedClass == MirClass.Assassin ? 5 : 10;
                     break;
+
                 case MirGender.Female:
                     FemaleButton.Index = 110;
                     FemaleButton.Pressed = true;
@@ -130,11 +139,11 @@ namespace Client.Scenes.Views
                     MaleButton.Index = 116;
                     MaleButton.Pressed = false;
                     break;
+
                 case MirGender.Female:
                     FemaleButton.Index = 111;
                     FemaleButton.Pressed = false;
                     break;
-
             }
             SelectedGenderLabel.Text = SelectedGender.ToString();
         }
@@ -156,15 +165,18 @@ namespace Client.Scenes.Views
                 OnCharacterNameValidChanged(oldValue, value);
             }
         }
+
         private bool _CharacterNameValid;
+
         public event EventHandler<EventArgs> CharacterNameValidChanged;
+
         public void OnCharacterNameValidChanged(bool oValue, bool nValue)
         {
             CharacterNameValidChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
-        
+
         #region Change
 
         public ChangeType Change
@@ -180,8 +192,11 @@ namespace Client.Scenes.Views
                 OnChangeChanged(oldValue, value);
             }
         }
+
         private ChangeType _Change;
+
         public event EventHandler<EventArgs> ChangeChanged;
+
         public void OnChangeChanged(ChangeType oValue, ChangeType nValue)
         {
             ChangeChanged?.Invoke(this, EventArgs.Empty);
@@ -213,6 +228,7 @@ namespace Client.Scenes.Views
                     HairColourLabel.Enabled = HairNumberBox.Value > 0;
                     HairColour.Enabled = HairNumberBox.Value > 0;
                     break;
+
                 case ChangeType.HairChange:
                     HairNumberBox.Enabled = true;
                     HairTypeLabel.Enabled = true;
@@ -220,21 +236,21 @@ namespace Client.Scenes.Views
                     HairColourLabel.Enabled = HairNumberBox.Value > 0;
                     HairColour.Enabled = HairNumberBox.Value > 0;
                     break;
+
                 case ChangeType.ArmourDye:
                     ArmourColour.Enabled = true;
                     ArmourColourLabel.Enabled = true;
                     break;
+
                 case ChangeType.NameChange:
                     CharacterNameTextBox.Enabled = true;
                     CharacterNameTextBoxLabel.Enabled = true;
                     break;
             }
-
         }
 
         #endregion
-        
-        
+
         public DXLabel SelectedClassLabel, SelectedGenderLabel, HairTypeLabel, HairColourLabel, ArmourColourLabel, CharacterNameHelpLabel, CharacterNameTextBoxLabel;
         public DXTextBox CharacterNameTextBox;
         public DXNumberBox HairNumberBox;
@@ -253,6 +269,7 @@ namespace Client.Scenes.Views
         public override WindowType Type => WindowType.None;
         public override bool CustomSize => false;
         public override bool AutomaticVisibility => false;
+
         #endregion
 
         public EditCharacterDialog()
@@ -273,7 +290,6 @@ namespace Client.Scenes.Views
 
             #region Select Class
 
-
             DXControl panel = new DXControl
             {
                 Parent = this,
@@ -293,7 +309,6 @@ namespace Client.Scenes.Views
                 Text = "Select Class",
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
-
 
             WarriorButton = new DXButton
             {
@@ -346,7 +361,6 @@ namespace Client.Scenes.Views
                 BackColour = Color.FromArgb(16, 8, 8),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99)
-
             };
             SelectedClassLabel.Location = new Point((panel.Size.Width - SelectedClassLabel.Size.Width) / 2, panel.Size.Height - SelectedClassLabel.Size.Height - 5);
 
@@ -383,7 +397,6 @@ namespace Client.Scenes.Views
             };
             MaleButton.MouseClick += (o, e) => SelectedGender = MirGender.Male;
 
-
             FemaleButton = new DXButton
             {
                 Index = 111,
@@ -392,7 +405,6 @@ namespace Client.Scenes.Views
                 Parent = panel,
             };
             FemaleButton.MouseClick += (o, e) => SelectedGender = MirGender.Female;
-
 
             SelectedGenderLabel = new DXLabel
             {
@@ -404,14 +416,12 @@ namespace Client.Scenes.Views
                 BackColour = Color.FromArgb(16, 8, 8),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99)
-
             };
             SelectedGenderLabel.Location = new Point((panel.Size.Width - SelectedGenderLabel.Size.Width) / 2, panel.Size.Height - SelectedGenderLabel.Size.Height - 5);
 
             #endregion
 
             #region Customization
-
 
             panel = new DXControl
             {
@@ -479,7 +489,6 @@ namespace Client.Scenes.Views
             };
             ArmourColourLabel.Location = new Point(HairNumberBox.Location.X - ArmourColourLabel.Size.Width - 5, (ArmourColour.Size.Height - ArmourColourLabel.Size.Height) / 2 + ArmourColour.Location.Y);
 
-
             DXControl previewPanel = new DXControl
             {
                 Parent = panel,
@@ -530,8 +539,6 @@ namespace Client.Scenes.Views
             };
             CharacterNameHelpLabel.Location = new Point(CharacterNameTextBox.Location.X + CharacterNameTextBox.Size.Width + 2, (CharacterNameTextBox.Size.Height - CharacterNameHelpLabel.Size.Height) / 2 + CharacterNameTextBox.Location.Y);
 
-
-
             HairNumberBox.Value = 1;
         }
 
@@ -550,12 +557,15 @@ namespace Client.Scenes.Views
 
                     CEnvir.Enqueue(new C.GenderChange { Gender = SelectedGender, HairType = (int)HairNumberBox.Value, HairColour = HairColour.Enabled ? HairColour.BackColour : Color.Empty });
                     break;
+
                 case ChangeType.HairChange:
                     CEnvir.Enqueue(new C.HairChange { HairType = (int)HairNumberBox.Value, HairColour = HairColour.Enabled ? HairColour.BackColour : Color.Empty });
                     break;
+
                 case ChangeType.ArmourDye:
                     CEnvir.Enqueue(new C.ArmourDye { ArmourColour = ArmourColour.BackColour });
                     break;
+
                 case ChangeType.NameChange:
                     CEnvir.Enqueue(new C.NameChange { Name = CharacterNameTextBox.TextBox.Text });
                     break;
@@ -566,6 +576,7 @@ namespace Client.Scenes.Views
 
             Visible = false;
         }
+
         public void Clear()
         {
             SelectedClass = MirClass.Warrior;
@@ -575,6 +586,7 @@ namespace Client.Scenes.Views
 
             Close();
         }
+
         private void Close()
         {
             SelectScene scene = ActiveScene as SelectScene;
@@ -592,6 +604,7 @@ namespace Client.Scenes.Views
 
             e.Handled = true;
         }
+
         private void CharacterNameTextBox_TextChanged(object sender, EventArgs e)
         {
             CharacterNameValid = Globals.CharacterReg.IsMatch(CharacterNameTextBox.TextBox.Text);
@@ -600,8 +613,8 @@ namespace Client.Scenes.Views
                 CharacterNameTextBox.BorderColour = Color.FromArgb(198, 166, 99);
             else
                 CharacterNameTextBox.BorderColour = CharacterNameValid ? Color.Green : Color.Red;
-
         }
+
         private void PreviewPanel_AfterDraw(object sender, EventArgs e)
         {
             //scaling shit
@@ -615,7 +628,6 @@ namespace Client.Scenes.Views
 
             DXItemCell[] Grid = GameScene.Game.CharacterBox.Grid;
 
-
             if (CEnvir.LibraryList.TryGetValue(LibraryFile.ProgUse, out lib))
             {
                 switch (SelectedGender)
@@ -623,9 +635,11 @@ namespace Client.Scenes.Views
                     case MirGender.Male:
                         lib.Draw(0, x + 70, y + 160, Color.White, true, 1f, ImageType.Image);
                         break;
+
                     case MirGender.Female:
                         lib.Draw(1, x + 70, y + 160, Color.White, true, 1F, ImageType.Image);
                         break;
+
                     default:
                         return;
                 }
@@ -642,13 +656,16 @@ namespace Client.Scenes.Views
                         case MirGender.Male:
                             hair = 60;
                             break;
+
                         case MirGender.Female:
                             hair = 80;
                             break;
+
                         default:
                             return;
                     }
                     break;
+
                 case MirClass.Assassin:
                     armour = Grid[(int)EquipmentSlot.Armour].Item?.Info.Image ?? 0;
                     switch (SelectedGender)
@@ -656,20 +673,22 @@ namespace Client.Scenes.Views
                         case MirGender.Male:
                             hair = 1100;
                             break;
+
                         case MirGender.Female:
                             hair = 1120;
                             break;
+
                         default:
                             return;
                     }
                     break;
+
                 default:
                     return;
             }
 
             if (SelectedClass == MirClass.Assassin && SelectedGender == MirGender.Female && HairNumberBox.Value == 1)
             {
-
                 if (CEnvir.LibraryList.TryGetValue(LibraryFile.ProgUse, out lib))
                     lib.Draw(1160, x + 70, y + 160, HairColour.BackColour, true, 1F, ImageType.Image);
             }
@@ -680,12 +699,10 @@ namespace Client.Scenes.Views
                 lib.Draw(armour, x + 70, y + 160, ArmourColour.BackColour, true, 1F, ImageType.Overlay);
             }
 
-
             if (HairNumberBox.Value == 0) return;
 
             if (CEnvir.LibraryList.TryGetValue(LibraryFile.ProgUse, out lib))
                 lib.Draw(hair + (int)HairNumberBox.Value - 1, x + 70, y + 160, HairColour.BackColour, true, 1F, ImageType.Overlay);
-
         }
 
         #endregion

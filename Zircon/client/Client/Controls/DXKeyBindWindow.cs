@@ -42,7 +42,6 @@ namespace Client.Controls
 
             SetClientSize(new Size(430, 330));
 
-
             DXLabel label = new DXLabel
             {
                 Parent = this,
@@ -91,9 +90,7 @@ namespace Client.Controls
                     CEnvir.ResetKeyBinds();
                     LoadList();
                 };
-
             };
-
         }
 
         private void SaveButton_MouseClick(object sender, MouseEventArgs e)
@@ -103,15 +100,12 @@ namespace Client.Controls
                 foreach (TempBindInfo bind in pair.Value)
                     bind.Update();
             }
-
-
         }
 
         public override void OnKeyDown(KeyEventArgs e)
         {
             e.Handled = true;
             base.OnKeyDown(e);
-
 
             if (BindTree.SelectedEntry == null) return;
 
@@ -135,17 +129,20 @@ namespace Client.Controls
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.None;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.None;
                             break;
                     }
 
                     break;
+
                 case Keys.Escape:
                     BindTree.SelectedEntry.KeyBindInfo.Load();
 
                     modifiers = false;
                     break;
+
                 case Keys.Control:
                 case Keys.KeyCode:
                 case Keys.Modifiers:
@@ -208,123 +205,145 @@ namespace Client.Controls
                 case Keys.OemClear:
                     modifiers = false;
                     break;
+
                 case Keys.NumPad0:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D0;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D0;
                             break;
                     }
 
                     break;
+
                 case Keys.NumPad1:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D1;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D1;
                             break;
                     }
                     break;
+
                 case Keys.NumPad2:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D2;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D2;
                             break;
                     }
                     break;
+
                 case Keys.NumPad3:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D3;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D3;
                             break;
                     }
                     break;
+
                 case Keys.NumPad4:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D4;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D4;
                             break;
                     }
                     break;
+
                 case Keys.NumPad5:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D5;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D5;
                             break;
                     }
                     break;
+
                 case Keys.NumPad6:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D6;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D6;
                             break;
                     }
                     break;
+
                 case Keys.NumPad7:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D7;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D7;
                             break;
                     }
                     break;
+
                 case Keys.NumPad8:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D8;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D8;
                             break;
                     }
                     break;
+
                 case Keys.NumPad9:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D9;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D9;
                             break;
                     }
                     break;
+
                 default:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
                             BindTree.SelectedEntry.KeyBindInfo.Key1 = e.KeyCode;
                             break;
+
                         case 2:
                             BindTree.SelectedEntry.KeyBindInfo.Key2 = e.KeyCode;
                             break;
@@ -341,13 +360,13 @@ namespace Client.Controls
                         BindTree.SelectedEntry.KeyBindInfo.Shift1 = CEnvir.Shift;
                         BindTree.SelectedEntry.KeyBindInfo.Alt1 = CEnvir.Alt;
                         break;
+
                     case 2:
                         BindTree.SelectedEntry.KeyBindInfo.Control2 = CEnvir.Ctrl;
                         BindTree.SelectedEntry.KeyBindInfo.Shift2 = CEnvir.Shift;
                         BindTree.SelectedEntry.KeyBindInfo.Alt2 = CEnvir.Alt;
                         break;
                 }
-
             }
 
             BindTree.SelectedEntry.RefreshKeyLabel();
@@ -373,7 +392,6 @@ namespace Client.Controls
 
             BindTree.ListChanged();
         }
-
 
         #region IDisposable
 
@@ -422,7 +440,6 @@ namespace Client.Controls
 
     public class KeyBindTree : DXControl
     {
-        
         #region Properties
 
         #region SelectedEntry
@@ -438,8 +455,11 @@ namespace Client.Controls
                 OnSelectedEntryChanged(oldValue, value);
             }
         }
+
         private KeyBindTreeEntry _SelectedEntry;
+
         public event EventHandler<EventArgs> SelectedEntryChanged;
+
         public virtual void OnSelectedEntryChanged(KeyBindTreeEntry oValue, KeyBindTreeEntry nValue)
         {
             SelectedEntryChanged?.Invoke(this, EventArgs.Empty);
@@ -608,14 +628,12 @@ namespace Client.Controls
 
                             Lines[i] = null;
                         }
-
                     }
 
                     Lines.Clear();
                     Lines = null;
                 }
             }
-
         }
 
         #endregion
@@ -640,8 +658,11 @@ namespace Client.Controls
                 OnExpandedChanged(oldValue, value);
             }
         }
+
         private bool _Expanded;
+
         public event EventHandler<EventArgs> ExpandedChanged;
+
         public void OnExpandedChanged(bool oValue, bool nValue)
         {
             ExpandButton.Index = Expanded ? 4871 : 4870;
@@ -704,7 +725,6 @@ namespace Client.Controls
                     HeaderLabel = null;
                 }
             }
-
         }
 
         #endregion
@@ -729,8 +749,11 @@ namespace Client.Controls
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             SelectedChanged?.Invoke(this, EventArgs.Empty);
@@ -755,7 +778,6 @@ namespace Client.Controls
             }
 
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
-
         }
 
         #endregion
@@ -773,12 +795,14 @@ namespace Client.Controls
                 OnKeyBindInfoChanged(oldValue, value);
             }
         }
+
         private TempBindInfo _KeyBindInfo;
+
         public event EventHandler<EventArgs> KeyBindInfoChanged;
+
         public void OnKeyBindInfoChanged(TempBindInfo oValue, TempBindInfo nValue)
         {
             KeyBindInfoChanged?.Invoke(this, EventArgs.Empty);
-
 
             Type type = KeyBindInfo.Action.GetType();
 
@@ -804,7 +828,6 @@ namespace Client.Controls
 
             BorderColour = Color.FromArgb(198, 166, 99);
 
-
             Actionlabel = new DXLabel
             {
                 Parent = this,
@@ -829,7 +852,6 @@ namespace Client.Controls
             };
             KeyLabel1.MouseClick += (o, e) =>
             {
-
                 KeyBindInfo.Control1 = false;
                 KeyBindInfo.Alt1 = false;
                 KeyBindInfo.Shift1 = false;
@@ -852,7 +874,6 @@ namespace Client.Controls
             };
             KeyLabel2.MouseClick += (o, e) =>
             {
-
                 KeyBindInfo.Control2 = false;
                 KeyBindInfo.Alt2 = false;
                 KeyBindInfo.Shift2 = false;
@@ -906,7 +927,7 @@ namespace Client.Controls
 
                 _KeyBindInfo = null;
                 KeyBindInfoChanged = null;
-                
+
                 if (Actionlabel != null)
                 {
                     if (!Actionlabel.IsDisposed)
@@ -931,7 +952,6 @@ namespace Client.Controls
                     KeyLabel2 = null;
                 }
             }
-
         }
 
         #endregion

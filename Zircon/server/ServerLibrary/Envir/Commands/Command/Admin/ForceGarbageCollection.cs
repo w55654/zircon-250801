@@ -4,7 +4,7 @@ using System;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class ForceGarbageCollection : AbstractCommand<IAdminCommand>
+    internal class ForceGarbageCollection : AbstractCommand<IAdminCommand>
     {
         public override string VALUE => "GCOLLECT";
 

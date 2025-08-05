@@ -1,8 +1,8 @@
-﻿using System;
-using Library;
+﻿using Library;
 using Library.SystemModels;
 using MirDB;
 using Server.Envir;
+using System;
 
 namespace Server.DBModels
 {
@@ -22,6 +22,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Info");
             }
         }
+
         private MagicInfo _Info;
 
         [Association("Magics")]
@@ -38,6 +39,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         public SpellKey Set1Key
@@ -53,6 +55,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Set1Key");
             }
         }
+
         private SpellKey _Set1Key;
 
         public SpellKey Set2Key
@@ -68,6 +71,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Set2Key");
             }
         }
+
         private SpellKey _Set2Key;
 
         public SpellKey Set3Key
@@ -83,6 +87,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Set3Key");
             }
         }
+
         private SpellKey _Set3Key;
 
         public SpellKey Set4Key
@@ -98,6 +103,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Set4Key");
             }
         }
+
         private SpellKey _Set4Key;
 
         public int Level
@@ -113,6 +119,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public long Experience
@@ -128,6 +135,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Experience");
             }
         }
+
         private long _Experience;
 
         public bool ItemRequired
@@ -144,6 +152,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ItemRequired");
             }
         }
+
         private bool _ItemRequired;
 
         [Association("DisciplineMagics")]
@@ -160,10 +169,11 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Discipline");
             }
         }
+
         private UserDiscipline _Discipline;
 
         public DateTime Cooldown;
-        
+
         [IgnoreProperty]
         public int Cost => Info.BaseCost + Level * Info.LevelCost / 3;
 
@@ -193,7 +203,7 @@ namespace Server.DBModels
             {
                 Index = Index,
                 InfoIndex = Info.Index,
-              
+
                 Set1Key = Set1Key,
                 Set2Key = Set2Key,
                 Set3Key = Set3Key,

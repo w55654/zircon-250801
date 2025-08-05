@@ -1,9 +1,9 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Client.Envir;
+﻿using Client.Envir;
 using Client.Scenes.Views;
 using Library;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 //Cleaned
 namespace Client.Controls
@@ -11,11 +11,12 @@ namespace Client.Controls
     public abstract class DXScene : DXControl
     {
         #region Properties
+
         public DXControl ClickControl;
         public DateTime ClickTime;
         public MouseButtons Buttons;
-        
-        public sealed override Size Size
+
+        public override sealed Size Size
         {
             get => base.Size;
             set => base.Size = value;
@@ -41,6 +42,7 @@ namespace Client.Controls
             foreach (DXComboBox box in DXComboBox.ComboBoxes)
                 box.ListBox.Parent = this;
         }
+
         #endregion
 
         protected DXScene(Size size)
@@ -66,7 +68,6 @@ namespace Client.Controls
             else
                 base.OnMouseDown(e);
 
-
             DXControl listbox = MouseControl;
 
             while (listbox != null)
@@ -82,6 +83,7 @@ namespace Client.Controls
                     box.Showing = false;
             }
         }
+
         public override void OnMouseUp(MouseEventArgs e)
         {
             if (!IsEnabled) return;
@@ -91,6 +93,7 @@ namespace Client.Controls
             else
                 base.OnMouseUp(e);
         }
+
         public override void OnMouseMove(MouseEventArgs e)
         {
             if (!IsEnabled) return;
@@ -102,6 +105,7 @@ namespace Client.Controls
             else
                 base.OnMouseMove(e);
         }
+
         public override void OnMouseClick(MouseEventArgs e)
         {
             if (!IsEnabled) return;
@@ -129,10 +133,10 @@ namespace Client.Controls
             ClickTime = CEnvir.Now;
             Buttons = e.Button;
         }
+
         public override void OnMouseDoubleClick(MouseEventArgs e)
         {
             if (!IsEnabled) return;
-
 
             if (MouseControl != null && MouseControl != this)
             {
@@ -150,6 +154,7 @@ namespace Client.Controls
 
             ClickControl = MouseControl;
         }
+
         public override void OnMouseWheel(MouseEventArgs e)
         {
             if (!IsEnabled) return;
@@ -186,18 +191,18 @@ namespace Client.Controls
                 PingLabel.Draw();
         }
 
-        protected internal sealed override void CheckIsVisible()
+        protected internal override sealed void CheckIsVisible()
         {
             IsVisible = Visible && ActiveScene == this;
 
             foreach (DXControl control in Controls)
                 control.CheckIsVisible();
-            
         }
 
         #endregion
-        
+
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -208,8 +213,8 @@ namespace Client.Controls
                 ClickTime = DateTime.MinValue;
                 Buttons = MouseButtons.None;
             }
-
         }
+
         #endregion
     }
 }

@@ -1,18 +1,16 @@
-﻿using System;
+﻿using Client.Controls;
+using Client.Envir;
+using Client.Models;
+using Client.UserModels;
+using Library;
+using Library.SystemModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
-using Client.Controls;
-using Client.Envir;
-using Client.Models;
-using Client.UserModels;
-using Library;
-using Library.Network.ServerPackets;
-using Library.SystemModels;
 using C = Library.Network.ClientPackets;
 
 namespace Client.Scenes.Views
@@ -69,7 +67,6 @@ namespace Client.Scenes.Views
             {
                 JoinButton.Visible = true;
             }
-
 
             SelectedDungeonRowChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -130,16 +127,12 @@ namespace Client.Scenes.Views
             };
             DungeonNameBox.TextBox.KeyPress += TextBox_KeyPress;
 
-
-
             label = new DXLabel
             {
                 Parent = filterPanel,
                 Location = new Point(DungeonNameBox.Location.X + DungeonNameBox.Size.Width + 10, 5),
                 Text = "Type:",
             };
-
-
 
             //DungeonTypeBox = new DXComboBox
             //{
@@ -148,7 +141,6 @@ namespace Client.Scenes.Views
             //    Size = new Size(95, DXComboBox.DefaultNormalHeight),
             //    DropDownHeight = 198
             //};
-
 
             //new DXListBoxItem
             //{
@@ -225,7 +217,6 @@ namespace Client.Scenes.Views
             };
             DungeonScrollBar.ValueChanged += DungeonScrollBar_ValueChanged;
 
-
             for (int i = 0; i < DungeonRows.Length; i++)
             {
                 int index = i;
@@ -239,7 +230,6 @@ namespace Client.Scenes.Views
             }
 
             #region Instance Details
-
 
             JoinButton = new DXButton
             {
@@ -293,7 +283,6 @@ namespace Client.Scenes.Views
 
             DungeonScrollBar.MaxValue = 0;
 
-
             foreach (DungeonRow row in DungeonRows)
                 row.Visible = true;
 
@@ -317,9 +306,11 @@ namespace Client.Scenes.Views
                 case DungeonFinderSort.Name:
                     DungeonSearchResults.Sort((x1, x2) => string.Compare(x1.Name, x2.Name, StringComparison.Ordinal));
                     break;
+
                 case DungeonFinderSort.Level:
                     DungeonSearchResults.Sort((x1, x2) => x2.MinPlayerLevel.CompareTo(x1.MinPlayerLevel));
                     break;
+
                 case DungeonFinderSort.PlayerCount:
                     DungeonSearchResults.Sort((x1, x2) => x1.MaxPlayerCount.CompareTo(x2.MaxPlayerCount));
                     break;
@@ -344,7 +335,6 @@ namespace Client.Scenes.Views
 
                 DungeonRows[i].InstanceInfo = DungeonSearchResults[i + DungeonScrollBar.Value];
             }
-
         }
 
         public void JoinInstance()
@@ -428,7 +418,6 @@ namespace Client.Scenes.Views
             }
         }
 
-
         #endregion
 
         #region IDisposable
@@ -439,13 +428,11 @@ namespace Client.Scenes.Views
 
             if (disposing)
             {
-
             }
         }
 
         #endregion
     }
-
 
     public sealed class DungeonRow : DXControl
     {
@@ -595,7 +582,6 @@ namespace Client.Scenes.Views
                 Visible = false,
             };
             FavouriteImage.Location = new Point(Size.Width - FavouriteImage.Size.Width - 10, (Size.Height - FavouriteImage.Size.Height) / 2);
-
         }
 
         #region IDisposable
@@ -660,10 +646,8 @@ namespace Client.Scenes.Views
                     FavouriteImage = null;
                 }
             }
-
         }
 
         #endregion
     }
-
 }

@@ -1,5 +1,4 @@
 ﻿using MirDB;
-using System.Text.Json.Serialization;
 
 namespace Library.SystemModels
 {
@@ -20,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         [IsIdentity]
@@ -37,6 +37,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Chance
@@ -52,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Chance");
             }
         }
+
         private int _Chance;
 
         public int Amount
@@ -67,6 +69,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
 
         public int DropSet
@@ -82,6 +85,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DropSet");
             }
         }
+
         private int _DropSet;
 
         public bool PartOnly
@@ -97,6 +101,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "PartOnly");
             }
         }
+
         private bool _PartOnly;
 
         public bool EasterEvent
@@ -112,6 +117,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "EasterEvent");
             }
         }
+
         private bool _EasterEvent;
 
         protected internal override void OnCreated()

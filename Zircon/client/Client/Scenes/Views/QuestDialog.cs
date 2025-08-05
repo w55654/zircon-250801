@@ -247,7 +247,6 @@ namespace Client.Scenes.Views
                     continue;
                 }
 
-
                 if (AvailableTab.Quests.Contains(quest))
                 {
                     AvailableTab.Quests.Remove(quest);
@@ -274,7 +273,6 @@ namespace Client.Scenes.Views
                 CurrentTab.Quests.Add(quest);
                 current = true;
             }
-
 
             if (available)
             {
@@ -351,7 +349,6 @@ namespace Client.Scenes.Views
                     CompletedTab = null;
                 }
             }
-
         }
 
         #endregion
@@ -376,8 +373,11 @@ namespace Client.Scenes.Views
                 OnNeedUpdateChanged(oldValue, value);
             }
         }
+
         private bool _NeedUpdate;
+
         public event EventHandler<EventArgs> NeedUpdateChanged;
+
         public void OnNeedUpdateChanged(bool oValue, bool nValue)
         {
             NeedUpdateChanged?.Invoke(this, EventArgs.Empty);
@@ -398,15 +398,17 @@ namespace Client.Scenes.Views
             get => _SelectedQuest;
             set
             {
-
                 QuestTreeEntry oldValue = _SelectedQuest;
                 _SelectedQuest = value;
 
                 OnSelectedQuestChanged(oldValue, value);
             }
         }
+
         private QuestTreeEntry _SelectedQuest;
+
         public event EventHandler<EventArgs> SelectedQuestChanged;
+
         public void OnSelectedQuestChanged(QuestTreeEntry oValue, QuestTreeEntry nValue)
         {
             SelectedQuestChanged?.Invoke(this, EventArgs.Empty);
@@ -432,7 +434,7 @@ namespace Client.Scenes.Views
                 QuestLabel.Text = string.Empty;
                 TasksLabel.Text = string.Empty;
                 DescriptionLabel.Text = string.Empty;
-                
+
                 EndLabel.Text = string.Empty;
                 StartLabel.Text = string.Empty;
                 return;
@@ -447,12 +449,15 @@ namespace Client.Scenes.Views
                     case MirClass.Warrior:
                         if ((reward.Class & RequiredClass.Warrior) != RequiredClass.Warrior) continue;
                         break;
+
                     case MirClass.Wizard:
                         if ((reward.Class & RequiredClass.Wizard) != RequiredClass.Wizard) continue;
                         break;
+
                     case MirClass.Taoist:
                         if ((reward.Class & RequiredClass.Taoist) != RequiredClass.Taoist) continue;
                         break;
+
                     case MirClass.Assassin:
                         if ((reward.Class & RequiredClass.Assassin) != RequiredClass.Assassin) continue;
                         break;
@@ -509,7 +514,7 @@ namespace Client.Scenes.Views
 
             EndLabel.Text = SelectedQuest.QuestInfo.FinishNPC.RegionName;
             StartLabel.Text = SelectedQuest.QuestInfo.StartNPC.RegionName;
-            
+
             SelectedQuestChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -525,7 +530,7 @@ namespace Client.Scenes.Views
         public DXButton AbandonButton;
 
         public DXItemGrid RewardGrid, ChoiceGrid;
-        
+
         public ClientUserItem[] RewardArray, ChoiceArray;
 
         public DXCheckBox ShowTrackerBox;
@@ -563,7 +568,7 @@ namespace Client.Scenes.Views
                     PositionBar = { Index = 60, LibraryFile = LibraryFile.Interface }
                 }
             };
-            
+
             Tree.SelectedEntryChanged += (o, e) => SelectedQuest = Tree.SelectedEntry;
 
             QuestLabel = new DXLabel
@@ -741,7 +746,7 @@ namespace Client.Scenes.Views
             {
                 Parent = this,
                 ForeColour = Color.White,
-                Location = new Point(label.Location.X + label.Size.Width - 8, label.Location.Y + (label.Size.Height - 12)/2),
+                Location = new Point(label.Location.X + label.Size.Width - 8, label.Location.Y + (label.Size.Height - 12) / 2),
             };
             EndLabel.MouseClick += (o, e) =>
             {
@@ -825,6 +830,7 @@ namespace Client.Scenes.Views
             if (SelectedQuest != null)
                 SelectedQuest.QuestInfo = SelectedQuest.QuestInfo; // Refresh icons
         }
+
         #endregion
 
         #region IDisposable
@@ -880,7 +886,7 @@ namespace Client.Scenes.Views
 
                     TasksLabel = null;
                 }
-                
+
                 if (DescriptionContainer != null)
                 {
                     if (!DescriptionContainer.IsDisposed)
@@ -953,7 +959,6 @@ namespace Client.Scenes.Views
                     Tree = null;
                 }
             }
-
         }
 
         #endregion
@@ -976,8 +981,11 @@ namespace Client.Scenes.Views
                 OnSelectedEntryChanged(oldValue, value);
             }
         }
+
         private QuestTreeEntry _SelectedEntry;
+
         public event EventHandler<EventArgs> SelectedEntryChanged;
+
         public virtual void OnSelectedEntryChanged(QuestTreeEntry oValue, QuestTreeEntry nValue)
         {
             SelectedEntryChanged?.Invoke(this, EventArgs.Empty);
@@ -997,7 +1005,7 @@ namespace Client.Scenes.Views
         public DXVScrollBar ScrollBar;
 
         public List<DXControl> Lines = new List<DXControl>();
-        
+
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
@@ -1010,7 +1018,7 @@ namespace Client.Scenes.Views
         }
 
         #endregion
-        
+
         public QuestTree()
         {
             Container = new DXControl
@@ -1030,10 +1038,11 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public void UpdateScrollBar()
         {
             ScrollBar.MaxValue = Lines.Count * 22;
-            
+
             for (int i = 0; i < Lines.Count; i++)
                 Lines[i].Location = new Point(Lines[i].Location.X, i * 22 - ScrollBar.Value);
         }
@@ -1108,6 +1117,7 @@ namespace Client.Scenes.Views
 
             UpdateScrollBar();
         }
+
         #endregion
 
         #region IDisposable
@@ -1151,14 +1161,12 @@ namespace Client.Scenes.Views
 
                             Lines[i] = null;
                         }
-
                     }
 
                     Lines.Clear();
                     Lines = null;
                 }
             }
-
         }
 
         #endregion
@@ -1183,12 +1191,14 @@ namespace Client.Scenes.Views
                 OnExpandedChanged(oldValue, value);
             }
         }
+
         private bool _Expanded;
+
         public event EventHandler<EventArgs> ExpandedChanged;
+
         public void OnExpandedChanged(bool oValue, bool nValue)
         {
             ExpandedChanged?.Invoke(this, EventArgs.Empty);
-
 
             ExpandButton.Index = Expanded ? 4871 : 4870;
 
@@ -1212,8 +1222,11 @@ namespace Client.Scenes.Views
                 OnMapChanged(oldValue, value);
             }
         }
+
         private MapInfo _Map;
+
         public event EventHandler<EventArgs> MapChanged;
+
         public void OnMapChanged(MapInfo oValue, MapInfo nValue)
         {
             Expanded = Map.Expanded;
@@ -1223,9 +1236,10 @@ namespace Client.Scenes.Views
         }
 
         #endregion
-        
+
         public DXButton ExpandButton;
         public DXLabel MapLabel;
+
         #endregion
 
         public QuestTreeHeader()
@@ -1262,7 +1276,6 @@ namespace Client.Scenes.Views
                 _Map = null;
                 MapChanged = null;
 
-
                 if (ExpandButton != null)
                 {
                     if (!ExpandButton.IsDisposed)
@@ -1279,7 +1292,6 @@ namespace Client.Scenes.Views
                     MapLabel = null;
                 }
             }
-
         }
 
         #endregion
@@ -1304,14 +1316,16 @@ namespace Client.Scenes.Views
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             SelectedChanged?.Invoke(this, EventArgs.Empty);
             Border = Selected;
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
-
         }
 
         #endregion
@@ -1329,8 +1343,11 @@ namespace Client.Scenes.Views
                 OnQuestInfoChanged(oldValue, value);
             }
         }
+
         private QuestInfo _QuestInfo;
+
         public event EventHandler<EventArgs> QuestInfoChanged;
+
         public void OnQuestInfoChanged(QuestInfo oValue, QuestInfo nValue)
         {
             UserQuest = GameScene.Game.QuestLog.FirstOrDefault(x => x.Quest == QuestInfo);
@@ -1362,18 +1379,23 @@ namespace Client.Scenes.Views
                 case QuestType.General:
                     startIndex = 16;
                     break;
+
                 case QuestType.Daily:
                     startIndex = 76;
                     break;
+
                 case QuestType.Weekly:
                     startIndex = 76;
                     break;
+
                 case QuestType.Repeatable:
                     startIndex = 16;
                     break;
+
                 case QuestType.Story:
                     startIndex = 56;
                     break;
+
                 case QuestType.Account:
                     startIndex = 36;
                     break;
@@ -1384,9 +1406,11 @@ namespace Client.Scenes.Views
                 case Library.QuestIcon.New:
                     startIndex += 0;
                     break;
+
                 case Library.QuestIcon.Incomplete:
                     startIndex = 2;
                     break;
+
                 case Library.QuestIcon.Complete:
                     startIndex += 2;
                     break;
@@ -1417,8 +1441,11 @@ namespace Client.Scenes.Views
                 OnUserQuestChanged(oldValue, value);
             }
         }
+
         private ClientUserQuest _UserQuest;
+
         public event EventHandler<EventArgs> UserQuestChanged;
+
         public void OnUserQuestChanged(ClientUserQuest oValue, ClientUserQuest nValue)
         {
             UserQuestChanged?.Invoke(this, EventArgs.Empty);
@@ -1457,7 +1484,6 @@ namespace Client.Scenes.Views
                 Location = new Point(45, 3),
             };
 
-
             QuestNameLabel = new DXLabel
             {
                 Parent = this,
@@ -1483,7 +1509,6 @@ namespace Client.Scenes.Views
                 _UserQuest = null;
                 UserQuestChanged = null;
 
-
                 if (TrackBox != null)
                 {
                     if (!TrackBox.IsDisposed)
@@ -1507,12 +1532,9 @@ namespace Client.Scenes.Views
 
                     QuestNameLabel = null;
                 }
-
             }
-
         }
 
         #endregion
     }
-
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Library;
+using Library.MirDB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -6,8 +8,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Library;
-using Library.MirDB;
 
 namespace MirDB
 {
@@ -157,6 +157,7 @@ namespace MirDB
                     Task.WaitAll(loadingTasks.ToArray());
             }
         }
+
         private void InitializeUsers()
         {
             List<DBMapping> mappings = new List<DBMapping>();
@@ -211,6 +212,7 @@ namespace MirDB
             if (commit)
                 Commit();
         }
+
         public void Commit()
         {
             SaveSystem();
@@ -256,6 +258,7 @@ namespace MirDB
 
             File.Move(SystemPath + TempExtension, SystemPath);
         }
+
         private void SaveUsers()
         {
             if ((Mode & SessionMode.Users) != SessionMode.Users) return;
@@ -300,14 +303,17 @@ namespace MirDB
         {
             return (DBCollection<T>)Collections[typeof(T)];
         }
+
         public ADBCollection GetCollection(Type type)
         {
             return Collections[type];
         }
+
         internal DBObject GetObject(Type type, int index)
         {
             return Collections[type].GetObjectByIndex(index);
         }
+
         public DBObject GetObject(Type type, string fieldName, object value)
         {
             return Collections[type].GetObjectbyFieldName(fieldName, value);
@@ -375,8 +381,8 @@ namespace MirDB
 
                 list.Clear();
             }
-
         }
+
         internal void FastDelete(DBObject ob)
         {
             if (ob.IsDeleted) return;

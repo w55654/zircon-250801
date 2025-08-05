@@ -1,6 +1,5 @@
 ﻿using Client.Envir;
 using Library;
-using System;
 
 namespace Client.Scenes.Views.Character
 {
@@ -31,42 +30,51 @@ namespace Client.Scenes.Views.Character
                     startIndex = 1870;
                     animationCount = 10;
                     break;
+
                 case 2:
                     startIndex = 1890;
                     animationCount = 10;
                     break;
+
                 case 3:
                     startIndex = 1910;
                     animationCount = 11;
                     break;
+
                 case 4:
                     startIndex = 1930;
                     animationCount = 10;
                     break;
+
                 case 5:
                     startIndex = 1950;
                     animationCount = 10;
                     break;
+
                 case 6:
                     startIndex = 1970;
                     animationCount = 10;
                     x = -11; y = -10;
                     break;
+
                 case 7:
                     startIndex = 1990;
                     animationCount = 12;
                     x = -17; y = -15;
                     break;
+
                 case 8:
                     startIndex = 2270;
                     animationCount = 18;
                     x = -7; y = -5;
                     break;
+
                 case 9:
                     startIndex = 2250;
                     animationCount = 18;
                     x = -7; y = -5;
                     break;
+
                 default:
                     break;
             }

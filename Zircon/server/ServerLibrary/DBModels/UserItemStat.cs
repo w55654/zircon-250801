@@ -20,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private UserItem _Item;
 
         public Stat Stat
@@ -35,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -50,6 +52,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
 
         public StatSource StatSource
@@ -65,6 +68,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "StatSource");
             }
         }
+
         private StatSource _StatSource;
 
         protected override void OnDeleted()
@@ -73,6 +77,5 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
     }
 }

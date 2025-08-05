@@ -38,6 +38,7 @@ namespace Client.Scenes.Views
         #region Settings
 
         public WindowSetting Settings;
+
         public WindowType Type
         {
             get { return WindowType.FishingBox; }
@@ -212,6 +213,7 @@ namespace Client.Scenes.Views
 
         //Client Set Values
         private bool Pressed;
+
         private int PlayerLocation;
         private int FishLocation;
 
@@ -675,7 +677,7 @@ namespace Client.Scenes.Views
                     AutoCastCheckBox = null;
                 }
             }
-}
+        }
 
         #endregion
 
@@ -731,6 +733,7 @@ namespace Client.Scenes.Views
         //    //DXManager.Sprite.Draw(tex, null, Vector3.Zero, new Vector3((float)Location.X + 1, (float)Location.Y - 2, 0.0F), Color.White);
         //    //tex.Dispose();
         //};
+
         #endregion
     }
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
-using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Client.Scenes.Views
 {
@@ -57,7 +53,6 @@ namespace Client.Scenes.Views
         public override WindowType Type => WindowType.MagicBarBox;
         public override bool CustomSize => false;
         public override bool AutomaticVisibility => true;
-        
 
         public MagicBarDialog()
         {
@@ -69,7 +64,6 @@ namespace Client.Scenes.Views
             TitleLabel.Visible = false;
             CloseButton.Visible = false;
             Opacity = 0.6F;
-
 
             SetClientSize(new Size(37 * 12 + 15 + 25, 37));
 
@@ -384,13 +378,12 @@ namespace Client.Scenes.Views
                 Opacity = 0.6F,
                 Visible = false
             };
-            
+
             int count = 1;
             foreach (KeyValuePair<SpellKey, DXImageControl> pair in Icons)
             {
                 pair.Value.MouseEnter += (o, e) => GameScene.Game.MouseMagic = ((DXImageControl)o).Tag as MagicInfo;
                 pair.Value.MouseLeave += (o, e) => GameScene.Game.MouseMagic = null;
-
 
                 DXLabel label = new DXLabel
                 {
@@ -403,7 +396,6 @@ namespace Client.Scenes.Views
 
                 Cooldowns[pair.Key] = new DXLabel
                 {
-
                     AutoSize = false,
                     BackColour = Color.FromArgb(125, 50, 50, 50),
                     Parent = pair.Value,
@@ -436,7 +428,7 @@ namespace Client.Scenes.Views
                 Location = new Point(ClientArea.X + 460, ClientArea.Y + UpButton.Size.Height - 1),
                 ForeColour = Color.White,
             };
-            
+
             DownButton = new DXButton
             {
                 Parent = this,
@@ -458,12 +450,16 @@ namespace Client.Scenes.Views
                     {
                         case 1:
                             return x.Set1Key == pair.Key;
+
                         case 2:
                             return x.Set2Key == pair.Key;
+
                         case 3:
                             return x.Set3Key == pair.Key;
+
                         case 4:
                             return x.Set4Key == pair.Key;
+
                         default:
                             return false;
                     }
@@ -478,12 +474,10 @@ namespace Client.Scenes.Views
                 }
                 else
                 {
-                    pair.Value.Index =  -1;
+                    pair.Value.Index = -1;
                     Cooldowns[pair.Key].Visible = false;
-
                 }
                 pair.Value.Index = magic?.Info.Icon ?? -1;
-
             }
 
             SetLabel.Text = SpellSet.ToString();
@@ -541,7 +535,7 @@ namespace Client.Scenes.Views
             foreach (KeyValuePair<SpellKey, DXImageControl> pair in Icons)
             {
                 MagicInfo info = pair.Value.Tag as MagicInfo;
-                
+
                 if (info == null)
                 {
                     Cooldowns[pair.Key].Visible = false;
@@ -582,8 +576,8 @@ namespace Client.Scenes.Views
                 if (remaining.TotalSeconds > 5)
                     Cooldowns[pair.Key].ForeColour = Color.Gold;
                 else
-                    Cooldowns[pair.Key].ForeColour = Color.Red;}
-
+                    Cooldowns[pair.Key].ForeColour = Color.Red;
+            }
         }
     }
 }

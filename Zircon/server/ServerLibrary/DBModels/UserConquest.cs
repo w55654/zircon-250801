@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library.SystemModels;
+﻿using Library.SystemModels;
 using MirDB;
+using System;
 
 namespace Server.DBModels
 {
@@ -25,6 +21,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Guild");
             }
         }
+
         private GuildInfo _Guild;
 
         public CastleInfo Castle
@@ -40,8 +37,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Castle");
             }
         }
+
         private CastleInfo _Castle;
-        
+
         public DateTime WarDate
         {
             get { return _WarDate; }
@@ -55,13 +53,13 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "WarDate");
             }
         }
+
         private DateTime _WarDate;
 
         protected override void OnLoaded()
         {
             base.OnLoaded();
         }
-
 
         protected override void OnDeleted()
         {
@@ -70,6 +68,5 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
     }
 }

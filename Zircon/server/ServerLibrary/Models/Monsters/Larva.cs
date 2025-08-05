@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Server.Envir;
 using System.Collections.Generic;
-using Library;
-using Server.Envir;
 
 namespace Server.Models.Monsters
 {
     public class Larva : MonsterObject
     {
-
         public int Range = 1;
+
         public override void Process()
         {
             base.Process();

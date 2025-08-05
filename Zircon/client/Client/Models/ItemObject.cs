@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.Scenes;
 using Library;
 using Library.SystemModels;
-using  S = Library.Network.ServerPackets;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using S = Library.Network.ServerPackets;
 
 namespace Client.Models
 {
     public sealed class ItemObject : MapObject
     {
-        public override ObjectType Race  => ObjectType.Item;
+        public override ObjectType Race => ObjectType.Item;
 
         public DXLabel FocusLabel;
 
@@ -45,8 +43,6 @@ namespace Client.Models
             if ((Item.Flags & UserItemFlags.QuestItem) == UserItemFlags.QuestItem)
                 Title = "(Quest)";
 
-
-
             switch (itemInfo.Rarity)
             {
                 case Rarity.Common:
@@ -64,6 +60,7 @@ namespace Client.Models
                     }
                     else NameColour = Color.White;
                     break;
+
                 case Rarity.Superior:
                     NameColour = Color.PaleGreen;
                     Effects.Add(new MirEffect(100, 10, TimeSpan.FromMilliseconds(100), LibraryFile.ProgUse, 60, 60, Color.PaleGreen)
@@ -74,6 +71,7 @@ namespace Client.Models
                         BlendRate = 0.5F,
                     });
                     break;
+
                 case Rarity.Elite:
                     NameColour = Color.MediumPurple;
                     Effects.Add(new MirEffect(120, 10, TimeSpan.FromMilliseconds(100), LibraryFile.ProgUse, 60, 60, Color.MediumPurple)
@@ -87,13 +85,13 @@ namespace Client.Models
             }
             CurrentLocation = info.Location;
 
-
             UpdateLibraries();
 
             SetFrame(new ObjectAction(MirAction.Standing, Direction, CurrentLocation));
 
             GameScene.Game.MapControl.AddObject(this);
         }
+
         public void UpdateLibraries()
         {
             Frames = FrameSet.DefaultItem;
@@ -103,7 +101,6 @@ namespace Client.Models
 
         public override void SetAnimation(ObjectAction action)
         {
-
             CurrentAnimation = MirAnimation.Standing;
             if (!Frames.TryGetValue(CurrentAnimation, out CurrentFrame))
                 CurrentFrame = Frame.EmptyFrame;
@@ -131,8 +128,7 @@ namespace Client.Models
 
             Size size = BodyLibrary.GetSize(drawIndex);
 
-            BodyLibrary.Draw(drawIndex, DrawX + (CellWidth - size.Width)/2, DrawY + (CellHeight - size.Height)/2, DrawColour, false, 1F, ImageType.Image);
-
+            BodyLibrary.Draw(drawIndex, DrawX + (CellWidth - size.Width) / 2, DrawY + (CellHeight - size.Height) / 2, DrawColour, false, 1F, ImageType.Image);
         }
 
         public override bool MouseOver(Point p)
@@ -180,5 +176,4 @@ namespace Client.Models
             FocusLabel.Draw();
         }
     }
-
 }

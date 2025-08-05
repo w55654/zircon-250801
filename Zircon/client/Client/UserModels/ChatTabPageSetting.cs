@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Client.UserModels
 {
@@ -25,8 +19,9 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Parent");
             }
         }
+
         private ChatTabControlSetting _Parent;
-        
+
         public string Name
         {
             get { return _Name; }
@@ -40,6 +35,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public bool Transparent
@@ -55,6 +51,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Transparent");
             }
         }
+
         private bool _Transparent;
 
         public bool Alert
@@ -70,8 +67,8 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Alert");
             }
         }
-        private bool _Alert;
 
+        private bool _Alert;
 
         public bool HideTab
         {
@@ -86,6 +83,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "HideTab");
             }
         }
+
         private bool _HideTab;
 
         public bool ReverseList
@@ -101,6 +99,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "ReverseList");
             }
         }
+
         private bool _ReverseList;
 
         public bool CleanUp
@@ -116,6 +115,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "CleanUp");
             }
         }
+
         private bool _CleanUp;
 
         public bool FadeOut
@@ -131,6 +131,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "FadeOut");
             }
         }
+
         private bool _FadeOut;
 
         public bool LocalChat
@@ -146,6 +147,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "LocalChat");
             }
         }
+
         private bool _LocalChat;
 
         public bool WhisperChat
@@ -161,6 +163,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "WhisperChat");
             }
         }
+
         private bool _WhisperChat;
 
         public bool GroupChat
@@ -176,6 +179,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "GroupChat");
             }
         }
+
         private bool _GroupChat;
 
         public bool GuildChat
@@ -191,6 +195,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "GuildChat");
             }
         }
+
         private bool _GuildChat;
 
         public bool ShoutChat
@@ -206,6 +211,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "ShoutChat");
             }
         }
+
         private bool _ShoutChat;
 
         public bool GlobalChat
@@ -221,8 +227,9 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "GlobalChat");
             }
         }
+
         private bool _GlobalChat;
-        
+
         public bool ObserverChat
         {
             get { return _ObserverChat; }
@@ -236,6 +243,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "ObserverChat");
             }
         }
+
         private bool _ObserverChat;
 
         public bool HintChat
@@ -251,6 +259,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "HintChat");
             }
         }
+
         private bool _HintChat;
 
         public bool SystemChat
@@ -266,6 +275,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "SystemChat");
             }
         }
+
         private bool _SystemChat;
 
         public bool GainsChat
@@ -281,6 +291,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "GainsChat");
             }
         }
+
         private bool _GainsChat;
     }
 }

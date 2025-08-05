@@ -1,6 +1,4 @@
 ﻿using MirDB;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Library.SystemModels
@@ -23,6 +21,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public int MaxValue
@@ -38,6 +37,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxValue");
             }
         }
+
         private int _MaxValue;
 
         public bool ResetWhenMax
@@ -53,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ResetWhenMax");
             }
         }
+
         private bool _ResetWhenMax;
 
         [Association("Triggers", true)]
@@ -78,6 +79,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Event");
             }
         }
+
         private WorldEventInfo _Event;
 
         public WorldEventTriggerType Type
@@ -93,6 +95,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private WorldEventTriggerType _Type;
 
         public int Value
@@ -108,6 +111,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Value");
             }
         }
+
         private int _Value;
 
         public int MaxTriggers
@@ -123,6 +127,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxTriggers");
             }
         }
+
         private int _MaxTriggers;
     }
 
@@ -142,6 +147,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Event");
             }
         }
+
         private WorldEventInfo _Event;
 
         [Association("TriggerStats", true)]
@@ -180,6 +186,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Action");
             }
         }
+
         private WorldEventAction _Action;
 
         [IsIdentity]
@@ -196,6 +203,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -211,6 +219,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 
@@ -234,6 +243,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public EventTrackingType TrackingType
@@ -249,6 +259,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "TrackingType");
             }
         }
+
         private EventTrackingType _TrackingType;
 
         public int MaxValue
@@ -264,6 +275,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxValue");
             }
         }
+
         private int _MaxValue;
 
         public bool ResetWhenMax
@@ -279,6 +291,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ResetWhenMax");
             }
         }
+
         private bool _ResetWhenMax;
 
         [Association("Triggers", true)]
@@ -304,6 +317,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Event");
             }
         }
+
         private PlayerEventInfo _Event;
 
         public PlayerEventTriggerType Type
@@ -319,8 +333,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
-        private PlayerEventTriggerType _Type; 
-        
+
+        private PlayerEventTriggerType _Type;
+
         public int Value
         {
             get { return _Value; }
@@ -334,6 +349,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Value");
             }
         }
+
         private int _Value;
 
         public string StringParameter1
@@ -349,6 +365,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StringParameter1");
             }
         }
+
         private string _StringParameter1;
 
         public MapInfo MapParameter1
@@ -364,6 +381,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MapParameter1");
             }
         }
+
         private MapInfo _MapParameter1;
 
         public MapRegion RegionParameter1
@@ -379,6 +397,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RegionParameter1");
             }
         }
+
         private MapRegion _RegionParameter1;
 
         public InstanceInfo InstanceParameter1
@@ -394,6 +413,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "InstanceParameter1");
             }
         }
+
         private InstanceInfo _InstanceParameter1;
 
         public int MaxTriggers
@@ -409,6 +429,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxTriggers");
             }
         }
+
         private int _MaxTriggers;
     }
 
@@ -428,6 +449,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Event");
             }
         }
+
         private PlayerEventInfo _Event;
 
         [Association("TriggerStats", true)]
@@ -466,6 +488,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Action");
             }
         }
+
         private PlayerEventAction _Action;
 
         [IsIdentity]
@@ -482,6 +505,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -497,6 +521,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 
@@ -520,6 +545,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public EventTrackingType TrackingType
@@ -535,6 +561,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "TrackingType");
             }
         }
+
         private EventTrackingType _TrackingType;
 
         public int MaxValue
@@ -550,6 +577,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxValue");
             }
         }
+
         private int _MaxValue;
 
         public bool ResetWhenMax
@@ -565,6 +593,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ResetWhenMax");
             }
         }
+
         private bool _ResetWhenMax;
 
         [Association("Triggers", true)]
@@ -590,6 +619,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Event");
             }
         }
+
         private MonsterEventInfo _Event;
 
         public MonsterEventTriggerType Type
@@ -605,6 +635,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private MonsterEventTriggerType _Type;
 
         [Association("Events")]
@@ -621,6 +652,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         public int DropSet
@@ -636,6 +668,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DropSet");
             }
         }
+
         private int _DropSet;
 
         public MapInfo MapParameter1
@@ -651,6 +684,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MapParameter1");
             }
         }
+
         private MapInfo _MapParameter1;
 
         public MapRegion RegionParameter1
@@ -666,6 +700,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RegionParameter1");
             }
         }
+
         private MapRegion _RegionParameter1;
 
         public InstanceInfo InstanceParameter1
@@ -681,6 +716,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "InstanceParameter1");
             }
         }
+
         private InstanceInfo _InstanceParameter1;
 
         public int Value
@@ -696,6 +732,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Value");
             }
         }
+
         private int _Value;
 
         public int MaxTriggers
@@ -711,6 +748,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxTriggers");
             }
         }
+
         private int _MaxTriggers;
     }
 
@@ -730,6 +768,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Event");
             }
         }
+
         private MonsterEventInfo _Event;
 
         [Association("TriggerStats", true)]
@@ -768,6 +807,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Action");
             }
         }
+
         private MonsterEventAction _Action;
 
         [IsIdentity]
@@ -784,6 +824,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -799,6 +840,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 
@@ -821,6 +863,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private EventActionType _Type;
 
         public bool Restrict
@@ -836,6 +879,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Restrict");
             }
         }
+
         private bool _Restrict;
 
         public int TriggerValue
@@ -851,6 +895,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "TriggerValue");
             }
         }
+
         private int _TriggerValue;
 
         public string StringParameter1
@@ -866,6 +911,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StringParameter1");
             }
         }
+
         private string _StringParameter1;
 
         public MonsterInfo MonsterParameter1
@@ -881,6 +927,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MonsterParameter1");
             }
         }
+
         private MonsterInfo _MonsterParameter1;
 
         public RespawnInfo RespawnParameter1
@@ -896,6 +943,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RespawnParameter1");
             }
         }
+
         private RespawnInfo _RespawnParameter1;
 
         public MapInfo MapParameter1
@@ -911,6 +959,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MapParameter1");
             }
         }
+
         private MapInfo _MapParameter1;
 
         public MapRegion RegionParameter1
@@ -926,6 +975,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RegionParameter1");
             }
         }
+
         private MapRegion _RegionParameter1;
 
         public InstanceInfo InstanceParameter1
@@ -941,6 +991,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "InstanceParameter1");
             }
         }
+
         private InstanceInfo _InstanceParameter1;
 
         public ItemInfo ItemParameter1
@@ -956,6 +1007,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemParameter1");
             }
         }
+
         private ItemInfo _ItemParameter1;
 
         public Stats CalculatedStats = new();

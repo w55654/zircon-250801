@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public MassInvisibility(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)

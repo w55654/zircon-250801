@@ -1,8 +1,8 @@
-﻿using System;
-using Library;
+﻿using Library;
 using Library.SystemModels;
 using MirDB;
 using Server.Envir;
+using System;
 
 namespace Server.DBModels
 {
@@ -23,6 +23,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public ItemInfo Item
@@ -38,8 +39,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
-        
 
         public long DropCount
         {
@@ -54,6 +55,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DropCount");
             }
         }
+
         private long _DropCount;
 
         public decimal DropProgress
@@ -69,8 +71,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DropProgress");
             }
         }
+
         private decimal _DropProgress;
-        
+
         public DateTime CheckTime
         {
             get { return _CheckTime; }
@@ -84,8 +87,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CheckTime");
             }
         }
-        private DateTime _CheckTime;
 
+        private DateTime _CheckTime;
 
         public ClientFortuneInfo ToClientInfo()
         {

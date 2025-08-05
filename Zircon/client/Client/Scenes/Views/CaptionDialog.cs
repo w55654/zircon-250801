@@ -1,10 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 
 namespace Client.Scenes.Views
@@ -28,8 +28,11 @@ namespace Client.Scenes.Views
                 OnCaptionValidChanged(oldValue, value);
             }
         }
+
         private bool _CaptionValid;
+
         public event EventHandler<EventArgs> CaptionValidChanged;
+
         public void OnCaptionValidChanged(bool oValue, bool nValue)
         {
             CaptionValidChanged?.Invoke(this, EventArgs.Empty);
@@ -98,7 +101,6 @@ namespace Client.Scenes.Views
             CaptionText.Location = new Point(ClientArea.Location.X + label.Size.Width + 10, ClientArea.Y + 15);
             CaptionHelp.Location = new Point(ClientArea.Location.X + CaptionText.Size.Width + CaptionHelp.Size.Width + 40, ClientArea.Y + 15 - 2);
             ChangeButton.Location = new Point(ClientArea.Location.X + CaptionText.Size.Width + ChangeButton.Size.Width + 24, ClientArea.Y + 15 - 2);
-
         }
 
         private void CaptionText_TextChanged(object sender, EventArgs e)
@@ -109,7 +111,6 @@ namespace Client.Scenes.Views
                 CaptionText.BorderColour = Color.FromArgb(198, 166, 99);
             else
                 CaptionText.BorderColour = CaptionValid ? Color.Green : Color.Red;
-
         }
 
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
@@ -127,7 +128,6 @@ namespace Client.Scenes.Views
 
             if (disposing)
             {
-
                 if (label != null)
                 {
                     if (!label.IsDisposed)
@@ -152,7 +152,6 @@ namespace Client.Scenes.Views
                     CaptionText = null;
                 }
             }
-
         }
 
         #endregion

@@ -28,11 +28,14 @@ namespace Server.Models.Monsters
             Hide();
         }
 
-        public override bool Walk(MirDirection dir) { return false; }
+        public override bool Walk(MirDirection dir)
+        { return false; }
 
-        public override void ProcessRoam() { }
+        public override void ProcessRoam()
+        { }
 
-        public override void ProcessSearch() { }
+        public override void ProcessSearch()
+        { }
 
         public override int Attacked(MapObject attacker, int power, Element element, bool canReflect = true, bool ignoreShield = false, bool canCrit = true, bool canStruck = true)
         {

@@ -7,7 +7,7 @@ using System;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class CreateItem : AbstractParameterizedCommand<IAdminCommand>
+    internal class CreateItem : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "MAKE";
         public override int PARAMS_LENGTH => 2;

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Linq;
-using DevExpress.XtraBars;
+﻿using DevExpress.XtraBars;
 using Library;
 using Library.SystemModels;
+using System;
+using System.Linq;
 
 namespace Server.Views
 {
@@ -33,6 +33,7 @@ namespace Server.Views
             SMain.SetUpView(NPCInfoGridView);
             SMain.SetUpView(RequirementGridView);
         }
+
         private void SaveButton_ItemClick(object sender, ItemClickEventArgs e)
         {
             SMain.Session.Save(true);

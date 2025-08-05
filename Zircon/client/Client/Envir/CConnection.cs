@@ -43,6 +43,7 @@ namespace Client.Envir
         {
             Disconnect();
         }
+
         public override void Disconnect()
         {
             base.Disconnect();
@@ -65,6 +66,7 @@ namespace Client.Envir
             CEnvir.Storage = null;
             CEnvir.PartsStorage = null;
         }
+
         public override void TrySendDisconnect(Packet p)
         {
             SendDisconnect(p);
@@ -89,33 +91,40 @@ namespace Client.Envir
                 return;
             }
 
-
             switch (p.Reason)
             {
                 case DisconnectReason.Unknown:
                     DXMessageBox.Show("Disconnected from server\nReason: Unknown", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.TimedOut:
                     DXMessageBox.Show("Disconnected from server\nReason: Connection Timed out.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.ServerClosing:
                     DXMessageBox.Show("Disconnected from server\nReason: Server shutting down.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.AnotherUser:
                     DXMessageBox.Show("Disconnected from server\nReason: Another user logged onto your account.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.AnotherUserAdmin:
                     DXMessageBox.Show("Disconnected from server\nReason: An admin logged onto your account.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.Banned:
                     DXMessageBox.Show("Disconnected from server\nReason: You have been banned.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.Kicked:
                     DXMessageBox.Show("Disconnected from server\nReason: You have been kicked.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 case DisconnectReason.Crashed:
                     DXMessageBox.Show("Disconnected from server\nReason: Server Crashed.", "Disconnected", DialogAction.ReturnToLogin);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -128,8 +137,8 @@ namespace Client.Envir
         {
             Enqueue(new G.Connected());
             ServerConnected = true;
-
         }
+
         public void Process(G.CheckVersion p)
         {
             byte[] clientHash;
@@ -141,6 +150,7 @@ namespace Client.Envir
 
             Enqueue(new G.Version { ClientHash = clientHash });
         }
+
         public void Process(G.GoodVersion p)
         {
             Encryption.SetKey(p.DatabaseKey);
@@ -151,10 +161,12 @@ namespace Client.Envir
 
             Enqueue(new C.SelectLanguage { Language = Config.Language });
         }
+
         public void Process(G.Ping p)
         {
             Enqueue(new G.Ping());
         }
+
         public void Process(G.PingResponse p)
         {
             Ping = p.Ping;
@@ -173,35 +185,43 @@ namespace Client.Envir
                     login.AccountBox.Clear();
                     DXMessageBox.Show("Account Creation is currently disabled.", "Account Creation");
                     break;
+
                 case NewAccountResult.BadEMail:
                     login.AccountBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("E-Mail address is not acceptable.", "Account Creation");
                     break;
+
                 case NewAccountResult.BadPassword:
                     login.AccountBox.Password1TextBox.SetFocus();
                     DXMessageBox.Show("Password is not acceptable.", "Account Creation");
                     break;
+
                 case NewAccountResult.BadRealName:
                     login.AccountBox.RealNameTextBox.SetFocus();
                     DXMessageBox.Show("Real Name is not acceptable.", "Account Creation");
                     break;
+
                 case NewAccountResult.AlreadyExists:
                     login.AccountBox.EMailTextBox.TextBox.Text = string.Empty;
                     login.AccountBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("E-Mail address already in use.", "Account Creation");
                     break;
+
                 case NewAccountResult.BadReferral:
                     login.AccountBox.ReferralTextBox.SetFocus();
                     DXMessageBox.Show("Referral's E-Mail address is not acceptable.", "Account Creation");
                     break;
+
                 case NewAccountResult.ReferralNotFound:
                     login.AccountBox.ReferralTextBox.SetFocus();
                     DXMessageBox.Show("Referral's E-Mail address was not found.", "Account Creation");
                     break;
+
                 case NewAccountResult.ReferralNotActivated:
                     login.AccountBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Referral's E-Mail address has not been activated.", "Account Creation");
                     break;
+
                 case NewAccountResult.Success:
                     login.LoginBox.EMailTextBox.TextBox.Text = login.AccountBox.EMailTextBox.TextBox.Text;
                     login.LoginBox.PasswordTextBox.TextBox.Text = login.AccountBox.Password1TextBox.TextBox.Text;
@@ -210,8 +230,8 @@ namespace Client.Envir
                                       "Please follow the instructions sent to your E-Mail to activate.", "Account Creation");
                     break;
             }
-
         }
+
         public void Process(S.ChangePassword p)
         {
             LoginScene login = DXControl.ActiveScene as LoginScene;
@@ -225,29 +245,36 @@ namespace Client.Envir
                     login.ChangeBox.Clear();
                     DXMessageBox.Show("Change Password is currently disabled.", "Change Password");
                     break;
+
                 case ChangePasswordResult.BadEMail:
                     login.ChangeBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("E-Mail is not acceptable.", "Change Password");
                     break;
+
                 case ChangePasswordResult.BadCurrentPassword:
                     login.ChangeBox.CurrentPasswordTextBox.SetFocus();
                     DXMessageBox.Show("Current Password is not acceptable.", "Change Password");
                     break;
+
                 case ChangePasswordResult.BadNewPassword:
                     login.ChangeBox.NewPassword1TextBox.SetFocus();
                     DXMessageBox.Show("New Password is not acceptable.", "Change Password");
                     break;
+
                 case ChangePasswordResult.AccountNotFound:
                     login.ChangeBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account does not exist.", "Change Password");
                     break;
+
                 case ChangePasswordResult.AccountNotActivated:
                     login.ShowActivationBox(login.ChangeBox);
                     break;
+
                 case ChangePasswordResult.WrongPassword:
                     login.ChangeBox.CurrentPasswordTextBox.SetFocus();
                     DXMessageBox.Show("Incorrect Password.", "Change Password");
                     break;
+
                 case ChangePasswordResult.Banned:
                     DateTime expiry = CEnvir.Now.Add(p.Duration);
                     DXMessageBox box = DXMessageBox.Show($"This account is banned.\n\nReason: {p.Message}\n" +
@@ -272,13 +299,14 @@ namespace Client.Envir
                                          $"Duration: {Math.Floor(remaining.TotalHours):#,##0} Hours, {remaining.Minutes} Minutes, {remaining.Seconds} Seconds";
                     };
                     break;
+
                 case ChangePasswordResult.Success:
                     login.ChangeBox.Clear();
                     DXMessageBox.Show("Password changed successfully.", "Change Password");
                     break;
             }
-
         }
+
         public void Process(S.RequestPasswordReset p)
         {
             LoginScene login = DXControl.ActiveScene as LoginScene;
@@ -294,17 +322,21 @@ namespace Client.Envir
                     login.RequestPasswordBox.Clear();
                     DXMessageBox.Show("Password Reset is currently disabled.", "Reset Password");
                     break;
+
                 case RequestPasswordResetResult.BadEMail:
                     login.RequestPasswordBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("E-Mail is not acceptable.", "Reset Password");
                     break;
+
                 case RequestPasswordResetResult.AccountNotFound:
                     login.RequestPasswordBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account does not exist.", "Reset Password");
                     break;
+
                 case RequestPasswordResetResult.AccountNotActivated:
                     login.ShowActivationBox(login.RequestPasswordBox);
                     break;
+
                 case RequestPasswordResetResult.ResetDelay:
                     expiry = CEnvir.Now.Add(p.Duration);
                     box = DXMessageBox.Show($"You cannot request another password reset so soon.\n" +
@@ -328,6 +360,7 @@ namespace Client.Envir
                                          $"Duration: {Math.Floor(remaining.TotalHours):#,##0} Hours, {remaining.Minutes} Minutes, {remaining.Seconds} Seconds";
                     };
                     break;
+
                 case RequestPasswordResetResult.Banned:
                     expiry = CEnvir.Now.Add(p.Duration);
                     box = DXMessageBox.Show($"This account is banned.\n\nReason: {p.Message}\n" +
@@ -352,14 +385,15 @@ namespace Client.Envir
                                          $"Duration: {Math.Floor(remaining.TotalHours):#,##0} Hours, {remaining.Minutes} Minutes, {remaining.Seconds} Seconds";
                     };
                     break;
+
                 case RequestPasswordResetResult.Success:
                     login.RequestPasswordBox.Clear();
                     DXMessageBox.Show("Password reset request success\n" +
                                       "Please check your E-Mail for further instructions.", "Reset Password");
                     break;
             }
-
         }
+
         public void Process(S.ResetPassword p)
         {
             LoginScene login = DXControl.ActiveScene as LoginScene;
@@ -373,21 +407,24 @@ namespace Client.Envir
                     login.ResetBox.Clear();
                     DXMessageBox.Show("Manual password reset is currently disabled.", "Reset Password");
                     break;
+
                 case ResetPasswordResult.BadNewPassword:
                     login.ResetBox.NewPassword1TextBox.SetFocus();
                     DXMessageBox.Show("New Password is not acceptable.", "Reset Password");
                     break;
+
                 case ResetPasswordResult.AccountNotFound:
                     login.ResetBox.ResetKeyTextBox.SetFocus();
                     DXMessageBox.Show("Account could not be found.", "Reset Password");
                     break;
+
                 case ResetPasswordResult.Success:
                     login.ResetBox.Clear();
                     DXMessageBox.Show("Password changed successfully.", "Reset Password");
                     break;
             }
-
         }
+
         public void Process(S.Activation p)
         {
             LoginScene login = DXControl.ActiveScene as LoginScene;
@@ -401,17 +438,19 @@ namespace Client.Envir
                     login.ActivationBox.Clear();
                     DXMessageBox.Show("Manual Activation is currently disabled.", "Activation");
                     break;
+
                 case ActivationResult.AccountNotFound:
                     login.ActivationBox.ActivationKeyTextBox.SetFocus();
                     DXMessageBox.Show("Account could not be found.", "Activation");
                     break;
+
                 case ActivationResult.Success:
                     login.ActivationBox.Clear();
                     DXMessageBox.Show("Your account has been activated successfully\n", "Activation");
                     break;
             }
-
         }
+
         public void Process(S.RequestActivationKey p)
         {
             LoginScene login = DXControl.ActiveScene as LoginScene;
@@ -427,18 +466,22 @@ namespace Client.Envir
                     login.RequestActivationBox.Clear();
                     DXMessageBox.Show("Password Reset is currently disabled.", "Request Activation Key");
                     break;
+
                 case RequestActivationKeyResult.BadEMail:
                     login.RequestActivationBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("E-Mail is not acceptable.", "Request Activation Key");
                     break;
+
                 case RequestActivationKeyResult.AccountNotFound:
                     login.RequestActivationBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account does not exist.", "Request Activation Key");
                     break;
+
                 case RequestActivationKeyResult.AlreadyActivated:
                     login.RequestActivationBox.Clear();
                     DXMessageBox.Show("Account is already activated.", "Request Activation Key");
                     break;
+
                 case RequestActivationKeyResult.RequestDelay:
                     expiry = CEnvir.Now.Add(p.Duration);
                     box = DXMessageBox.Show($"Cannot request another activation e-mail so soon.\n" +
@@ -462,14 +505,15 @@ namespace Client.Envir
                                          $"Duration: {Math.Floor(remaining.TotalHours):#,##0} Hours, {remaining.Minutes} Minutes, {remaining.Seconds} Seconds";
                     };
                     break;
+
                 case RequestActivationKeyResult.Success:
                     login.RequestActivationBox.Clear();
                     DXMessageBox.Show("Activation e-mail request was successful\n" +
                                       "Please check your E-Mail for further instructions.", "Request Activation Key");
                     break;
             }
-
         }
+
         public void Process(S.Login p)
         {
             LoginScene login = DXControl.ActiveScene as LoginScene;
@@ -483,25 +527,31 @@ namespace Client.Envir
                 case LoginResult.Disabled:
                     DXMessageBox.Show("Logging in is currently disabled.", "Log In");
                     break;
+
                 case LoginResult.BadEMail:
                     login.LoginBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Username is not acceptable.", "Log In");
                     break;
+
                 case LoginResult.BadPassword:
                     login.LoginBox.PasswordTextBox.SetFocus();
                     DXMessageBox.Show("Current Password is not acceptable.", "Log In");
                     break;
+
                 case LoginResult.AccountNotExists:
                     login.LoginBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account does not exist.", "Log In");
                     break;
+
                 case LoginResult.AccountNotActivated:
                     login.ShowActivationBox(login.LoginBox);
                     break;
+
                 case LoginResult.WrongPassword:
                     login.LoginBox.PasswordTextBox.SetFocus();
                     DXMessageBox.Show("Incorrect Password.", "Log In");
                     break;
+
                 case LoginResult.Banned:
                     DateTime expiry = CEnvir.Now.Add(p.Duration);
 
@@ -528,19 +578,23 @@ namespace Client.Envir
                                          $"Duration: {Math.Floor(remaining.TotalHours):#,##0} Hours, {remaining.Minutes} Minutes, {remaining.Seconds} Seconds";
                     };
                     break;
+
                 case LoginResult.AlreadyLoggedIn:
                     login.LoginBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account is currently in use, please try again later.", "Log In");
                     break;
+
                 case LoginResult.AlreadyLoggedInPassword:
                     login.LoginBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account is currently in use\n" +
                                       "New Password has been sent to the E-Mail Addresss..", "Log In");
                     break;
+
                 case LoginResult.AlreadyLoggedInAdmin:
                     login.LoginBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("Account is currently in use by an admin", "Log In");
                     break;
+
                 case LoginResult.Success:
                     login.LoginBox.Visible = false;
                     login.AccountBox.Visible = false;
@@ -579,15 +633,18 @@ namespace Client.Envir
                     if (!string.IsNullOrEmpty(p.Message)) DXMessageBox.Show(p.Message, "Login Message");
 
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
+
         public void Process(S.SelectLogout p)
         {
             CEnvir.ReturnToLogin();
             ((LoginScene)DXControl.ActiveScene).LoginBox.Visible = true;
         }
+
         public void Process(S.GameLogout p)
         {
             DXSoundManager.StopAllSounds();
@@ -624,39 +681,49 @@ namespace Client.Envir
                     select.CharacterBox.Clear();
                     DXMessageBox.Show("Character creation is currently disabled.", "Character Creation");
                     break;
+
                 case NewCharacterResult.BadCharacterName:
                     select.CharacterBox.CharacterNameTextBox.SetFocus();
                     DXMessageBox.Show("Character Name is not acceptable.", "Character Creation");
                     break;
+
                 case NewCharacterResult.BadHairType:
                     select.CharacterBox.HairNumberBox.Value = 1;
                     DXMessageBox.Show("Error: Invalid Hair Type.", "Character Creation");
                     break;
+
                 case NewCharacterResult.BadHairColour:
                     DXMessageBox.Show("Error: Invalid Hair Colour.", "Character Creation");
                     break;
+
                 case NewCharacterResult.BadArmourColour:
                     DXMessageBox.Show("Error: Invalid Armour Colour.", "Character Creation");
                     break;
+
                 case NewCharacterResult.BadGender:
                     select.CharacterBox.SelectedGender = MirGender.Male;
                     DXMessageBox.Show("Error: Invalid gender selected.", "Character Creation");
                     break;
+
                 case NewCharacterResult.BadClass:
                     select.CharacterBox.SelectedClass = MirClass.Warrior;
                     DXMessageBox.Show("Error: Invalid class selected.", "Character Creation");
                     break;
+
                 case NewCharacterResult.ClassDisabled:
                     DXMessageBox.Show("The selected class is currently not available.", "Character Creation");
                     break;
+
                 case NewCharacterResult.MaxCharacters:
                     select.CharacterBox.Clear();
                     DXMessageBox.Show("Character limit already reached.", "Character Creation");
                     break;
+
                 case NewCharacterResult.AlreadyExists:
                     select.CharacterBox.CharacterNameTextBox.SetFocus();
                     DXMessageBox.Show("Character already exists.", "Character Creation");
                     break;
+
                 case NewCharacterResult.Success:
                     select.CharacterBox.Clear();
 
@@ -668,6 +735,7 @@ namespace Client.Envir
                     break;
             }
         }
+
         public void Process(S.DeleteCharacter p)
         {
             SelectScene select = DXControl.ActiveScene as SelectScene;
@@ -678,12 +746,15 @@ namespace Client.Envir
                 case DeleteCharacterResult.Disabled:
                     DXMessageBox.Show("Character deletion is currently disabled.", "Delete Character");
                     break;
+
                 case DeleteCharacterResult.AlreadyDeleted:
                     DXMessageBox.Show("Character has already been deleted.", "Delete Character");
                     break;
+
                 case DeleteCharacterResult.NotFound:
                     DXMessageBox.Show("Character was not found.", "Delete Character");
                     break;
+
                 case DeleteCharacterResult.Success:
                     for (int i = select.SelectBox.CharacterList.Count - 1; i >= 0; i--)
                     {
@@ -697,16 +768,15 @@ namespace Client.Envir
                     break;
             }
         }
+
         public void Process(S.StartGame p)
         {
             try
             {
-
                 SelectScene select = DXControl.ActiveScene as SelectScene;
                 if (select == null) return;
 
                 select.SelectBox.StartGameAttempted = false;
-
 
                 DXMessageBox box;
                 DateTime expiry;
@@ -715,9 +785,11 @@ namespace Client.Envir
                     case StartGameResult.Disabled:
                         DXMessageBox.Show("Starting the game is currently disabled.", "Start Game");
                         break;
+
                     case StartGameResult.Deleted:
                         DXMessageBox.Show("You cannot start the game on a deleted character.", "Start Game");
                         break;
+
                     case StartGameResult.Delayed:
                         expiry = CEnvir.Now.Add(p.Duration);
 
@@ -740,12 +812,15 @@ namespace Client.Envir
                                              $"Duration: {Math.Floor(remaining.TotalHours):#,##0} Hours, {remaining.Minutes:#,##0} Minutes, {remaining.Seconds} Seconds";
                         };
                         break;
+
                     case StartGameResult.UnableToSpawn:
                         DXMessageBox.Show("Unable to start the game, failed to spawn character.", "Start Game");
                         break;
+
                     case StartGameResult.NotFound:
                         DXMessageBox.Show("Unable to start the game, character not found.", "Start Game");
                         break;
+
                     case StartGameResult.Success:
                         select.Dispose();
                         DXSoundManager.StopAllSounds();
@@ -788,6 +863,7 @@ namespace Client.Envir
                 throw;
             }
         }
+
         public void Process(S.MapChanged p)
         {
             GameScene.Game.MapControl.MapInfo = Globals.MapInfoList.Binding.FirstOrDefault(x => x.Index == p.MapIndex);
@@ -796,14 +872,17 @@ namespace Client.Envir
 
             MapObject.User.NameChanged();
         }
+
         public void Process(S.DayChanged p)
         {
             GameScene.Game.DayTime = p.DayTime;
         }
+
         public void Process(S.UserLocation p)
         {
             GameScene.Game.Displacement(p.Direction, p.Location);
         }
+
         public void Process(S.ObjectRemove p)
         {
             if (p.ObjectID == GameScene.Game.NPCID)
@@ -831,30 +910,33 @@ namespace Client.Envir
                 ob.Remove();
                 return;
             }
-
         }
+
         public void Process(S.ObjectPlayer p)
         {
             new PlayerObject(p);
         }
+
         public void Process(S.ObjectItem p)
         {
             new ItemObject(p);
         }
+
         public void Process(S.ObjectMonster p)
         {
             new MonsterObject(p);
-
         }
+
         public void Process(S.ObjectNPC p)
         {
             new NPCObject(p);
-
         }
+
         public void Process(S.ObjectSpell p)
         {
             new SpellObject(p);
         }
+
         public void Process(S.ObjectSpellChanged p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -867,6 +949,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.PlayerUpdate p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -903,7 +986,7 @@ namespace Client.Envir
                     {
                         player.LightColour = Globals.PlayerLightColour;
                     }
-                    else 
+                    else
                     {
                         player.LightColour = Globals.NoneColour;
                     }
@@ -935,6 +1018,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectHarvest p)
         {
             if (MapObject.User.ObjectID == p.ObjectID && !GameScene.Game.Observer)
@@ -955,6 +1039,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectShow p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -976,6 +1061,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectHide p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -986,6 +1072,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectMove p)
         {
             if (MapObject.User.ObjectID == p.ObjectID && !GameScene.Game.Observer)
@@ -1007,6 +1094,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectPushed p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1017,6 +1105,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectNameColour p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1027,6 +1116,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectMount p)
         {
             if (MapObject.User.ObjectID == p.ObjectID)
@@ -1051,6 +1141,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.MountFailed p)
         {
             MapObject.User.ServerTime = DateTime.MinValue;
@@ -1112,7 +1203,7 @@ namespace Client.Envir
                         GameScene.Game.MapControl.FishingState = FishingState.Cancel;
 
                     GameScene.Game.CanRun = false;
-                    
+
                     if (GameScene.Game.StruckEnabled)
                     {
                         MapObject.User.NextRunTime = CEnvir.Now.AddMilliseconds(600);
@@ -1126,6 +1217,7 @@ namespace Client.Envir
                                 case MirAction.RangeAttack:
                                     MapObject.User.AttackTime += TimeSpan.FromMilliseconds(300);
                                     break;
+
                                 case MirAction.Spell:
                                     MapObject.User.NextMagicTime += TimeSpan.FromMilliseconds(300);
                                     break;
@@ -1147,6 +1239,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectDash p)
         {
             if (MapObject.User.ObjectID == p.ObjectID && !GameScene.Game.Observer)
@@ -1165,6 +1258,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectAttack p)
         {
             if (MapObject.User.ObjectID == p.ObjectID && !GameScene.Game.Observer && p.AttackMagic != MagicType.DanceOfSwallow)
@@ -1209,6 +1303,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectRangeAttack p)
         {
             if (MapObject.User.ObjectID == p.ObjectID && !GameScene.Game.Observer)
@@ -1228,6 +1323,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectMagic p)
         {
             if (MapObject.User.ObjectID == p.ObjectID && !GameScene.Game.Observer)
@@ -1263,6 +1359,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectProjectile p)
         {
             MapObject source = GameScene.Game.MapControl.Objects.FirstOrDefault(x => x.ObjectID == p.ObjectID);
@@ -1291,6 +1388,7 @@ namespace Client.Envir
                             DXSoundManager.Play(SoundIndex.ChainLightningEnd);
                     }
                     break;
+
                 case MagicType.LightningStrike:
                     {
                         foreach (MapObject attackTarget in targets)
@@ -1308,6 +1406,7 @@ namespace Client.Envir
                             DXSoundManager.Play(SoundIndex.LightningBeamEnd);
                     }
                     break;
+
                 case MagicType.FireBounce:
                     {
                         foreach (MapObject attackTarget in targets)
@@ -1354,6 +1453,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectHarvested p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1367,6 +1467,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectEffect p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1386,6 +1487,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.TeleportOut);
                         break;
+
                     case Effect.TeleportIn:
                         ob.Effects.Add(new MirEffect(110, 10, TimeSpan.FromMilliseconds(100), LibraryFile.Magic, 30, 60, Color.White)
                         {
@@ -1396,6 +1498,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.TeleportIn);
                         break;
+
                     case Effect.ThunderBolt:
                         ob.Effects.Add(new MirEffect(1450, 3, TimeSpan.FromMilliseconds(150), LibraryFile.Magic, 150, 50, Globals.LightningColour)
                         {
@@ -1405,6 +1508,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.LightningStrikeEnd);
                         break;
+
                     case Effect.FullBloom:
                         ob.Effects.Add(new MirEffect(1700, 4, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Color.White)
                         {
@@ -1415,6 +1519,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.FullBloom);
                         break;
+
                     case Effect.WhiteLotus:
                         ob.Effects.Add(new MirEffect(1600, 12, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Color.White)
                         {
@@ -1425,6 +1530,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.WhiteLotus);
                         break;
+
                     case Effect.RedLotus:
                         ob.Effects.Add(new MirEffect(1700, 12, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Color.White)
                         {
@@ -1435,6 +1541,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.RedLotus);
                         break;
+
                     case Effect.SweetBrier:
                         ob.Effects.Add(new MirEffect(1900, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Color.White)
                         {
@@ -1445,6 +1552,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.SweetBrier);
                         break;
+
                     case Effect.Karma:
                         ob.Effects.Add(new MirEffect(1800, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Color.White)
                         {
@@ -1464,6 +1572,7 @@ namespace Client.Envir
                             BlendRate = 0.6F
                         });
                         break;
+
                     case Effect.PuppetFire:
                         ob.Effects.Add(new MirEffect(1546, 8, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Globals.FireColour)
                         {
@@ -1472,6 +1581,7 @@ namespace Client.Envir
                             BlendRate = 0.6F
                         });
                         break;
+
                     case Effect.PuppetIce:
                         ob.Effects.Add(new MirEffect(2700, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Globals.IceColour)
                         {
@@ -1480,6 +1590,7 @@ namespace Client.Envir
                             BlendRate = 0.6F
                         });
                         break;
+
                     case Effect.PuppetLightning:
                         ob.Effects.Add(new MirEffect(2800, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Globals.LightningColour)
                         {
@@ -1488,6 +1599,7 @@ namespace Client.Envir
                             BlendRate = 0.6F
                         });
                         break;
+
                     case Effect.PuppetWind:
                         ob.Effects.Add(new MirEffect(2900, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 30, 60, Globals.WindColour)
                         {
@@ -1496,6 +1608,7 @@ namespace Client.Envir
                             BlendRate = 0.6F
                         });
                         break;
+
                     case Effect.DanceOfSwallow:
                         ob.Effects.Add(new MirEffect(1300, 8, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 20, 70, Globals.NoneColour)
                         {
@@ -1505,6 +1618,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.DanceOfSwallowsEnd);
                         break;
+
                     case Effect.FlashOfLight:
                         ob.Effects.Add(new MirEffect(2400, 5, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx4, 20, 70, Globals.NoneColour)
                         {
@@ -1514,6 +1628,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.FlashOfLightEnd);
                         break;
+
                     case Effect.DemonExplosion:
                         ob.Effects.Add(new MirEffect(3300, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MonMagicEx8, 30, 60, Globals.PhantomColour)
                         {
@@ -1524,6 +1639,7 @@ namespace Client.Envir
 
                         //DXSoundManager.Play(SoundIndex.FlashOfLightEnd);
                         break;
+
                     case Effect.ParasiteExplode:
                         ob.Effects.Add(new MirEffect(700, 7, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx5, 30, 60, Globals.NoneColour)
                         {
@@ -1533,6 +1649,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.ParasiteExplode);
                         break;
+
                     case Effect.FrostBiteEnd:
                         ob.Effects.Add(new MirEffect(700, 7, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx5, 30, 60, Globals.IceColour)
                         {
@@ -1543,6 +1660,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.FireStormEnd);
                         break;
+
                     case Effect.ChainOfFireExplode:
                         var effect = new MirEffect(600, 12, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx10, 30, 60, Globals.FireColour)
                         {
@@ -1556,6 +1674,7 @@ namespace Client.Envir
                                 DXSoundManager.Play(SoundIndex.ChainofFireExplode);
                         };
                         break;
+
                     case Effect.MirrorImage:
                         new MirEffect(1280, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx2, 30, 60, Globals.NoneColour)
                         {
@@ -1565,6 +1684,7 @@ namespace Client.Envir
 
                         DXSoundManager.Play(SoundIndex.SummonSkeletonEnd);
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -1572,6 +1692,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.MapEffect p)
         {
             switch (p.Effect)
@@ -1585,6 +1706,7 @@ namespace Client.Envir
 
                     DXSoundManager.Play(SoundIndex.SummonSkeletonEnd);
                     break;
+
                 case Effect.SummonShinsu:
                     new MirEffect(9640, 10, TimeSpan.FromMilliseconds(100), LibraryFile.Mon_9, 30, 60, Globals.PhantomColour)
                     {
@@ -1594,15 +1716,17 @@ namespace Client.Envir
 
                     DXSoundManager.Play(SoundIndex.SummonShinsuEnd);
                     break;
+
                 case Effect.CursedDoll:
                     new MirEffect(700, 13, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx3, 30, 60, Globals.NoneColour)
                     {
                         MapTarget = p.Location,
                         Blend = true,
                     };
-                    
+
                     DXSoundManager.Play(SoundIndex.CursedDollEnd);
                     break;
+
                 case Effect.UndeadSoul:
                     new MirEffect(3300, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MonMagicEx20, 35, 10, Globals.NoneColour)
                     {
@@ -1617,6 +1741,7 @@ namespace Client.Envir
 
                     DXSoundManager.Play(SoundIndex.SummonDeadEnd);
                     break;
+
                 case Effect.BurningFireExplode:
                     new MirEffect(1100, 10, TimeSpan.FromMilliseconds(100), LibraryFile.MagicEx6, 30, 60, Globals.FireColour)
                     {
@@ -1626,10 +1751,12 @@ namespace Client.Envir
 
                     DXSoundManager.Play(SoundIndex.FireStormEnd);
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
+
         public void Process(S.ObjectBuffAdd p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1644,6 +1771,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectBuffRemove p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1654,6 +1782,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectPoison p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1664,6 +1793,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectPetOwnerChanged p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1677,6 +1807,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectStats p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1693,6 +1824,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.HealthChanged p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1736,6 +1868,7 @@ namespace Client.Envir
         {
             MapObject.User.Magics[p.Info].NextCast = CEnvir.Now.AddMilliseconds(p.Delay);
         }
+
         public void Process(S.MagicToggle p)
         {
             switch (p.Magic)
@@ -1743,38 +1876,47 @@ namespace Client.Envir
                 case MagicType.Slaying:
                     GameScene.Game.User.CanPowerAttack = p.CanUse;
                     break;
+
                 case MagicType.Thrusting:
                     GameScene.Game.User.CanThrusting = p.CanUse;
                     break;
+
                 case MagicType.HalfMoon:
                     GameScene.Game.User.CanHalfMoon = p.CanUse;
                     break;
+
                 case MagicType.DestructiveSurge:
                     GameScene.Game.User.CanDestructiveSurge = p.CanUse;
                     break;
+
                 case MagicType.FlamingSword:
                     GameScene.Game.User.CanFlamingSword = p.CanUse;
                     if (p.CanUse)
                         GameScene.Game.ReceiveChat(CEnvir.Language.WeaponEnergyFlamingSword, MessageType.Hint);
                     break;
+
                 case MagicType.DragonRise:
                     GameScene.Game.User.CanDragonRise = p.CanUse;
                     if (p.CanUse)
                         GameScene.Game.ReceiveChat(CEnvir.Language.WeaponEnergyDragonRise, MessageType.Hint);
                     break;
+
                 case MagicType.BladeStorm:
                     GameScene.Game.User.CanBladeStorm = p.CanUse;
                     if (p.CanUse)
                         GameScene.Game.ReceiveChat(CEnvir.Language.WeaponEnergyBladeStorm, MessageType.Hint);
                     break;
+
                 case MagicType.FlameSplash:
                     GameScene.Game.User.CanFlameSplash = p.CanUse;
                     break;
+
                 case MagicType.DefensiveBlow:
                     GameScene.Game.User.CanDefensiveBlow = p.CanUse;
                     if (p.CanUse)
                         GameScene.Game.ReceiveChat(CEnvir.Language.WeaponEnergyDefensiveBlow, MessageType.Hint);
                     break;
+
                 case MagicType.FullBloom:
                 case MagicType.WhiteLotus:
                 case MagicType.RedLotus:
@@ -1783,12 +1925,15 @@ namespace Client.Envir
                     if (GameScene.Game.User.AttackMagic == p.Magic)
                         GameScene.Game.User.AttackMagic = MagicType.None;
                     break;
+
                 case MagicType.DragonBlood:
                     GameScene.Game.User.CanPoisonAttack = p.CanUse;
                     break;
+
                 case MagicType.CalamityOfFullMoon:
                     GameScene.Game.User.CanFullMoonAttack = p.CanUse;
                     break;
+
                 case MagicType.WaningMoon:
                     GameScene.Game.User.CanWaningMoonAttack = p.CanUse;
                     break;
@@ -1823,6 +1968,7 @@ namespace Client.Envir
         {
             MapObject.User.MaxExperience = p.MaxExperience;
         }
+
         public void Process(S.LevelChanged p)
         {
             MapObject.User.Level = p.Level;
@@ -1879,6 +2025,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.ObjectRevive p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -1925,6 +2072,7 @@ namespace Client.Envir
 
             GameScene.Game.AddItems(p.Items);
         }
+
         public void Process(S.ItemMove p)
         {
             DXItemCell fromCell, toCell;
@@ -1934,24 +2082,31 @@ namespace Client.Envir
                 case GridType.Inventory:
                     fromCell = GameScene.Game.InventoryBox.Grid.Grid[p.FromSlot];
                     break;
+
                 case GridType.Equipment:
                     fromCell = GameScene.Game.CharacterBox.Grid[p.FromSlot];
                     break;
+
                 case GridType.Storage:
                     fromCell = GameScene.Game.StorageBox.Grid.Grid[p.FromSlot];
                     break;
+
                 case GridType.PartsStorage:
                     fromCell = GameScene.Game.StorageBox.PartGrid.Grid[p.FromSlot];
                     break;
+
                 case GridType.GuildStorage:
                     fromCell = GameScene.Game.GuildBox.StorageGrid.Grid[p.FromSlot];
                     break;
+
                 case GridType.CompanionInventory:
                     fromCell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.FromSlot];
                     break;
+
                 case GridType.CompanionEquipment:
                     fromCell = GameScene.Game.CompanionBox.EquipmentGrid[p.FromSlot];
                     break;
+
                 default: return;
             }
 
@@ -1960,24 +2115,31 @@ namespace Client.Envir
                 case GridType.Inventory:
                     toCell = GameScene.Game.InventoryBox.Grid.Grid[p.ToSlot];
                     break;
+
                 case GridType.Equipment:
                     toCell = GameScene.Game.CharacterBox.Grid[p.ToSlot];
                     break;
+
                 case GridType.Storage:
                     toCell = GameScene.Game.StorageBox.Grid.Grid[p.ToSlot];
                     break;
+
                 case GridType.PartsStorage:
                     toCell = GameScene.Game.StorageBox.PartGrid.Grid[p.ToSlot];
                     break;
+
                 case GridType.GuildStorage:
                     toCell = GameScene.Game.GuildBox.StorageGrid.Grid[p.ToSlot];
                     break;
+
                 case GridType.CompanionInventory:
                     toCell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.ToSlot];
                     break;
+
                 case GridType.CompanionEquipment:
                     toCell = GameScene.Game.CompanionBox.EquipmentGrid[p.ToSlot];
                     break;
+
                 default:
                     return;
             }
@@ -1986,7 +2148,6 @@ namespace Client.Envir
             fromCell.Locked = false;
 
             if (!p.Success) return;
-
 
             if (p.FromGrid != p.ToGrid)
             {
@@ -2086,35 +2247,40 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.GuildStorage:
                     grid = GameScene.Game.GuildBox.StorageGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
 
             DXItemCell fromCell = grid[p.Link.Slot];
 
             fromCell.Locked = false;
 
             if (!p.Success) return;
-
 
             if (!fromCell.Item.Info.ShouldLinkInfo)
             {
@@ -2133,7 +2299,6 @@ namespace Client.Envir
                 }
             }
 
-
             if (p.Link.Count == 0)
                 fromCell.Item = null;
             else
@@ -2141,6 +2306,7 @@ namespace Client.Envir
 
             fromCell.RefreshItem();
         }
+
         public void Process(S.ItemsChanged p)
         {
             foreach (CellLinkInfo cellLinkInfo in p.Links)
@@ -2152,21 +2318,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -2214,21 +2386,27 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -2259,6 +2437,7 @@ namespace Client.Envir
 
             fromCell.RefreshItem();
         }
+
         public void Process(S.ItemStatsRefreshed p)
         {
             DXItemCell[] grid;
@@ -2268,21 +2447,27 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -2292,6 +2477,7 @@ namespace Client.Envir
 
             fromCell.RefreshItem();
         }
+
         public void Process(S.ItemDurability p)
         {
             DXItemCell[] grid;
@@ -2301,46 +2487,53 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-
             DXItemCell fromCell = grid[p.Slot];
 
             fromCell.Item.CurrentDurability = p.CurrentDurability;
-
 
             if (p.CurrentDurability == 0)
                 GameScene.Game.ReceiveChat(string.Format(CEnvir.Language.ItemDurabilityDrop, fromCell.Item.Info.ItemName), MessageType.System);
 
             fromCell.RefreshItem();
         }
+
         public void Process(S.StatsUpdate p)
         {
             MapObject.User.HermitPoints = p.HermitPoints;
             MapObject.User.Stats = p.Stats;
             MapObject.User.HermitStats = p.HermitStats;
         }
+
         public void Process(S.ItemUseDelay p)
         {
             GameScene.Game.UseItemTime = CEnvir.Now + p.Delay;
         }
+
         public void Process(S.ItemSplit p)
         {
             DXItemCell fromCell;
@@ -2350,21 +2543,27 @@ namespace Client.Envir
                 case GridType.Inventory:
                     fromCell = GameScene.Game.InventoryBox.Grid.Grid[p.Slot];
                     break;
+
                 case GridType.Storage:
                     fromCell = GameScene.Game.StorageBox.Grid.Grid[p.Slot];
                     break;
+
                 case GridType.PartsStorage:
                     fromCell = GameScene.Game.StorageBox.PartGrid.Grid[p.Slot];
                     break;
+
                 case GridType.GuildStorage:
                     fromCell = GameScene.Game.GuildBox.StorageGrid.Grid[p.Slot];
                     break;
+
                 case GridType.CompanionInventory:
                     fromCell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.Slot];
                     break;
+
                 case GridType.CompanionEquipment:
                     fromCell = GameScene.Game.CompanionBox.EquipmentGrid[p.Slot];
                     break;
+
                 default: return;
             }
 
@@ -2378,24 +2577,29 @@ namespace Client.Envir
                 case GridType.Inventory:
                     toCell = GameScene.Game.InventoryBox.Grid.Grid[p.NewSlot];
                     break;
+
                 case GridType.Storage:
                     toCell = GameScene.Game.StorageBox.Grid.Grid[p.NewSlot];
                     break;
+
                 case GridType.PartsStorage:
                     toCell = GameScene.Game.StorageBox.PartGrid.Grid[p.NewSlot];
                     break;
+
                 case GridType.GuildStorage:
                     toCell = GameScene.Game.GuildBox.StorageGrid.Grid[p.NewSlot];
                     break;
+
                 case GridType.CompanionInventory:
                     toCell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.NewSlot];
                     break;
+
                 case GridType.CompanionEquipment:
                     toCell = GameScene.Game.CompanionBox.EquipmentGrid[p.NewSlot];
                     break;
+
                 default: return;
             }
-
 
             ClientUserItem item = new ClientUserItem(fromCell.Item, p.Count) { Slot = p.NewSlot };// { Count = p.Count, Info = cell.Item.Info, GridSlot = p.NewSlot, AddedStats = new Stats(), };
 
@@ -2419,12 +2623,15 @@ namespace Client.Envir
                 case GridType.Inventory:
                     cell = GameScene.Game.InventoryBox.Grid.Grid[p.Slot];
                     break;
+
                 case GridType.Equipment:
                     cell = GameScene.Game.CharacterBox.Grid[p.Slot];
                     break;
+
                 case GridType.Storage:
                     cell = GameScene.Game.StorageBox.Grid.Grid[p.Slot];
                     break;
+
                 case GridType.PartsStorage:
                     cell = GameScene.Game.StorageBox.PartGrid.Grid[p.Slot];
                     break;
@@ -2434,9 +2641,11 @@ namespace Client.Envir
                 case GridType.CompanionInventory:
                     cell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.Slot];
                     break;
+
                 case GridType.CompanionEquipment:
                     cell = GameScene.Game.CompanionBox.EquipmentGrid[p.Slot];
                     break;
+
                 default: return;
             }
 
@@ -2449,6 +2658,7 @@ namespace Client.Envir
 
             cell.RefreshItem();
         }
+
         public void Process(S.ItemSort p)
         {
             DXItemCell[] grid;
@@ -2458,12 +2668,15 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 default:
                     return;
             }
@@ -2482,9 +2695,11 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid[item.Slot].Item = item;
                         break;
+
                     case GridType.Storage:
                         grid[item.Slot].Item = item;
                         break;
+
                     case GridType.PartsStorage:
                         grid[item.Slot - Globals.PartsStorageOffset].Item = item;
                         break;
@@ -2501,6 +2716,7 @@ namespace Client.Envir
                 case GridType.Inventory:
                     cell = GameScene.Game.InventoryBox.Grid.Grid[p.Slot];
                     break;
+
                 default:
                     return;
             }
@@ -2541,21 +2757,27 @@ namespace Client.Envir
                 case GridType.Inventory:
                     cell = GameScene.Game.InventoryBox.Grid.Grid[p.Target.Slot];
                     break;
+
                 case GridType.Equipment:
                     cell = GameScene.Game.CharacterBox.Grid[p.Target.Slot];
                     break;
+
                 case GridType.Storage:
                     cell = GameScene.Game.StorageBox.Grid.Grid[p.Target.Slot];
                     break;
+
                 case GridType.PartsStorage:
                     cell = GameScene.Game.StorageBox.PartGrid.Grid[p.Target.Slot];
                     break;
+
                 case GridType.CompanionInventory:
                     cell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.Target.Slot];
                     break;
+
                 case GridType.CompanionEquipment:
                     cell = GameScene.Game.CompanionBox.EquipmentGrid[p.Target.Slot];
                     break;
+
                 default: return;
             }
 
@@ -2590,11 +2812,11 @@ namespace Client.Envir
         {
             GameScene.Game.NPCBox.Response(p);
         }
+
         public void Process(S.NPCRepair p)
         {
             foreach (CellLinkInfo cellLinkInfo in p.Links)
             {
-
                 DXItemCell[] grid;
 
                 switch (cellLinkInfo.GridType)
@@ -2602,31 +2824,36 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.GuildStorage:
                         if (GameScene.Game.Observer) continue;
 
                         grid = GameScene.Game.GuildBox.StorageGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-
 
                 DXItemCell cell = grid[cellLinkInfo.Slot];
 
@@ -2651,6 +2878,7 @@ namespace Client.Envir
                 cell.RefreshItem();
             }
         }
+
         public void Process(S.NPCRefine p)
         {
             foreach (CellLinkInfo cellLinkInfo in p.Ores)
@@ -2662,32 +2890,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -2705,7 +2936,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -2724,32 +2954,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -2767,7 +3000,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -2786,31 +3018,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -2828,7 +3064,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -2847,6 +3082,7 @@ namespace Client.Envir
                 GameScene.Game.ReceiveChat(string.Format(CEnvir.Language.RefineSuccess, Functions.ToString(Globals.RefineTimes[p.RefineQuality], false)), MessageType.System);
             }
         }
+
         public void Process(S.NPCMasterRefine p)
         {
             foreach (CellLinkInfo cellLinkInfo in p.Fragment1s)
@@ -2858,32 +3094,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -2901,7 +3140,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -2920,32 +3158,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -2963,7 +3204,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -2982,31 +3222,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -3024,7 +3268,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -3043,31 +3286,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -3085,7 +3332,6 @@ namespace Client.Envir
                             CEnvir.Enqueue(new C.BeltLinkChanged { Slot = link.Slot, LinkIndex = link.LinkInfoIndex, LinkItemIndex = link.LinkItemIndex }); //Update server
                     }
                 }
-
 
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
@@ -3104,31 +3350,35 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-
 
                 DXItemCell fromCell = grid[cellLinkInfo.Slot];
                 fromCell.Locked = false;
 
                 if (!p.Success) continue;
-
 
                 if (!fromCell.Item.Info.ShouldLinkInfo)
                 {
@@ -3147,7 +3397,6 @@ namespace Client.Envir
                     }
                 }
 
-
                 if (cellLinkInfo.Count == fromCell.Item.Count)
                     fromCell.Item = null;
                 else
@@ -3156,10 +3405,12 @@ namespace Client.Envir
                 fromCell.RefreshItem();
             }
         }
+
         public void Process(S.RefineList p)
         {
             GameScene.Game.NPCRefineRetrieveBox.Refines.AddRange(p.List);
         }
+
         public void Process(S.NPCRefineRetrieve p)
         {
             foreach (ClientRefineInfo info in GameScene.Game.NPCRefineRetrieveBox.Refines)
@@ -3172,12 +3423,12 @@ namespace Client.Envir
 
             GameScene.Game.NPCRefineRetrieveBox.RefreshList();
         }
+
         public void Process(S.NPCClose p)
         {
-
-
             GameScene.Game.NPCBox.Visible = false;
         }
+
         public void Process(S.NPCAccessoryLevelUp p)
         {
             if (p.Target != null)
@@ -3192,21 +3443,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -3220,6 +3477,7 @@ namespace Client.Envir
         {
             GameScene.Game.GroupBox.AllowGroup = p.Allow;
         }
+
         public void Process(S.GroupMember p)
         {
             GameScene.Game.GroupBox.Members.Add(new ClientPlayerInfo { ObjectID = p.ObjectID, Name = p.Name });
@@ -3234,6 +3492,7 @@ namespace Client.Envir
             GameScene.Game.BigMapBox.Update(data);
             GameScene.Game.MiniMapBox.Update(data);
         }
+
         public void Process(S.GroupRemove p)
         {
             ClientPlayerInfo info = GameScene.Game.GroupBox.Members.First(x => x.ObjectID == p.ObjectID);
@@ -3266,10 +3525,9 @@ namespace Client.Envir
                 GameScene.Game.MiniMapBox.Update(data);
             }
         }
+
         public void Process(S.GroupInvite p)
         {
-
-
             DXMessageBox messageBox = new DXMessageBox($"Do you want to group with {p.Name}?", "Group Invitation", DXMessageBoxButtons.YesNo);
 
             messageBox.YesButton.MouseClick += (o, e) => CEnvir.Enqueue(new C.GroupResponse { Accept = true });
@@ -3277,7 +3535,6 @@ namespace Client.Envir
             messageBox.CloseButton.MouseClick += (o, e) => CEnvir.Enqueue(new C.GroupResponse { Accept = false });
             messageBox.Modal = false;
             messageBox.CloseButton.Visible = false;
-
         }
 
         public void Process(S.BuffAdd p)
@@ -3286,6 +3543,7 @@ namespace Client.Envir
 
             GameScene.Game.BuffBox.BuffsChanged();
         }
+
         public void Process(S.BuffRemove p)
         {
             foreach (ClientBuffInfo buff in MapObject.User.Buffs)
@@ -3299,18 +3557,21 @@ namespace Client.Envir
 
             GameScene.Game.BuffBox.BuffsChanged();
         }
+
         public void Process(S.BuffChanged p)
         {
             MapObject.User.Buffs.First(x => x.Index == p.Index).Stats = p.Stats;
 
             GameScene.Game.BuffBox.BuffsChanged();
         }
+
         public void Process(S.BuffTime p)
         {
             MapObject.User.Buffs.First(x => x.Index == p.Index).RemainingTime = p.Time;
 
             GameScene.Game.BuffBox.BuffsChanged();
         }
+
         public void Process(S.BuffPaused p)
         {
             MapObject.User.Buffs.First(x => x.Index == p.Index).Pause = p.Paused;
@@ -3390,6 +3651,7 @@ namespace Client.Envir
 
             GameScene.Game.CharacterBox.UpdateDiscipline();
         }
+
         public void Process(S.ObservableSwitch p)
         {
             GameScene.Game.RankingBox.Observable = p.Allow;
@@ -3397,7 +3659,6 @@ namespace Client.Envir
 
         public void Process(S.MarketPlaceHistory p)
         {
-
             switch (p.Display)
             {
                 case 1:
@@ -3405,19 +3666,21 @@ namespace Client.Envir
                     GameScene.Game.MarketPlaceBox.SearchAveragePriceBox.TextBox.Text = p.SaleCount > 0 ? p.AveragePrice.ToString("#,##0") : "No Records";
                     GameScene.Game.MarketPlaceBox.SearchLastPriceBox.TextBox.Text = p.SaleCount > 0 ? p.LastPrice.ToString("#,##0") : "No Records";
                     break;
+
                 case 2:
                     GameScene.Game.MarketPlaceBox.NumberSoldBox.TextBox.Text = p.SaleCount > 0 ? p.SaleCount.ToString("#,##0") : "No Records";
                     GameScene.Game.MarketPlaceBox.AveragePriceBox.TextBox.Text = p.SaleCount > 0 ? p.AveragePrice.ToString("#,##0") : "No Records";
                     GameScene.Game.MarketPlaceBox.LastPriceBox.TextBox.Text = p.SaleCount > 0 ? p.LastPrice.ToString("#,##0") : "No Records";
                     break;
-
             }
         }
+
         public void Process(S.MarketPlaceConsign p)
         {
             GameScene.Game.MarketPlaceBox.ConsignItems.AddRange(p.Consignments);
             GameScene.Game.MarketPlaceBox.RefreshConsignList();
         }
+
         public void Process(S.MarketPlaceSearch p)
         {
             GameScene.Game.MarketPlaceBox.SearchResults = new ClientMarketPlaceInfo[p.Count];
@@ -3427,28 +3690,25 @@ namespace Client.Envir
 
             GameScene.Game.MarketPlaceBox.RefreshList();
         }
+
         public void Process(S.MarketPlaceSearchCount p)
         {
-
-
             Array.Resize(ref GameScene.Game.MarketPlaceBox.SearchResults, p.Count);
 
             GameScene.Game.MarketPlaceBox.RefreshList();
         }
+
         public void Process(S.MarketPlaceSearchIndex p)
         {
-
-
             if (GameScene.Game.MarketPlaceBox.SearchResults == null) return;
 
             GameScene.Game.MarketPlaceBox.SearchResults[p.Index] = p.Result;
 
             GameScene.Game.MarketPlaceBox.RefreshList();
         }
+
         public void Process(S.MarketPlaceConsignChanged p)
         {
-
-
             ClientMarketPlaceInfo info = GameScene.Game.MarketPlaceBox.ConsignItems.FirstOrDefault(x => x.Index == p.Index);
 
             if (info == null) return;
@@ -3460,6 +3720,7 @@ namespace Client.Envir
 
             GameScene.Game.MarketPlaceBox.RefreshConsignList();
         }
+
         public void Process(S.MarketPlaceBuy p)
         {
             GameScene.Game.MarketPlaceBox.BuyButton.Enabled = true;
@@ -3477,6 +3738,7 @@ namespace Client.Envir
 
             GameScene.Game.MarketPlaceBox.RefreshList();
         }
+
         public void Process(S.MarketPlaceStoreBuy p)
         {
             GameScene.Game.MarketPlaceBox.StoreBuyButton.Enabled = true;
@@ -3580,17 +3842,20 @@ namespace Client.Envir
             messageBox.NoButton.MouseClick += (o, e) => CEnvir.Enqueue(new C.TradeRequestResponse { Accept = false });
             messageBox.CloseButton.MouseClick += (o, e) => CEnvir.Enqueue(new C.TradeRequestResponse { Accept = false });
         }
+
         public void Process(S.TradeOpen p)
         {
             GameScene.Game.TradeBox.Visible = true;
             GameScene.Game.TradeBox.IsTrading = true;
             GameScene.Game.TradeBox.PlayerLabel.Text = p.Name;
         }
+
         public void Process(S.TradeClose p)
         {
             GameScene.Game.TradeBox.Visible = false;
             GameScene.Game.TradeBox.Clear();
         }
+
         public void Process(S.TradeAddItem p)
         {
             DXItemCell fromCell;
@@ -3600,12 +3865,15 @@ namespace Client.Envir
                 case GridType.Inventory:
                     fromCell = GameScene.Game.InventoryBox.Grid.Grid[p.Cell.Slot];
                     break;
+
                 case GridType.Equipment:
                     fromCell = GameScene.Game.CharacterBox.Grid[p.Cell.Slot];
                     break;
+
                 case GridType.Storage:
                     fromCell = GameScene.Game.StorageBox.Grid.Grid[p.Cell.Slot];
                     break;
+
                 case GridType.PartsStorage:
                     fromCell = GameScene.Game.StorageBox.PartGrid.Grid[p.Cell.Slot];
                     break;
@@ -3615,12 +3883,13 @@ namespace Client.Envir
                 case GridType.CompanionInventory:
                     fromCell = GameScene.Game.CompanionBox.InventoryGrid.Grid[p.Cell.Slot];
                     break;
+
                 case GridType.CompanionEquipment:
                     fromCell = GameScene.Game.CompanionBox.EquipmentGrid[p.Cell.Slot];
                     break;
+
                 default: return;
             }
-
 
             if (!p.Success)
             {
@@ -3638,7 +3907,6 @@ namespace Client.Envir
                 cell.Link = fromCell;
                 return;
             }
-
         }
 
         public void Process(S.TradeItemAdded p)
@@ -3671,6 +3939,7 @@ namespace Client.Envir
         {
             GameScene.Game.GuildBox.CreateAttempted = false;
         }
+
         public void Process(S.GuildInfo p)
         {
             HashSet<uint> checks = new HashSet<uint>();
@@ -3718,28 +3987,34 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.GuildStorage:
                     grid = GameScene.Game.GuildBox.StorageGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
 
             DXItemCell fromCell = grid[p.Slot];
 
@@ -3758,7 +4033,6 @@ namespace Client.Envir
 
             GameScene.Game.GuildBox.GuildInfo.TotalContribution = p.TotalContribution;
             GameScene.Game.GuildBox.GuildInfo.DailyContribution = p.DailyContribution;
-
 
             GameScene.Game.GuildBox.GuildInfo.MemberLimit = p.MemberLimit;
             GameScene.Game.GuildBox.GuildInfo.StorageLimit = p.StorageLimit;
@@ -3785,7 +4059,6 @@ namespace Client.Envir
                     GameScene.Game.GuildBox.GuildInfo.Members.Add(info);
                 }
 
-
                 info.TotalContribution = member.TotalContribution;
                 info.DailyContribution = member.DailyContribution;
                 info.LastOnline = member.LastOnline;
@@ -3803,10 +4076,10 @@ namespace Client.Envir
                 GameScene.Game.MiniMapBox.Update(data);
             }
 
-
             if (GameScene.Game.GuildBox.Visible)
                 GameScene.Game.GuildBox.RefreshGuildDisplay();
         }
+
         public void Process(S.GuildKick p)
         {
             ClientGuildMemberInfo info = GameScene.Game.GuildBox.GuildInfo.Members.First(x => x.Index == p.Index);
@@ -3816,13 +4089,13 @@ namespace Client.Envir
             if (GameScene.Game.GuildBox.Visible)
                 GameScene.Game.GuildBox.RefreshGuildDisplay();
 
-
             ClientObjectData data;
             if (!GameScene.Game.DataDictionary.TryGetValue(info.ObjectID, out data)) return;
 
             GameScene.Game.BigMapBox.Update(data);
             GameScene.Game.MiniMapBox.Update(data);
         }
+
         public void Process(S.GuildIncreaseMember p)
         {
             GameScene.Game.GuildBox.IncreaseMemberButton.Enabled = true;
@@ -3852,8 +4125,8 @@ namespace Client.Envir
 
             if (GameScene.Game.GuildBox.Visible)
                 GameScene.Game.GuildBox.RefreshGuildDisplay();
-
         }
+
         public void Process(S.GuildInvite p)
         {
             DXMessageBox messageBox = new DXMessageBox($"{p.Name} has invited you to the guild {p.GuildName}\n" +
@@ -3864,8 +4137,8 @@ namespace Client.Envir
             messageBox.CloseButton.MouseClick += (o, e) => CEnvir.Enqueue(new C.GuildResponse { Accept = false });
             messageBox.Modal = false;
             messageBox.CloseButton.Visible = false;
-
         }
+
         public void Process(S.GuildMemberOnline p)
         {
             ClientGuildMemberInfo info = GameScene.Game.GuildBox.GuildInfo.Members.First(x => x.Index == p.Index);
@@ -3877,6 +4150,7 @@ namespace Client.Envir
             if (GameScene.Game.GuildBox.Visible)
                 GameScene.Game.GuildBox.RefreshGuildDisplay();
         }
+
         public void Process(S.GuildMemberContribution p)
         {
             ClientGuildMemberInfo info = GameScene.Game.GuildBox.GuildInfo.Members.First(x => x.Index == p.Index);
@@ -3893,6 +4167,7 @@ namespace Client.Envir
             if (GameScene.Game.GuildBox.Visible)
                 GameScene.Game.GuildBox.RefreshGuildDisplay();
         }
+
         public void Process(S.GuildDayReset p)
         {
             foreach (ClientGuildMemberInfo member in GameScene.Game.GuildBox.GuildInfo.Members)
@@ -3928,7 +4203,6 @@ namespace Client.Envir
 
         public void Process(S.GuildWar p)
         {
-
         }
 
         public void Process(S.GuildWarStarted p)
@@ -3958,6 +4232,7 @@ namespace Client.Envir
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
                 ob.NameChanged();
         }
+
         public void Process(S.GuildConquestFinished p)
         {
             GameScene.Game.ConquestWars.Remove(CEnvir.CastleInfoList.Binding.First(x => x.Index == p.Index));
@@ -3965,6 +4240,7 @@ namespace Client.Envir
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
                 ob.NameChanged();
         }
+
         public void Process(S.GuildCastleInfo p)
         {
             CastleInfo castle = CEnvir.CastleInfoList.Binding.First(x => x.Index == p.Index);
@@ -3977,6 +4253,7 @@ namespace Client.Envir
 
             GameScene.Game.GuildBox.RefreshCastleControls();
         }
+
         public void Process(S.GuildConquestDate p)
         {
             CastleInfo castle = CEnvir.CastleInfoList.Binding.First(x => x.Index == p.Index);
@@ -4007,7 +4284,7 @@ namespace Client.Envir
                 {
                     DXSoundManager.Play(SoundIndex.QuestComplete);
                 }
-            
+
                 GameScene.Game.QuestChanged(p.Quest);
                 return;
             }
@@ -4028,7 +4305,6 @@ namespace Client.Envir
                 GameScene.Game.QuestChanged(quest);
                 return;
             }
-
         }
 
         public void Process(S.CompanionUnlock p)
@@ -4040,6 +4316,7 @@ namespace Client.Envir
 
             GameScene.Game.NPCAdoptCompanionBox.RefreshUnlockButton();
         }
+
         public void Process(S.CompanionAdopt p)
         {
             GameScene.Game.NPCAdoptCompanionBox.AdoptAttempted = false;
@@ -4050,6 +4327,7 @@ namespace Client.Envir
             GameScene.Game.NPCCompanionStorageBox.UpdateScrollBar();
             GameScene.Game.NPCAdoptCompanionBox.CompanionNameTextBox.TextBox.Text = string.Empty;
         }
+
         public void Process(S.CompanionStore p)
         {
             if (GameScene.Game.Companion != null)
@@ -4057,10 +4335,12 @@ namespace Client.Envir
 
             GameScene.Game.Companion = null;
         }
+
         public void Process(S.CompanionRetrieve p)
         {
             GameScene.Game.Companion = GameScene.Game.NPCCompanionStorageBox.Companions.FirstOrDefault(x => x.Index == p.Index);
         }
+
         public void Process(S.CompanionWeightUpdate p)
         {
             GameScene.Game.CompanionBox.BagWeight = p.BagWeight;
@@ -4069,6 +4349,7 @@ namespace Client.Envir
 
             GameScene.Game.CompanionBox.Refresh();
         }
+
         public void Process(S.CompanionShapeUpdate p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -4084,6 +4365,7 @@ namespace Client.Envir
                 return;
             }
         }
+
         public void Process(S.CompanionUpdate p)
         {
             GameScene.Game.Companion.Hunger = p.Hunger;
@@ -4092,6 +4374,7 @@ namespace Client.Envir
 
             GameScene.Game.CompanionBox.Refresh();
         }
+
         public void Process(S.CompanionItemsGained p)
         {
             foreach (ClientUserItem item in p.Items)
@@ -4115,6 +4398,7 @@ namespace Client.Envir
 
             GameScene.Game.AddCompanionItems(p.Items);
         }
+
         public void Process(S.CompanionSkillUpdate p)
         {
             GameScene.Game.Companion.Level3 = p.Level3;
@@ -4138,8 +4422,8 @@ namespace Client.Envir
             messageBox.CloseButton.MouseClick += (o, e) => CEnvir.Enqueue(new C.MarriageResponse { Accept = false });
             messageBox.Modal = false;
             messageBox.CloseButton.Visible = false;
-
         }
+
         public void Process(S.MarriageInfo p)
         {
             ClientObjectData data;
@@ -4156,20 +4440,16 @@ namespace Client.Envir
 
         public void Process(S.MarriageRemoveRing p)
         {
-
-
             GameScene.Game.CharacterBox.Grid[(int)EquipmentSlot.RingL].Item.Flags &= ~UserItemFlags.Marriage;
         }
+
         public void Process(S.MarriageMakeRing p)
         {
-
-
             GameScene.Game.CharacterBox.Grid[(int)EquipmentSlot.RingL].Item.Flags |= UserItemFlags.Marriage;
         }
+
         public void Process(S.MarriageOnlineChanged p)
         {
-
-
             ClientObjectData data;
 
             GameScene.Game.DataDictionary.TryGetValue(GameScene.Game.Partner.ObjectID > 0 ? GameScene.Game.Partner.ObjectID : p.ObjectID, out data);
@@ -4192,7 +4472,7 @@ namespace Client.Envir
                 Location = p.CurrentLocation,
 
                 Name = p.Name,
-        
+
                 Health = p.Health,
                 MaxHealth = p.MaxHealth,
                 Dead = p.Dead,
@@ -4206,6 +4486,7 @@ namespace Client.Envir
             GameScene.Game.BigMapBox.Update(data);
             GameScene.Game.MiniMapBox.Update(data);
         }
+
         public void Process(S.DataObjectMonster p)
         {
             ClientObjectData data = new ClientObjectData
@@ -4230,6 +4511,7 @@ namespace Client.Envir
             GameScene.Game.BigMapBox.Update(data);
             GameScene.Game.MiniMapBox.Update(data);
         }
+
         public void Process(S.DataObjectItem p)
         {
             ClientObjectData data = new ClientObjectData
@@ -4248,6 +4530,7 @@ namespace Client.Envir
             GameScene.Game.BigMapBox.Update(data);
             GameScene.Game.MiniMapBox.Update(data);
         }
+
         public void Process(S.DataObjectRemove p)
         {
             ClientObjectData data;
@@ -4259,6 +4542,7 @@ namespace Client.Envir
             GameScene.Game.BigMapBox.Remove(data);
             GameScene.Game.MiniMapBox.Remove(data);
         }
+
         public void Process(S.DataObjectLocation p)
         {
             ClientObjectData data;
@@ -4271,6 +4555,7 @@ namespace Client.Envir
             GameScene.Game.BigMapBox.Update(data);
             GameScene.Game.MiniMapBox.Update(data);
         }
+
         public void Process(S.DataObjectHealthMana p)
         {
             ClientObjectData data;
@@ -4290,6 +4575,7 @@ namespace Client.Envir
                 GameScene.Game.MiniMapBox.Update(data);
             }
         }
+
         public void Process(S.DataObjectMaxHealthMana p)
         {
             ClientObjectData data;
@@ -4317,6 +4603,7 @@ namespace Client.Envir
 
             GameScene.Game.CommunicationBox.RefreshBlockList();
         }
+
         public void Process(S.BlockRemove p)
         {
             ClientBlockInfo block = CEnvir.BlockList.First(x => x.Index == p.Index);
@@ -4331,6 +4618,7 @@ namespace Client.Envir
             GameScene.Game.CommunicationBox.FriendList.Add(p.Info);
             GameScene.Game.CommunicationBox.RefreshFriendList();
         }
+
         public void Process(S.FriendRemove p)
         {
             ClientFriendInfo friend = GameScene.Game.CommunicationBox.FriendList.First(x => x.Index == p.Index);
@@ -4385,6 +4673,7 @@ namespace Client.Envir
         {
             GameScene.Game.StorageSize = p.Size;
         }
+
         public void Process(S.PlayerChangeUpdate p)
         {
             foreach (MapObject ob in GameScene.Game.MapControl.Objects)
@@ -4437,21 +4726,27 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -4468,6 +4763,7 @@ namespace Client.Envir
 
                 fromCell.RefreshItem();
             }
+
             #endregion
 
             #region Yellow
@@ -4479,21 +4775,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4523,21 +4825,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4567,21 +4875,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4611,21 +4925,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4655,21 +4975,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4699,21 +5025,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4734,6 +5066,7 @@ namespace Client.Envir
 
             #endregion
         }
+
         public void Process(S.NPCAccessoryRefine p)
         {
             if (p.Target != null)
@@ -4750,21 +5083,27 @@ namespace Client.Envir
                     case GridType.Inventory:
                         grid = GameScene.Game.InventoryBox.Grid.Grid;
                         break;
+
                     case GridType.Equipment:
                         grid = GameScene.Game.CharacterBox.Grid;
                         break;
+
                     case GridType.Storage:
                         grid = GameScene.Game.StorageBox.Grid.Grid;
                         break;
+
                     case GridType.PartsStorage:
                         grid = GameScene.Game.StorageBox.PartGrid.Grid;
                         break;
+
                     case GridType.CompanionInventory:
                         grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                         break;
+
                     case GridType.CompanionEquipment:
                         grid = GameScene.Game.CompanionBox.EquipmentGrid;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
@@ -4783,21 +5122,27 @@ namespace Client.Envir
                 case GridType.Inventory:
                     grid = GameScene.Game.InventoryBox.Grid.Grid;
                     break;
+
                 case GridType.Equipment:
                     grid = GameScene.Game.CharacterBox.Grid;
                     break;
+
                 case GridType.Storage:
                     grid = GameScene.Game.StorageBox.Grid.Grid;
                     break;
+
                 case GridType.PartsStorage:
                     grid = GameScene.Game.StorageBox.PartGrid.Grid;
                     break;
+
                 case GridType.CompanionInventory:
                     grid = GameScene.Game.CompanionBox.InventoryGrid.Grid;
                     break;
+
                 case GridType.CompanionEquipment:
                     grid = GameScene.Game.CompanionBox.EquipmentGrid;
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -4811,8 +5156,6 @@ namespace Client.Envir
                 return;
             }
 
-
-
             fromCell.RefreshItem();
         }
 
@@ -4822,7 +5165,6 @@ namespace Client.Envir
 
         public void Process(S.SendCompanionFilters p)
         {
-
         }
 
         public void Process(S.BundleOpen p)
@@ -4850,4 +5192,3 @@ namespace Client.Envir
         }
     }
 }
-

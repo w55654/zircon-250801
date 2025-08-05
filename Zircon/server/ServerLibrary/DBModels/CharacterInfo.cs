@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using Library;
+﻿using Library;
 using Library.SystemModels;
 using MirDB;
 using Server.Models;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace Server.DBModels
 {
@@ -25,8 +25,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
-        
+
         public string CharacterName
         {
             get { return _CharacterName; }
@@ -40,9 +41,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CharacterName");
             }
         }
+
         private string _CharacterName;
-
-
 
         public MirClass Class
         {
@@ -57,6 +57,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private MirClass _Class;
 
         public MirGender Gender
@@ -72,6 +73,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Gender");
             }
         }
+
         private MirGender _Gender;
 
         public int Level
@@ -87,6 +89,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public string Caption
@@ -102,6 +105,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Caption");
             }
         }
+
         private string _Caption;
 
         public int HairType
@@ -117,6 +121,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "HairType");
             }
         }
+
         private int _HairType;
 
         public Color HairColour
@@ -132,6 +137,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "HairColour");
             }
         }
+
         private Color _HairColour;
 
         public Color ArmourColour
@@ -147,8 +153,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ArmourColour");
             }
         }
+
         private Color _ArmourColour;
-        
+
         public DateTime LastLogin
         {
             get { return _LastLogin; }
@@ -162,6 +169,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastLogin");
             }
         }
+
         private DateTime _LastLogin;
 
         public bool Deleted
@@ -177,6 +185,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Deleted");
             }
         }
+
         private bool _Deleted;
 
         public DateTime CreationDate
@@ -192,6 +201,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CreationDate");
             }
         }
+
         private DateTime _CreationDate;
 
         public string CreationIP
@@ -207,6 +217,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CreationIP");
             }
         }
+
         private string _CreationIP;
 
         public Point CurrentLocation
@@ -222,8 +233,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CurrentLocation");
             }
         }
+
         private Point _CurrentLocation;
-        
+
         public MapInfo CurrentMap
         {
             get { return _CurrentMap; }
@@ -237,6 +249,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CurrentMap");
             }
         }
+
         private MapInfo _CurrentMap;
 
         public InstanceInfo CurrentInstance
@@ -252,6 +265,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CurrentInstance");
             }
         }
+
         private InstanceInfo _CurrentInstance;
 
         public MirDirection Direction
@@ -267,8 +281,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Direction");
             }
         }
+
         private MirDirection _Direction;
-        
+
         public SafeZoneInfo BindPoint
         {
             get { return _BindPoint; }
@@ -282,6 +297,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BindPoint");
             }
         }
+
         private SafeZoneInfo _BindPoint;
 
         public int CurrentHP
@@ -297,6 +313,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CurrentHP");
             }
         }
+
         private int _CurrentHP;
 
         public int CurrentMP
@@ -312,6 +329,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CurrentMP");
             }
         }
+
         private int _CurrentMP;
 
         public decimal Experience
@@ -327,6 +345,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Experience");
             }
         }
+
         private decimal _Experience;
 
         public bool CanThrusting
@@ -342,6 +361,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CanThrusting");
             }
         }
+
         private bool _canThrusting;
 
         public bool CanHalfMoon
@@ -357,6 +377,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CanHalfMoon");
             }
         }
+
         private bool _CanHalfMoon;
 
         public bool CanDestructiveSurge
@@ -372,6 +393,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CanDestructiveSurge");
             }
         }
+
         private bool _canDestructiveSurge;
 
         public bool CanFlameSplash
@@ -387,8 +409,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CanFlameSplash");
             }
         }
+
         private bool _CanFlameSplash;
-        
+
         public Stats LastStats
         {
             get { return _LastStats; }
@@ -402,6 +425,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastStats");
             }
         }
+
         private Stats _LastStats;
 
         public Stats HermitStats
@@ -417,6 +441,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "HermitStats");
             }
         }
+
         private Stats _HermitStats;
 
         public int SpentPoints
@@ -432,6 +457,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "SpentPoints");
             }
         }
+
         private int _SpentPoints;
 
         public AttackMode AttackMode
@@ -447,6 +473,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "AttackMode");
             }
         }
+
         private AttackMode _AttackMode;
 
         public PetMode PetMode
@@ -462,8 +489,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PetMode");
             }
         }
+
         private PetMode _PetMode;
-        
+
         public bool Observable
         {
             get { return _Observable; }
@@ -477,6 +505,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Observable");
             }
         }
+
         private bool _Observable;
 
         public DateTime ItemReviveTime
@@ -492,6 +521,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ItemReviveTime");
             }
         }
+
         private DateTime _ItemReviveTime;
 
         public DateTime ReincarnationPillTime
@@ -507,6 +537,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ReincarnationPillTime");
             }
         }
+
         private DateTime _ReincarnationPillTime;
 
         public DateTime MarriageTeleportTime
@@ -522,6 +553,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "MarriageTeleportTime");
             }
         }
+
         private DateTime _MarriageTeleportTime;
 
         public DateTime GroupRecallTime
@@ -537,8 +569,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GroupRecallTime");
             }
         }
+
         private DateTime _GroupRecallTime;
-        
+
         public bool HideHelmet
         {
             get { return _HideHelmet; }
@@ -552,6 +585,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "HideHelmet");
             }
         }
+
         private bool _HideHelmet;
 
         public bool CanDeathDrop
@@ -567,8 +601,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CanDeathDrop");
             }
         }
+
         private bool _CanDeathDrop;
-        
+
         public int Rebirth
         {
             get => _Rebirth;
@@ -582,6 +617,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Rebirth");
             }
         }
+
         private int _Rebirth;
 
         public int Fame
@@ -597,6 +633,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Fame");
             }
         }
+
         private int _Fame;
 
         public DateTime NextDeathDropChange
@@ -612,8 +649,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "NextDeathDropChange");
             }
         }
+
         private DateTime _NextDeathDropChange;
-              
+
         [Association("Companion")]
         public UserCompanion Companion
         {
@@ -628,6 +666,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Companion");
             }
         }
+
         private UserCompanion _Companion;
 
         [Association("Discipline")]
@@ -644,6 +683,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Discipline");
             }
         }
+
         private UserDiscipline _Discipline;
 
         [Association("Items", true)]
@@ -660,7 +700,7 @@ namespace Server.DBModels
 
         [Association("Buffs", true)]
         public DBBindingList<BuffInfo> Buffs { get; set; }
-        
+
         [Association("Refines", true)]
         public DBBindingList<RefineInfo> Refines { get; set; }
 
@@ -686,6 +726,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "OnlineState");
             }
         }
+
         private OnlineState _OnlineState;
 
         [Association("Marriage")]
@@ -702,6 +743,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Partner");
             }
         }
+
         private CharacterInfo _Partner;
 
         public string FiltersClass
@@ -717,6 +759,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FiltersClass");
             }
         }
+
         private string _FiltersClass = "";
 
         public string FiltersRarity
@@ -732,6 +775,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FiltersRarity");
             }
         }
+
         private string _FiltersRarity = "";
 
         public string FiltersItemType
@@ -747,10 +791,11 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FiltersItemType");
             }
         }
+
         private string _FiltersItemType = "";
 
-        public Dictionary<RequiredClass, int> CurrentRank = new ();
-        public Dictionary<RequiredClass, int> RankChange = new ();
+        public Dictionary<RequiredClass, int> CurrentRank = new();
+        public Dictionary<RequiredClass, int> RankChange = new();
 
         protected override void OnLoaded()
         {
@@ -773,7 +818,7 @@ namespace Server.DBModels
             Account = null;
             Companion = null;
             Partner = null;
-            
+
             base.OnDeleted();
         }
 

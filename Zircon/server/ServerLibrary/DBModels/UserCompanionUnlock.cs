@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library.SystemModels;
+﻿using Library.SystemModels;
 using MirDB;
 
 namespace Server.DBModels
@@ -25,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public CompanionInfo CompanionInfo
@@ -40,6 +36,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CompanionInfo");
             }
         }
+
         private CompanionInfo _CompanionInfo;
 
         protected override void OnDeleted()
@@ -49,6 +46,5 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
     }
 }

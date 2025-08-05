@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Library;
-using Sentry;
+﻿using Library;
 using SlimDX;
 using SlimDX.Direct3D9;
+using System;
+using System.Drawing;
+using System.IO;
+using System.Threading;
 
 namespace Client.Envir
 {
@@ -74,7 +68,6 @@ namespace Client.Envir
             Loaded = true;
         }
 
-
         public Size GetSize(int index)
         {
             if (!CheckImage(index)) return Size.Empty;
@@ -107,14 +100,17 @@ namespace Client.Envir
                     if (!image.ImageValid) image.CreateImage(_BReader);
                     texture = image.Image;
                     break;
+
                 case ImageType.Shadow:
                     if (!image.ShadowValid) image.CreateShadow(_BReader);
                     texture = image.Shadow;
                     break;
+
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
                     break;
+
                 default:
                     return null;
             }
@@ -161,6 +157,7 @@ namespace Client.Envir
                     if (!image.ImageValid) image.CreateImage(_BReader);
                     texture = image.Image;
                     break;
+
                 case ImageType.Shadow:
                     if (!image.ShadowValid) image.CreateShadow(_BReader);
                     texture = image.Shadow;
@@ -178,7 +175,7 @@ namespace Client.Envir
                                 Matrix m = Matrix.Scaling(1F, 0.5f, 0);
 
                                 m.M21 = -0.50F;
-                                DXManager.Sprite.Transform = m*Matrix.Translation(x + image.Height/2, y, 0);
+                                DXManager.Sprite.Transform = m * Matrix.Translation(x + image.Height / 2, y, 0);
 
                                 DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
                                 if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
@@ -192,6 +189,7 @@ namespace Client.Envir
 
                                 image.ExpireTime = Time.Now + Config.CacheDuration;
                                 break;
+
                             case 50:
                                 if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
 
@@ -205,10 +203,12 @@ namespace Client.Envir
                         return;
                     }
                     break;
+
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
                     break;
+
                 default:
                     return;
             }
@@ -228,7 +228,7 @@ namespace Client.Envir
             if (!CheckImage(index)) return;
 
             MirImage image = Images[index];
-            
+
             Texture texture;
 
             Matrix scaling, rotationZ, translation;
@@ -245,6 +245,7 @@ namespace Client.Envir
                         y += image.OffSetY;
                     }
                     break;
+
                 case ImageType.Shadow:
                     {
                         if (!image.ShadowValid) image.CreateShadow(_BReader);
@@ -283,6 +284,7 @@ namespace Client.Envir
 
                                     image.ExpireTime = Time.Now + Config.CacheDuration;
                                     break;
+
                                 case 50:
                                     if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
 
@@ -305,6 +307,7 @@ namespace Client.Envir
                         }
                     }
                     break;
+
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
@@ -315,6 +318,7 @@ namespace Client.Envir
                         y += image.OffSetY;
                     }
                     break;
+
                 default:
                     return;
             }
@@ -334,7 +338,7 @@ namespace Client.Envir
             DXManager.Sprite.Transform = Matrix.Identity;
 
             CEnvir.DPSCounter++;
-            
+
             DXManager.SetOpacity(oldOpacity);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
@@ -358,6 +362,7 @@ namespace Client.Envir
                         y += image.OffSetY;
                     }
                     break;
+
                 case ImageType.Shadow:
                     return;
                 /*     if (!image.ShadowValid) image.CreateShadow(_BReader);
@@ -379,11 +384,11 @@ namespace Client.Envir
                         y += image.OffSetY;
                     }
                     break;
+
                 default:
                     return;
             }
             if (texture == null) return;
-
 
             bool oldBlend = DXManager.Blending;
             float oldRate = DXManager.BlendRate;
@@ -425,17 +430,18 @@ namespace Client.Envir
                         y += image.OffSetY;
                     }
                     break;
+
                 case ImageType.Shadow:
                     return;
-               /*     if (!image.ShadowValid) image.CreateShadow(_BReader);
-                    texture = image.Shadow;
+                /*     if (!image.ShadowValid) image.CreateShadow(_BReader);
+                     texture = image.Shadow;
 
-                    if (useOffSet)
-                    {
-                        x += image.ShadowOffSetX;
-                        y += image.ShadowOffSetY;
-                    }
-                    break;*/
+                     if (useOffSet)
+                     {
+                         x += image.ShadowOffSetX;
+                         y += image.ShadowOffSetY;
+                     }
+                     break;*/
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
@@ -446,11 +452,11 @@ namespace Client.Envir
                         y += image.OffSetY;
                     }
                     break;
+
                 default:
                     return;
             }
             if (texture == null) return;
-
 
             bool oldBlend = DXManager.Blending;
             float oldRate = DXManager.BlendRate;
@@ -464,7 +470,6 @@ namespace Client.Envir
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
-        
 
         #region IDisposable Support
 
@@ -479,9 +484,7 @@ namespace Client.Envir
                 foreach (MirImage image in Images)
                     image.Dispose();
 
-
                 Images = null;
-
 
                 _FStream?.Dispose();
                 _FStream = null;
@@ -492,7 +495,6 @@ namespace Client.Envir
                 Loading = false;
                 Loaded = false;
             }
-
         }
 
         ~MirLibrary()
@@ -506,9 +508,7 @@ namespace Client.Envir
         }
 
         #endregion
-
     }
-
 
     public sealed class MirImage : IDisposable
     {
@@ -637,7 +637,7 @@ namespace Client.Envir
         public unsafe bool VisiblePixel(Point p, bool acurrate)
         {
             if (p.X < 0 || p.Y < 0 || !ImageValid || ImageData == null) return false;
-            
+
             int w = Width + (4 - Width % 4) % 4;
             int h = Height + (4 - Height % 4) % 4;
 
@@ -657,7 +657,7 @@ namespace Client.Envir
             x = p.X % 4;
             y = p.Y % 4;
             x *= 2;
-            
+
             return (ImageData[index + 4 + y] & 1 << x) >> x != 1 || (ImageData[index + 4 + y] & 1 << x + 1) >> x + 1 != 1;
         }
 
@@ -683,7 +683,7 @@ namespace Client.Envir
             ImageValid = false;
             ShadowValid = false;
             OverlayValid = false;
-            
+
             ExpireTime = DateTime.MinValue;
 
             DXManager.TextureList.Remove(this);
@@ -770,7 +770,6 @@ namespace Client.Envir
             OverlayValid = true;
         }
 
-
         #region IDisposable Support
 
         public bool IsDisposed { get; private set; }
@@ -796,7 +795,6 @@ namespace Client.Envir
                 OverlayWidth = 0;
                 OverlayHeight = 0;
             }
-
         }
 
         public void Dispose()
@@ -810,7 +808,6 @@ namespace Client.Envir
         }
 
         #endregion
-
     }
 
     public enum ImageType
@@ -819,5 +816,4 @@ namespace Client.Envir
         Shadow,
         Overlay,
     }
-
 }

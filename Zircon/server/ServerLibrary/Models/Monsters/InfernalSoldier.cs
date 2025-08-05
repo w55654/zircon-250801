@@ -1,7 +1,7 @@
 ﻿using Library;
 using Server.Envir;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -53,7 +53,6 @@ namespace Server.Models.Monsters
                 return;
             }
 
-
             Attack(ob, GetDC(), AttackElement);
         }
 
@@ -83,7 +82,6 @@ namespace Server.Models.Monsters
                 Attack();
         }
 
-
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -112,7 +110,6 @@ namespace Server.Models.Monsters
                                    Target,
                                    false));
             }
-
         }
     }
 }

@@ -19,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public BundleType Type
@@ -34,6 +35,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private BundleType _Type;
 
         public int SlotSize
@@ -49,6 +51,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SlotSize");
             }
         }
+
         private int _SlotSize;
 
         public bool AutoOpen
@@ -64,6 +67,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AutoOpen");
             }
         }
+
         private bool _AutoOpen;
 
         public bool LootBox
@@ -79,6 +83,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "LootBox");
             }
         }
+
         private bool _LootBox;
 
         [Association("Contents", true)]
@@ -115,6 +120,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Bundle");
             }
         }
+
         private BundleInfo _Bundle;
 
         public ItemInfo Item
@@ -130,6 +136,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Amount
@@ -145,6 +152,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount = 1;
     }
 }

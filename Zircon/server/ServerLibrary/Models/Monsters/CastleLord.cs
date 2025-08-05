@@ -24,7 +24,6 @@ namespace Server.Models.Monsters
 
             if (x > 3 || y > 3) return false;
 
-
             return x == 0 || x == y || y == 0;
         }
 
@@ -166,6 +165,7 @@ namespace Server.Models.Monsters
                     if (conquest != null)
                         conquest.BossDamageDealt += result;
                     break;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)attacker;
                     if (mob.PetOwner != null)
@@ -180,9 +180,7 @@ namespace Server.Models.Monsters
 
             #endregion
 
-
             EXPOwner = null;
-
 
             return result;
         }
@@ -192,7 +190,9 @@ namespace Server.Models.Monsters
             return false;
         }
 
-        public override void ProcessRegen() { }
+        public override void ProcessRegen()
+        { }
+
         public override bool ShouldAttackTarget(MapObject ob)
         {
             if (Passive || ob == this || ob?.Node == null || ob.Dead || !ob.Visible || ob is Guard || ob is CastleLord) return false;
@@ -222,10 +222,12 @@ namespace Server.Models.Monsters
                     if (player.GameMaster) return false;
 
                     return player.Character.Account.GuildMember?.Guild.Castle != War.Castle;
+
                 default:
                     throw new NotImplementedException();
             }
         }
+
         public override bool CanAttackTarget(MapObject ob)
         {
             if (ob == this || ob?.Node == null || ob.Dead || !ob.Visible || ob is Guard || War == null) return false;
@@ -247,6 +249,7 @@ namespace Server.Models.Monsters
                     if (player.GameMaster) return false;
 
                     return player.Character.Account.GuildMember?.Guild.Castle != War.Castle;
+
                 default:
                     throw new NotImplementedException();
             }

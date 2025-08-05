@@ -1,7 +1,7 @@
-﻿using System;
-using DevExpress.XtraBars;
+﻿using DevExpress.XtraBars;
 using Library;
 using Library.SystemModels;
+using System;
 
 namespace Server.Views
 {
@@ -19,7 +19,6 @@ namespace Server.Views
             ClassImageComboBox.Items.AddEnum<MirClass>();
         }
 
-
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
@@ -34,7 +33,6 @@ namespace Server.Views
 
         private void MagicInfoView_Load(object sender, EventArgs e)
         {
-
         }
 
         private void ImportButton_ItemClick(object sender, ItemClickEventArgs e)

@@ -13,7 +13,6 @@ namespace Server.Models.Magics
 
         public Thrusting(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void RefreshToggle()

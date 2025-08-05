@@ -1,10 +1,9 @@
 ﻿using Library;
 using Server.Envir;
-using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
 {
-    public  class EscortCommander : MonsterObject
+    public class EscortCommander : MonsterObject
     {
         public override void ProcessTarget()
         {
@@ -17,7 +16,6 @@ namespace Server.Models.Monsters
                     if (SEnvir.Random.Next(2) == 0)
                         RangeAttack();
                 }
-
 
                 if (CurrentLocation == Target.CurrentLocation)
                 {

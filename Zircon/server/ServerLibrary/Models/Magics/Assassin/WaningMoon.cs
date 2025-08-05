@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public WaningMoon(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override AttackCast AttackCast(MagicType attackType)

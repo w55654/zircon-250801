@@ -13,8 +13,6 @@ namespace Server.Models.Magics
 
         public Shuriken(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
-
     }
 }

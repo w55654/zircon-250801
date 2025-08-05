@@ -10,6 +10,7 @@ namespace Library.Network.ServerPackets
     {
         public NewAccountResult Result { get; set; }
     }
+
     public sealed class ChangePassword : Packet
     {
         public ChangePasswordResult Result { get; set; }
@@ -17,6 +18,7 @@ namespace Library.Network.ServerPackets
         public string Message { get; set; }
         public TimeSpan Duration { get; set; }
     }
+
     public sealed class Login : Packet
     {
         public LoginResult Result { get; set; }
@@ -33,44 +35,53 @@ namespace Library.Network.ServerPackets
 
         public bool TestServer { get; set; }
     }
+
     public sealed class RequestPasswordReset : Packet
     {
         public RequestPasswordResetResult Result { get; set; }
         public string Message { get; set; }
         public TimeSpan Duration { get; set; }
     }
+
     public sealed class ResetPassword : Packet
     {
         public ResetPasswordResult Result { get; set; }
     }
+
     public sealed class Activation : Packet
     {
         public ActivationResult Result { get; set; }
     }
+
     public sealed class RequestActivationKey : Packet
     {
         public RequestActivationKeyResult Result { get; set; }
         public TimeSpan Duration { get; set; }
     }
+
     public sealed class SelectLogout : Packet
     {
     }
+
     public sealed class GameLogout : Packet
     {
         public List<SelectInfo> Characters { get; set; }
     }
+
     public sealed class NewCharacter : Packet
     {
         public NewCharacterResult Result { get; set; }
 
         public SelectInfo Character { get; set; }
     }
+
     public sealed class DeleteCharacter : Packet
     {
         public DeleteCharacterResult Result { get; set; }
 
         public int DeletedIndex { get; set; }
     }
+
     public sealed class StartGame : Packet
     {
         public StartGameResult Result { get; set; }
@@ -80,20 +91,24 @@ namespace Library.Network.ServerPackets
 
         public StartInformation StartInformation { get; set; }
     }
+
     public sealed class MapChanged : Packet
     {
         public int MapIndex { get; set; }
         public int InstanceIndex { get; set; }
     }
+
     public sealed class UserLocation : Packet
     {
         public MirDirection Direction { get; set; }
         public Point Location { get; set; }
     }
+
     public sealed class ObjectRemove : Packet
     {
         public uint ObjectID { get; set; }
     }
+
     public sealed class ObjectTurn : Packet
     {
         public uint ObjectID { get; set; }
@@ -101,6 +116,7 @@ namespace Library.Network.ServerPackets
         public Point Location { get; set; }
         public TimeSpan Slow { get; set; }
     }
+
     public sealed class ObjectHarvest : Packet
     {
         public uint ObjectID { get; set; }
@@ -108,11 +124,13 @@ namespace Library.Network.ServerPackets
         public Point Location { get; set; }
         public TimeSpan Slow { get; set; }
     }
+
     public sealed class ObjectMount : Packet
     {
         public uint ObjectID { get; set; }
         public HorseType Horse { get; set; }
     }
+
     public sealed class ObjectFishing : Packet
     {
         public uint ObjectID { get; set; }
@@ -121,6 +139,7 @@ namespace Library.Network.ServerPackets
         public Point FloatLocation { get; set; }
         public bool FishFound { get; set; }
     }
+
     public sealed class FishingStats : Packet
     {
         public bool CanAutoCast { get; set; }
@@ -131,6 +150,7 @@ namespace Library.Network.ServerPackets
         public int MovementSpeed { get; set; } //1 time
         public int RequiredAccuracy { get; set; } //1 time
     }
+
     public sealed class ObjectMove : Packet
     {
         public uint ObjectID { get; set; }
@@ -139,6 +159,7 @@ namespace Library.Network.ServerPackets
         public int Distance { get; set; }
         public TimeSpan Slow { get; set; }
     }
+
     public sealed class ObjectDash : Packet
     {
         public uint ObjectID { get; set; }
@@ -147,12 +168,14 @@ namespace Library.Network.ServerPackets
         public int Distance { get; set; }
         public MagicType Magic { get; set; }
     }
+
     public sealed class ObjectPushed : Packet
     {
         public uint ObjectID { get; set; }
         public MirDirection Direction { get; set; }
         public Point Location { get; set; }
     }
+
     public sealed class ObjectAttack : Packet
     {
         public uint ObjectID { get; set; }
@@ -167,6 +190,7 @@ namespace Library.Network.ServerPackets
 
         public TimeSpan Slow { get; set; }
     }
+
     public sealed class ObjectRangeAttack : Packet
     {
         public uint ObjectID { get; set; }
@@ -179,6 +203,7 @@ namespace Library.Network.ServerPackets
 
         public List<uint> Targets { get; set; } = new List<uint>();
     }
+
     public sealed class ObjectMagic : Packet
     {
         public uint ObjectID { get; set; }
@@ -194,6 +219,7 @@ namespace Library.Network.ServerPackets
 
         public TimeSpan Slow { get; set; }
     }
+
     public sealed class ObjectProjectile : Packet
     {
         public uint ObjectID { get; set; }
@@ -216,11 +242,13 @@ namespace Library.Network.ServerPackets
         public TimeSpan Slow { get; set; }
         public bool Effect { get; set; }
     }
+
     public sealed class ObjectPetOwnerChanged : Packet
     {
         public uint ObjectID { get; set; }
         public string PetOwner { get; set; }
     }
+
     public sealed class ObjectShow : Packet
     {
         public uint ObjectID { get; set; }
@@ -228,6 +256,7 @@ namespace Library.Network.ServerPackets
         public MirDirection Direction { get; set; }
         public Point Location { get; set; }
     }
+
     public sealed class ObjectHide : Packet
     {
         public uint ObjectID { get; set; }
@@ -235,33 +264,39 @@ namespace Library.Network.ServerPackets
         public MirDirection Direction { get; set; }
         public Point Location { get; set; }
     }
+
     public sealed class ObjectEffect : Packet
     {
         public uint ObjectID { get; set; }
 
         public Effect Effect { get; set; }
     }
+
     public sealed class MapEffect : Packet
     {
         public Point Location { get; set; }
         public Effect Effect { get; set; }
         public MirDirection Direction { get; set; }
     }
+
     public sealed class ObjectBuffAdd : Packet
     {
         public uint ObjectID { get; set; }
         public BuffType Type { get; set; }
     }
+
     public sealed class ObjectBuffRemove : Packet
     {
         public uint ObjectID { get; set; }
         public BuffType Type { get; set; }
     }
+
     public sealed class ObjectPoison : Packet
     {
         public uint ObjectID { get; set; }
         public PoisonType Poison { get; set; }
     }
+
     public sealed class ObjectPlayer : Packet
     {
         public int Index { get; set; }
@@ -310,6 +345,7 @@ namespace Library.Network.ServerPackets
 
         public bool HideHead;
     }
+
     public sealed class ObjectMonster : Packet
     {
         public uint ObjectID { get; set; }
@@ -348,6 +384,7 @@ namespace Library.Network.ServerPackets
 
         public MirDirection Direction { get; set; }
     }
+
     public sealed class ObjectItem : Packet
     {
         public uint ObjectID { get; set; }
@@ -356,6 +393,7 @@ namespace Library.Network.ServerPackets
 
         public Point Location { get; set; }
     }
+
     public sealed class ObjectSpell : Packet
     {
         public uint ObjectID { get; set; }
@@ -363,13 +401,14 @@ namespace Library.Network.ServerPackets
         public Point Location { get; set; }
         public SpellEffect Effect { get; set; }
         public int Power { get; set; }
-
     }
+
     public sealed class ObjectSpellChanged : Packet
     {
         public uint ObjectID { get; set; }
         public int Power { get; set; }
     }
+
     public sealed class ObjectNameColour : Packet
     {
         public uint ObjectID { get; set; }
@@ -396,13 +435,11 @@ namespace Library.Network.ServerPackets
         public bool HideHead { get; set; }
     }
 
-
     public sealed class MagicToggle : Packet
     {
         public MagicType Magic { get; set; }
         public bool CanUse { get; set; }
     }
-
 
     public sealed class DayChanged : Packet
     {
@@ -420,16 +457,19 @@ namespace Library.Network.ServerPackets
         public decimal Experience { get; set; }
         public decimal MaxExperience { get; set; }
     }
+
     public sealed class ObjectLeveled : Packet
     {
         public uint ObjectID { get; set; }
     }
+
     public sealed class ObjectRevive : Packet
     {
         public uint ObjectID { get; set; }
         public Point Location { get; set; }
         public bool Effect { get; set; }
     }
+
     public sealed class GainedExperience : Packet
     {
         public decimal Amount { get; set; }
@@ -439,6 +479,7 @@ namespace Library.Network.ServerPackets
     {
         public ClientUserMagic Magic { get; set; }
     }
+
     public sealed class MagicLeveled : Packet
     {
         public int InfoIndex { get; set; }
@@ -452,6 +493,7 @@ namespace Library.Network.ServerPackets
             Info = Globals.MagicInfoList.Binding.FirstOrDefault(x => x.Index == InfoIndex);
         }
     }
+
     public sealed class MagicCooldown : Packet
     {
         public int InfoIndex { get; set; }
@@ -471,6 +513,7 @@ namespace Library.Network.ServerPackets
         public Stats HermitStats { get; set; }
         public int HermitPoints { get; set; }
     }
+
     public sealed class HealthChanged : Packet
     {
         public uint ObjectID { get; set; }
@@ -479,6 +522,7 @@ namespace Library.Network.ServerPackets
         public bool Block { get; set; }
         public bool Critical { get; set; }
     }
+
     public sealed class ObjectStats : Packet
     {
         public uint ObjectID { get; set; }
@@ -505,12 +549,14 @@ namespace Library.Network.ServerPackets
         public uint AttackerID { get; set; }
         public Element Element { get; set; }
     }
+
     public sealed class ObjectDied : Packet
     {
         public uint ObjectID { get; set; }
         public MirDirection Direction { get; set; }
         public Point Location { get; set; }
     }
+
     public sealed class ObjectHarvested : Packet
     {
         public uint ObjectID { get; set; }
@@ -518,12 +564,11 @@ namespace Library.Network.ServerPackets
         public Point Location { get; set; }
     }
 
-
-
     public sealed class ItemsGained : Packet
     {
         public List<ClientUserItem> Items { get; set; }
     }
+
     public sealed class ItemMove : Packet
     {
         public GridType FromGrid { get; set; }
@@ -564,13 +609,13 @@ namespace Library.Network.ServerPackets
         public GridType Grid { get; set; }
         public int Slot { get; set; }
         public bool Locked { get; set; }
-
     }
 
     public sealed class ItemUseDelay : Packet
     {
         public TimeSpan Delay { get; set; }
     }
+
     public sealed class ItemChanged : Packet
     {
         public CellLinkInfo Link { get; set; }
@@ -583,18 +628,21 @@ namespace Library.Network.ServerPackets
         public int Slot { get; set; }
         public Stats NewStats { get; set; }
     }
+
     public sealed class ItemStatsRefreshed : Packet
     {
         public GridType GridType { get; set; }
         public int Slot { get; set; }
         public Stats NewStats { get; set; }
     }
+
     public sealed class ItemDurability : Packet
     {
         public GridType GridType { get; set; }
         public int Slot { get; set; }
         public int CurrentDurability { get; set; }
     }
+
     public sealed class ItemExperience : Packet
     {
         public CellLinkInfo Target { get; set; }
@@ -625,11 +673,13 @@ namespace Library.Network.ServerPackets
             Page = Globals.NPCPageList.Binding.FirstOrDefault(x => x.Index == Index);
         }
     }
+
     public sealed class ItemsChanged : Packet
     {
         public List<CellLinkInfo> Links { get; set; }
         public bool Success { get; set; }
     }
+
     public sealed class NPCRepair : Packet
     {
         public List<CellLinkInfo> Links { get; set; }
@@ -637,6 +687,7 @@ namespace Library.Network.ServerPackets
         public bool Success { get; set; }
         public TimeSpan SpecialRepairDelay { get; set; }
     }
+
     public sealed class NPCRefinementStone : Packet
     {
         public List<CellLinkInfo> IronOres { get; set; }
@@ -645,6 +696,7 @@ namespace Library.Network.ServerPackets
         public List<CellLinkInfo> GoldOres { get; set; }
         public List<CellLinkInfo> Crystal { get; set; }
     }
+
     public sealed class NPCRefine : Packet
     {
         public RefineType RefineType { get; set; }
@@ -654,6 +706,7 @@ namespace Library.Network.ServerPackets
         public List<CellLinkInfo> Specials { get; set; }
         public bool Success { get; set; }
     }
+
     public sealed class NPCMasterRefine : Packet
     {
         public List<CellLinkInfo> Fragment1s { get; set; }
@@ -664,6 +717,7 @@ namespace Library.Network.ServerPackets
 
         public bool Success { get; set; }
     }
+
     public sealed class NPCClose : Packet
     {
     }
@@ -681,11 +735,11 @@ namespace Library.Network.ServerPackets
         public bool Success { get; set; }
     }
 
-
     public sealed class NPCRefineRetrieve : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class RefineList : Packet
     {
         public List<ClientRefineInfo> List { get; set; }
@@ -695,15 +749,18 @@ namespace Library.Network.ServerPackets
     {
         public bool Allow { get; set; }
     }
+
     public sealed class GroupMember : Packet
     {
         public uint ObjectID { get; set; }
         public string Name { get; set; }
     }
+
     public sealed class GroupRemove : Packet
     {
         public uint ObjectID { get; set; }
     }
+
     public sealed class GroupInvite : Packet
     {
         public string Name { get; set; }
@@ -713,33 +770,39 @@ namespace Library.Network.ServerPackets
     {
         public ClientBuffInfo Buff { get; set; }
     }
+
     public sealed class BuffRemove : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class BuffChanged : Packet
     {
         public int Index { get; set; }
         public Stats Stats { get; set; }
     }
+
     public sealed class BuffTime : Packet
     {
         public int Index { get; set; }
         public TimeSpan Time { get; set; }
     }
+
     public sealed class BuffPaused : Packet
     {
         public int Index { get; set; }
         public bool Paused { get; set; }
     }
+
     public sealed class SafeZoneChanged : Packet
     {
         public bool InSafeZone { get; set; }
     }
+
     public sealed class CombatTime : Packet
     {
-
     }
+
     public sealed class Inspect : Packet
     {
         public string Name { get; set; }
@@ -751,10 +814,12 @@ namespace Library.Network.ServerPackets
         public MirClass Class { get; set; }
         public int Level { get; set; }
         public MirGender Gender { get; set; }
+
         //public Stats Stats { get; set; }
         //public Stats HermitStats { get; set; }
         //public int HermitPoints { get; set; }
         public List<ClientUserItem> Items { get; set; }
+
         public int Hair { get; set; }
         public Color HairColour { get; set; }
         public int Fame { get; set; }
@@ -764,6 +829,7 @@ namespace Library.Network.ServerPackets
 
         public bool Ranking { get; set; }
     }
+
     public sealed class Rankings : Packet
     {
         public bool OnlineOnly { get; set; }
@@ -774,6 +840,7 @@ namespace Library.Network.ServerPackets
 
         public List<RankInfo> Ranks { get; set; }
     }
+
     public sealed class RankSearch : Packet
     {
         public RankInfo Rank { get; set; }
@@ -784,6 +851,7 @@ namespace Library.Network.ServerPackets
         public StartInformation StartInformation { get; set; }
         public List<ClientUserItem> Items { get; set; }
     }
+
     public sealed class ObservableSwitch : Packet
     {
         public bool Allow { get; set; }
@@ -808,6 +876,7 @@ namespace Library.Network.ServerPackets
         public int Count { get; set; }
         public List<ClientMarketPlaceInfo> Results { get; set; }
     }
+
     public sealed class MarketPlaceSearchCount : Packet
     {
         public int Count { get; set; }
@@ -825,6 +894,7 @@ namespace Library.Network.ServerPackets
         public long Count { get; set; }
         public bool Success { get; set; }
     }
+
     public sealed class MarketPlaceStoreBuy : Packet
     {
     }
@@ -835,24 +905,27 @@ namespace Library.Network.ServerPackets
         public long Count { get; set; }
     }
 
-
     public sealed class MailList : Packet
     {
         public List<ClientMailInfo> Mail { get; set; }
     }
+
     public sealed class MailNew : Packet
     {
         public ClientMailInfo Mail { get; set; }
     }
+
     public sealed class MailDelete : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class MailItemDelete : Packet
     {
         public int Index { get; set; }
         public int Slot { get; set; }
     }
+
     public sealed class MailSend : Packet
     {
     }
@@ -861,6 +934,7 @@ namespace Library.Network.ServerPackets
     {
         public AttackMode Mode { get; set; }
     }
+
     public sealed class ChangePetMode : Packet
     {
         public PetMode Mode { get; set; }
@@ -884,17 +958,18 @@ namespace Library.Network.ServerPackets
         public int HandWeight { get; set; }
     }
 
-
     public sealed class TradeRequest : Packet
     {
         public string Name { get; set; }
     }
+
     public sealed class TradeOpen : Packet
     {
         public string Name { get; set; }
     }
 
-    public sealed class TradeClose : Packet { }
+    public sealed class TradeClose : Packet
+    { }
 
     public sealed class TradeAddItem : Packet
     {
@@ -916,33 +991,38 @@ namespace Library.Network.ServerPackets
     {
         public long Gold { get; set; }
     }
-    public sealed class TradeUnlock : Packet { }
 
+    public sealed class TradeUnlock : Packet
+    { }
 
     public sealed class GuildCreate : Packet
     {
-
     }
+
     public sealed class GuildInfo : Packet
     {
         public ClientGuildInfo Guild { get; set; }
     }
+
     public sealed class GuildNoticeChanged : Packet
     {
         public string Notice { get; set; }
     }
+
     public sealed class GuildNewItem : Packet
     {
         public int Slot { get; set; }
         public ClientUserItem Item { get; set; }
         //public int Count { get; set; }
     }
+
     public sealed class GuildGetItem : Packet
     {
         public GridType Grid { get; set; }
         public int Slot { get; set; }
         public ClientUserItem Item { get; set; }
     }
+
     public sealed class GuildUpdate : Packet
     {
         public int MemberLimit { get; set; }
@@ -965,42 +1045,45 @@ namespace Library.Network.ServerPackets
 
         public List<ClientGuildMemberInfo> Members { get; set; }
     }
+
     public sealed class GuildKick : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class GuildTax : Packet
     {
-
     }
+
     public sealed class GuildIncreaseMember : Packet
     {
-
     }
+
     public sealed class GuildIncreaseStorage : Packet
     {
-
     }
+
     public sealed class GuildInviteMember : Packet
     {
-
     }
+
     public sealed class GuildInvite : Packet
     {
         public string Name { get; set; }
         public string GuildName { get; set; }
     }
+
     public sealed class GuildStats : Packet
     {
         public int Index { get; set; }
         public Stats Stats { get; set; }
-
     }
 
     public sealed class GuildMemberOffline : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class GuildMemberOnline : Packet
     {
         public int Index { get; set; }
@@ -1008,20 +1091,23 @@ namespace Library.Network.ServerPackets
         public string Name { get; set; }
         public uint ObjectID { get; set; }
     }
+
     public sealed class GuildMemberContribution : Packet
     {
         public int Index { get; set; }
 
         public long Contribution { get; set; }
     }
+
     public sealed class GuildDayReset : Packet
     {
-
     }
+
     public sealed class GuildFundsChanged : Packet
     {
         public long Change { get; set; }
     }
+
     public sealed class GuildChanged : Packet
     {
         public uint ObjectID { get; set; }
@@ -1044,6 +1130,7 @@ namespace Library.Network.ServerPackets
         public string GuildName { get; set; }
         public TimeSpan Duration { get; set; }
     }
+
     public sealed class GuildConquestDate : Packet
     {
         public int Index { get; set; }
@@ -1060,6 +1147,7 @@ namespace Library.Network.ServerPackets
                 WarDate = Time.Now + WarTime;
         }
     }
+
     public sealed class GuildCastleInfo : Packet
     {
         public int Index { get; set; }
@@ -1096,39 +1184,47 @@ namespace Library.Network.ServerPackets
     {
         public int Index { get; set; }
     }
+
     public sealed class CompanionAdopt : Packet
     {
         public ClientUserCompanion UserCompanion { get; set; }
     }
+
     public sealed class CompanionRetrieve : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class CompanionStore : Packet
     {
     }
+
     public sealed class CompanionWeightUpdate : Packet
     {
         public int BagWeight { get; set; }
         public int MaxBagWeight { get; set; }
         public int InventorySize { get; set; }
     }
+
     public sealed class CompanionShapeUpdate : Packet
     {
         public uint ObjectID { get; set; }
         public int HeadShape { get; set; }
         public int BackShape { get; set; }
     }
+
     public sealed class CompanionItemsGained : Packet
     {
         public List<ClientUserItem> Items { get; set; }
     }
+
     public sealed class CompanionUpdate : Packet
     {
         public int Level { get; set; }
         public int Experience { get; set; }
         public int Hunger { get; set; }
     }
+
     public sealed class CompanionSkillUpdate : Packet
     {
         public Stats Level3 { get; set; }
@@ -1140,22 +1236,22 @@ namespace Library.Network.ServerPackets
         public Stats Level15 { get; set; }
     }
 
-
     public sealed class MarriageInvite : Packet
     {
         public string Name { get; set; }
     }
+
     public sealed class MarriageInfo : Packet
     {
         public ClientPlayerInfo Partner { get; set; }
     }
+
     public sealed class MarriageRemoveRing : Packet
     {
-
     }
+
     public sealed class MarriageMakeRing : Packet
     {
-
     }
 
     public sealed class MarriageOnlineChanged : Packet
@@ -1167,6 +1263,7 @@ namespace Library.Network.ServerPackets
     {
         public uint ObjectID { get; set; }
     }
+
     public sealed class DataObjectPlayer : Packet
     {
         public uint ObjectID { get; set; }
@@ -1182,6 +1279,7 @@ namespace Library.Network.ServerPackets
         public int MaxHealth { get; set; }
         public int MaxMana { get; set; }
     }
+
     public sealed class DataObjectMonster : Packet
     {
         public uint ObjectID { get; set; }
@@ -1203,6 +1301,7 @@ namespace Library.Network.ServerPackets
             MonsterInfo = Globals.MonsterInfoList.Binding.First(x => x.Index == MonsterIndex);
         }
     }
+
     public sealed class DataObjectItem : Packet
     {
         public uint ObjectID { get; set; }
@@ -1219,12 +1318,14 @@ namespace Library.Network.ServerPackets
             ItemInfo = Globals.ItemInfoList.Binding.First(x => x.Index == ItemIndex);
         }
     }
+
     public sealed class DataObjectLocation : Packet
     {
         public uint ObjectID { get; set; }
         public int MapIndex { get; set; }
         public Point CurrentLocation { get; set; }
     }
+
     public sealed class DataObjectHealthMana : Packet
     {
         public uint ObjectID { get; set; }
@@ -1233,6 +1334,7 @@ namespace Library.Network.ServerPackets
         public int Mana { get; set; }
         public bool Dead { get; set; }
     }
+
     public sealed class DataObjectMaxHealthMana : Packet
     {
         public uint ObjectID { get; set; }
@@ -1241,6 +1343,7 @@ namespace Library.Network.ServerPackets
         public int MaxMana { get; set; }
         public Stats Stats { get; set; }
     }
+
     public sealed class BlockAdd : Packet
     {
         public ClientBlockInfo Info { get; set; }
@@ -1263,7 +1366,6 @@ namespace Library.Network.ServerPackets
 
     public sealed class PlayerChangeUpdate : Packet
     {
-
         public uint ObjectID { get; set; }
         public string Name { get; set; }
         public string Caption { get; set; }
@@ -1272,14 +1374,13 @@ namespace Library.Network.ServerPackets
 
         public Color HairColour { get; set; }
         public Color ArmourColour { get; set; }
-
     }
 
     public sealed class FortuneUpdate : Packet
     {
         public List<ClientFortuneInfo> Fortunes { get; set; }
-
     }
+
     public sealed class NPCWeaponCraft : Packet
     {
         public CellLinkInfo Template { get; set; }
@@ -1331,6 +1432,7 @@ namespace Library.Network.ServerPackets
     {
         public ClientFriendInfo Info { get; set; }
     }
+
     public sealed class FriendRemove : Packet
     {
         public int Index { get; set; }
@@ -1367,7 +1469,6 @@ namespace Library.Network.ServerPackets
 
     public sealed class LootBoxClose : Packet
     {
-
     }
 
     public sealed class BundleOpen : Packet
@@ -1378,7 +1479,5 @@ namespace Library.Network.ServerPackets
 
     public sealed class BundleClose : Packet
     {
-
     }
 }
-

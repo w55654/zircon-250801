@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Client.Controls;
+using Client.Envir;
+using Client.Scenes;
+using Library;
+using Library.SystemModels;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Client.Controls;
-using Client.Envir;
-using Client.Scenes;
-using Client.Scenes.Views;
-using Library;
-using Library.SystemModels;
 using S = Library.Network.ServerPackets;
 
 namespace Client.Models
@@ -29,7 +26,6 @@ namespace Client.Models
         public int BodyOffSet = 100;
         public int BodyShape;
         public int BodyFrame => DrawFrame + BodyShape * BodyOffSet;
-
 
         public NPCObject(S.ObjectNPC info)
         {
@@ -83,7 +79,7 @@ namespace Client.Models
 
             UpdateQuests();
         }
-        
+
         public override void SetAnimation(ObjectAction action)
         {
             CurrentAnimation = MirAnimation.Standing;
@@ -169,6 +165,7 @@ namespace Client.Models
         {
             BodyLibrary.Draw(BodyFrame, DrawX, DrawY, Color.White, true, 0.5f, ImageType.Shadow);
         }
+
         private void DrawBody()
         {
             BodyLibrary.Draw(BodyFrame, DrawX, DrawY, DrawColour, true, 1F, ImageType.Image);
@@ -177,7 +174,7 @@ namespace Client.Models
         public override void DrawBlend()
         {
             if (BodyLibrary == null) return;
-            
+
             DXManager.SetBlend(true, 0.20F, BlendMode.HIGHLIGHT);//0.60F
             DrawBody();
             DXManager.SetBlend(false);
@@ -187,7 +184,6 @@ namespace Client.Models
         {
             return BodyLibrary != null && BodyLibrary.VisiblePixel(BodyFrame, new Point(p.X - DrawX, p.Y - DrawY), false, true);
         }
-
 
         public override void UpdateQuests()
         {
@@ -210,18 +206,23 @@ namespace Client.Models
                 case QuestType.General:
                     startIndex = 10;
                     break;
+
                 case QuestType.Daily:
                     startIndex = 70;
                     break;
+
                 case QuestType.Weekly:
                     startIndex = 70;
                     break;
+
                 case QuestType.Repeatable:
                     startIndex = 10;
                     break;
+
                 case QuestType.Story:
                     startIndex = 50;
                     break;
+
                 case QuestType.Account:
                     startIndex = 30;
                     break;
@@ -232,9 +233,11 @@ namespace Client.Models
                 case QuestIcon.New:
                     startIndex += 0;
                     break;
+
                 case QuestIcon.Incomplete:
                     startIndex = 0;
                     break;
+
                 case QuestIcon.Complete:
                     startIndex += 2;
                     break;
@@ -249,7 +252,6 @@ namespace Client.Models
                 AdditionalOffSet = new Point(0, -80)
             };
             QuestEffect.Process();
-
         }
 
         public void RemoveQuestEffect()
@@ -268,4 +270,3 @@ namespace Client.Models
         }
     }
 }
-

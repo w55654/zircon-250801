@@ -34,7 +34,7 @@ namespace Client.Models
             Power = info.Power;
 
             UpdateLibraries();
-            
+
             SetFrame(new ObjectAction(MirAction.Standing, Direction, CurrentLocation));
             switch (Effect)
             {
@@ -42,12 +42,11 @@ namespace Client.Models
                 case SpellEffect.MonsterDeathCloud:
                     FrameStart -= TimeSpan.FromMilliseconds(CEnvir.Random.Next(300));
                     break;
+
                 case SpellEffect.Tempest:
                     FrameStart -= TimeSpan.FromMilliseconds(CEnvir.Random.Next(1350));
                     break;
-
             }
-
 
             GameScene.Game.MapControl.AddObject(this);
         }
@@ -61,8 +60,9 @@ namespace Client.Models
                     CEnvir.LibraryList.TryGetValue(LibraryFile.Magic, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(649, 1, 0, TimeSpan.FromDays(365));
                     Blended = true;
-                    BlendRate =0.3f;
+                    BlendRate = 0.3f;
                     break;
+
                 case SpellEffect.FireWall:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.Magic, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(920, 3, 0, TimeSpan.FromMilliseconds(150));
@@ -71,6 +71,7 @@ namespace Client.Models
                     BlendRate = 0.55f;
                     Light = 15;
                     break;
+
                 case SpellEffect.Tempest:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.MagicEx2, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(920, 10, 0, TimeSpan.FromMilliseconds(150));
@@ -79,12 +80,14 @@ namespace Client.Models
                     BlendRate = 0.55f;
                     Light = 15;
                     break;
+
                 case SpellEffect.TrapOctagon:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.Magic, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(640, 10, 0, TimeSpan.FromMilliseconds(100));
                     Blended = true;
                     BlendRate = 0.8f;
                     break;
+
                 case SpellEffect.PoisonousCloud:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.MagicEx4, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(400, 15, 0, TimeSpan.FromMilliseconds(100));
@@ -93,6 +96,7 @@ namespace Client.Models
                     Light = 0;
                     DXSoundManager.Play(SoundIndex.PoisonousCloudStart);
                     break;
+
                 case SpellEffect.DarkSoulPrison:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.MagicEx6, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(700, 10, 0, TimeSpan.FromMilliseconds(100));
@@ -100,6 +104,7 @@ namespace Client.Models
                     Light = 0;
                     DXSoundManager.Play(SoundIndex.DarkSoulPrison);
                     break;
+
                 case SpellEffect.BurningFire:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.MagicEx6, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(1000, 8, 0, TimeSpan.FromMilliseconds(100));
@@ -108,6 +113,7 @@ namespace Client.Models
                     BlendRate = 1F;
                     Light = 15;
                     break;
+
                 case SpellEffect.MonsterDeathCloud:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.MonMagicEx2, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(850, 10, 0, TimeSpan.FromMilliseconds(100));
@@ -116,9 +122,10 @@ namespace Client.Models
                     BlendRate = 1F;
                     DXSoundManager.Play(SoundIndex.JinchonDevilAttack3);
                     break;
+
                 case SpellEffect.Rubble:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.ProgUse, out BodyLibrary);
-                    int index ;
+                    int index;
 
                     if (Power > 20)
                         index = 234;
@@ -128,13 +135,14 @@ namespace Client.Models
                         index = 232;
                     else if (Power > 5)
                         index = 231;
-                    else 
+                    else
                         index = 230;
 
                     Frames[MirAnimation.Standing] = new Frame(index, 1, 0, TimeSpan.FromMilliseconds(100));
 
                     Light = 0;
                     break;
+
                 case SpellEffect.ZombieHole:
                     CEnvir.LibraryList.TryGetValue(LibraryFile.ProgUse, out BodyLibrary);
                     Frames[MirAnimation.Standing] = new Frame(240 + (int)Direction, 1, 0, TimeSpan.FromMilliseconds(100));
@@ -142,7 +150,6 @@ namespace Client.Models
                     Light = 0;
                     break;
             }
-
         }
 
         public override void SetAnimation(ObjectAction action)
@@ -156,7 +163,7 @@ namespace Client.Models
         {
             if (Blended)
                 BodyLibrary.DrawBlend(DrawFrame, DrawX, DrawY, DrawColour, true, BlendRate, ImageType.Image);
-            else 
+            else
                 BodyLibrary.Draw(DrawFrame, DrawX, DrawY, DrawColour, true, 1F, ImageType.Image);
         }
 

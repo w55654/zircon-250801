@@ -7,7 +7,7 @@ using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class LevelSkill : AbstractParameterizedCommand<IAdminCommand>
+    internal class LevelSkill : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "LEVELSKILL";
         public override int PARAMS_LENGTH => 4;

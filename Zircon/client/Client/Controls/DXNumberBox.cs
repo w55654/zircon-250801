@@ -1,5 +1,5 @@
-﻿using System.Drawing;
-using Library;
+﻿using Library;
+using System.Drawing;
 
 //Cleaned
 namespace Client.Controls
@@ -7,6 +7,7 @@ namespace Client.Controls
     public sealed class DXNumberBox : DXControl
     {
         #region Properties
+
         public DXButton UpButton, DownButton;
         public DXNumberTextBox ValueTextBox;
 
@@ -15,11 +16,13 @@ namespace Client.Controls
             get => ValueTextBox.Value;
             set => ValueTextBox.Value = value;
         }
+
         public long MinValue
         {
             get => ValueTextBox.MinValue;
             set => ValueTextBox.MinValue = value;
         }
+
         public long MaxValue
         {
             get => ValueTextBox.MaxValue;
@@ -27,6 +30,7 @@ namespace Client.Controls
         }
 
         public long Change = 10;
+
         #endregion
 
         public DXNumberBox()
@@ -40,7 +44,7 @@ namespace Client.Controls
                 Parent = this,
                 TextBox = { Text = "0" }
             };
-            
+
             ValueTextBox.TextBox.KeyPress += (o, e) =>
             {
                 if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -66,6 +70,7 @@ namespace Client.Controls
         }
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -98,8 +103,8 @@ namespace Client.Controls
                     ValueTextBox = null;
                 }
             }
-
         }
+
         #endregion
     }
 }

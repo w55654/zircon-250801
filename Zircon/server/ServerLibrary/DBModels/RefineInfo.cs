@@ -1,7 +1,7 @@
-﻿using System;
-using Library;
+﻿using Library;
 using MirDB;
 using Server.Envir;
+using System;
 
 namespace Server.DBModels
 {
@@ -22,6 +22,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         [Association("Refine")]
@@ -38,6 +39,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Weapon");
             }
         }
+
         private UserItem _Weapon;
 
         public RefineQuality Quality
@@ -53,6 +55,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Quality");
             }
         }
+
         private RefineQuality _Quality;
 
         public RefineType Type
@@ -68,6 +71,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private RefineType _Type;
 
         public DateTime RetrieveTime
@@ -83,6 +87,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "RetrieveTime");
             }
         }
+
         private DateTime _RetrieveTime;
 
         public int Chance
@@ -98,6 +103,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Chance");
             }
         }
+
         private int _Chance;
 
         public int MaxChance
@@ -113,8 +119,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "MaxChance");
             }
         }
-        private int _MaxChance;
 
+        private int _MaxChance;
 
         protected override void OnDeleted()
         {
@@ -123,7 +129,6 @@ namespace Server.DBModels
 
             base.OnDeleted();
         }
-
 
         public ClientRefineInfo ToClientInfo()
         {
@@ -137,7 +142,6 @@ namespace Server.DBModels
                 MaxChance = MaxChance,
                 ReadyDuration = RetrieveTime > SEnvir.Now ? RetrieveTime - SEnvir.Now : TimeSpan.Zero,
             };
-
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿using System;
-using MirDB;
+﻿using MirDB;
+using System;
 
 namespace Library.MirDB
 {
@@ -19,14 +19,19 @@ namespace Library.MirDB
         public bool RaisePropertyChanges { get; set; }
 
         internal abstract void Load(byte[] data, DBMapping mapping);
+
         internal abstract void SaveObjects();
+
         internal abstract byte[] GetSaveData();
+
         internal abstract void Delete(DBObject ob);
 
         internal abstract DBObject CreateObject();
 
         internal abstract DBObject GetObjectByIndex(int index);
+
         protected internal abstract DBObject GetObjectbyFieldName(string fieldName, object value);
+
         internal abstract void OnLoaded();
     }
 }

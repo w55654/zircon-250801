@@ -49,8 +49,11 @@ namespace Client.Scenes.Views
                 OnMemberLimitChanged(oldValue, value);
             }
         }
+
         private int _MemberLimit;
+
         public event EventHandler<EventArgs> MemberLimitChanged;
+
         public void OnMemberLimitChanged(int oValue, int nValue)
         {
             MemberLimitChanged?.Invoke(this, EventArgs.Empty);
@@ -77,8 +80,11 @@ namespace Client.Scenes.Views
                 OnStorageSizeChanged(oldValue, value);
             }
         }
+
         private int _StorageSize;
+
         public event EventHandler<EventArgs> StorageSizeChanged;
+
         public void OnStorageSizeChanged(int oValue, int nValue)
         {
             StorageSizeChanged?.Invoke(this, EventArgs.Empty);
@@ -105,8 +111,11 @@ namespace Client.Scenes.Views
                 OnGuildNameValidChanged(oldValue, value);
             }
         }
+
         private bool _GuildNameValid;
+
         public event EventHandler<EventArgs> GuildNameValidChanged;
+
         public void OnGuildNameValidChanged(bool oValue, bool nValue)
         {
             GuildNameValidChanged?.Invoke(this, EventArgs.Empty);
@@ -131,8 +140,11 @@ namespace Client.Scenes.Views
                 OnCreateAttemptedChanged(oldValue, value);
             }
         }
+
         private bool _CreateAttempted;
+
         public event EventHandler<EventArgs> CreateAttemptedChanged;
+
         public void OnCreateAttemptedChanged(bool oValue, bool nValue)
         {
             CreateAttemptedChanged?.Invoke(this, EventArgs.Empty);
@@ -143,7 +155,7 @@ namespace Client.Scenes.Views
         #endregion
 
         public bool CanCreate => !CreateAttempted && GuildNameValid && GameScene.Game != null && TotalCost <= GameScene.Game.User.Gold.Amount;
-        public int TotalCost => (int) Math.Min(int.MaxValue, (GoldCheckBox.Checked ? Globals.GuildCreationCost : 0) + (MemberLimit * Globals.GuildMemberCost) + (StorageSize * Globals.GuildStorageCost));
+        public int TotalCost => (int)Math.Min(int.MaxValue, (GoldCheckBox.Checked ? Globals.GuildCreationCost : 0) + (MemberLimit * Globals.GuildMemberCost) + (StorageSize * Globals.GuildStorageCost));
 
         public DXButton CreateButton, StarterGuildButton;
 
@@ -183,6 +195,7 @@ namespace Client.Scenes.Views
         public ClientUserItem[] GuildStorage = new ClientUserItem[1000];
         public DXButton IncreaseStorageButton;
         public DXControl StoragePanel;
+
         #endregion
 
         #region War Tab
@@ -230,8 +243,11 @@ namespace Client.Scenes.Views
                 OnGuildInfoChanged(oldValue, value);
             }
         }
+
         private ClientGuildInfo _GuildInfo;
+
         public event EventHandler<EventArgs> GuildInfoChanged;
+
         public void OnGuildInfoChanged(ClientGuildInfo oValue, ClientGuildInfo nValue)
         {
             GuildInfoChanged?.Invoke(this, EventArgs.Empty);
@@ -390,7 +406,7 @@ namespace Client.Scenes.Views
             CreateMemberTab();
 
             CreateStorageTab();
-            
+
             CreateWarTab();
 
             CreateStyleTab();
@@ -481,6 +497,7 @@ namespace Client.Scenes.Views
 
             ApplyStorageFilter();
         }
+
         private void RefreshStorage()
         {
             StorageGrid.GridSize = new Size(11, Math.Max(20, (int)Math.Ceiling(GuildInfo.StorageLimit / (float)14)));
@@ -497,6 +514,7 @@ namespace Client.Scenes.Views
                 StorageGrid.Grid[item.Slot].Item = item;
             }
         }
+
         public void PermissionChanged()
         {
             if (GuildInfo == null)
@@ -639,7 +657,6 @@ namespace Client.Scenes.Views
                 Location = new Point(0, 20)
             };
 
-
             DXLabel label = new DXLabel
             {
                 Text = CEnvir.Language.GuildDialogCreateTabStep1GuildNameLabel,
@@ -682,7 +699,6 @@ namespace Client.Scenes.Views
             };
             GoldCheckBox.Location = new Point((CreateTab.Size.Width - GoldCheckBox.Size.Width) / 2, stepLabel.Location.Y + 30);
             GoldCheckBox.MouseClick += (o, e) => GoldCheckBox.Checked = true;
-
 
             HornCheckBox = new DXCheckBox
             {
@@ -782,8 +798,6 @@ namespace Client.Scenes.Views
             };
             label.Location = new Point(StorageTextBox.Location.X + StorageTextBox.Size.Width, StorageTextBox.Location.Y + (StorageTextBox.Size.Height - label.Size.Height) / 2);
 
-
-
             stepLabel = new DXLabel
             {
                 Text = CEnvir.Language.GuildDialogCreateTabStep4Label,
@@ -830,7 +844,6 @@ namespace Client.Scenes.Views
             };
 
             CreateButton.MouseClick += CreateButton_MouseClick;
-
         }
 
         private void StarterGuildButton_MouseClick(object sender, MouseEventArgs e)
@@ -952,7 +965,7 @@ namespace Client.Scenes.Views
             NoticeTextBox.TextBox.KeyUp += (o, e) => UpdateNoticePosition();
             NoticeTextBox.TextBox.KeyPress += (o, e) =>
             {
-                if (e.KeyChar == (char) 1)
+                if (e.KeyChar == (char)1)
                 {
                     NoticeTextBox.TextBox.SelectAll();
                     e.Handled = true;
@@ -1195,11 +1208,11 @@ namespace Client.Scenes.Views
             return SendMessage(NoticeTextBox.TextBox.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
         }
 
-        const int EM_GETFIRSTVISIBLELINE = 0x00CE;
-        const int EM_LINESCROLL = 0x00B6;
+        private const int EM_GETFIRSTVISIBLELINE = 0x00CE;
+        private const int EM_LINESCROLL = 0x00B6;
 
         [DllImport("user32.dll")]
-        static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
+        private static extern int SendMessage(IntPtr hWnd, int wMsg, int wParam, int lParam);
 
         private void SetLineIndex(int lineIndex)
         {
@@ -1270,7 +1283,6 @@ namespace Client.Scenes.Views
             }
             MouseWheel += MemberScrollBar.DoMouseWheel;
 
-
             AddMemberPanel = new DXControl
             {
                 Parent = this,
@@ -1340,7 +1352,6 @@ namespace Client.Scenes.Views
                     CEnvir.Enqueue(new C.GuildIncreaseMember());
                 };
             };
-
         }
 
         private void MemberScrollBar_ValueChanged(object sender, EventArgs e)
@@ -1353,7 +1364,6 @@ namespace Client.Scenes.Views
             if (GuildInfo == null) return;
 
             MemberScrollBar.MaxValue = GuildInfo.Members.Count;
-
 
             for (int i = 0; i < MemberRows.Length; i++)
                 MemberRows[i].MemberInfo = i + MemberScrollBar.Value >= GuildInfo.Members.Count ? null : GuildInfo.Members[i + MemberScrollBar.Value];
@@ -1488,7 +1498,6 @@ namespace Client.Scenes.Views
             };
             StorageScrollBar.ValueChanged += StorageScrollBar_ValueChanged;
 
-
             StoragePanel = new DXControl
             {
                 Parent = this,
@@ -1514,7 +1523,6 @@ namespace Client.Scenes.Views
                     CEnvir.Enqueue(new C.GuildIncreaseStorage());
                 };
             };
-
         }
 
         private void StorageGrid_GridSizeChanged(object sender, EventArgs e)
@@ -1534,6 +1542,7 @@ namespace Client.Scenes.Views
             foreach (DXItemCell cell in StorageGrid.Grid)
                 FilterCell(cell);
         }
+
         public void FilterCell(DXItemCell cell)
         {
             if (cell.Slot >= GuildInfo.StorageLimit)
@@ -1548,7 +1557,7 @@ namespace Client.Scenes.Views
                 return;
             }
 
-            if (ItemTypeComboBox.SelectedItem != null && cell.Item != null && cell.Item.Info.ItemType != (ItemType) ItemTypeComboBox.SelectedItem)
+            if (ItemTypeComboBox.SelectedItem != null && cell.Item != null && cell.Item.Info.ItemType != (ItemType)ItemTypeComboBox.SelectedItem)
             {
                 cell.Enabled = false;
                 return;
@@ -1563,15 +1572,13 @@ namespace Client.Scenes.Views
             cell.Enabled = true;
         }
 
-
         private void StorageScrollBar_ValueChanged(object sender, EventArgs e)
         {
             StorageGrid.ScrollValue = StorageScrollBar.Value;
         }
 
-
         #endregion
-        
+
         #region War Tab
 
         public void CreateWarTab()
@@ -1593,7 +1600,7 @@ namespace Client.Scenes.Views
                 WarPanel.Visible = true;
                 CastlePanel.Visible = false;
             };
-         
+
             WarPanel = new DXControl
             {
                 Parent = this,
@@ -1635,7 +1642,7 @@ namespace Client.Scenes.Views
                 {
                     Parent = WarTab,
                     Castle = castle,
-                    Location =  new Point(14, (142 * count) + 7),
+                    Location = new Point(14, (142 * count) + 7),
                     Visible = true
                 };
                 count++;
@@ -1656,8 +1663,6 @@ namespace Client.Scenes.Views
                 DrawFormat = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter,
                 Enabled = false
             };*/
-            
-
         }
 
         #endregion
@@ -1901,7 +1906,6 @@ namespace Client.Scenes.Views
             //    };
             //    count++;
             //}
-
         }
 
         #endregion
@@ -2077,7 +2081,7 @@ namespace Client.Scenes.Views
 
                     DailyGrowthLabel = null;
                 }
-                
+
                 if (TotalContributionLabel != null)
                 {
                     if (!TotalContributionLabel.IsDisposed)
@@ -2288,7 +2292,7 @@ namespace Client.Scenes.Views
                 }
 
                 #endregion
-                
+
                 #region War Tab
 
                 if (WarTab != null)
@@ -2419,7 +2423,6 @@ namespace Client.Scenes.Views
         }
 
         #endregion
-
     }
 
     public sealed class GuildMemberRow : DXControl
@@ -2443,8 +2446,11 @@ namespace Client.Scenes.Views
                 OnIsHeaderChanged(oldValue, value);
             }
         }
+
         private bool _IsHeader;
+
         public event EventHandler<EventArgs> IsHeaderChanged;
+
         public void OnIsHeaderChanged(bool oValue, bool nValue)
         {
             NameLabel.Text = CEnvir.Language.GuildMemberRowNameLabel;
@@ -2482,8 +2488,11 @@ namespace Client.Scenes.Views
                 OnMemberInfoChanged(oldValue, value);
             }
         }
+
         private ClientGuildMemberInfo _MemberInfo;
+
         public event EventHandler<EventArgs> MemberInfoChanged;
+
         public void OnMemberInfoChanged(ClientGuildMemberInfo oValue, ClientGuildMemberInfo nValue)
         {
             Visible = MemberInfo != null;
@@ -2496,7 +2505,6 @@ namespace Client.Scenes.Views
             DailyLabel.Text = MemberInfo.DailyContribution.ToString("#,##0");
 
             OnlineLabel.Text = MemberInfo.Rank;
-
 
             MemberInfoChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -2528,7 +2536,6 @@ namespace Client.Scenes.Views
                 ForeColour = Color.White,
             };
 
-
             TotalLabel = new DXLabel
             {
                 IsControl = false,
@@ -2537,7 +2544,6 @@ namespace Client.Scenes.Views
                 ForeColour = Color.White,
             };
 
-
             DailyLabel = new DXLabel
             {
                 IsControl = false,
@@ -2545,7 +2551,6 @@ namespace Client.Scenes.Views
                 Location = new Point(310, 2),
                 ForeColour = Color.White,
             };
-
 
             OnlineLabel = new DXLabel
             {
@@ -2574,7 +2579,6 @@ namespace Client.Scenes.Views
                 OnlineLabel.Text = Functions.ToString(CEnvir.Now - MemberInfo.LastOnline, true, true);
                 OnlineLabel.ForeColour = Color.White;
             }
-
         }
 
         public override void OnMouseClick(MouseEventArgs e)
@@ -2595,12 +2599,13 @@ namespace Client.Scenes.Views
                     GameScene.Game.GuildMemberBox.Visible = true;
                     GameScene.Game.GuildMemberBox.BringToFront();
                     break;
+
                 case MouseButtons.Right:
                     if (MemberInfo == null || MemberInfo.ObjectID == MapObject.User.ObjectID) return;
 
                     GameScene.Game.BigMapBox.Visible = true;
                     GameScene.Game.BigMapBox.Opacity = 1F;
-                    
+
                     if (!GameScene.Game.DataDictionary.TryGetValue(MemberInfo.ObjectID, out ClientObjectData data)) return;
 
                     var map = Globals.MapInfoList.Binding.FirstOrDefault(x => x.Index == data.MapIndex);
@@ -2612,6 +2617,7 @@ namespace Client.Scenes.Views
 
                     GameScene.Game.BigMapBox.SelectedInfo = map;
                     break;
+
                 case MouseButtons.Middle:
                     if (MemberInfo == null) return;
 
@@ -2619,6 +2625,7 @@ namespace Client.Scenes.Views
                     break;
             }
         }
+
         #endregion
 
         #region IDisposable
@@ -2669,12 +2676,11 @@ namespace Client.Scenes.Views
                     OnlineLabel = null;
                 }
             }
-
         }
 
         #endregion
     }
-    
+
     public sealed class GuildMemberDialog : DXWindow
     {
         #region Properties
@@ -2684,7 +2690,7 @@ namespace Client.Scenes.Views
         public DXTextBox RankTextBox;
 
         public DXCheckBox LeaderBox, EditNoticeBox, AddMemberBox, StorageBox, RepairBox, MerchantBox, MarketBox, StartWarBox;
-        
+
         public DXButton ConfirmButton, KickButton;
 
         #region MemberIndex
@@ -2702,8 +2708,11 @@ namespace Client.Scenes.Views
                 OnMemberIndexChanged(oldValue, value);
             }
         }
+
         private int _MemberIndex;
+
         public event EventHandler<EventArgs> MemberIndexChanged;
+
         public void OnMemberIndexChanged(int oValue, int nValue)
         {
             MemberIndexChanged?.Invoke(this, EventArgs.Empty);
@@ -2717,7 +2726,6 @@ namespace Client.Scenes.Views
             RepairBox.Enabled = MemberIndex != GameScene.Game.GuildBox.GuildInfo.UserIndex;
             MerchantBox.Enabled = MemberIndex != GameScene.Game.GuildBox.GuildInfo.UserIndex;
             MarketBox.Enabled = MemberIndex != GameScene.Game.GuildBox.GuildInfo.UserIndex;
-
 
             KickButton.Enabled = MemberIndex != GameScene.Game.GuildBox.GuildInfo.UserIndex;
         }
@@ -2733,15 +2741,17 @@ namespace Client.Scenes.Views
             get => _Permission;
             set
             {
-
                 GuildPermission oldValue = _Permission;
                 _Permission = value;
 
                 OnPermissionChanged(oldValue, value);
             }
         }
+
         private GuildPermission _Permission;
+
         public event EventHandler<EventArgs> PermissionChanged;
+
         public void OnPermissionChanged(GuildPermission oValue, GuildPermission nValue)
         {
             if (Updating) return;
@@ -2762,7 +2772,6 @@ namespace Client.Scenes.Views
 
         #endregion
 
-
         public override WindowType Type => WindowType.GuildMemberBox;
         public override bool CustomSize => false;
         public override bool AutomaticVisibility => false;
@@ -2782,14 +2791,12 @@ namespace Client.Scenes.Views
             };
             label.Location = new Point(080 - label.Size.Width, ClientArea.Y);
 
-
             MemberNameLabel = new DXLabel
             {
                 Parent = this,
                 Location = new Point(080, label.Location.Y),
                 ForeColour = Color.White,
             };
-
 
             label = new DXLabel
             {
@@ -2801,7 +2808,7 @@ namespace Client.Scenes.Views
             RankTextBox = new DXTextBox
             {
                 Parent = this,
-                Location = new Point(080, label.Location.Y), 
+                Location = new Point(080, label.Location.Y),
                 Size = new Size(120, 20),
                 MaxLength = Globals.MaxCharacterNameLength
             };
@@ -2829,7 +2836,7 @@ namespace Client.Scenes.Views
             };
             AddMemberBox.CheckedChanged += (o, e) => UpdatePermission();
             AddMemberBox.Location = new Point(094 - AddMemberBox.Size.Width, EditNoticeBox.Location.Y + 20);
-            
+
             StorageBox = new DXCheckBox
             {
                 Parent = this,
@@ -2852,8 +2859,7 @@ namespace Client.Scenes.Views
                 Label = { Text = CEnvir.Language.GuildMemberDialogRepairLabel },
             };
             RepairBox.CheckedChanged += (o, e) => UpdatePermission();
-            RepairBox.Location = new Point(0200 - RepairBox.Size.Width, EditNoticeBox.Location.Y );
-
+            RepairBox.Location = new Point(0200 - RepairBox.Size.Width, EditNoticeBox.Location.Y);
 
             MerchantBox = new DXCheckBox
             {
@@ -2870,7 +2876,6 @@ namespace Client.Scenes.Views
             };
             MarketBox.CheckedChanged += (o, e) => UpdatePermission();
             MarketBox.Location = new Point(0200 - MarketBox.Size.Width, MerchantBox.Location.Y + 20);
-
 
             ConfirmButton = new DXButton
             {
@@ -2898,14 +2903,13 @@ namespace Client.Scenes.Views
             KickButton.MouseClick += (o, e) =>
             {
                 DXMessageBox box = new DXMessageBox(string.Format(CEnvir.Language.GuildMemberDialogKickButtonConfirmMsg, MemberNameLabel.Text), CEnvir.Language.GuildMemberDialogKickButtonConfirmCaption, DXMessageBoxButtons.YesNo);
-                
+
                 box.YesButton.MouseClick += (o1, e1) =>
                 {
                     CEnvir.Enqueue(new C.GuildKickMember { Index = MemberIndex });
                     Visible = false;
                 };
             };
-
         }
 
         #region Methods
@@ -2939,7 +2943,6 @@ namespace Client.Scenes.Views
 
             if (StartWarBox.Checked)
                 permission |= GuildPermission.StartWar;
-
 
             Permission = permission;
         }
@@ -3048,7 +3051,6 @@ namespace Client.Scenes.Views
                     KickButton = null;
                 }
             }
-
         }
 
         #endregion
@@ -3071,8 +3073,11 @@ namespace Client.Scenes.Views
                 OnCastleChanged(oldValue, value);
             }
         }
+
         private CastleInfo _Castle;
+
         public event EventHandler<EventArgs> CastleChanged;
+
         public void OnCastleChanged(CastleInfo oValue, CastleInfo nValue)
         {
             CastleChanged?.Invoke(this, EventArgs.Empty);
@@ -3097,9 +3102,9 @@ namespace Client.Scenes.Views
 
             AfterDraw += GuildCastlePanel_AfterDraw;
 
-            CastleNameLabel =  new DXLabel
+            CastleNameLabel = new DXLabel
             {
-                AutoSize =  false,
+                AutoSize = false,
                 Parent = this,
                 Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),

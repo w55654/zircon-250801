@@ -13,10 +13,8 @@ namespace Server.Models.Magics
     {
         protected override Element Element => Element.Dark;
 
-
         public ExplosiveTalisman(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)

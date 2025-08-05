@@ -17,7 +17,7 @@ namespace Server.Models
     {
         public override ObjectType Race => ObjectType.Monster;
 
-        public sealed override MirDirection Direction { get; set; }
+        public override sealed MirDirection Direction { get; set; }
 
         public DateTime SearchTime, RoamTime, EXPOwnerTime, DeadTime, RageTime, TameTime;
 
@@ -43,6 +43,7 @@ namespace Server.Models
                     SearchTime = DateTime.MinValue;
             }
         }
+
         private MapObject _Target;
 
         public bool PlayerTagged;
@@ -65,7 +66,9 @@ namespace Server.Models
                 OnEXPOwnerChanged(oldValue, value);
             }
         }
+
         private PlayerObject _EXPOwner;
+
         public virtual void OnEXPOwnerChanged(PlayerObject oValue, PlayerObject nValue)
         {
             oValue?.TaggedMonsters.Remove(this);
@@ -118,59 +121,80 @@ namespace Server.Models
         public override bool CanMove => base.CanMove && (Poison & PoisonType.Silenced) != PoisonType.Silenced && MoveDelay > 0 && (PetOwner == null || PetOwner.PetMode == PetMode.Both || PetOwner.PetMode == PetMode.Move || PetOwner.PetMode == PetMode.PvP);
         public override bool CanAttack => base.CanAttack && (Poison & PoisonType.Silenced) != PoisonType.Silenced && AttackDelay > 0 && (PetOwner == null || PetOwner.PetMode == PetMode.Both || PetOwner.PetMode == PetMode.Attack || PetOwner.PetMode == PetMode.PvP);
 
-
         public static MonsterObject GetMonster(MonsterInfo monsterInfo)
         {
             switch (monsterInfo.AI)
             {
                 case -1:
                     return new Guard { MonsterInfo = monsterInfo };
+
                 case 1:
                     return new MonsterObject { MonsterInfo = monsterInfo, Passive = true, NeedHarvest = true, HarvestCount = 2 };
+
                 case 2:
                     return new MonsterObject { MonsterInfo = monsterInfo, Passive = true, NeedHarvest = true, HarvestCount = 3 };
+
                 case 3:
                     return new MonsterObject { MonsterInfo = monsterInfo, NeedHarvest = true, HarvestCount = 3 };
+
                 case 4:
                     return new TreeMonster { MonsterInfo = monsterInfo };
+
                 case 5:
                     return new CarnivorousPlant { MonsterInfo = monsterInfo, NeedHarvest = true, HarvestCount = 2 };
+
                 case 6:
                     return new SpittingSpider { MonsterInfo = monsterInfo, NeedHarvest = true, HarvestCount = 2, PoisonType = PoisonType.Green };
+
                 case 7:
                     return new SkeletonAxeThrower { MonsterInfo = monsterInfo };
+
                 case 8:
                     return new MonsterObject { MonsterInfo = monsterInfo, NeedHarvest = true, HarvestCount = 2, PoisonType = PoisonType.Paralysis, PoisonTicks = 1, PoisonFrequency = 5, PoisonRate = 12 };
+
                 case 9:
                     return new GhostSorcerer { MonsterInfo = monsterInfo };
+
                 case 10:
                     return new GhostMage { MonsterInfo = monsterInfo };
+
                 case 11:
                     return new VoraciousGhost { MonsterInfo = monsterInfo };
+
                 case 12:
                     return new HealerAnt { MonsterInfo = monsterInfo };
+
                 case 13:
                     return new LordNiJae { MonsterInfo = monsterInfo };
+
                 case 14:
                     return new SpittingSpider { MonsterInfo = monsterInfo, PoisonType = PoisonType.Green };
+
                 case 15:
                     return new MonsterObject { MonsterInfo = monsterInfo };
+
                 case 16:
                     return new UmaKing { MonsterInfo = monsterInfo };
+
                 case 17:
                     return new ArachnidGrazer
                     {
                         MonsterInfo = monsterInfo,
                         SpawnList = { [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.Larva)] = 1 }
                     };
+
                 case 18:
                     return new Larva { MonsterInfo = monsterInfo, PoisonType = PoisonType.Green };
+
                 case 19:
                     return new RedMoonTheFallen { MonsterInfo = monsterInfo };
+
                 case 20:
                     return new SkeletonAxeThrower { MonsterInfo = monsterInfo, FearRate = 2, FearDuration = 4 };
+
                 case 21:
                     return new ZumaGuardian { MonsterInfo = monsterInfo };
+
                 case 22:
                     return new ZumaKing
                     {
@@ -183,44 +207,64 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.ZumaKeeperMonster)] = 1
                         }
                     };
+
                 case 23:
                     return new Monkey { MonsterInfo = monsterInfo, PoisonType = PoisonType.Green };
+
                 case 24:
                     return new Monkey { MonsterInfo = monsterInfo, PoisonType = PoisonType.Red };
+
                 case 25:
                     return new EvilElephant { MonsterInfo = monsterInfo };
+
                 case 26:
                     return new NumaMage { MonsterInfo = monsterInfo };
+
                 case 27:
                     return new GhostMage { MonsterInfo = monsterInfo };
+
                 case 28:
                     return new WindfurySorcerer { MonsterInfo = monsterInfo };
+
                 case 29:
                     return new SkeletonAxeThrower { MonsterInfo = monsterInfo };
+
                 case 30:
                     return new NetherworldGate { MonsterInfo = monsterInfo };
+
                 case 31:
                     return new SonicLizard { MonsterInfo = monsterInfo };
+
                 case 33:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 9, IgnoreShield = true };
+
                 case 34:
                     return new SkeletonAxeThrower { MonsterInfo = monsterInfo, AttackRange = 9 };
+
                 case 35:
                     return new MonsterObject { MonsterInfo = monsterInfo };
+
                 case 36:
                     return new NumaMage { MonsterInfo = monsterInfo };
+
                 case 37:
                     return new MonsterObject { MonsterInfo = monsterInfo };
+
                 case 38:
                     return new BanyaLeftGuard { MonsterInfo = monsterInfo };
+
                 case 39:
                     return new MonsterObject { MonsterInfo = monsterInfo };
+
                 case 40:
                     return new MonsterObject { MonsterInfo = monsterInfo };
+
                 case 41:
                     return new EmperorSaWoo { MonsterInfo = monsterInfo };
+
                 case 42:
                     return new SpittingSpider { MonsterInfo = monsterInfo };
+
                 case 43:
                     return new ArchLichTaedu
                     {
@@ -234,72 +278,100 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.SkeletonEnforcer)] = 1
                         }
                     };
+
                 case 44:
                     return new WedgeMothLarva
                     {
                         MonsterInfo = monsterInfo,
                         SpawnList = { [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.LesserWedgeMoth)] = 1 }
                     };
+
                 case 45:
                     return new RazorTusk { MonsterInfo = monsterInfo };
+
                 case 46:
                     return new SpittingSpider { MonsterInfo = monsterInfo, PoisonType = PoisonType.Red, PoisonTicks = 1, PoisonFrequency = 10, PoisonRate = 25 };
+
                 case 47:
                     return new SpittingSpider { MonsterInfo = monsterInfo, PoisonType = PoisonType.Green, PoisonTicks = 7, PoisonRate = 15 };
+
                 case 48:
                     return new SonicLizard { MonsterInfo = monsterInfo, IgnoreShield = true };
+
                 case 49:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 8, PoisonType = PoisonType.Paralysis, PoisonTicks = 1, PoisonFrequency = 5 };
+
                 case 50:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 8 };
+
                 case 52:
                     return new WhiteBone() { MonsterInfo = monsterInfo };
+
                 case 53:
                     return new Shinsu { MonsterInfo = monsterInfo };
+
                 case 54:
                     return new GiantLizard { MonsterInfo = monsterInfo, RangeCooldown = TimeSpan.FromSeconds(5) };
+
                 case 56:
                     return new CorrosivePoisonSpitter { MonsterInfo = monsterInfo, PoisonType = PoisonType.Green, PoisonTicks = 7, PoisonRate = 15, IgnoreShield = true };
+
                 case 57:
                     return new CorrosivePoisonSpitter { MonsterInfo = monsterInfo };
+
                 case 58:
                     return new Stomper { MonsterInfo = monsterInfo };
+
                 case 59:
                     return new CrimsonNecromancer() { MonsterInfo = monsterInfo };
+
                 case 60:
                     return new ChaosKnight() { MonsterInfo = monsterInfo };
+
                 case 61:
                     return new PachontheChaosbringer { MonsterInfo = monsterInfo };
+
                 case 62:
                     return new NumaHighMage { MonsterInfo = monsterInfo };
+
                 case 63:
                     return new NumaStoneThrower { MonsterInfo = monsterInfo };
+
                 case 64:
                     return new Monkey { MonsterInfo = monsterInfo };
+
                 case 65:
                     return new IcyGoddess { MonsterInfo = monsterInfo, FindRange = 3 };
+
                 case 66:
                     return new IcySpiritWarrior { MonsterInfo = monsterInfo, PoisonType = PoisonType.Paralysis, PoisonTicks = 1, PoisonFrequency = 5, PoisonRate = 25 };
+
                 case 67:
                     return new IcySpiritGeneral
                     {
                         MonsterInfo = monsterInfo,
                         IgnoreShield = true,
                     };
+
                 case 68:
                     return new Warewolf
                     {
                         MonsterInfo = monsterInfo,
                         IgnoreShield = true,
                     };
+
                 case 69:
                     return new JinamStoneGate { MonsterInfo = monsterInfo };
+
                 case 70:
                     return new FrostLordHwa { MonsterInfo = monsterInfo };
+
                 case 71:
                     return new BanyoWarrior { MonsterInfo = monsterInfo };
+
                 case 72:
                     return new BanyoCaptain { MonsterInfo = monsterInfo };
+
                 case 74:
                     return new BanyoLordGuzak
                     {
@@ -309,18 +381,21 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.BanyoCaptain)] = 2,
                         }
                     };
+
                 case 75:
                     return new DepartedMonster
                     {
                         MonsterInfo = monsterInfo,
                         SpawnList = { [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.MatureEarwig)] = 1 }
                     };
+
                 case 76:
                     return new DepartedMonster
                     {
                         MonsterInfo = monsterInfo,
                         SpawnList = { [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.GoldenArmouredBeetle)] = 1 }
                     };
+
                 case 77:
                     return new EnragedLordNiJae
                     {
@@ -328,10 +403,13 @@ namespace Server.Models
                         SpawnList = { [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.Millipede)] = 1 },
                         MaxMinions = 200,
                     };
+
                 case 78:
                     return new JinchonDevil { MonsterInfo = monsterInfo };
+
                 case 79:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 10, RangeCooldown = TimeSpan.FromSeconds(5) };
+
                 case 80:
                     return new SunFeralWarrior
                     {
@@ -342,17 +420,20 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.FlameDemon)] = 1,
                         }
                     };
+
                 case 81:
                     return new MoonFeralWarrior
                     {
                         MonsterInfo = monsterInfo
                     };
+
                 case 82:
                     return new OxFeralGeneral
                     {
                         MonsterInfo = monsterInfo,
                         IgnoreShield = true,
                     };
+
                 case 83:
                     return new FlameDemon
                     {
@@ -360,14 +441,17 @@ namespace Server.Models
                         Min = -2,
                         Max = 2,
                     };
+
                 case 84:
                     return new WingedHorror
                     {
                         MonsterInfo = monsterInfo,
                         RangeChance = 1,
                     };
+
                 case 85:
                     return new EmperorSaWoo { MonsterInfo = monsterInfo, PoisonType = PoisonType.Paralysis, PoisonTicks = 1, PoisonFrequency = 5, PoisonRate = 8 };
+
                 case 86:
                     return new FlameDemon
                     {
@@ -376,6 +460,7 @@ namespace Server.Models
                         Min = 0,
                         Max = 8,
                     };
+
                 case 87:
                     return new OmaWarlord
                     {
@@ -385,11 +470,13 @@ namespace Server.Models
                         PoisonFrequency = 7,
                         PoisonRate = 15
                     };
+
                 case 88:
                     return new GoruSpearman
                     {
                         MonsterInfo = monsterInfo,
                     };
+
                 case 89:
                     return new GoruArcher
                     {
@@ -400,6 +487,7 @@ namespace Server.Models
                         PoisonFrequency = 5,
                         PoisonRate = 10
                     };
+
                 case 90:
                     return new OmaWarlord
                     {
@@ -409,6 +497,7 @@ namespace Server.Models
                         PoisonFrequency = 5,
                         PoisonRate = 25
                     };
+
                 case 91:
                     return new EnragedArchLichTaedu
                     {
@@ -429,12 +518,16 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.GoruSpearman)] = 5,
                         }
                     };
+
                 case 92:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 9 };
+
                 case 93:
                     return new EscortCommander { MonsterInfo = monsterInfo };
+
                 case 94:
                     return new FieryDancer { MonsterInfo = monsterInfo };
+
                 case 95:
                     return new FieryDancer
                     {
@@ -444,16 +537,20 @@ namespace Server.Models
                         PoisonFrequency = 5,
                         PoisonRate = 15,
                     };
+
                 case 96:
                     return new QueenOfDawn { MonsterInfo = monsterInfo };
+
                 case 97:
                     return new SonicLizard { MonsterInfo = monsterInfo, IgnoreShield = true, Range = 5 };
+
                 case 98:
                     return new YumgonWitch
                     {
                         MonsterInfo = monsterInfo,
                         AoEElement = Element.Lightning
                     };
+
                 case 99:
                     return new JinhwanSpirit
                     {
@@ -463,11 +560,13 @@ namespace Server.Models
                             [monsterInfo] = 1,
                         }
                     };
+
                 case 100:
                     return new YumgonWitch
                     {
                         MonsterInfo = monsterInfo,
                     };
+
                 case 101:
                     return new DragonQueen
                     {
@@ -486,6 +585,7 @@ namespace Server.Models
                              [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.YumgonGeneral)] = 2,
                          }
                     };
+
                 case 102:
                     return new DragonLord
                     {
@@ -504,30 +604,43 @@ namespace Server.Models
                              [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.DragonLord)] = 1,
                          }
                     };
+
                 case 103:
                     return new InfernalSoldier { MonsterInfo = monsterInfo, AttackRange = 5 };
+
                 case 104:
                     return new FerociousIceTiger { MonsterInfo = monsterInfo };
+
                 case 105:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 5, IgnoreShield = true, CanPvPRange = true };
+
                 case 106:
                     return new GiantLizard { MonsterInfo = monsterInfo, AttackRange = 7, CanPvPRange = true };
+
                 case 107:
                     return new SamaFireGuardian { MonsterInfo = monsterInfo };
+
                 case 108:
                     return new SamaIceGuardian { MonsterInfo = monsterInfo };
+
                 case 109:
                     return new SamaLightningGuardian { MonsterInfo = monsterInfo };
+
                 case 110:
                     return new SamaWindGuardian { MonsterInfo = monsterInfo };
+
                 case 111:
                     return new SamaPhoenix { MonsterInfo = monsterInfo };
+
                 case 112:
                     return new SamaBlack { MonsterInfo = monsterInfo };
+
                 case 113:
                     return new SamaBlue { MonsterInfo = monsterInfo };
+
                 case 114:
                     return new SamaWhite { MonsterInfo = monsterInfo };
+
                 case 115:
                     return new SamaProphet
                     {
@@ -537,15 +650,19 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.SamaSorcerer)] = 1,
                         }
                     };
+
                 case 116:
                     return new SamaScorcer()
                     {
                         MonsterInfo = monsterInfo,
                     };
+
                 case 117:
                     return new BanyoWarrior { MonsterInfo = monsterInfo, DoubleDamage = true };
+
                 case 118:
                     return new OmaMage { MonsterInfo = monsterInfo };
+
                 case 119:
                     return new MonsterObject
                     {
@@ -556,13 +673,16 @@ namespace Server.Models
                         PoisonFrequency = 5,
                         PoisonRate = 10
                     };
+
                 case 120:
                     return new DoomClaw()
                     {
                         MonsterInfo = monsterInfo,
                     };
+
                 case 121:
                     return new PinkBat { MonsterInfo = monsterInfo };
+
                 case 122:
                     return new QuartzTurtleSub
                     {
@@ -572,12 +692,14 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.QuartzMiniTurtle)] = 2,
                         }
                     };
+
                 case 123:
                     return new Larva
                     {
                         MonsterInfo = monsterInfo,
                         Range = 3,
                     };
+
                 case 124:
                     return new QuartzTree
                     {
@@ -591,8 +713,10 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.QuartzRedHood)] = 2,
                         }
                     };
+
                 case 125:
                     return new CarnivorousPlant { MonsterInfo = monsterInfo, HideRange = 1, FindRange = 1 };
+
                 case 126:
                     return new MonasteryBoss
                     {
@@ -602,18 +726,25 @@ namespace Server.Models
                             [SEnvir.MonsterInfoList.Binding.First(x => x.Flag == MonsterFlag.Sacrifice)] = 1,
                         }
                     };
+
                 case 127:
                     return new JinchonDevil { MonsterInfo = monsterInfo, CastDelay = TimeSpan.FromSeconds(8), DeathCloudDurationMin = 2000, DeathCloudDurationRandom = 5000 };
+
                 case 128:
                     return new Doll { MonsterInfo = monsterInfo };
+
                 case 129:
                     return new Monsters.Tornado { MonsterInfo = monsterInfo, Passive = true };
+
                 case 130:
                     return new UndeadSoul { MonsterInfo = monsterInfo };
+
                 case 131:
                     return new Terracotta { MonsterInfo = monsterInfo };
+
                 case 132:
                     return new Terracotta { MonsterInfo = monsterInfo, CanPhase = true };
+
                 case 133:
                     return new TerracottaSub
                     {
@@ -623,6 +754,7 @@ namespace Server.Models
                         PoisonFrequency = 5,
                         PoisonRate = 15,
                     };
+
                 case 134:
                     return new TerracottaBoss
                     {
@@ -635,14 +767,18 @@ namespace Server.Models
 
                 case 1001:
                     return new CastleFlag { MonsterInfo = monsterInfo };
+
                 case 1002:
                     return new CastleGate { MonsterInfo = monsterInfo };
+
                 case 1003:
                     return new CastleGuard { MonsterInfo = monsterInfo };
+
                 default:
                     return new MonsterObject { MonsterInfo = monsterInfo };
             }
         }
+
         public MonsterObject()
         {
             Stats = new Stats();
@@ -704,6 +840,7 @@ namespace Server.Models
 
             Activate();
         }
+
         public override void RefreshStats()
         {
             base.RefreshStats();
@@ -856,7 +993,6 @@ namespace Server.Models
 
         public virtual void ApplyBonusStats()
         {
-
         }
 
         public override void CleanUp()
@@ -872,7 +1008,6 @@ namespace Server.Models
 
             Drops?.Clear();
 
-
             Magics?.Clear();
         }
 
@@ -885,6 +1020,7 @@ namespace Server.Models
             Activated = true;
             SEnvir.ActiveObjects.Add(this);
         }
+
         public override void DeActivate()
         {
             if (!Activated) return;
@@ -902,18 +1038,22 @@ namespace Server.Models
                 case ActionType.DelayAttack:
                     Attack((MapObject)action.Data[0], (int)action.Data[1], (Element)action.Data[2]);
                     return;
+
                 case ActionType.DelayMagic:
                     switch ((MagicType)action.Data[0])
                     {
                         case MagicType.FireWall:
                             FireWallEnd((Cell)action.Data[1]);
                             break;
+
                         case MagicType.DragonRepulse:
                             DragonRepulseEnd((MapObject)action.Data[1]);
                             break;
+
                         case MagicType.Purification:
                             Purify((MapObject)action.Data[1]);
                             break;
+
                         case MagicType.MonsterDeathCloud:
                             DeathCloudEnd((Cell)action.Data[1], (bool)action.Data[2], (Point)action.Data[3]);
                             break;
@@ -923,6 +1063,7 @@ namespace Server.Models
 
             base.ProcessAction(action);
         }
+
         public override void Process()
         {
             base.Process();
@@ -950,6 +1091,7 @@ namespace Server.Models
 
             ProcessAI();
         }
+
         public override void ProcessNameColour()
         {
             NameColour = Color.White;
@@ -985,6 +1127,7 @@ namespace Server.Models
             ProcessRoam();
             ProcessTarget();
         }
+
         public override void OnDespawned()
         {
             base.OnDespawned();
@@ -1022,6 +1165,7 @@ namespace Server.Models
 
             Broadcast(new S.ObjectPetOwnerChanged { ObjectID = ObjectID });
         }
+
         public void PetRecall()
         {
             Cell cell = PetOwner.CurrentMap.GetCell(Functions.Move(PetOwner.CurrentLocation, PetOwner.Direction, -1));
@@ -1031,6 +1175,7 @@ namespace Server.Models
 
             Teleport(PetOwner.CurrentMap, cell.Location);
         }
+
         public virtual void ProcessRegen()
         {
             if (SEnvir.Now < RegenTime) return;
@@ -1066,10 +1211,8 @@ namespace Server.Models
 
             SearchTime = SEnvir.Now + SearchDelay;
 
-
             int bestDistance = int.MaxValue;
             List<MapObject> closest = new List<MapObject>();
-
 
             //Save resources
             foreach (PlayerObject player in CurrentMap.Players)
@@ -1108,6 +1251,7 @@ namespace Server.Models
 
             Target = closest[SEnvir.Random.Next(closest.Count)];
         }
+
         public void ProperSearch()
         {
             if (Target != null)
@@ -1154,7 +1298,6 @@ namespace Server.Models
 
                 return;
             }
-
         }
 
         public virtual void ProcessRoam()
@@ -1171,7 +1314,6 @@ namespace Server.Models
             if (SEnvir.Now < RoamTime || SeenByPlayers.Count == 0) return;
 
             RoamTime = SEnvir.Now + RoamDelay;
-
 
             foreach (MapObject ob in CurrentCell.Objects)
             {
@@ -1196,6 +1338,7 @@ namespace Server.Models
             else
                 Turn((MirDirection)SEnvir.Random.Next(8));
         }
+
         public virtual void ProcessTarget()
         {
             if (Target == null) return;
@@ -1250,10 +1393,12 @@ namespace Server.Models
                 MinionList.Add(mob);
             }
         }
+
         public virtual bool SpawnMinion(MonsterObject mob)
         {
             return mob.Spawn(CurrentMap, CurrentMap.GetRandomLocation(CurrentLocation, 6));
         }
+
         public override int Pushed(MirDirection direction, int distance)
         {
             if (!MonsterInfo.CanPush) return 0;
@@ -1267,6 +1412,7 @@ namespace Server.Models
 
             return Target.CurrentLocation != CurrentLocation && Functions.InRange(CurrentLocation, Target.CurrentLocation, 1);
         }
+
         public override bool CanAttackTarget(MapObject ob)
         {
             if (ob == this || ob?.Node == null || ob.Dead || !ob.Visible || ob is Guard || ob is CastleLord) return false;
@@ -1302,14 +1448,17 @@ namespace Server.Models
                     {
                         case AttackMode.Peace:
                             return false;
+
                         case AttackMode.Group:
                             if (PetOwner.InGroup(player))
                                 return false;
                             break;
+
                         case AttackMode.Guild:
                             if (PetOwner.InGuild(player))
                                 return false;
                             break;
+
                         case AttackMode.WarRedBrown:
                             if (player.Stats[Stat.Brown] == 0 && player.Stats[Stat.PKPoint] < Config.RedPoint && !PetOwner.AtWar(player))
                                 return false;
@@ -1319,6 +1468,7 @@ namespace Server.Models
                     //Are any Pets attacking target or any player's pets attacking pets
 
                     return true;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)ob;
 
@@ -1346,20 +1496,21 @@ namespace Server.Models
 
                     if (PetOwner == mob.PetOwner) return false;
 
-
-
                     switch (PetOwner.AttackMode)
                     {
                         case AttackMode.Peace:
                             return false;
+
                         case AttackMode.Group:
                             if (PetOwner.InGroup(mob.PetOwner))
                                 return false;
                             break;
+
                         case AttackMode.Guild:
                             if (PetOwner.InGuild(mob.PetOwner))
                                 return false;
                             break;
+
                         case AttackMode.WarRedBrown:
                             if (mob.PetOwner.Stats[Stat.Brown] == 0 && mob.PetOwner.Stats[Stat.PKPoint] < Config.RedPoint && !PetOwner.AtWar(mob.PetOwner))
                                 return false;
@@ -1367,10 +1518,12 @@ namespace Server.Models
                     }
 
                     return true;
+
                 default:
                     throw new NotImplementedException();
             }
         }
+
         public override bool CanHelpTarget(MapObject ob)
         {
             if (ob?.Node == null || ob.Dead || !ob.Visible || ob is Guard || ob is CastleLord) return false;
@@ -1409,7 +1562,6 @@ namespace Server.Models
 
                 case ObjectType.Monster:
 
-
                     MonsterObject mob = (MonsterObject)ob;
 
                     if (PetOwner == null) return mob.PetOwner == null;
@@ -1443,6 +1595,7 @@ namespace Server.Models
                     return false;
             }
         }
+
         public virtual bool ShouldAttackTarget(MapObject ob)
         {
             if (Passive || ob == this || ob?.Node == null || ob.Dead || !ob.Visible || ob is Guard || ob is CastleLord) return false;
@@ -1490,14 +1643,17 @@ namespace Server.Models
                     {
                         case AttackMode.Peace:
                             return false;
+
                         case AttackMode.Group:
                             if (PetOwner.InGroup(player))
                                 return false;
                             break;
+
                         case AttackMode.Guild:
                             if (PetOwner.InGuild(player))
                                 return false;
                             break;
+
                         case AttackMode.WarRedBrown:
                             if (player.Stats[Stat.Brown] == 0 && player.Stats[Stat.PKPoint] < Config.RedPoint && !PetOwner.AtWar(player))
                                 return false;
@@ -1514,8 +1670,10 @@ namespace Server.Models
                         {
                             case ObjectType.Player:
                                 return x.Target == player;
+
                             case ObjectType.Monster:
                                 return ((MonsterObject)x.Target).PetOwner == player;
+
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
@@ -1529,14 +1687,17 @@ namespace Server.Models
                         {
                             case ObjectType.Player:
                                 return x.Target == PetOwner;
+
                             case ObjectType.Monster:
                                 return ((MonsterObject)x.Target).PetOwner == PetOwner;
+
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
                     })) return true;
 
                     return false;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)ob;
 
@@ -1566,7 +1727,6 @@ namespace Server.Models
 
                         if (mob.EXPOwner != null) return false; //Someone else's mob
 
-
                         if (mob.Target == null) return false;
 
                         PlayerObject mobTarget;
@@ -1593,14 +1753,17 @@ namespace Server.Models
                     {
                         case AttackMode.Peace:
                             return false;
+
                         case AttackMode.Group:
                             if (PetOwner.InGroup(mob.PetOwner))
                                 return false;
                             break;
+
                         case AttackMode.Guild:
                             if (PetOwner.InGuild(mob.PetOwner))
                                 return false;
                             break;
+
                         case AttackMode.WarRedBrown:
                             if (mob.PetOwner.Stats[Stat.Brown] == 0 && mob.PetOwner.Stats[Stat.PKPoint] < Config.RedPoint && !PetOwner.AtWar(mob.PetOwner))
                                 return false;
@@ -1615,8 +1778,10 @@ namespace Server.Models
                         {
                             case ObjectType.Player:
                                 return x.Target == mob.PetOwner;
+
                             case ObjectType.Monster:
                                 return ((MonsterObject)x.Target).PetOwner == mob.PetOwner;
+
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
@@ -1630,18 +1795,22 @@ namespace Server.Models
                         {
                             case ObjectType.Player:
                                 return x.Target == PetOwner;
+
                             case ObjectType.Monster:
                                 return ((MonsterObject)x.Target).PetOwner == PetOwner;
+
                             default:
                                 throw new ArgumentOutOfRangeException();
                         }
                     })) return true;
 
                     return false;
+
                 default:
                     throw new NotImplementedException();
             }
         }
+
         protected virtual void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -1767,6 +1936,7 @@ namespace Server.Models
                     element));
             }
         }
+
         public void SamaGuardianFire()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -1787,13 +1957,13 @@ namespace Server.Models
                     Element.Fire));
             }
         }
+
         public void LineAoE(int distance, int min, int max, MagicType magic, Element element)
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
 
             List<uint> targetIDs = new List<uint>();
             List<Point> locations = new List<Point>();
-
 
             Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = magic, Targets = targetIDs, Locations = locations });
 
@@ -1870,6 +2040,7 @@ namespace Server.Models
                                 }
                             }
                             break;
+
                         case MirDirection.UpRight:
                         case MirDirection.DownRight:
                         case MirDirection.DownLeft:
@@ -1959,6 +2130,7 @@ namespace Server.Models
                 MagicType.FireWall,
                 CurrentMap.GetCell(Functions.Move(location, MirDirection.Right))));
         }
+
         public void FireWallEnd(Cell cell)
         {
             if (cell == null) return;
@@ -1987,7 +2159,6 @@ namespace Server.Models
             };
 
             ob.Spawn(cell.Map, cell.Location);
-
         }
 
         public void DeathCloud(Point location)
@@ -2006,6 +2177,7 @@ namespace Server.Models
                 visible = false;
             }
         }
+
         public void DeathCloudEnd(Cell cell, bool visible, Point displaylocation)
         {
             if (cell == null) return;
@@ -2021,8 +2193,8 @@ namespace Server.Models
             };
 
             ob.Spawn(cell.Map, cell.Location);
-
         }
+
         public void MassLightningBall()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -2060,6 +2232,7 @@ namespace Server.Models
                     Element.Lightning));
             }
         }
+
         public void MassThunderBolt()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -2070,7 +2243,6 @@ namespace Server.Models
             Broadcast(new S.ObjectMagic { ObjectID = ObjectID, Direction = Direction, CurrentLocation = CurrentLocation, Cast = true, Type = MagicType.ThunderBolt, Targets = targetIDs, Locations = locations });
 
             UpdateAttackTime();
-
 
             List<Cell> cells = CurrentMap.GetCells(CurrentLocation, 0, Config.MaxViewRange);
             foreach (Cell cell in cells)
@@ -2099,6 +2271,7 @@ namespace Server.Models
                 }
             }
         }
+
         /* public void ThunderBolt(int damage)
          {
              Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -2114,6 +2287,7 @@ namespace Server.Models
                  GetDC(),
                  Element.Lightning));
          }*/
+
         public void MonsterThunderStorm(int damage)
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -2131,7 +2305,6 @@ namespace Server.Models
                     damage,
                     Element.Lightning));
             }
-
         }
 
         public void Purification()
@@ -2173,9 +2346,7 @@ namespace Server.Models
                     MagicType.Purification,
                     ob));
             }
-
         }
-
 
         public void MassCyclone()
         {
@@ -2215,6 +2386,7 @@ namespace Server.Models
                 }
             }
         }
+
         /*
                 public void MonsterIceStorm()
                 {
@@ -2239,7 +2411,6 @@ namespace Server.Models
                             Element.Ice));
                     }
                 }*/
-
 
         public void PoisonousCloud()
         {
@@ -2269,7 +2440,6 @@ namespace Server.Models
 
                 ob.Spawn(CurrentMap, cell.Location);
             }
-
         }
 
         public void DragonRepulse()
@@ -2286,6 +2456,7 @@ namespace Server.Models
             BuffInfo buff = BuffAdd(BuffType.DragonRepulse, TimeSpan.FromSeconds(6), null, true, false, TimeSpan.FromSeconds(1));
             buff.TickTime = TimeSpan.FromMilliseconds(500);
         }
+
         public void DragonRepulseEnd(MapObject ob)
         {
             if (Attack(ob, GetDC(), AttackElement) > 0)
@@ -2302,9 +2473,8 @@ namespace Server.Models
                     }
                 }
             }
-
-
         }
+
         #endregion
 
         public void UpdateAttackTime()
@@ -2365,9 +2535,11 @@ namespace Server.Models
                     PlayerTagged = true;
                     player = (PlayerObject)attacker;
                     break;
+
                 case ObjectType.Monster:
                     player = ((MonsterObject)attacker).PetOwner;
                     break;
+
                 default:
                     throw new NotImplementedException();
             }
@@ -2393,7 +2565,6 @@ namespace Server.Models
 
             for (int i = 0; i < attacker.Stats[Stat.Rebirth]; i++)
                 power = (int)(power * 1.5F);
-
 
             BuffInfo buff = Buffs.FirstOrDefault(x => x.Type == BuffType.MagicShield);
 
@@ -2434,9 +2605,9 @@ namespace Server.Models
             if (CanAttackTarget(attacker) && PetOwner == null || Target == null)
                 Target = attacker;
 
-
             return power;
         }
+
         public override bool ApplyPoison(Poison p)
         {
             bool res = base.ApplyPoison(p);
@@ -2513,12 +2684,15 @@ namespace Server.Models
                         case MirClass.Warrior:
                             dWarrior++;
                             break;
+
                         case MirClass.Wizard:
                             dWizard++;
                             break;
+
                         case MirClass.Taoist:
                             dTaoist++;
                             break;
+
                         case MirClass.Assassin:
                             dAssassin++;
                             break;
@@ -2533,12 +2707,15 @@ namespace Server.Models
                         case MirClass.Warrior:
                             eWarrior++;
                             break;
+
                         case MirClass.Wizard:
                             eWizard++;
                             break;
+
                         case MirClass.Taoist:
                             eTaoist++;
                             break;
+
                         case MirClass.Assassin:
                             eAssassin++;
                             break;
@@ -2553,9 +2730,11 @@ namespace Server.Models
                     case 1:
                         dRate *= 1.1M;
                         break;
+
                     case 2:
                         dRate *= 1.2M;
                         break;
+
                     case 3:
                         dRate *= 1.3M;
                         break;
@@ -2566,9 +2745,11 @@ namespace Server.Models
                     case 1:
                         eRate *= 1.1M;
                         break;
+
                     case 2:
                         eRate *= 1.25M;
                         break;
+
                     case 3:
                         eRate *= 1.5M;
                         break;
@@ -2879,6 +3060,7 @@ namespace Server.Models
                             userTask.Amount = Math.Min(task.Amount, userTask.Amount + count);
                             changed = true;
                             break;
+
                         case QuestTaskType.GainItem:
                             if (task.ItemParameter == null) continue;
 
@@ -2938,11 +3120,9 @@ namespace Server.Models
                                     ob.Item.ExpireTime);
 
                                 if (owner.Companion.CanGainItems(true, check)) ob.PickUpItem(owner.Companion);
-
                             }
                             break;
                     }
-
                 }
 
                 if (changed)
@@ -3002,6 +3182,7 @@ namespace Server.Models
                         case SpellEffect.FireWall:
                         case SpellEffect.Tempest:
                             break;
+
                         default:
                             continue;
                     }
@@ -3083,6 +3264,7 @@ namespace Server.Models
                 if (Drops == null || !Drops.ContainsKey(player.Character.Account))
                     player.Enqueue(new S.ObjectHarvested { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
         }
+
         public override Packet GetInfoPacket(PlayerObject ob)
         {
             return new S.ObjectMonster
@@ -3109,6 +3291,7 @@ namespace Server.Models
                 Buffs = Buffs.Where(x => x.Visible).Select(x => x.Type).ToList()
             };
         }
+
         public override Packet GetDataPacket(PlayerObject ob)
         {
             return new S.DataObjectMonster

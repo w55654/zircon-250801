@@ -1,6 +1,6 @@
-﻿using System;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -10,14 +10,13 @@ namespace Server.Models.Monsters
         public int DeathCount;
         public int ReviveCount;
         public DateTime ReviveTime;
-        
-        public override decimal Experience => base.Experience/(decimal) Math.Pow(2, ReviveCount);
+
+        public override decimal Experience => base.Experience / (decimal)Math.Pow(2, ReviveCount);
 
         public VoraciousGhost()
         {
             ReviveCount = SEnvir.Random.Next(4);
         }
-
 
         public override void Process()
         {
@@ -44,7 +43,7 @@ namespace Server.Models.Monsters
         public override void Die()
         {
             base.Die();
-            
+
             ReviveTime = SEnvir.Now.AddSeconds(SEnvir.Random.Next(5) + 3);
             DeadTime = ReviveTime.Add(Config.DeadDuration);
 

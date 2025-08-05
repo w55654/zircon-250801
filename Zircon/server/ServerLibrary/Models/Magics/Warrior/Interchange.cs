@@ -14,7 +14,6 @@ namespace Server.Models.Magics
 
         public Interchange(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -52,12 +51,15 @@ namespace Server.Models.Magics
                     if (!Player.CanAttackTarget(target)) return;
                     if (target.Level >= Player.Level || target.Buffs.Any(x => x.Type == BuffType.Endurance)) return;
                     break;
+
                 case ObjectType.Monster:
                     if (!Player.CanAttackTarget(target)) return;
                     if (target.Level >= Player.Level || !((MonsterObject)target).MonsterInfo.CanPush) return;
                     break;
+
                 case ObjectType.Item:
                     break;
+
                 default:
                     return;
             }
@@ -84,7 +86,6 @@ namespace Server.Models.Magics
                 Player.PvPTime = SEnvir.Now;
                 ((PlayerObject)target).PvPTime = SEnvir.Now;
             }
-
 
             int delay = Magic.Info.Delay;
             if (SEnvir.Now <= Player.PvPTime.AddSeconds(30))

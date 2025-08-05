@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 
 namespace Server.Models.Monsters
 {
@@ -17,9 +13,9 @@ namespace Server.Models.Monsters
             base.Process();
 
             if (Dead || SEnvir.Now < SlaveTime) return;
-            
+
             SlaveTime = SEnvir.Now.AddSeconds(30);
-            
+
             for (int i = MinionList.Count - 1; i >= 0; i--)
             {
                 MonsterObject mob = MinionList[i];
@@ -29,10 +25,10 @@ namespace Server.Models.Monsters
                 mob.Die();
                 mob.Despawn();
             }
-            
 
             SpawnMinions(5 - MinionList.Count, 0, Target);
         }
+
         public override bool SpawnMinion(MonsterObject mob)
         {
             return mob.Spawn(CurrentMap, CurrentMap.GetRandomLocation(CurrentLocation, 10));

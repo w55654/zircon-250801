@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Library.SystemModels;
 using Server.Envir;
+using System;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -43,12 +39,12 @@ namespace Server.Models.Monsters
                     mob.Despawn();
                 }
 
-
                 Broadcast(new S.ObjectShow { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
 
                 SpawnMinions(10 - MinionList.Count, 0, Target);
             }
         }
+
         public void SpawnSub()
         {
             if (SubBossInfo == null) return;

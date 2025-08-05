@@ -24,8 +24,11 @@ namespace Client.Controls
                 OnValueChanged(oldValue, value);
             }
         }
+
         private long _Value;
+
         public event EventHandler<EventArgs> ValueChanged;
+
         public void OnValueChanged(long oValue, long nValue)
         {
             ValueChanged?.Invoke(this, EventArgs.Empty);
@@ -52,8 +55,11 @@ namespace Client.Controls
                 OnMaxValueChanged(oldValue, value);
             }
         }
+
         private long _MaxValue;
+
         public event EventHandler<EventArgs> MaxValueChanged;
+
         public void OnMaxValueChanged(long oValue, long nValue)
         {
             MaxValueChanged?.Invoke(this, EventArgs.Empty);
@@ -79,8 +85,11 @@ namespace Client.Controls
                 OnMinValueChanged(oldValue, value);
             }
         }
+
         private long _MinValue;
+
         public event EventHandler<EventArgs> MinValueChanged;
+
         public void OnMinValueChanged(long oValue, long nValue)
         {
             MinValueChanged?.Invoke(this, EventArgs.Empty);
@@ -101,6 +110,7 @@ namespace Client.Controls
         }
 
         #region Methods
+
         private void TextBox_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -119,7 +129,7 @@ namespace Client.Controls
                 if (vol > MaxValue)
                     vol = MaxValue;
 
-                Value = (long) vol;
+                Value = (long)vol;
 
                 TextBox.Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
             }
@@ -129,8 +139,8 @@ namespace Client.Controls
                 TextBox.Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
             }
         }
-        #endregion
 
+        #endregion
 
         #region IDisposable
 
@@ -148,11 +158,8 @@ namespace Client.Controls
                 MaxValueChanged = null;
                 MinValueChanged = null;
             }
-
         }
 
         #endregion
-
     }
 }
-

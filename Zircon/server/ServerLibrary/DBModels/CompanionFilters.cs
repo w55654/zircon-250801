@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Library;
+﻿using Library;
 using MirDB;
+using System;
 
 namespace Server.DBModels
 {
@@ -21,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FilterClass");
             }
         }
+
         private string _FilterClass = String.Empty;
 
         public string FilterRarity
@@ -36,8 +36,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FilterRarity");
             }
         }
-        private string _FilterRarity = String.Empty;
 
+        private string _FilterRarity = String.Empty;
 
         public string FilterItemType
         {
@@ -52,6 +52,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FilterItemType");
             }
         }
+
         private string _FilterItemType = String.Empty;
 
         public CompanionFiltersInfo ToClientInfo()

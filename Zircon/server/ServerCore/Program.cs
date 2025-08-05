@@ -1,14 +1,13 @@
-﻿using Autofac;
-using Library;
+﻿using Library;
 using Server.Envir;
 using System;
 using System.Reflection;
 
 namespace Server
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine($"当前app路径: {AppInfo.AppPath}");
 
@@ -40,7 +39,6 @@ namespace Server
             while (SEnvir.EnvirThread != null)
             {
                 var command = Console.ReadLine();
-
             }
 
             ConfigReader.Save(typeof(Config).Assembly);

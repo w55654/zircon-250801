@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Server.DBModels
 {
@@ -23,6 +18,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "RawMessage");
             }
         }
+
         private string _RawMessage;
 
         public string CharacterName
@@ -38,6 +34,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CharacterName");
             }
         }
+
         private string _CharacterName;
 
         public string Name
@@ -53,6 +50,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public string PaymentDate
@@ -68,8 +66,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PaymentDate");
             }
         }
+
         private string _PaymentDate;
-        
+
         [Association("Payments")]
         public AccountInfo Account
         {
@@ -84,6 +83,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public string TransactionID
@@ -99,6 +99,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TransactionID");
             }
         }
+
         private string _TransactionID;
 
         public string TransactionType
@@ -114,6 +115,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TransactionType");
             }
         }
+
         private string _TransactionType;
 
         public string Status
@@ -129,6 +131,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Status");
             }
         }
+
         private string _Status;
 
         public long GameGoldAmount
@@ -144,6 +147,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GameGoldAmount");
             }
         }
+
         private long _GameGoldAmount;
 
         public string Receiver_EMail
@@ -159,6 +163,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Receiver_EMail");
             }
         }
+
         private string _Receiver_EMail;
 
         public string Payer_EMail
@@ -174,8 +179,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Payer_EMail");
             }
         }
+
         private string _Payer_EMail;
-        
 
         public string Payer_ID
         {
@@ -190,6 +195,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Payer_ID");
             }
         }
+
         private string _Payer_ID;
 
         public decimal Price
@@ -205,6 +211,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Price");
             }
         }
+
         private decimal _Price;
 
         public string Currency
@@ -220,6 +227,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Currency");
             }
         }
+
         private string _Currency;
 
         public decimal Fee
@@ -235,6 +243,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Fee");
             }
         }
+
         private decimal _Fee;
 
         public bool Error
@@ -250,15 +259,14 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Error");
             }
         }
-        private bool _Error;
 
+        private bool _Error;
 
         protected override void OnDeleted()
         {
             Account = null;
-            
+
             base.OnDeleted();
         }
-
     }
 }

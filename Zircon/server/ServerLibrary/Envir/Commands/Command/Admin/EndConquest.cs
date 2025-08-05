@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class EndConquest : AbstractParameterizedCommand<IAdminCommand>
+    internal class EndConquest : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "ENDCONQUEST";
         public override int PARAMS_LENGTH => 2;

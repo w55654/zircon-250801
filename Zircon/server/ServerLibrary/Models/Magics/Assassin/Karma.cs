@@ -14,7 +14,6 @@ namespace Server.Models.Magics
 
         public Karma(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override AttackCast AttackCast(MagicType attackType)
@@ -56,7 +55,6 @@ namespace Server.Models.Magics
 
                 return response;
             }
-
 
             return response;
         }

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Library;
+﻿using Library;
 using Library.Network;
-using Server.DBModels;
 using Server.Envir;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -12,7 +10,7 @@ namespace Server.Models.Monsters
     {
         public override bool CanMove => base.CanMove && Visible;
         public override bool CanAttack => base.CanAttack && Visible;
-        
+
         public int WakeRange = 7;
 
         public ZumaGuardian()
@@ -20,7 +18,7 @@ namespace Server.Models.Monsters
             AvoidFireWall = true;
             Visible = false;
         }
-        
+
         public virtual void Wake()
         {
             ActionTime = SEnvir.Now.AddSeconds(1);
@@ -28,12 +26,14 @@ namespace Server.Models.Monsters
 
             Visible = true;
         }
+
         public override int Attacked(MapObject attacker, int power, Element element, bool canReflect = true, bool ignoreShield = false, bool canCrit = true, bool canStruck = true)
         {
             if (!Visible) return 0;
 
             return base.Attacked(attacker, power, element, ignoreShield, ignoreShield, canCrit);
         }
+
         public override void Process()
         {
             base.Process();
@@ -59,9 +59,7 @@ namespace Server.Models.Monsters
                 zuma.Wake();
                 zuma.Target = Target;
             }
-
         }
-        
 
         public override bool ApplyPoison(Poison p)
         {
@@ -72,7 +70,7 @@ namespace Server.Models.Monsters
 
         public override Packet GetInfoPacket(PlayerObject ob)
         {
-            S.ObjectMonster packet = (S.ObjectMonster) base.GetInfoPacket(ob);
+            S.ObjectMonster packet = (S.ObjectMonster)base.GetInfoPacket(ob);
 
             packet.Extra = Visible;
 

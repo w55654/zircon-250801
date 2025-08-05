@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Library;
+using Server.Envir;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
-using Server.Envir;
 
 namespace Server.Models.Monsters
 {
@@ -43,7 +40,6 @@ namespace Server.Models.Monsters
         {
             if (SEnvir.Random.Next(15) == 0)
             {
-
                 for (int i = CurrentMap.Objects.Count - 1; i >= 0; i--)
                 {
                     MonsterObject mob = CurrentMap.Objects[i] as MonsterObject;
@@ -72,12 +68,12 @@ namespace Server.Models.Monsters
                 {
                     if (mapObject.Race != ObjectType.Monster) continue;
 
-                    MonsterObject mob = (MonsterObject) mapObject;
+                    MonsterObject mob = (MonsterObject)mapObject;
 
                     if (mob.MonsterInfo.IsBoss || mob.Dead) continue;
 
                     if (mob.EXPOwner != null && mob.EXPOwner != EXPOwner) continue;
-                    
+
                     if (mob is ChristmasMonster) continue;
 
                     mob.ExtraExperienceRate = Math.Max(mob.ExtraExperienceRate, ExtraExperienceRate);
@@ -85,11 +81,8 @@ namespace Server.Models.Monsters
                     mob.SetHP(0);
                 }
             }
-            
 
             base.Die();
-
-
         }
     }
 }

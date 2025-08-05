@@ -43,9 +43,11 @@ namespace Client.Scenes.Views
                 OnPrimaryCurrencyChanged(oldValue, value);
             }
         }
+
         private CurrencyInfo _PrimaryCurrency;
 
         public event EventHandler<EventArgs> PrimaryCurrencyChanged;
+
         public void OnPrimaryCurrencyChanged(CurrencyInfo oValue, CurrencyInfo nValue)
         {
             if (GameScene.Game.User == null)
@@ -76,9 +78,11 @@ namespace Client.Scenes.Views
                 OnPrimaryCurrencyChanged(oldValue, value);
             }
         }
+
         private CurrencyInfo _SecondaryCurrency;
 
         public event EventHandler<EventArgs> SecondaryCurrencyChanged;
+
         public void OnSecondaryCurrencyChanged(CurrencyInfo oValue, CurrencyInfo nValue)
         {
             if (GameScene.Game.User == null)
@@ -168,7 +172,6 @@ namespace Client.Scenes.Views
 
             Visible = Settings.Visible;
         }
-
 
         #endregion
 
@@ -436,11 +439,11 @@ namespace Client.Scenes.Views
             else
             {
                 //Sell all
-                foreach(DXItemCell itemCell in Grid.Grid)
+                foreach (DXItemCell itemCell in Grid.Grid)
                 {
                     if (itemCell.Item == null) continue;
                     if ((itemCell.Item.Flags & UserItemFlags.Locked) == UserItemFlags.Locked) continue;
-                    
+
                     if (SellableItemTypes.Count > 0 && !SellableItemTypes.Contains(itemCell.Item.Info.ItemType)) continue;
 
                     links.Add(new CellLinkInfo { Count = itemCell.Item.Count, GridType = GridType.Inventory, Slot = itemCell.Slot });
@@ -564,8 +567,11 @@ namespace Client.Scenes.Views
                 OnInventoryModeChanged(oldValue, value);
             }
         }
+
         private InventoryMode _InvMode;
+
         public event EventHandler<EventArgs> InventoryModeChanged;
+
         public void OnInventoryModeChanged(InventoryMode oValue, InventoryMode nValue)
         {
             TrashButton.Visible = false;
@@ -585,6 +591,7 @@ namespace Client.Scenes.Views
                         TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
                     }
                     break;
+
                 case InventoryMode.Sell:
                     {
                         SecondaryCurrencyTitle.Text = "Total";

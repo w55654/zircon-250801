@@ -33,8 +33,11 @@ namespace Client.Scenes.Views
                 OnSelectedInfoChanged(oldValue, value);
             }
         }
+
         private MapInfo _SelectedInfo;
+
         public event EventHandler<EventArgs> SelectedInfoChanged;
+
         public void OnSelectedInfoChanged(MapInfo oValue, MapInfo nValue)
         {
             SelectedInfoChanged?.Invoke(this, EventArgs.Empty);
@@ -153,13 +156,14 @@ namespace Client.Scenes.Views
             Panel.Location = ClientArea.Location;
             Panel.Size = ClientArea.Size;
         }
+
         public override void OnIsVisibleChanged(bool oValue, bool nValue)
         {
             base.OnIsVisibleChanged(oValue, nValue);
 
             SelectedInfo = IsVisible ? GameScene.Game.MapControl.MapInfo : null;
-
         }
+
         public override void OnOpacityChanged(float oValue, float nValue)
         {
             base.OnOpacityChanged(oValue, nValue);
@@ -176,7 +180,6 @@ namespace Client.Scenes.Views
                 Image.ImageOpacity = Opacity;
             }
         }
-
 
         public override WindowType Type => WindowType.None;
         public override bool CustomSize => false;
@@ -221,6 +224,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public override void Draw()
         {
             if (!IsVisible || Size.Width == 0 || Size.Height == 0) return;
@@ -234,6 +238,7 @@ namespace Client.Scenes.Views
             DrawBorder();
             OnAfterDraw();
         }
+
         public void Update(NPCInfo ob)
         {
             if (SelectedInfo == null) return;
@@ -283,9 +288,9 @@ namespace Client.Scenes.Views
             int x = (minX + maxX) / 2;
             int y = (minY + maxY) / 2;
 
-
             control.Location = new Point((int)(ScaleX * x) - control.Size.Width / 2, (int)(ScaleY * y) - control.Size.Height / 2);
         }
+
         public void Update(MovementInfo ob)
         {
             if (ob.SourceRegion == null || ob.SourceRegion.Map != SelectedInfo) return;
@@ -320,7 +325,6 @@ namespace Client.Scenes.Views
             int x = (minX + maxX) / 2;
             int y = (minY + maxY) / 2;
 
-
             DXImageControl control;
             MapInfoObjects[ob] = control = new DXImageControl
             {
@@ -345,6 +349,7 @@ namespace Client.Scenes.Views
             };
             control.Location = new Point((int)(ScaleX * x) - control.Size.Width / 2, (int)(ScaleY * y) - control.Size.Height / 2);
         }
+
         public void Update(ClientObjectData ob)
         {
             if (SelectedInfo == null) return;
@@ -493,7 +498,6 @@ namespace Client.Scenes.Views
 
                 MapInfoObjects.Clear();
                 MapInfoObjects = null;
-
 
                 if (Image != null)
                 {

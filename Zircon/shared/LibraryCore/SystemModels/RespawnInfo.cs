@@ -20,6 +20,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         [IsIdentity]
@@ -36,6 +37,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Region");
             }
         }
+
         private MapRegion _Region;
 
         public bool EventSpawn
@@ -51,8 +53,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "EventSpawn");
             }
         }
+
         private bool _EventSpawn;
-           
+
         public int Delay
         {
             get { return _Delay; }
@@ -66,8 +69,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Delay");
             }
         }
+
         private int _Delay;
-        
+
         public int Count
         {
             get { return _Count; }
@@ -81,6 +85,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Count");
             }
         }
+
         private int _Count;
 
         public int DropSet
@@ -96,6 +101,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "DropSet");
             }
         }
+
         private int _DropSet;
 
         public bool Announce
@@ -111,6 +117,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Announce");
             }
         }
+
         private bool _Announce;
 
         public int EasterEventChance
@@ -126,6 +133,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "EasterEventChance");
             }
         }
+
         private int _EasterEventChance;
 
         public int RespawnIndex
@@ -141,6 +149,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RespawnIndex");
             }
         }
+
         private int _RespawnIndex;
 
         [JsonIgnore]

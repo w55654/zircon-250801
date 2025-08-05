@@ -20,6 +20,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemName");
             }
         }
+
         private string _ItemName;
 
         public ItemType ItemType
@@ -35,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemType");
             }
         }
+
         private ItemType _ItemType;
 
         public RequiredClass RequiredClass
@@ -50,6 +52,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredClass");
             }
         }
+
         private RequiredClass _RequiredClass;
 
         public RequiredGender RequiredGender
@@ -65,6 +68,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredGender");
             }
         }
+
         private RequiredGender _RequiredGender;
 
         public RequiredType RequiredType
@@ -80,6 +84,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredType");
             }
         }
+
         private RequiredType _RequiredType;
 
         public int RequiredAmount
@@ -95,6 +100,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredAmount");
             }
         }
+
         private int _RequiredAmount;
 
         public int Shape
@@ -110,6 +116,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Shape");
             }
         }
+
         private int _Shape;
 
         [JsonIgnore]
@@ -128,6 +135,7 @@ namespace Library.SystemModels
                 ItemEffect = value;
             }
         }
+
         private ItemEffect _Effect;
 
         public ItemEffect ItemEffect
@@ -143,6 +151,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ItemEffect");
             }
         }
+
         private ItemEffect _ItemEffect;
 
         public ExteriorEffect ExteriorEffect
@@ -158,6 +167,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ExteriorEffect");
             }
         }
+
         private ExteriorEffect _ExteriorEffect;
 
         public int Image
@@ -173,6 +183,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Image");
             }
         }
+
         private int _Image;
 
         public int Durability
@@ -188,6 +199,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Durability");
             }
         }
+
         private int _Durability;
 
         public int Price
@@ -203,6 +215,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Price");
             }
         }
+
         private int _Price;
 
         public int Weight
@@ -218,6 +231,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Weight");
             }
         }
+
         private int _Weight;
 
         public int StackSize
@@ -233,6 +247,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StackSize");
             }
         }
+
         private int _StackSize;
 
         public bool StartItem
@@ -248,6 +263,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StartItem");
             }
         }
+
         private bool _StartItem;
 
         public decimal SellRate
@@ -263,6 +279,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SellRate");
             }
         }
+
         private decimal _SellRate;
 
         public bool CanRepair
@@ -278,6 +295,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanRepair");
             }
         }
+
         private bool _CanRepair;
 
         public bool CanSell
@@ -293,6 +311,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanSell");
             }
         }
+
         private bool _CanSell;
 
         public bool CanStore
@@ -308,6 +327,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanStore");
             }
         }
+
         private bool _CanStore;
 
         public bool CanTrade
@@ -323,6 +343,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanTrade");
             }
         }
+
         private bool _CanTrade;
 
         public bool CanDrop
@@ -338,6 +359,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanDrop");
             }
         }
+
         private bool _CanDrop;
 
         public bool CanDeathDrop
@@ -353,8 +375,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanDeathDrop");
             }
         }
+
         private bool _CanDeathDrop;
-        
+
         public string Description
         {
             get { return _Description; }
@@ -368,6 +391,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public Rarity Rarity
@@ -383,6 +407,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Rarity");
             }
         }
+
         private Rarity _Rarity;
 
         public bool CanAutoPot
@@ -398,6 +423,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CanAutoPot");
             }
         }
+
         private bool _CanAutoPot;
 
         public int BuffIcon
@@ -413,6 +439,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "BuffIcon");
             }
         }
+
         private int _BuffIcon;
 
         public int PartCount
@@ -428,6 +455,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "PartCount");
             }
         }
+
         private int _PartCount;
 
         [Association("Set")]
@@ -444,6 +472,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Set");
             }
         }
+
         private SetInfo _Set;
 
         [Association("ItemStats")]
@@ -476,6 +505,7 @@ namespace Library.SystemModels
             CanTrade = true;
             CanDrop = true;
         }
+
         protected internal override void OnLoaded()
         {
             base.OnLoaded();

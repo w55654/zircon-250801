@@ -1,11 +1,11 @@
-﻿using S = Library.Network.ServerPackets;
-using Server.DBModels;
+﻿using Server.DBModels;
 using Server.Envir.Commands.Exceptions;
 using Server.Models;
+using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class ResetDiscipline : AbstractParameterizedCommand<IAdminCommand>
+    internal class ResetDiscipline : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "RESETDISCIPLINE";
         public override int PARAMS_LENGTH => 2;

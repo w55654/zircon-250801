@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Library.Network.ClientPackets
 {
@@ -62,8 +59,8 @@ namespace Library.Network.ClientPackets
         public string CheckSum { get; set; }
     }
 
-    public sealed class Logout : Packet {}
-
+    public sealed class Logout : Packet
+    { }
 
     public sealed class NewCharacter : Packet
     {
@@ -87,7 +84,8 @@ namespace Library.Network.ClientPackets
         public int CharacterIndex { get; set; }
     }
 
-    public sealed class TownRevive : Packet {}
+    public sealed class TownRevive : Packet
+    { }
 
     public sealed class Turn : Packet
     {
@@ -105,10 +103,11 @@ namespace Library.Network.ClientPackets
         public int Distance { get; set; }
     }
 
-    public sealed class Mount : Packet {}
+    public sealed class Mount : Packet
+    { }
 
-    public sealed class FishingCast : Packet 
-    { 
+    public sealed class FishingCast : Packet
+    {
         public FishingState State { get; set; }
         public MirDirection Direction { get; set; }
         public Point FloatLocation { get; set; }
@@ -127,13 +126,13 @@ namespace Library.Network.ClientPackets
         public MirDirection Direction { get; set; }
         public uint Target { get; set; }
         public int DelayedTime { get; set; }
-
     }
+
     public sealed class Mining : Packet
     {
         public MirDirection Direction { get; set; }
     }
-    
+
     public sealed class Magic : Packet
     {
         public MirDirection Direction { get; set; }
@@ -163,7 +162,7 @@ namespace Library.Network.ClientPackets
         public int Slot { get; set; }
     }
 
-    public sealed class ItemSplit : Packet 
+    public sealed class ItemSplit : Packet
     {
         public GridType Grid { get; set; }
         public int Slot { get; set; }
@@ -210,7 +209,8 @@ namespace Library.Network.ClientPackets
         public bool Enabled { get; set; }
     }
 
-    public sealed class PickUp : Packet {}
+    public sealed class PickUp : Packet
+    { }
 
     public sealed class Chat : Packet
     {
@@ -246,13 +246,11 @@ namespace Library.Network.ClientPackets
     public sealed class NPCSell : Packet
     {
         public List<CellLinkInfo> Links { get; set; }
-
     }
 
     public sealed class NPCFragment : Packet
     {
         public List<CellLinkInfo> Links { get; set; }
-
     }
 
     public sealed class NPCRepair : Packet
@@ -270,6 +268,7 @@ namespace Library.Network.ClientPackets
         public List<CellLinkInfo> Items { get; set; }
         public List<CellLinkInfo> Specials { get; set; }
     }
+
     public sealed class NPCMasterRefine : Packet
     {
         public RefineType RefineType { get; set; }
@@ -279,6 +278,7 @@ namespace Library.Network.ClientPackets
         public List<CellLinkInfo> Stones { get; set; }
         public List<CellLinkInfo> Specials { get; set; }
     }
+
     public sealed class NPCMasterRefineEvaluate : Packet
     {
         public RefineType RefineType { get; set; }
@@ -288,6 +288,7 @@ namespace Library.Network.ClientPackets
         public List<CellLinkInfo> Stones { get; set; }
         public List<CellLinkInfo> Specials { get; set; }
     }
+
     public sealed class NPCRefinementStone : Packet
     {
         public List<CellLinkInfo> IronOres { get; set; }
@@ -312,6 +313,7 @@ namespace Library.Network.ClientPackets
         public CellLinkInfo Target { get; set; }
         public List<CellLinkInfo> Links { get; set; }
     }
+
     public sealed class NPCAccessoryUpgrade : Packet
     {
         public CellLinkInfo Target { get; set; }
@@ -387,13 +389,13 @@ namespace Library.Network.ClientPackets
         public Stat Stat { get; set; }
     }
 
-
     public sealed class MarketPlaceHistory : Packet
     {
         public int Index { get; set; }
         public int Display { get; set; }
         public int PartIndex { get; set; }
     }
+
     public sealed class MarketPlaceConsign : Packet
     {
         public CellLinkInfo Link { get; set; }
@@ -403,6 +405,7 @@ namespace Library.Network.ClientPackets
         public string Message { get; set; }
         public bool GuildFunds { get; set; }
     }
+
     public sealed class MarketPlaceSearch : Packet
     {
         public string Name { get; set; }
@@ -412,21 +415,25 @@ namespace Library.Network.ClientPackets
 
         public MarketPlaceSort Sort { get; set; }
     }
+
     public sealed class MarketPlaceSearchIndex : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class MarketPlaceCancelConsign : Packet
     {
         public int Index { get; set; }
         public long Count { get; set; }
     }
+
     public sealed class MarketPlaceBuy : Packet
     {
         public long Index { get; set; }
         public long Count { get; set; }
         public bool GuildFunds { get; set; }
     }
+
     public sealed class MarketPlaceStoreBuy : Packet
     {
         public int Index { get; set; }
@@ -434,20 +441,22 @@ namespace Library.Network.ClientPackets
         public bool UseHuntGold { get; set; }
     }
 
-
     public sealed class MailOpened : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class MailGetItem : Packet
     {
         public int Index { get; set; }
         public int Slot { get; set; }
     }
+
     public sealed class MailDelete : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class MailSend : Packet
     {
         public List<CellLinkInfo> Links { get; set; }
@@ -457,11 +466,11 @@ namespace Library.Network.ClientPackets
         public long Gold { get; set; }
     }
 
-
     public sealed class ChangeAttackMode : Packet
     {
         public AttackMode Mode { get; set; }
     }
+
     public sealed class ChangePetMode : Packet
     {
         public PetMode Mode { get; set; }
@@ -473,25 +482,28 @@ namespace Library.Network.ClientPackets
     public sealed class TradeRequest : Packet
     {
     }
+
     public sealed class TradeRequestResponse : Packet
     {
         public bool Accept { get; set; }
     }
+
     public sealed class TradeClose : Packet
     {
-
     }
+
     public sealed class TradeAddGold : Packet
     {
         public long Gold { get; set; }
     }
+
     public sealed class TradeAddItem : Packet
     {
         public CellLinkInfo Cell { get; set; }
     }
+
     public sealed class TradeConfirm : Packet
     {
-
     }
 
     public sealed class GuildCreate : Packet
@@ -501,37 +513,42 @@ namespace Library.Network.ClientPackets
         public int Members { get; set; }
         public int Storage { get; set; }
     }
+
     public sealed class GuildEditNotice : Packet
     {
         public string Notice { get; set; }
     }
+
     public sealed class GuildEditMember : Packet
     {
         public int Index { get; set; }
         public string Rank { get; set; }
         public GuildPermission Permission { get; set; }
-
     }
+
     public sealed class GuildInviteMember : Packet
     {
         public string Name { get; set; }
     }
+
     public sealed class GuildKickMember : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class GuildTax : Packet
     {
         public long Tax { get; set; }
     }
+
     public sealed class GuildIncreaseMember : Packet
     {
-
     }
+
     public sealed class GuildIncreaseStorage : Packet
     {
-
     }
+
     public sealed class GuildResponse : Packet
     {
         public bool Accept { get; set; }
@@ -559,35 +576,35 @@ namespace Library.Network.ClientPackets
 
     public sealed class GuildToggleCastleGates : Packet
     {
-
     }
 
     public sealed class GuildRepairCastleGates : Packet
     {
-
     }
 
     public sealed class GuildRepairCastleGuards : Packet
     {
-
     }
 
     public sealed class QuestAccept : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class QuestComplete : Packet
     {
         public int Index { get; set; }
 
         public int ChoiceIndex { get; set; }
     }
+
     public sealed class QuestTrack : Packet
     {
         public int Index { get; set; }
 
         public bool Track { get; set; }
     }
+
     public sealed class QuestAbandon : Packet
     {
         public int Index { get; set; }
@@ -597,6 +614,7 @@ namespace Library.Network.ClientPackets
     {
         public int Index { get; set; }
     }
+
     public sealed class CompanionAdopt : Packet
     {
         public int Index { get; set; }
@@ -607,10 +625,12 @@ namespace Library.Network.ClientPackets
     {
         public int Index { get; set; }
     }
+
     public sealed class CompanionStore : Packet
     {
         public int Index { get; set; }
     }
+
     public sealed class MarriageResponse : Packet
     {
         public bool Accept { get; set; }
@@ -623,13 +643,13 @@ namespace Library.Network.ClientPackets
 
     public sealed class MarriageTeleport : Packet
     {
-        
     }
 
     public sealed class BlockAdd : Packet
     {
         public string Name { get; set; }
     }
+
     public sealed class BlockRemove : Packet
     {
         public int Index { get; set; }
@@ -681,13 +701,13 @@ namespace Library.Network.ClientPackets
 
     public sealed class JoinStarterGuild : Packet
     {
-        
     }
 
     public sealed class NPCAccessoryReset : Packet
     {
         public CellLinkInfo Cell { get; set; }
     }
+
     public sealed class NPCWeaponCraft : Packet
     {
         public RequiredClass Class { get; set; }
@@ -699,6 +719,7 @@ namespace Library.Network.ClientPackets
         public CellLinkInfo Green { get; set; }
         public CellLinkInfo Grey { get; set; }
     }
+
     public sealed class NPCAccessoryRefine : Packet
     {
         public CellLinkInfo Target { get; set; }
@@ -706,6 +727,7 @@ namespace Library.Network.ClientPackets
         public List<CellLinkInfo> Links { get; set; }
         public RefineType RefineType { get; set; }
     }
+
     public sealed class JoinInstance : Packet
     {
         public int Index { get; set; }
@@ -717,6 +739,7 @@ namespace Library.Network.ClientPackets
         public List<Rarity> FilterRarity { get; set; }
         public List<ItemType> FilterItemType { get; set; }
     }
+
     public sealed class ChangeOnlineState : Packet
     {
         public OnlineState State { get; set; }
@@ -726,6 +749,7 @@ namespace Library.Network.ClientPackets
     {
         public string Name { get; set; }
     }
+
     public sealed class FriendRemove : Packet
     {
         public int Index { get; set; }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using Client.Envir;
+﻿using Client.Envir;
 using Library;
 using SlimDX;
 using SlimDX.Direct3D9;
+using System;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Client.Controls
 {
@@ -27,8 +27,11 @@ namespace Client.Controls
                 OnHasFocusChanged(oldValue, value);
             }
         }
+
         private bool _HasFocus;
+
         public event EventHandler<EventArgs> HasFocusChanged;
+
         public virtual void OnHasFocusChanged(bool oValue, bool nValue)
         {
             UpdateDisplayArea();
@@ -52,8 +55,11 @@ namespace Client.Controls
                 OnPressedChanged(oldValue, value);
             }
         }
+
         private bool _Pressed;
+
         public event EventHandler<EventArgs> PressedChanged;
+
         public virtual void OnPressedChanged(bool oValue, bool nValue)
         {
             UpdateForeColour();
@@ -78,8 +84,11 @@ namespace Client.Controls
                 OnCanBePressedChanged(oldValue, value);
             }
         }
+
         private bool _CanBePressed;
+
         public event EventHandler<EventArgs> CanBePressedChanged;
+
         public virtual void OnCanBePressedChanged(bool oValue, bool nValue)
         {
             CanBePressedChanged?.Invoke(this, EventArgs.Empty);
@@ -102,8 +111,11 @@ namespace Client.Controls
                 OnRightAlignedChanged(oldValue, value);
             }
         }
+
         private bool _RightAligned;
+
         public event EventHandler<EventArgs> RightAlignedChanged;
+
         public virtual void OnRightAlignedChanged(bool oValue, bool nValue)
         {
             RightAlignedChanged?.Invoke(this, EventArgs.Empty);
@@ -126,8 +138,11 @@ namespace Client.Controls
                 OnButtonTypeChanged(oldValue, value);
             }
         }
+
         private ButtonType _ButtonType;
+
         public event EventHandler<EventArgs> ButtonTypeChanged;
+
         public virtual void OnButtonTypeChanged(ButtonType oValue, ButtonType nValue)
         {
             if (Label == null) return;
@@ -136,6 +151,7 @@ namespace Client.Controls
                 case ButtonType.SmallButton:
                     Label.Location = new Point(0, -1);
                     break;
+
                 default:
                     Label.Location = new Point(0, 0);
                     break;
@@ -161,8 +177,11 @@ namespace Client.Controls
                 OnHoverIndexChanged(oldValue, value);
             }
         }
+
         private int _HoverIndex;
+
         public event EventHandler<EventArgs> HoverIndexChanged;
+
         public virtual void OnHoverIndexChanged(int oValue, int nValue)
         {
             TextureValid = false;
@@ -187,8 +206,11 @@ namespace Client.Controls
                 OnPressedIndexChanged(oldValue, value);
             }
         }
+
         private int _PressedIndex;
+
         public event EventHandler<EventArgs> PressedIndexChanged;
+
         public virtual void OnPressedIndexChanged(int oValue, int nValue)
         {
             TextureValid = false;
@@ -207,6 +229,7 @@ namespace Client.Controls
             UpdateForeColour();
             UpdateDisplayArea();
         }
+
         public override void OnDisplayAreaChanged(Rectangle oValue, Rectangle nValue)
         {
             base.OnDisplayAreaChanged(oValue, nValue);
@@ -215,6 +238,7 @@ namespace Client.Controls
 
             Label.Size = DisplayArea.Size;
         }
+
         public override void OnOpacityChanged(float oValue, float nValue)
         {
             base.OnOpacityChanged(oValue, nValue);
@@ -244,7 +268,7 @@ namespace Client.Controls
         }
 
         #region Methods
-        
+
         protected internal override void UpdateDisplayArea()
         {
             Rectangle area = new Rectangle(Location, Size);
@@ -256,6 +280,7 @@ namespace Client.Controls
 
             DisplayArea = area;
         }
+
         protected override void DrawMirTexture()
         {
             Texture texture = null;
@@ -263,7 +288,7 @@ namespace Client.Controls
             if (Library == null)
             {
                 DXManager.SetOpacity(Opacity);
-                
+
                 Surface oldSurface = DXManager.CurrentSurface;
                 DXManager.SetSurface(DXManager.ScratchSurface);
                 DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
@@ -273,18 +298,23 @@ namespace Client.Controls
                     case ButtonType.Default:
                         DrawDefault();
                         break;
+
                     case ButtonType.SelectedTab:
                         DrawSelectedTab();
                         break;
+
                     case ButtonType.DeselectedTab:
                         DrawDeselectedTab();
                         break;
+
                     case ButtonType.SmallButton:
                         DrawSmallButton();
                         break;
+
                     case ButtonType.AddButton:
                         InterfaceLibrary.Draw(241, 0, 0, Color.White, false, 1F, ImageType.Image);
                         break;
+
                     case ButtonType.RemoveButton:
                         InterfaceLibrary.Draw(242, 0, 0, Color.White, false, 1F, ImageType.Image);
                         break;
@@ -323,12 +353,11 @@ namespace Client.Controls
                 DXManager.SetOpacity(Opacity);
 
             PresentTexture(texture, Parent, DisplayArea, ForeColour, this, 0, Pressed ? 1 : 0);
-            
+
             if (Blend)
                 DXManager.SetBlend(oldBlend, oldRate, BlendMode);
             else
                 DXManager.SetOpacity(1F);
-
         }
 
         public override void OnFocus()
@@ -337,6 +366,7 @@ namespace Client.Controls
 
             HasFocus = true;
         }
+
         public override void OnLostFocus()
         {
             base.OnFocus();
@@ -351,6 +381,7 @@ namespace Client.Controls
             UpdateForeColour();
             UpdateDisplayArea();
         }
+
         public override void OnMouseLeave()
         {
             base.OnMouseLeave();
@@ -380,6 +411,7 @@ namespace Client.Controls
             s = InterfaceLibrary.GetSize(17);
             InterfaceLibrary.Draw(17, Size.Width - s.Width, 0, Color.White, false, 1F, ImageType.Image);
         }
+
         private void DrawSelectedTab()
         {
             Size s = InterfaceLibrary.GetSize(56);
@@ -392,6 +424,7 @@ namespace Client.Controls
             s = InterfaceLibrary.GetSize(57);
             InterfaceLibrary.Draw(57, Size.Width - s.Width, 0, Color.White, false, 1F, ImageType.Image);
         }
+
         private void DrawDeselectedTab()
         {
             Size s = InterfaceLibrary.GetSize(53);
@@ -400,7 +433,6 @@ namespace Client.Controls
             int x = s.Width;
             s = InterfaceLibrary.GetSize(55);
             InterfaceLibrary.Draw(55, x, 0, Color.White, new Rectangle(0, 0, Size.Width - x * 2, s.Height), 1f, ImageType.Image);
-
 
             s = InterfaceLibrary.GetSize(54);
             InterfaceLibrary.Draw(54, Size.Width - s.Width, 0, Color.White, false, 1F, ImageType.Image);
@@ -415,7 +447,6 @@ namespace Client.Controls
             s = InterfaceLibrary.GetSize(43);
             InterfaceLibrary.Draw(43, x, 0, Color.White, new Rectangle(0, 0, Size.Width - x * 2, s.Height), 1f, ImageType.Image);
 
-
             s = InterfaceLibrary.GetSize(42);
             InterfaceLibrary.Draw(42, Size.Width - s.Width, 0, Color.White, false, 1F, ImageType.Image);
         }
@@ -423,6 +454,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -455,6 +487,7 @@ namespace Client.Controls
                 PressedIndexChanged = null;
             }
         }
+
         #endregion
     }
 

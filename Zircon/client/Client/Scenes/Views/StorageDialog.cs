@@ -239,6 +239,7 @@ namespace Client.Scenes.Views
                 ItemTypeComboBox.ListBox.SelectItem(null);
                 ItemNameTextBox.TextBox.Text = string.Empty;
             };
+
             #endregion
 
             StorageTab = new DXTab
@@ -372,13 +373,11 @@ namespace Client.Scenes.Views
                 return;
             }
 
-
             if (ItemTypeComboBox.SelectedItem != null && cell.Item != null && cell.Item.Info.ItemType != (ItemType)ItemTypeComboBox.SelectedItem)
             {
                 cell.Enabled = false;
                 return;
             }
-
 
             if (!string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text) && cell.Item != null && cell.Item.Info.ItemName.IndexOf(ItemNameTextBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
             {
@@ -386,19 +385,16 @@ namespace Client.Scenes.Views
                 return;
             }
 
-
             cell.Enabled = true;
         }
 
         public void FilterPartsCell(DXItemCell cell)
         {
-
             if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text)))
             {
                 cell.Enabled = false;
                 return;
             }
-
 
             if (ItemTypeComboBox.SelectedItem != null && cell.Item != null && cell.Item.Info.ItemType != (ItemType)ItemTypeComboBox.SelectedItem)
             {
@@ -419,7 +415,6 @@ namespace Client.Scenes.Views
 
             if (cell.Item != null && (cell.Item.Info.PartCount <= cell.Item.Count))
                 cell.Opacity = 0.8f;
-
 
             cell.Enabled = true;
         }

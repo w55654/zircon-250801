@@ -13,7 +13,6 @@ namespace Server.Models.Magics
 
         public ThunderStrike(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetShock(int shock, Stats stats = null)

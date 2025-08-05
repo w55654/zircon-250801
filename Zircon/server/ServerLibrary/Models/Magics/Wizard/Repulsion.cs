@@ -13,7 +13,6 @@ namespace Server.Models.Magics
 
         public Repulsion(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -37,7 +36,7 @@ namespace Server.Models.Magics
         public override void MagicComplete(params object[] data)
         {
             Cell cell = (Cell)data[1];
-            var direction = (MirDirection)data[2]; 
+            var direction = (MirDirection)data[2];
 
             if (cell?.Objects == null) return;
 

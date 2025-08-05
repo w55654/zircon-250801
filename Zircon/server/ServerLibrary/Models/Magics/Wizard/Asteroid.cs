@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public Asteroid(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetBurn(int burn, Stats stats = null)
@@ -108,7 +107,7 @@ namespace Server.Models.Magics
                 MapObject ob = cell.Objects[i];
                 if (!Player.CanAttackTarget(ob)) continue;
 
-                var damage =Player.MagicAttack(new List<MagicType> { Type }, ob, true);
+                var damage = Player.MagicAttack(new List<MagicType> { Type }, ob, true);
 
                 if (damage > 0)
                 {

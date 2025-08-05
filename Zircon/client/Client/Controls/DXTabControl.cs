@@ -11,7 +11,7 @@ namespace Client.Controls
     public class DXTabControl : DXControl
     {
         #region Properties
-        
+
         #region SelectedTab
 
         public DXTab SelectedTab
@@ -27,8 +27,11 @@ namespace Client.Controls
                 OnSelectedTabChanged(oldValue, value);
             }
         }
+
         private DXTab _SelectedTab;
+
         public event EventHandler<EventArgs> SelectedTabChanged;
+
         public virtual void OnSelectedTabChanged(DXTab oValue, DXTab nValue)
         {
             SelectedTabChanged?.Invoke(this, EventArgs.Empty);
@@ -43,6 +46,7 @@ namespace Client.Controls
         #endregion
 
         #region MarginLeft
+
         public int MarginLeft
         {
             get => _MarginLeft;
@@ -56,17 +60,22 @@ namespace Client.Controls
                 OnMarginLeftChanged(oldValue, value);
             }
         }
+
         private int _MarginLeft;
+
         public event EventHandler<EventArgs> MarginLeftChanged;
+
         public virtual void OnMarginLeftChanged(int oValue, int nValue)
         {
             MarginLeftChanged?.Invoke(this, EventArgs.Empty);
 
             TabsChanged();
         }
+
         #endregion
 
         #region Padding
+
         public int Padding
         {
             get => _Padding;
@@ -80,14 +89,18 @@ namespace Client.Controls
                 OnPaddingChanged(oldValue, value);
             }
         }
+
         private int _Padding = 1;
+
         public event EventHandler<EventArgs> PaddingChanged;
+
         public virtual void OnPaddingChanged(int oValue, int nValue)
         {
             PaddingChanged?.Invoke(this, EventArgs.Empty);
 
             TabsChanged();
         }
+
         #endregion
 
         public List<DXButton> TabButtons = new List<DXButton>();
@@ -108,6 +121,7 @@ namespace Client.Controls
             }
             TabsChanged();
         }
+
         #endregion
 
         public DXTabControl()
@@ -116,7 +130,7 @@ namespace Client.Controls
         }
 
         #region Methods
-        
+
         public void SetNewTab()
         {
             if (IsDisposed) return;
@@ -134,7 +148,7 @@ namespace Client.Controls
 
             _SelectedTab = null;
         }
-        
+
         public void TabsChanged()
         {
             if (SelectedTab == null)
@@ -144,7 +158,7 @@ namespace Client.Controls
                     DXTab tab = control as DXTab;
 
                     if (tab == null || tab == SelectedTab) continue;
-                    
+
                     SelectedTab = tab;
                     break;
                 }
@@ -167,18 +181,16 @@ namespace Client.Controls
                 x += control.Size.Width + Padding;
             }
 
-
             foreach (DXButton control in TabButtons)
             {
                 if (!control.Visible) continue;
 
                 if (!control.RightAligned) continue;
 
-            //    control.Visible = true;
+                //    control.Visible = true;
                 control.Location = new Point(Size.Width - width, 0);
                 width -= control.Size.Width + 1;
             }
-
         }
 
         #endregion
@@ -227,8 +239,11 @@ namespace Client.Controls
                 OnCurrentTabControlChanged(oldValue, value);
             }
         }
+
         private DXTabControl _CurrentTabControl;
+
         public event EventHandler<EventArgs> CurrentTabControlChanged;
+
         public virtual void OnCurrentTabControlChanged(DXTabControl oValue, DXTabControl nValue)
         {
             if (oValue?.SelectedTab == this)
@@ -263,8 +278,11 @@ namespace Client.Controls
                 OnDrawOtherBorderChanged(oldValue, value);
             }
         }
+
         private bool _DrawOtherBorder;
+
         public event EventHandler<EventArgs> DrawOtherBorderChanged;
+
         public virtual void OnDrawOtherBorderChanged(bool oValue, bool nValue)
         {
             DrawOtherBorderChanged?.Invoke(this, EventArgs.Empty);
@@ -287,8 +305,11 @@ namespace Client.Controls
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public virtual void OnSelectedChanged(bool oValue, bool nValue)
         {
             if (Selected)
@@ -326,6 +347,7 @@ namespace Client.Controls
         #endregion
 
         #region MinimumTabWidth
+
         public int MinimumTabWidth
         {
             get => _MinimumTabWidth;
@@ -339,8 +361,11 @@ namespace Client.Controls
                 OnMinimumTabWidthChanged(oldValue, value);
             }
         }
+
         private int _MinimumTabWidth;
+
         public event EventHandler<EventArgs> MinimumTabWidthChanged;
+
         public virtual void OnMinimumTabWidthChanged(int oValue, int nValue)
         {
             MinimumTabWidthChanged?.Invoke(this, EventArgs.Empty);
@@ -350,6 +375,7 @@ namespace Client.Controls
                 TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Font, TabButton.Label.Outline).Width), TabHeight);
             }
         }
+
         #endregion
 
         public DXButton TabButton { get; private set; }
@@ -424,10 +450,10 @@ namespace Client.Controls
             }
 
             base.OnSizeChanged(oValue, nValue);
-
         }
+
         #endregion
-        
+
         public DXTab()
         {
             Location = new Point(0, TabHeight - 1);
@@ -459,6 +485,7 @@ namespace Client.Controls
         }
 
         #region Methods
+
         private void TabButton_IsMovingChanged(object sender, EventArgs e)
         {
             if (!IsMoving)
@@ -478,7 +505,7 @@ namespace Client.Controls
                     {
                         Parent = TabButton.Parent.Parent,
                         Location = new Point(TabButton.DisplayArea.X - ActiveScene.Location.X, TabButton.DisplayArea.Y - ActiveScene.Location.Y),
-                        Visible =  true,
+                        Visible = true,
 
                         PassThrough = TabButton.Parent.PassThrough,
                         Size = TabButton.Parent.Size,
@@ -495,7 +522,6 @@ namespace Client.Controls
 
                 TabButton.Tag = null;
                 Size = new Size(Parent.Size.Width - Location.X, Parent.Size.Height - Location.Y);
-
             }
         }
 
@@ -522,7 +548,7 @@ namespace Client.Controls
 
                 if (!(oldParent is DXTabControl))
                     oldParent.Dispose();
-                //FOUND 
+                //FOUND
 
                 //Visible = tab == Parent;
                 Parent = tab;
@@ -544,7 +570,6 @@ namespace Client.Controls
 
                     if (tab.TabButtons[i] == TabButton) return; //IF SAME PARENT
 
-
                     tab.TabButtons.Remove(TabButton);
                     tab.TabButtons.Insert(i, TabButton);
                     Updating = true;
@@ -552,7 +577,6 @@ namespace Client.Controls
                     Updating = false;
                     break;
                 }
-
 
                 return;
             }
@@ -562,7 +586,6 @@ namespace Client.Controls
                 Parent.Location = new Point(TabButton.DisplayArea.X - ActiveScene.Location.X, TabButton.DisplayArea.Y - ActiveScene.Location.Y);
                 return;
             }
-
 
             DXControl panel = new DXLabel
             {
@@ -578,7 +601,6 @@ namespace Client.Controls
 
             OldOpacity = Opacity;
             Opacity = 0.5F;
-
         }
 
         protected internal override void UpdateBorderInformation()
@@ -630,6 +652,7 @@ namespace Client.Controls
 
             DXManager.SetOpacity(oldOpacity);
         }
+
         public void DrawEdges()
         {
             InterfaceLibrary.Draw(25, 0, 0, Color.White, false, 1F, ImageType.Image);
@@ -658,6 +681,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             (Parent as DXTabControl)?.SetNewTab();
@@ -666,7 +690,6 @@ namespace Client.Controls
 
             if (disposing)
             {
-
                 if (TabButton != null)
                 {
                     if (!TabButton.IsDisposed)
@@ -682,12 +705,12 @@ namespace Client.Controls
                 _CurrentTabControl = null;
                 _Selected = false;
 
-
                 SelectedChanged = null;
                 DrawOtherBorderChanged = null;
                 CurrentTabControlChanged = null;
             }
         }
+
         #endregion
     }
 }

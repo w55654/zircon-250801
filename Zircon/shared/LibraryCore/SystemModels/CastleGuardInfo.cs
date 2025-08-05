@@ -1,11 +1,4 @@
-﻿using Library.SystemModels;
-using Library;
-using MirDB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -26,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Castle");
             }
         }
+
         private CastleInfo _Castle;
 
         [IsIdentity]
@@ -42,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Monster");
             }
         }
+
         private MonsterInfo _Monster;
 
         [IsIdentity]
@@ -58,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "X");
             }
         }
+
         private int _X;
 
         [IsIdentity]
@@ -74,6 +70,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Y");
             }
         }
+
         private int _Y;
 
         public MirDirection Direction
@@ -89,6 +86,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Direction");
             }
         }
+
         private MirDirection _Direction;
 
         public int RepairCost
@@ -104,6 +102,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RepairCost");
             }
         }
+
         private int _RepairCost;
     }
 }

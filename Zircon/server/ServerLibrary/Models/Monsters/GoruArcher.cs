@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -15,7 +11,6 @@ namespace Server.Models.Monsters
 
         public override int Attacked(MapObject attacker, int power, Element element, bool canReflect = true, bool ignoreShield = false, bool canCrit = true, bool canStruck = true)
         {
-
             int result = base.Attacked(attacker, power, element, canReflect, ignoreShield, canCrit);
 
             if (result < 0 || Dead || !CanTeleport || CurrentHP > Stats[Stat.Health] / 2) return result;
@@ -27,9 +22,9 @@ namespace Server.Models.Monsters
             return result;
         }
 
-
         public DateTime TeleportTime { get; set; }
         public bool Bonus;
+
         public override void ProcessTarget()
         {
             if (Target == null) return;
@@ -65,6 +60,7 @@ namespace Server.Models.Monsters
 
             base.ProcessTarget();
         }
+
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);

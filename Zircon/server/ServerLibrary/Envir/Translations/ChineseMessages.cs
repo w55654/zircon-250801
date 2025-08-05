@@ -7,7 +7,6 @@ namespace Server.Envir.Translations
     {
         public override string BannedWrongPassword { get; set; } = "错误密码登录尝试次数太多";
 
-
         public override string PaymentComplete { get; set; } = "你成功购买{0}游戏币";
         public override string PaymentFailed { get; set; } = "你因为支付失败被扣除{0}游戏币";
         public override string ReferralPaymentComplete { get; set; } = "你推荐的一个用户购买了游戏币，你因此获得{0}赏金奖励";
@@ -15,7 +14,6 @@ namespace Server.Envir.Translations
         public override string GameGoldLost { get; set; } = "你被移除{0}游戏币";
         public override string GameGoldRefund { get; set; } = "你获得{0}游戏币返还";
         public override string HuntGoldRefund { get; set; } = "你获得{0}赏金返还";
-
 
         public override string Welcome { get; set; } = "欢迎来到传奇3，请开启你的游戏之旅吧！";
         public override string WelcomeObserver { get; set; } = "你正在使用观察者模式观看{0}的视角，想要退出观察者模式请退出登录";
@@ -56,7 +54,6 @@ namespace Server.Envir.Translations
         public override string NeedMonster { get; set; } = "入口被封印了...";
         public override string NeedClass { get; set; } = "You need to be class {0} to proceed.";
 
-
         public override string ConquestStarted { get; set; } = "{0}攻城战开始了";
         public override string ConquestFinished { get; set; } = "{0}攻城战结束了";
         public override string ConquestCapture { get; set; } = "{0}占领了{1}";
@@ -65,7 +62,6 @@ namespace Server.Envir.Translations
         public override string ConquestTakingFlag { get; set; } = "{0} is taking the flag for {1}. They must hold it for {2} seconds.";
         public override string ConquestPreventingFlag { get; set; } = "{0} is preventing {1} from taking the flag for {2}.";
         public override string ConquestNotTakingFlag { get; set; } = "{0} is no longer taking the flag for {1}.";
-
 
         public override string BossSpawn { get; set; } = "领主刷新在{0}";
         public override string HarvestRare { get; set; } = "有价值的珍稀物品需要在{0}的尸体里挖取";
@@ -76,7 +72,6 @@ namespace Server.Envir.Translations
         public override string HarvestOwner { get; set; } = "你无法挖取当前怪物尸体";
         public override string LairGateOpen { get; set; } = "赤龙石门开启，地图：{0}，坐标：{1}";
         public override string LairGateClosed { get; set; } = "赤龙石门关闭";
-
 
         public override string Expired { get; set; } = "你的{0}失效了";
         public override string CannotTownTeleport { get; set; } = "无法传送到该地图";
@@ -93,7 +88,6 @@ namespace Server.Envir.Translations
         public override string CompanionNoRoom { get; set; } = "你的宠物已经无法携带更多物品";
         public override string StorageLimit { get; set; } = "你不能再扩展存储空间了";
         public override string NotEnoughBagSpaceAvailable { get; set; } = "行李空间不足";
-
 
         public override string MarryAlreadyMarried { get; set; } = "你已经结婚了";
         public override string MarryNeedLevel { get; set; } = "你需要达到22级才能结婚";
@@ -115,7 +109,6 @@ namespace Server.Envir.Translations
         public override string MarryTeleportMap { get; set; } = "你配偶所在的区域拒绝夫妻传送，无法传送到你的配偶身边";
         public override string MarryTeleportMapEscape { get; set; } = "你所在的区域拒绝夫妻传送";
 
-
         public override string CompanionAppearanceAlready { get; set; } = "新的宠物{0}已经可以领养";
         public override string CompanionNeedTicket { get; set; } = "你需要在商城购买一张宠物解锁券来解锁这只新宠物";
         public override string CompanionSkillEnabled { get; set; } = "宠物可以使用{0}级的技能";
@@ -127,7 +120,6 @@ namespace Server.Envir.Translations
         public override string QuestSelectReward { get; set; } = "你必须选择任务奖励";
         public override string QuestNeedSpace { get; set; } = "无法完成任务，你的背包空间不足";
 
-
         public override string MailSafeZone { get; set; } = "无法从邮件中获得物品，你不在安全区";
         public override string MailNeedSpace { get; set; } = "无法从邮件中获得物品，背包空间不足";
         public override string MailHasItems { get; set; } = "无法删除包含附件物品的邮件";
@@ -136,7 +128,6 @@ namespace Server.Envir.Translations
         public override string MailStorageFull { get; set; } = "收件箱已满无法接收更多的信件了.";
         public override string MailMailCost { get; set; } = "金币不足无法发送邮件";
         public override string MailSendSafeZone { get; set; } = "你不在安全区无法发送带有附件物品的邮件";
-
 
         public override string ConsignSafeZone { get; set; } = "你必须在安全区内才可以寄售物品";
         public override string ConsignLimit { get; set; } = "你已达到最大寄售数量";
@@ -155,11 +146,9 @@ namespace Server.Envir.Translations
         public override string ConsignBuyGuildFundsUsed { get; set; } = "{0}使用{1:#,##0}行会基金购买了{2}x{3}";
         public override string ConsignBuyCost { get; set; } = "你买不起这商品";
 
-
         public override string StoreNotAvailable { get; set; } = "你无法购买此商品，该商品已经下架或者售出";
         public override string StoreNeedSpace { get; set; } = "你不能携带更多商品，你的包裹空间不足";
         public override string StoreCost { get; set; } = "你买不起这商品";
-
 
         public override string GuildNeedHorn { get; set; } = "创建公会失败，你没有沃玛号角";
         public override string GuildNeedGold { get; set; } = "创建公会失败，你没有足够的金币";
@@ -228,7 +217,6 @@ namespace Server.Envir.Translations
         public override string GroupRecallFromMap { get; set; } = "你所在的地图无法使用天地合一";
         public override string GroupRecallMemberFromMap { get; set; } = "{0}无法从该地图天地合一传送出去";
 
-
         public override string TradeAlreadyTrading { get; set; } = "你已经在和别人交易了";
         public override string TradeAlreadyHaveRequest { get; set; } = "你已经申请交易";
         public override string TradeNeedFace { get; set; } = "你需要面对玩家来申请交易";
@@ -248,7 +236,6 @@ namespace Server.Envir.Translations
         public override string TradeFailedPartnerItemsChanged { get; set; } = "{0}的物品更换，交易取消";
         public override string TradeNotEnoughSpace { get; set; } = "你不能携带更多的物品，请整理背包然后在申请交易";
         public override string TradeComplete { get; set; } = "交易完成";
-
 
         public override string NPCFundsGuild { get; set; } = "你无法使用行会基金，因为你还没有行会";
         public override string NPCFundsPermission { get; set; } = "你无法使用行会基金，因为你没有权限";

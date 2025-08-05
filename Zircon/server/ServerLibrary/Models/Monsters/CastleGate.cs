@@ -41,7 +41,7 @@ namespace Server.Models.Monsters
             Castle = castle;
             GateInfo = gateInfo;
 
-            if (castle == null ||  gateInfo == null)
+            if (castle == null || gateInfo == null)
             {
                 return false;
             }
@@ -60,7 +60,6 @@ namespace Server.Models.Monsters
 
         public override void ProcessRegen()
         {
-
         }
 
         protected override void OnSpawned()
@@ -77,6 +76,7 @@ namespace Server.Models.Monsters
                         new Point(0, -1),
                     };
                     break;
+
                 case 2:// South Pointing Castle
                     BlockArray = new Point[]
                     {
@@ -87,6 +87,7 @@ namespace Server.Models.Monsters
                         new Point(1, 0),
                     };
                     break;
+
                 case 3:// East Pointing Castle
                     BlockArray = new Point[]
                     {
@@ -189,9 +190,11 @@ namespace Server.Models.Monsters
             return base.Attacked(attacker, power, element, canReflect, ignoreShield, canCrit, canStruck);
         }
 
-        public override void Turn(MirDirection dir) { }
+        public override void Turn(MirDirection dir)
+        { }
 
-        public override bool Walk(MirDirection dir) { return false; }
+        public override bool Walk(MirDirection dir)
+        { return false; }
 
         public override void Die()
         {

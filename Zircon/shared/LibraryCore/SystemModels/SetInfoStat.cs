@@ -1,5 +1,4 @@
 ﻿using MirDB;
-using System.Text.Json.Serialization;
 
 namespace Library.SystemModels
 {
@@ -20,6 +19,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Set");
             }
         }
+
         private SetInfo _Set;
 
         [IsIdentity]
@@ -36,6 +36,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -51,6 +52,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
 
         [IsIdentity]
@@ -67,6 +69,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Class");
             }
         }
+
         private RequiredClass _Class;
 
         [IsIdentity]
@@ -83,8 +86,8 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Level");
             }
         }
-        private int _Level;
 
+        private int _Level;
 
         protected internal override void OnCreated()
         {

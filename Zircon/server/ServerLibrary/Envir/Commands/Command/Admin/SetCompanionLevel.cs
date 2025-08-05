@@ -4,7 +4,7 @@ using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class SetCompanionLevel : AbstractParameterizedCommand<IAdminCommand>
+    internal class SetCompanionLevel : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "SETCOMPANIONLEVEL";
         public override int PARAMS_LENGTH => 2;

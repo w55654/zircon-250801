@@ -1,19 +1,15 @@
 ﻿using Library;
+using MirDB;
 using Server.DBModels;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
-using G = Library.Network.GeneralPackets;
-using S = Library.Network.ServerPackets;
-using C = Library.Network.ClientPackets;
-using System.Net.Http;
-using MirDB;
-using System.IO.Compression;
 
 namespace Server.Envir
 {
@@ -90,8 +86,6 @@ namespace Server.Envir
                 IPNListener.Start();
                 IPNListener.BeginGetContext(IPNConnection, null);
 
-
-
                 WebServerStarted = true;
 
                 if (log) SEnvir.Log("Web Server Started.");
@@ -126,7 +120,6 @@ namespace Server.Envir
             HttpListener expiredIPNListener = IPNListener;
             IPNListener = null;
 
-
             WebServerStarted = false;
             expiredWebListener?.Stop();
             expiredBuyListener?.Stop();
@@ -148,12 +141,15 @@ namespace Server.Envir
                     case ActivationCommand:
                         Activation(context);
                         break;
+
                     case ResetCommand:
                         ResetPassword(context);
                         break;
+
                     case DeleteCommand:
                         DeleteAccount(context);
                         break;
+
                     case SystemDBSyncCommand:
                         SystemDBSync(context);
                         break;
@@ -354,7 +350,6 @@ namespace Server.Envir
                 if (BuyListener != null && BuyListener.IsListening) //IsBound ?
                     BuyListener.BeginGetContext(BuyConnection, null);
             }
-
         }
         private static void IPNConnection(IAsyncResult result)
         {
@@ -371,7 +366,6 @@ namespace Server.Envir
                 string rawMessage;
                 using (StreamReader readStream = new StreamReader(context.Request.InputStream, Encoding.UTF8))
                     rawMessage = readStream.ReadToEnd();
-
 
                 Task.Run(async () =>
                 {
@@ -424,10 +418,12 @@ namespace Server.Envir
                 {
                     case CommandType.None:
                         break;
+
                     case CommandType.Activation:
                         webCommand.Account.Activated = true;
                         webCommand.Account.ActivationKey = string.Empty;
                         break;
+
                     case CommandType.PasswordReset:
                         string password = Functions.RandomString(SEnvir.Random, 10);
 
@@ -436,6 +432,7 @@ namespace Server.Envir
                         webCommand.Account.WrongPasswordCount = 0;
                         EmailService.SendResetPasswordEmail(webCommand.Account, password);
                         break;
+
                     case CommandType.AccountDelete:
                         if (webCommand.Account.Activated) continue;
 

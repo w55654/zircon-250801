@@ -10,7 +10,6 @@ namespace Server.Models.Magics
 
         public AugmentNeutralize(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
     }
 }

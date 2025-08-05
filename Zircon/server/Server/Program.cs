@@ -1,22 +1,22 @@
-﻿using System;
-using System.Runtime;
-using System.Windows.Forms;
-using DevExpress.UserSkins;
+﻿using DevExpress.LookAndFeel;
 using DevExpress.Skins;
-using DevExpress.LookAndFeel;
+using DevExpress.UserSkins;
 using Library;
 using Server.Envir;
+using System;
 using System.Reflection;
+using System.Runtime;
+using System.Windows.Forms;
 
 namespace Server
 {
-    static class Program
+    internal static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             var assembly = Assembly.GetAssembly(typeof(Config));
             ConfigReader.Load(assembly);
@@ -37,6 +37,5 @@ namespace Server
 
             ConfigReader.Save(typeof(Config).Assembly);
         }
-
     }
 }

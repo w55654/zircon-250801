@@ -20,6 +20,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         [Association("FriendedBy")]
@@ -36,6 +37,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FriendedCharacter");
             }
         }
+
         private CharacterInfo _FriendedCharacter;
 
         public string FriendName
@@ -51,6 +53,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "FriendName");
             }
         }
+
         private string _FriendName;
 
         protected override void OnDeleted()

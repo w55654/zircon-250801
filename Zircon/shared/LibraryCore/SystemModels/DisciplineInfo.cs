@@ -1,7 +1,4 @@
 ﻿using MirDB;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Library.SystemModels
 {
@@ -21,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public int RequiredLevel
@@ -36,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredLevel");
             }
         }
+
         private int _RequiredLevel;
 
         public long RequiredExperience
@@ -51,6 +50,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredExperience");
             }
         }
+
         private long _RequiredExperience;
 
         public int RequiredGold
@@ -66,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredGold");
             }
         }
+
         private int _RequiredGold;
 
         public int FocusPoints
@@ -81,6 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "FocusPoints");
             }
         }
+
         private int _FocusPoints;
     }
 }

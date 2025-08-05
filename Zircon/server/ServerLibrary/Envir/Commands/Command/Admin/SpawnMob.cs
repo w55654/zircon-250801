@@ -4,7 +4,7 @@ using Server.Models;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class SpawnMonster : AbstractParameterizedCommand<IAdminCommand>
+    internal class SpawnMonster : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "MONSTER";
         public override int PARAMS_LENGTH => 2;

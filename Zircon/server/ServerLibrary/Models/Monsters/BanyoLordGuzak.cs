@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
 
 namespace Server.Models.Monsters
 {
@@ -40,10 +36,10 @@ namespace Server.Models.Monsters
                     mob.Despawn();
                 }
 
-
                 SpawnMinions(5 - MinionList.Count, 0, Target);
             }
         }
+
         public override bool SpawnMinion(MonsterObject mob)
         {
             return mob.Spawn(CurrentMap, CurrentMap.GetRandomLocation(CurrentLocation, 10));

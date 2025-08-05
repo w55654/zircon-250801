@@ -94,7 +94,6 @@ namespace Library
             MinRealNameLength = 3,
             MaxRealNameLength = 20,
 
-
             MinCaptionLength = 3,
             MaxCaptionLength = 25,
 
@@ -453,6 +452,7 @@ namespace Library
 
         //Server settings
         public bool StruckEnabled { get; set; }
+
         public bool HermitEnabled { get; set; }
 
         [CompleteObject]
@@ -493,7 +493,6 @@ namespace Library
         public UserItemFlags Flags { get; set; }
         public TimeSpan ExpireTime { get; set; }
 
-
         [IgnorePropertyPacket]
         public int Weight
         {
@@ -504,6 +503,7 @@ namespace Library
                     case ItemType.Poison:
                     case ItemType.Amulet:
                         return Info.Weight;
+
                     default:
                         return (int)Math.Min(int.MaxValue, Info.Weight * Count);
                 }
@@ -519,7 +519,8 @@ namespace Library
             NextReset = Time.Now + ResetCoolDown;
         }
 
-        public ClientUserItem() { }
+        public ClientUserItem()
+        { }
 
         public ClientUserItem(ItemInfo info, long count)
         {
@@ -602,9 +603,8 @@ namespace Library
             p = p * (AddedStats.Count * 0.1M + 1M);
 
             return (int)(p * Count - Price(Count)) * rate;
-
-
         }
+
         public bool CanAccessoryUpgrade()
         {
             switch (Info.ItemType)
@@ -613,12 +613,13 @@ namespace Library
                 case ItemType.Bracelet:
                 case ItemType.Necklace:
                     break;
-                default: return false;
 
+                default: return false;
             }
 
             return (Flags & UserItemFlags.NonRefinable) != UserItemFlags.NonRefinable && (Flags & UserItemFlags.Refinable) == UserItemFlags.Refinable;
         }
+
         public bool CanFragment()
         {
             if ((Flags & UserItemFlags.NonRefinable) == UserItemFlags.NonRefinable || (Flags & UserItemFlags.Worthless) == UserItemFlags.Worthless) return false;
@@ -628,8 +629,10 @@ namespace Library
                 case Rarity.Common:
                     if (Info.RequiredAmount <= 15) return false;
                     break;
+
                 case Rarity.Superior:
                     break;
+
                 case Rarity.Elite:
                     break;
             }
@@ -644,12 +647,14 @@ namespace Library
                 case ItemType.Ring:
                 case ItemType.Shoes:
                     break;
+
                 default:
                     return false;
             }
 
             return true;
         }
+
         public int FragmentCost()
         {
             switch (Info.Rarity)
@@ -700,14 +705,18 @@ namespace Library
                         case ItemType.Weapon:
                         case ItemType.Armour:
                             return 250000;
+
                         case ItemType.Helmet:
                             return 50000;
+
                         case ItemType.Necklace:
                         case ItemType.Bracelet:
                         case ItemType.Ring:
                             return 150000;
+
                         case ItemType.Shoes:
                             return 30000;
+
                         default:
                             return 0;
                     }
@@ -715,6 +724,7 @@ namespace Library
                     return 0;
             }
         }
+
         public int FragmentCount()
         {
             switch (Info.Rarity)
@@ -732,12 +742,16 @@ namespace Library
                             return Math.Max(1, Info.RequiredAmount / 2 + 5);
                         /*  case ItemType.Helmet:
                               return Math.Max(1, (Info.RequiredAmount - 30) / 6);
+
                           case ItemType.Necklace:
                               return Math.Max(1, Info.RequiredAmount / 8);
+
                           case ItemType.Bracelet:
                               return Math.Max(1, Info.RequiredAmount / 15);
+
                           case ItemType.Ring:
                               return Math.Max(1, Info.RequiredAmount / 9);
+
                           case ItemType.Shoes:
                               return Math.Max(1, (Info.RequiredAmount - 35) / 6);*/
                         default:
@@ -756,12 +770,16 @@ namespace Library
                             return Math.Max(1, Info.RequiredAmount / 2 + 5);
                         /*  case ItemType.Helmet:
                               return Math.Max(1, (Info.RequiredAmount - 30) / 6);
+
                           case ItemType.Necklace:
                               return Math.Max(1, Info.RequiredAmount / 10);
+
                           case ItemType.Bracelet:
                               return Math.Max(1, Info.RequiredAmount / 15);
+
                           case ItemType.Ring:
                               return Math.Max(1, Info.RequiredAmount / 10);
+
                           case ItemType.Shoes:
                               return Math.Max(1, (Info.RequiredAmount - 35) / 6);*/
                         default:
@@ -773,14 +791,18 @@ namespace Library
                         case ItemType.Armour:
                         case ItemType.Weapon:
                             return 50;
+
                         case ItemType.Helmet:
                             return 5;
+
                         case ItemType.Necklace:
                         case ItemType.Bracelet:
                         case ItemType.Ring:
                             return 10;
+
                         case ItemType.Shoes:
                             return 3;
+
                         default:
                             return 0;
                     }
@@ -824,7 +846,6 @@ namespace Library
         public TimeSpan Cooldown { get; set; }
 
         public DateTime NextCast;
-
 
         [IgnorePropertyPacket]
         public int Cost => Info.BaseCost + Level * Info.LevelCost / 3;
@@ -879,7 +900,6 @@ namespace Library
             RetrieveTime = Time.Now + ReadyDuration;
         }
     }
-
 
     public sealed class RankInfo
     {
@@ -980,7 +1000,6 @@ namespace Library
             else
                 LastOnline = Time.Now - Online;
         }
-
     }
 
     public class ClientUserQuest
@@ -1068,7 +1087,6 @@ namespace Library
 
         public ClientUserItem[] EquipmentArray = new ClientUserItem[Globals.CompanionEquipmentSize], InventoryArray = new ClientUserItem[Globals.CompanionInventorySize];
 
-
         [CompleteObject]
         public void OnComplete()
         {
@@ -1082,7 +1100,6 @@ namespace Library
                     EquipmentArray[item.Slot - Globals.EquipmentOffSet] = item;
             }
         }
-
     }
 
     public class ClientPlayerInfo
@@ -1091,6 +1108,7 @@ namespace Library
 
         public string Name { get; set; }
     }
+
     public class ClientObjectData
     {
         public uint ObjectID;
@@ -1102,6 +1120,7 @@ namespace Library
 
         //Guild/Group
         public MonsterInfo MonsterInfo;
+
         public ItemInfo ItemInfo;
 
         public string PetOwner;
@@ -1206,5 +1225,3 @@ namespace Library
         }
     }
 }
-
-

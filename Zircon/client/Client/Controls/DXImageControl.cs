@@ -1,8 +1,7 @@
-﻿using System;
-using System.Drawing;
-using Client.Envir;
+﻿using Client.Envir;
 using Library;
-using SlimDX;
+using System;
+using System.Drawing;
 
 //Cleaned
 namespace Client.Controls
@@ -26,8 +25,11 @@ namespace Client.Controls
                 OnBlendChanged(oldValue, value);
             }
         }
+
         private bool _Blend;
+
         public event EventHandler<EventArgs> BlendChanged;
+
         public virtual void OnBlendChanged(bool oValue, bool nValue)
         {
             BlendChanged?.Invoke(this, EventArgs.Empty);
@@ -50,8 +52,11 @@ namespace Client.Controls
                 OnBlendModeChanged(oldValue, value);
             }
         }
+
         private BlendMode _BlendMode = BlendMode.NORMAL;
+
         public event EventHandler<EventArgs> BlendModeChanged;
+
         public virtual void OnBlendModeChanged(BlendMode oValue, BlendMode nValue)
         {
             BlendModeChanged?.Invoke(this, EventArgs.Empty);
@@ -74,15 +79,18 @@ namespace Client.Controls
                 OnDrawImageChanged(oldValue, value);
             }
         }
+
         private bool _DrawImage;
+
         public event EventHandler<EventArgs> DrawImageChanged;
+
         public virtual void OnDrawImageChanged(bool oValue, bool nValue)
         {
             DrawImageChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
-        
+
         #region FixedSize
 
         public bool FixedSize
@@ -98,8 +106,11 @@ namespace Client.Controls
                 OnFixedSizeChanged(oldValue, value);
             }
         }
+
         private bool _FixedSize;
+
         public event EventHandler<EventArgs> FixedSizeChanged;
+
         public virtual void OnFixedSizeChanged(bool oValue, bool nValue)
         {
             TextureValid = false;
@@ -108,7 +119,6 @@ namespace Client.Controls
         }
 
         #endregion
-
 
         #region Scale
 
@@ -125,8 +135,11 @@ namespace Client.Controls
                 OnScaleChanged(oldValue, value);
             }
         }
+
         private float _Scale = 1.0f;
+
         public event EventHandler<EventArgs> ScaleChanged;
+
         public virtual void OnScaleChanged(float oValue, float nValue)
         {
             TextureValid = false;
@@ -134,7 +147,6 @@ namespace Client.Controls
         }
 
         #endregion
-
 
         #region ImageOpacity
 
@@ -151,15 +163,18 @@ namespace Client.Controls
                 OnImageOpacityChanged(oldValue, value);
             }
         }
+
         private float _ImageOpacity;
+
         public event EventHandler<EventArgs> ImageOpacityChanged;
+
         public virtual void OnImageOpacityChanged(float oValue, float nValue)
         {
             ImageOpacityChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
-        
+
         #region Index
 
         public int Index
@@ -175,8 +190,11 @@ namespace Client.Controls
                 OnIndexChanged(oldValue, value);
             }
         }
+
         private int _Index;
+
         public event EventHandler<EventArgs> IndexChanged;
+
         public virtual void OnIndexChanged(int oValue, int nValue)
         {
             TextureValid = false;
@@ -187,6 +205,7 @@ namespace Client.Controls
         #endregion
 
         #region LibraryFile
+
         public MirLibrary Library;
 
         public LibraryFile LibraryFile
@@ -202,8 +221,11 @@ namespace Client.Controls
                 OnLibraryFileChanged(oldValue, value);
             }
         }
+
         private LibraryFile _LibraryFile;
+
         public event EventHandler<EventArgs> LibraryFileChanged;
+
         public virtual void OnLibraryFileChanged(LibraryFile oValue, LibraryFile nValue)
         {
             CEnvir.LibraryList.TryGetValue(LibraryFile, out Library);
@@ -231,8 +253,11 @@ namespace Client.Controls
                 OnPixelDetectChanged(oldValue, value);
             }
         }
+
         private bool _PixelDetect;
+
         public event EventHandler<EventArgs> PixelDetectChanged;
+
         public virtual void OnPixelDetectChanged(bool oValue, bool nValue)
         {
             PixelDetectChanged?.Invoke(this, EventArgs.Empty);
@@ -255,8 +280,11 @@ namespace Client.Controls
                 OnUseOffSetChanged(oldValue, value);
             }
         }
+
         private bool _UseOffSet;
+
         public event EventHandler<EventArgs> UseOffSetChanged;
+
         public virtual void OnUseOffSetChanged(bool oValue, bool nValue)
         {
             UpdateDisplayArea();
@@ -278,7 +306,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         public DXImageControl()
         {
             DrawImage = true;
@@ -288,6 +316,7 @@ namespace Client.Controls
         }
 
         #region Methods
+
         protected override void DrawControl()
         {
             base.DrawControl();
@@ -296,6 +325,7 @@ namespace Client.Controls
 
             DrawMirTexture();
         }
+
         protected virtual void DrawMirTexture()
         {
             bool oldBlend = DXManager.Blending;
@@ -333,10 +363,10 @@ namespace Client.Controls
             DisplayArea = area;
         }
 
-
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -363,7 +393,7 @@ namespace Client.Controls
                 UseOffSetChanged = null;
             }
         }
+
         #endregion
     }
-
 }

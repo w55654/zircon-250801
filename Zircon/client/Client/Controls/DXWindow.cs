@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Client.Envir;
+using Client.UserModels;
+using Library;
+using SlimDX.Direct3D9;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Client.Envir;
-using Client.UserModels;
-using Library;
-using SlimDX.Direct3D9;
 using Font = System.Drawing.Font;
 
 //Cleaned
@@ -33,8 +33,11 @@ namespace Client.Controls
                 OnHasTopBorderChanged(oldValue, value);
             }
         }
+
         private bool _HasTopBorder;
+
         public event EventHandler<EventArgs> HasTopBorderChanged;
+
         public virtual void OnHasTopBorderChanged(bool oValue, bool nValue)
         {
             HasTopBorderChanged?.Invoke(this, EventArgs.Empty);
@@ -43,7 +46,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         #region HasTitle
 
         public bool HasTitle
@@ -59,8 +62,11 @@ namespace Client.Controls
                 OnHasTitleChanged(oldValue, value);
             }
         }
+
         private bool _HasTitle;
+
         public event EventHandler<EventArgs> HasTitleChanged;
+
         public virtual void OnHasTitleChanged(bool oValue, bool nValue)
         {
             HasTitleChanged?.Invoke(this, EventArgs.Empty);
@@ -87,8 +93,11 @@ namespace Client.Controls
                 OnHasFooterChanged(oldValue, value);
             }
         }
+
         private bool _HasFooter;
+
         public event EventHandler<EventArgs> HasFooterChanged;
+
         public virtual void OnHasFooterChanged(bool oValue, bool nValue)
         {
             HasFooterChanged?.Invoke(this, EventArgs.Empty);
@@ -113,8 +122,11 @@ namespace Client.Controls
                 OnClientAreaChanged(oldValue, value);
             }
         }
+
         private Rectangle _ClientArea;
+
         public event EventHandler<EventArgs> ClientAreaChanged;
+
         public virtual void OnClientAreaChanged(Rectangle oValue, Rectangle nValue)
         {
             ClientAreaChanged?.Invoke(this, EventArgs.Empty);
@@ -146,6 +158,7 @@ namespace Client.Controls
                 Settings.Location = Location;
             }
         }
+
         public override void OnParentChanged(DXControl oValue, DXControl nValue)
         {
             base.OnParentChanged(oValue, nValue);
@@ -156,6 +169,7 @@ namespace Client.Controls
 
             UpdateLocations();
         }
+
         public override void OnLocationChanged(Point oValue, Point nValue)
         {
             base.OnLocationChanged(oValue, nValue);
@@ -167,7 +181,7 @@ namespace Client.Controls
         public override void OnVisibleChanged(bool oValue, bool nValue)
         {
             base.OnVisibleChanged(oValue, nValue);
-            
+
             if (IsVisible)
                 BringToFront();
 
@@ -178,7 +192,7 @@ namespace Client.Controls
         public WindowSetting Settings;
 
         #endregion
-        
+
         protected DXWindow()
         {
             Windows.Add(this);
@@ -273,7 +287,7 @@ namespace Client.Controls
 
             WindowValid = false;
         }
-        
+
         public override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -306,7 +320,6 @@ namespace Client.Controls
             int w = 3 + 6 + 6 + 3; //Border Padding Padding Border
             int h = 6 + 6; //Padding Padding
 
-
             if (!HasTopBorder)
                 h += NoFooterSize;
             else if (HasTitle)
@@ -337,7 +350,6 @@ namespace Client.Controls
             int w = size.Width - x * 2;
             int h = size.Height - y - 6;
 
-
             if (!HasFooter)
                 h -= NoFooterSize;
             else
@@ -358,10 +370,11 @@ namespace Client.Controls
             DrawBorder();
             OnAfterDraw();
         }
+
         protected void DrawWindow()
         {
             if (InterfaceLibrary == null) return;
-            
+
             if (!WindowValid)
             {
                 Surface oldSurface = DXManager.CurrentSurface;
@@ -382,7 +395,7 @@ namespace Client.Controls
 
             DXManager.SetOpacity(oldOpacity);
         }
-        
+
         private void DrawEdges()
         {
             Size s;
@@ -404,7 +417,6 @@ namespace Client.Controls
             int x = s.Width;
             InterfaceLibrary.Draw(1, 0, y, Color.White, new Rectangle(0, 0, s.Width, Size.Height - y), 1f, ImageType.Image);
             InterfaceLibrary.Draw(1, Size.Width - s.Width, y, Color.White, new Rectangle(0, 0, s.Width, Size.Height - y), 1F, ImageType.Image);
-
 
             if (HasTitle)
             {
@@ -470,7 +482,6 @@ namespace Client.Controls
                 s = InterfaceLibrary.GetSize(7);
                 InterfaceLibrary.Draw(7, Size.Width - s.Width, Size.Height - y - s.Height + 3, Color.White, false, 1F, ImageType.Image);
 
-
                 s = InterfaceLibrary.GetSize(13);
                 InterfaceLibrary.Draw(13, 0, Size.Height - s.Height, Color.White, false, 1F, ImageType.Image);
 
@@ -521,6 +532,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -570,9 +582,9 @@ namespace Client.Controls
                 WindowValid = false;
                 Settings = null;
                 Windows.Remove(this);
-
             }
         }
+
         #endregion
     }
 }

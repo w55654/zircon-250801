@@ -14,7 +14,6 @@ namespace Server.Models.Magics
 
         public ElementalSuperiority(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -111,7 +110,6 @@ namespace Server.Models.Magics
                     buffStats[Stat.MaxMC] = 0;
                     buffStats[Stat.MaxSC] = 0;
                 }
-
 
                 ob.BuffAdd(BuffType.ElementalSuperiority, TimeSpan.FromSeconds(Magic.GetPower() + Player.GetSC() * 2), buffStats, true, false, TimeSpan.Zero);
 

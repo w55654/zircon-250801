@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MirDB;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
 
 namespace Client.UserModels
 {
@@ -24,6 +19,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Window");
             }
         }
+
         private WindowType _Window;
 
         public Size Resolution
@@ -39,6 +35,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Resolution");
             }
         }
+
         private Size _Resolution;
 
         public bool Visible
@@ -54,6 +51,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Visible");
             }
         }
+
         private bool _Visible;
 
         public Point Location
@@ -69,6 +67,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Location");
             }
         }
+
         private Point _Location;
 
         public Size Size
@@ -84,8 +83,9 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Size");
             }
         }
+
         private Size _Size;
-        
+
         public int Extra
         {
             get { return _Extra; }
@@ -99,6 +99,7 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Extra");
             }
         }
+
         private int _Extra;
 
         public int Extra2
@@ -114,9 +115,9 @@ namespace Client.UserModels
                 OnChanged(oldValue, value, "Extra2");
             }
         }
+
         private int _Extra2;
     }
-
 
     public enum WindowType
     {

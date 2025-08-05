@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using Library.Network;
 using Library.SystemModels;
 using Server.DBModels;
 using Server.Envir;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using S = Library.Network.ServerPackets;
-using C = Library.Network.ClientPackets;
 
 namespace Server.Models.Monsters
 {
@@ -25,7 +22,6 @@ namespace Server.Models.Monsters
         public PlayerObject CompanionOwner;
 
         public CompanionLevelInfo LevelInfo;
-
 
         public UserItem[] Inventory;
         public UserItem[] Equipment;
@@ -88,7 +84,6 @@ namespace Server.Models.Monsters
             FilterItemType = new List<ItemType>();
         }
 
-
         public override void ProcessAI()
         {
             if (!CompanionOwner.VisibleObjects.Contains(this))
@@ -122,7 +117,7 @@ namespace Server.Models.Monsters
 
             Stats[Stat.CompanionBagWeight] += LevelInfo.InventoryWeight;
             Stats[Stat.CompanionInventory] += LevelInfo.InventorySpace;
-            
+
             RefreshWeight();
         }
 
@@ -171,7 +166,6 @@ namespace Server.Models.Monsters
             Broadcast(new S.CompanionShapeUpdate { ObjectID = ObjectID, HeadShape = HeadShape, BackShape = BackShape });
         }
 
-
         public void Recall()
         {
             Cell cell = CompanionOwner.CurrentMap.GetCell(Functions.Move(CompanionOwner.CurrentLocation, CompanionOwner.Direction, -1));
@@ -200,7 +194,6 @@ namespace Server.Models.Monsters
 
                 if (distance > bestDistance) continue;
 
-
                 ItemObject item = (ItemObject)ob;
 
                 if (item.Account != CompanionOwner.Character.Account || !item.MonsterDrop) continue;
@@ -213,7 +206,6 @@ namespace Server.Models.Monsters
                 ItemCheck check = new ItemCheck(item.Item, item.Item.Count - amount, item.Item.Flags, item.Item.ExpireTime);
 
                 if (!CanGainItems(true, check)) continue;
-
 
                 if (distance != bestDistance) closest.Clear();
 
@@ -228,7 +220,6 @@ namespace Server.Models.Monsters
             }
 
             TargetItem = closest[SEnvir.Random.Next(closest.Count)];
-
         }
         public override void ProcessRoam()
         {
@@ -268,7 +259,6 @@ namespace Server.Models.Monsters
             item.Auction = null;
             item.Companion = null;
             item.Guild = null;
-            
 
             item.Flags &= ~UserItemFlags.Locked;
         }
@@ -287,6 +277,7 @@ namespace Server.Models.Monsters
                 case RequiredType.CompanionLevel:
                     if (UserCompanion.Level < info.RequiredAmount) return false;
                     break;
+
                 case RequiredType.MaxCompanionLevel:
                     if (UserCompanion.Level > info.RequiredAmount) return false;
                     break;
@@ -299,10 +290,9 @@ namespace Server.Models.Monsters
         {
             if (UserCompanion.Hunger > 0) return;
 
-            UserItem item = Equipment[(int) CompanionSlot.Food];
+            UserItem item = Equipment[(int)CompanionSlot.Food];
 
             if (item == null || !CanUseItem(item.Info)) return;
-
 
             UserCompanion.Hunger = Math.Min(LevelInfo.MaxHunger, item.Info.Stats[Stat.CompanionHunger]);
 
@@ -388,7 +378,6 @@ namespace Server.Models.Monsters
                 Level13 = UserCompanion.Level13,
                 Level15 = UserCompanion.Level15
             });
-            
         }
         public Stats GetSkill(int level)
         {
@@ -400,7 +389,6 @@ namespace Server.Models.Monsters
 
                 total += info.Weight;
             }
-
 
             Stats lvStats = new Stats();
 
@@ -414,11 +402,10 @@ namespace Server.Models.Monsters
 
                 if (value >= 0) continue;
 
-                lvStats[info.StatType] = SEnvir.Random.Next( info.MaxAmount) + 1;
+                lvStats[info.StatType] = SEnvir.Random.Next(info.MaxAmount) + 1;
 
                 break;
             }
-
 
             return lvStats;
         }
@@ -426,7 +413,7 @@ namespace Server.Models.Monsters
         protected override void MoveTo(Point target)
         {
             if (!CanMove || CurrentLocation == target) return;
-            
+
             MirDirection direction = Functions.DirectionFromPoint(CurrentLocation, target);
 
             int rotation = SEnvir.Random.Next(2) == 0 ? 1 : -1;
@@ -455,7 +442,6 @@ namespace Server.Models.Monsters
             RemoveAllObjects();
             AddAllObjects();
 
-
             Broadcast(new S.ObjectMove { ObjectID = ObjectID, Direction = direction, Location = CurrentLocation, Distance = 1 });
             return true;
         }
@@ -480,7 +466,7 @@ namespace Server.Models.Monsters
                 itemType = SEnvir.ItemInfoList.Binding.First(x => x.Index == check.Item.Stats[Stat.ItemIndex]).ItemType;
                 itemRarity = SEnvir.ItemInfoList.Binding.First(x => x.Index == check.Item.Stats[Stat.ItemIndex]).Rarity;
                 itemClass = SEnvir.ItemInfoList.Binding.First(x => x.Index == check.Item.Stats[Stat.ItemIndex]).RequiredClass;
-            } 
+            }
             else
             {
                 itemType = check.Info.ItemType;
@@ -506,12 +492,15 @@ namespace Server.Models.Monsters
                             case "Warrior":
                                 if ((itemClass & RequiredClass.Warrior) != RequiredClass.Warrior) return false;
                                 break;
+
                             case "Wizard":
                                 if ((itemClass & RequiredClass.Wizard) != RequiredClass.Wizard) return false;
                                 break;
+
                             case "Taoist":
                                 if ((itemClass & RequiredClass.Taoist) != RequiredClass.Taoist) return false;
                                 break;
+
                             case "Assassin":
                                 if ((itemClass & RequiredClass.Assassin) != RequiredClass.Assassin) return false;
                                 break;
@@ -545,6 +534,7 @@ namespace Server.Models.Monsters
                         case ItemType.Poison:
                             if (BagWeight + check.Info.Weight > Stats[Stat.CompanionBagWeight]) return false;
                             break;
+
                         default:
                             if (BagWeight + check.Info.Weight * count > Stats[Stat.CompanionBagWeight]) return false;
                             break;
@@ -618,7 +608,6 @@ namespace Server.Models.Monsters
                     item.UserTask = null;
                     item.Flags &= ~UserItemFlags.QuestItem;
 
-
                     item.IsTemporary = true;
                     item.Delete();
                     continue;
@@ -647,7 +636,6 @@ namespace Server.Models.Monsters
                     foreach (UserItem oldItem in Inventory)
                     {
                         if (oldItem == null || oldItem.Info != item.Info || oldItem.Count >= oldItem.Info.StackSize) continue;
-
 
                         if ((oldItem.Flags & UserItemFlags.Expirable) == UserItemFlags.Expirable) continue;
                         if ((oldItem.Flags & UserItemFlags.Bound) != (item.Flags & UserItemFlags.Bound)) continue;
@@ -687,7 +675,6 @@ namespace Server.Models.Monsters
             foreach (UserQuest quest in changedQuests)
                 CompanionOwner.Enqueue(new S.QuestChanged { Quest = quest.ToClientInfo() });
 
-
             RefreshStats();
         }
 
@@ -717,7 +704,7 @@ namespace Server.Models.Monsters
                 Direction = Direction,
 
                 PetOwner = CompanionOwner.Name,
-                
+
                 Poison = Poison,
 
                 Buffs = Buffs.Where(x => x.Visible).Select(x => x.Type).ToList(),

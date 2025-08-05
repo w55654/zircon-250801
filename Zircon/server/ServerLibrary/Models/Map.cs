@@ -87,6 +87,7 @@ namespace Server.Models
             for (int i = 0; i < OrderedObjects.Length; i++)
                 OrderedObjects[i] = new HashSet<MapObject>();
         }
+
         public void Setup()
         {
             CreateGuards();
@@ -139,6 +140,7 @@ namespace Server.Models
                 }
             }
         }
+
         private void CreateCastleGates()
         {
             foreach (var castle in Info.Castles)
@@ -160,6 +162,7 @@ namespace Server.Models
                 }
             }
         }
+
         private void CreateCastleGuards()
         {
             foreach (var castle in Info.Castles)
@@ -233,13 +236,17 @@ namespace Server.Models
                 case ObjectType.Player:
                     Players.Add((PlayerObject)ob);
                     break;
+
                 case ObjectType.Item:
                     break;
+
                 case ObjectType.NPC:
                     NPCs.Add((NPCObject)ob);
                     break;
+
                 case ObjectType.Spell:
                     break;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)ob;
                     if (mob.MonsterInfo.IsBoss)
@@ -247,6 +254,7 @@ namespace Server.Models
                     break;
             }
         }
+
         public void RemoveObject(MapObject ob)
         {
             Objects.Remove(ob);
@@ -256,13 +264,17 @@ namespace Server.Models
                 case ObjectType.Player:
                     Players.Remove((PlayerObject)ob);
                     break;
+
                 case ObjectType.Item:
                     break;
+
                 case ObjectType.NPC:
                     NPCs.Remove((NPCObject)ob);
                     break;
+
                 case ObjectType.Spell:
                     break;
+
                 case ObjectType.Monster:
                     MonsterObject mob = (MonsterObject)ob;
                     if (mob.MonsterInfo.IsBoss)
@@ -277,10 +289,12 @@ namespace Server.Models
 
             return Cells[x, y];
         }
+
         public Cell GetCell(Point location)
         {
             return GetCell(location.X, location.Y);
         }
+
         public List<Cell> GetCells(Point location, int minRadius, int maxRadius, bool randomOrder = false)
         {
             List<Cell> cells = new List<Cell>();
@@ -358,6 +372,7 @@ namespace Server.Models
                 player.Enqueue(p);
             }
         }
+
         public void Broadcast(Packet p)
         {
             foreach (PlayerObject player in Players)
@@ -408,7 +423,6 @@ namespace Server.Models
                         NextSpawn = SEnvir.Now.AddSeconds(Info.Delay * 60);
                     else
                         NextSpawn = SEnvir.Now.AddSeconds(SEnvir.Random.Next(Info.Delay * 60) + Info.Delay * 30);
-
                 }
             }
 
@@ -478,7 +492,6 @@ namespace Server.Models
             Location = location;
         }
 
-
         public void AddObject(MapObject ob)
         {
             if (Objects == null)
@@ -491,6 +504,7 @@ namespace Server.Models
 
             Map.OrderedObjects[Location.X].Add(ob);
         }
+
         public void RemoveObject(MapObject ob)
         {
             Objects.Remove(ob);
@@ -500,6 +514,7 @@ namespace Server.Models
 
             Map.OrderedObjects[Location.X].Remove(ob);
         }
+
         public bool IsBlocking(MapObject checker, bool cellTime)
         {
             if (Objects == null) return false;
@@ -512,7 +527,6 @@ namespace Server.Models
                 if (ob.Stats == null) return true;
 
                 if (ob.Buffs.Any(x => x.Type == BuffType.Cloak || x.Type == BuffType.Transparency) && ob.Level > checker.Level && !ob.InGroup(checker)) continue;
-
 
                 return true;
             }
@@ -614,14 +628,17 @@ namespace Server.Models
                                 if ((movement.DestinationRegion.Map.RequiredClass & RequiredClass.Warrior) != RequiredClass.Warrior)
                                     allowed = false;
                                 break;
+
                             case MirClass.Wizard:
                                 if ((movement.DestinationRegion.Map.RequiredClass & RequiredClass.Wizard) != RequiredClass.Wizard)
                                     allowed = false;
                                 break;
+
                             case MirClass.Taoist:
                                 if ((movement.DestinationRegion.Map.RequiredClass & RequiredClass.Taoist) != RequiredClass.Taoist)
                                     allowed = false;
                                 break;
+
                             case MirClass.Assassin:
                                 if ((movement.DestinationRegion.Map.RequiredClass & RequiredClass.Assassin) != RequiredClass.Assassin)
                                     allowed = false;

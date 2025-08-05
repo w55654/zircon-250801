@@ -14,7 +14,6 @@ namespace Server.Models.Magics
 
         public FireWall(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetBurn(int burn, Stats stats = null)

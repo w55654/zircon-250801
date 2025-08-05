@@ -31,6 +31,7 @@ namespace Library.Network
         public DateTime TimeOutTime { get; set; }
 
         private bool _disconnecting;
+
         public bool Disconnecting
         {
             get { return _disconnecting; }
@@ -76,6 +77,7 @@ namespace Library.Network
                 Disconnecting = true;
             }
         }
+
         private void ReceiveData(IAsyncResult result)
         {
             try
@@ -118,6 +120,7 @@ namespace Library.Network
                 Disconnecting = true;
             }
         }
+
         private void BeginSend(List<byte> data)
         {
             if (!Connected || data.Count == 0) return;
@@ -137,6 +140,7 @@ namespace Library.Network
                 Sending = false;
             }
         }
+
         private void SendData(IAsyncResult result)
         {
             try
@@ -152,6 +156,7 @@ namespace Library.Network
                 Disconnecting = true;
             }
         }
+
         public virtual void Enqueue(Packet p)
         {
             if (!Connected || p == null) return;
@@ -191,6 +196,7 @@ namespace Library.Network
 
             BeginSendDisconnect(data);
         }
+
         private void BeginSendDisconnect(List<byte> data)
         {
             if (!Connected || data.Count == 0) return;
@@ -210,9 +216,9 @@ namespace Library.Network
                     OnException(this, ex);
             }
         }
+
         private void SendDataDisconnect(IAsyncResult result)
         {
-
             try
             {
                 Client.Client.EndSend(result);
@@ -290,9 +296,8 @@ namespace Library.Network
                     return;
                 }
 
-
                 if (!Monitor) continue;
-                
+
                 DiagnosticValue value;
                 Type type = p.GetType();
 
@@ -301,7 +306,7 @@ namespace Library.Network
 
                 value.Count++;
                 value.TotalSize += p.Length;
-                
+
                 if (p.Length > value.LargestSize)
                     value.LargestSize = p.Length;
             }
@@ -314,7 +319,7 @@ namespace Library.Network
             if (p == null) return;
 
             DateTime start = Time.Now;
-            
+
             MethodInfo info;
             if (!PacketMethods.TryGetValue(p.PacketType, out info))
                 PacketMethods[p.PacketType] = info = GetType().GetMethod("Process", new[] { p.PacketType });
@@ -350,7 +355,6 @@ namespace Library.Network
             TimeOutTime = Time.Now + TimeOutDelay;
         }
     }
-
 
     public class DiagnosticValue
     {

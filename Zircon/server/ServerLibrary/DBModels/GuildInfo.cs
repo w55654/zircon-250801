@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Security.Principal;
 using S = Library.Network.ServerPackets;
 
 namespace Server.DBModels
@@ -27,6 +26,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildName");
             }
         }
+
         private string _GuildName;
 
         public int MemberLimit
@@ -42,8 +42,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "MemberLimit");
             }
         }
+
         private int _MemberLimit;
-        
+
         public int StorageSize
         {
             get { return _StorageSize; }
@@ -57,6 +58,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "StorageSize");
             }
         }
+
         private int _StorageSize;
 
         public long GuildFunds
@@ -72,6 +74,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildFunds");
             }
         }
+
         private long _GuildFunds;
 
         public int GuildLevel
@@ -87,6 +90,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildLevel");
             }
         }
+
         private int _GuildLevel;
 
         public string GuildNotice
@@ -102,6 +106,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildNotice");
             }
         }
+
         private string _GuildNotice;
 
         public decimal GuildTax
@@ -117,6 +122,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildTax");
             }
         }
+
         private decimal _GuildTax;
 
         public long TotalContribution
@@ -132,6 +138,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "TotalContribution");
             }
         }
+
         private long _TotalContribution;
 
         public long DailyContribution
@@ -147,6 +154,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DailyContribution");
             }
         }
+
         private long _DailyContribution;
 
         public long DailyGrowth
@@ -162,6 +170,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DailyGrowth");
             }
         }
+
         private long _DailyGrowth;
 
         public string DefaultRank
@@ -177,6 +186,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DefaultRank");
             }
         }
+
         private string _DefaultRank;
 
         public GuildPermission DefaultPermission
@@ -192,6 +202,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "DefaultPermission");
             }
         }
+
         private GuildPermission _DefaultPermission;
 
         public bool StarterGuild
@@ -207,9 +218,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "StarterGuild");
             }
         }
+
         private bool _StarterGuild;
-        
-        
 
         [Association("Conquest", true)]
         public UserConquest Conquest
@@ -225,6 +235,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Conquest");
             }
         }
+
         private UserConquest _Conquest;
 
         public CastleInfo Castle
@@ -240,6 +251,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Castle");
             }
         }
+
         private CastleInfo _Castle;
 
         public Color Colour
@@ -255,6 +267,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Colour");
             }
         }
+
         private Color _Colour;
 
         public int Flag
@@ -270,6 +283,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Flag");
             }
         }
+
         private int _Flag;
 
         public UserItem[] Storage = new UserItem[1000];
@@ -280,12 +294,11 @@ namespace Server.DBModels
         [Association("Items", true)]
         public DBBindingList<UserItem> Items { get; set; }
 
-        
         public ClientGuildInfo ToClientInfo()
         {
             return new ClientGuildInfo
             {
-                GuildName =  GuildName,
+                GuildName = GuildName,
 
                 DailyGrowth = DailyGrowth,
                 GuildFunds = GuildFunds,
@@ -294,7 +307,7 @@ namespace Server.DBModels
 
                 MemberLimit = MemberLimit,
                 StorageLimit = StorageSize,
-                
+
                 Notice = GuildNotice,
 
                 DefaultPermission = DefaultPermission,
@@ -310,7 +323,7 @@ namespace Server.DBModels
                 Storage = Items.Select(x => x.ToClientInfo()).ToList(),
             };
         }
-        
+
         protected override void OnLoaded()
         {
             base.OnLoaded();

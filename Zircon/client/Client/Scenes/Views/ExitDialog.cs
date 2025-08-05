@@ -1,9 +1,8 @@
-﻿using System.Drawing;
-using Client.Controls;
+﻿using Client.Controls;
 using Client.Envir;
 using Client.Models;
-using Client.UserModels;
 using Library;
+using System.Drawing;
 using C = Library.Network.ClientPackets;
 
 //Cleaned
@@ -95,7 +94,6 @@ namespace Client.Scenes.Views
                 Exiting = true;
                 CEnvir.Target.Close();
             };
-
         }
 
         #region IDisposable
@@ -130,7 +128,6 @@ namespace Client.Scenes.Views
                     ExitButton = null;
                 }
             }
-
         }
 
         #endregion

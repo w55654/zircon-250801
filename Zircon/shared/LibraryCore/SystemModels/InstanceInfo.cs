@@ -21,6 +21,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public InstanceType Type
@@ -36,6 +37,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Type");
             }
         }
+
         private InstanceType _Type;
 
         public byte MaxInstances
@@ -51,6 +53,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaximumAllowed");
             }
         }
+
         private byte _MaxInstances;
 
         public bool ShowOnDungeonFinder
@@ -68,6 +71,7 @@ namespace Library.SystemModels
         }
 
         private bool _ShowOnDungeonFinder;
+
         public bool SafeZoneOnly
         {
             get { return _SafeZoneOnly; }
@@ -81,6 +85,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SafeZoneOnly");
             }
         }
+
         private bool _SafeZoneOnly;
 
         public bool AllowRejoin
@@ -96,6 +101,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AllowRejoin");
             }
         }
+
         private bool _AllowRejoin;
 
         public bool AllowTeleport
@@ -111,6 +117,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "AllowTeleport");
             }
         }
+
         private bool _AllowTeleport;
 
         public bool SavePlace
@@ -126,6 +133,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "SavePlace");
             }
         }
+
         private bool _SavePlace;
 
         public byte MinPlayerLevel
@@ -141,6 +149,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinimumLevel");
             }
         }
+
         private byte _MinPlayerLevel;
 
         public byte MaxPlayerLevel
@@ -156,6 +165,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaximumLevel");
             }
         }
+
         private byte _MaxPlayerLevel;
 
         public byte MinPlayerCount
@@ -171,6 +181,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MinimumCount");
             }
         }
+
         private byte _MinPlayerCount;
 
         public byte MaxPlayerCount
@@ -186,6 +197,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaximumCount");
             }
         }
+
         private byte _MaxPlayerCount;
 
         public ItemInfo RequiredItem
@@ -201,6 +213,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RequiredItem");
             }
         }
+
         private ItemInfo _RequiredItem;
 
         public bool RequiredItemSingleUse
@@ -232,6 +245,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ConnectRegion");
             }
         }
+
         private MapRegion _ConnectRegion;
 
         public MapRegion ReconnectRegion
@@ -247,6 +261,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ReconnectRegion");
             }
         }
+
         private MapRegion _ReconnectRegion;
 
         public int CooldownTimeInMinutes
@@ -262,6 +277,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "CooldownTimeInMinutes");
             }
         }
+
         private int _CooldownTimeInMinutes;
 
         public int TimeLimitInMinutes
@@ -277,6 +293,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "TimeLimitInMinutes");
             }
         }
+
         private int _TimeLimitInMinutes;
 
         [Association("Map", true)]
@@ -335,6 +352,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Instance");
             }
         }
+
         private InstanceInfo _Instance;
 
         [IsIdentity]
@@ -351,6 +369,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Map");
             }
         }
+
         private MapInfo _Map;
 
         public int RespawnIndex
@@ -366,6 +385,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RespawnIndex");
             }
         }
+
         private int _RespawnIndex;
     }
 
@@ -386,6 +406,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Instance");
             }
         }
+
         private InstanceInfo _Instance;
 
         [IsIdentity]
@@ -402,6 +423,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -417,6 +439,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 }

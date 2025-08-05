@@ -13,11 +13,10 @@ namespace Server.Models.Magics
         public override bool AttackSkill => true;
 
         public bool CanBladeStorm { get; private set; }
-        public DateTime BladeStormTime {  get; private set; }
+        public DateTime BladeStormTime { get; private set; }
 
         public BladeStorm(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void Process()

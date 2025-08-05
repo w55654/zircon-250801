@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Client.Envir;
+using Client.UserModels;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Client.Envir;
-using Client.UserModels;
 
 //Cleaned
 namespace Client.Controls
@@ -10,6 +10,7 @@ namespace Client.Controls
     public sealed class DXInputWindow : DXWindow
     {
         #region Properites
+
         public DXLabel Label;
 
         public DXButton ConfirmButton, CancelButton;
@@ -23,7 +24,7 @@ namespace Client.Controls
 
         #endregion
 
-        public DXInputWindow( string message, string caption)
+        public DXInputWindow(string message, string caption)
         {
             HasFooter = true;
 
@@ -32,14 +33,13 @@ namespace Client.Controls
             Parent = ActiveScene;
             MessageBoxList.Add(this);
 
-
             Label = new DXLabel
             {
                 AutoSize = false,
                 Location = new Point(10, 35),
                 Parent = this,
                 Text = message,
-                DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak |TextFormatFlags.HorizontalCenter
+                DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak | TextFormatFlags.HorizontalCenter
             };
             Label.Size = new Size(300, DXLabel.GetHeight(Label, 300).Height);
 
@@ -53,7 +53,6 @@ namespace Client.Controls
             ValueTextBox.SetFocus();
             ValueTextBox.TextBox.TextChanged += TextBox_TextChanged;
             ValueTextBox.TextBox.KeyPress += (o, e) => OnKeyPress(e);
-
 
             SetClientSize(new Size(300, Label.Size.Height + 30));
             Label.Location = ClientArea.Location;
@@ -77,20 +76,22 @@ namespace Client.Controls
             CancelButton.MouseClick += (o, e) => Dispose();
 
             Location = new Point((ActiveScene.DisplayArea.Width - DisplayArea.Width) / 2, (ActiveScene.DisplayArea.Height - DisplayArea.Height) / 2);
-
         }
 
         #region Methods
+
         public override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
             e.Handled = true;
         }
+
         public override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
             e.Handled = true;
         }
+
         public override void OnKeyPress(KeyPressEventArgs e)
         {
             base.OnKeyPress(e);
@@ -101,10 +102,12 @@ namespace Client.Controls
                     if (CancelButton != null && !CancelButton.IsDisposed)
                         CancelButton.InvokeMouseClick();
                     break;
+
                 case (char)Keys.Enter:
                     if (ConfirmButton != null && !ConfirmButton.IsDisposed)
                         ConfirmButton.InvokeMouseClick();
                     break;
+
                 default: return;
             }
             e.Handled = true;
@@ -114,6 +117,7 @@ namespace Client.Controls
         {
             Value = ValueTextBox.TextBox.Text;
         }
+
         #endregion
 
         #region IDisposable
@@ -152,7 +156,6 @@ namespace Client.Controls
                     ValueTextBox = null;
                 }
             }
-
         }
 
         #endregion

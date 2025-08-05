@@ -9,7 +9,6 @@ using System.Drawing;
 using System.Linq;
 using S = Library.Network.ServerPackets;
 
-
 namespace Server.Models
 {
     public sealed class SpellObject : MapObject
@@ -45,7 +44,7 @@ namespace Server.Models
             }
 
             if (SEnvir.Now < TickTime) return;
-            
+
             if (TickCount-- <= 0)
             {
                 switch (Effect)
@@ -62,11 +61,9 @@ namespace Server.Models
 
                             if (!monster.CanAttackTarget(ob)) continue;
 
-
                             monster.Attack(ob, 4000, Element.None);
                             monster.Attack(ob, 4000, Element.None);
                         }
-
 
                         break;
                 }
@@ -77,11 +74,10 @@ namespace Server.Models
 
             TickTime = SEnvir.Now + TickFrequency;
 
-
             switch (Effect)
             {
                 case SpellEffect.TrapOctagon:
-                    
+
                     for (int i = Targets.Count - 1; i >= 0; i--)
                     {
                         MapObject ob = Targets[i];
@@ -93,6 +89,7 @@ namespace Server.Models
 
                     if (Targets.Count == 0) Despawn();
                     break;
+
                 default:
 
                     if (CurrentCell == null)
@@ -125,8 +122,6 @@ namespace Server.Models
                             SEnvir.Log($"[ERROR] {Effect} CurrentCell.Objects Null Loop.");
                             return;
                         }
-
-
                     }
                     break;
             }
@@ -141,7 +136,7 @@ namespace Server.Models
                 case SpellEffect.PoisonousCloud:
                     if (!Owner.CanHelpTarget(ob)) return;
 
-                    BuffInfo buff = ob.Buffs.FirstOrDefault(x=> x.Type == BuffType.PoisonousCloud);
+                    BuffInfo buff = ob.Buffs.FirstOrDefault(x => x.Type == BuffType.PoisonousCloud);
                     TimeSpan remaining = TickTime - SEnvir.Now;
 
                     if (buff != null)
@@ -149,6 +144,7 @@ namespace Server.Models
 
                     ob.BuffAdd(BuffType.PoisonousCloud, remaining, new Stats { [Stat.Agility] = Power }, false, false, TimeSpan.Zero);
                     break;
+
                 case SpellEffect.FireWall:
                     {
                         if (Owner is MonsterObject monster)
@@ -175,6 +171,7 @@ namespace Server.Models
                         }
                     }
                     break;
+
                 case SpellEffect.Tempest:
                     {
                         PlayerObject player = Owner as PlayerObject;
@@ -193,6 +190,7 @@ namespace Server.Models
                         }
                     }
                     break;
+
                 case SpellEffect.DarkSoulPrison:
                     {
                         if (Owner is not PlayerObject player || !player.CanAttackTarget(ob)) return;
@@ -210,6 +208,7 @@ namespace Server.Models
                         }
                     }
                     break;
+
                 case SpellEffect.BurningFire:
                     {
                         if (Owner is not PlayerObject player || !player.CanAttackTarget(ob)) return;
@@ -243,11 +242,12 @@ namespace Server.Models
             base.OnSpawned();
 
             Owner?.SpellList.Add(this);
-            
+
             AddAllObjects();
 
             Activate();
         }
+
         public override void OnDespawned()
         {
             base.OnDespawned();
@@ -258,7 +258,7 @@ namespace Server.Models
         public override void CleanUp()
         {
             base.CleanUp();
-            
+
             Owner = null;
             Magic = null;
 
@@ -276,6 +276,7 @@ namespace Server.Models
                 Power = Power,
             };
         }
+
         public override Packet GetDataPacket(PlayerObject ob)
         {
             return null;
@@ -295,6 +296,7 @@ namespace Server.Models
             Activated = true;
             SEnvir.ActiveObjects.Add(this);
         }
+
         public override void DeActivate()
         {
             return;
@@ -303,12 +305,15 @@ namespace Server.Models
         public override void ProcessHPMP()
         {
         }
+
         public override void ProcessNameColour()
         {
         }
+
         public override void ProcessBuff()
         {
         }
+
         public override void ProcessPoison()
         {
         }

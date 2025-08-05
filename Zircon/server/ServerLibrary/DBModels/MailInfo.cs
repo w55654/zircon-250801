@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
+﻿using Library;
 using MirDB;
 using Server.Envir;
+using System;
+using System.Linq;
 
 namespace Server.DBModels
 {
@@ -26,6 +23,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Account");
             }
         }
+
         private AccountInfo _Account;
 
         public string Sender
@@ -41,8 +39,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Sender");
             }
         }
+
         private string _Sender;
-        
 
         public DateTime Date
         {
@@ -57,6 +55,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Date");
             }
         }
+
         private DateTime _Date;
 
         public string Subject
@@ -72,6 +71,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Subject");
             }
         }
+
         private string _Subject;
 
         public string Message
@@ -87,6 +87,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Message");
             }
         }
+
         private string _Message;
 
         public bool Opened
@@ -102,6 +103,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Opened");
             }
         }
+
         private bool _Opened;
 
         public bool HasItem
@@ -117,9 +119,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "HasItem");
             }
         }
+
         private bool _HasItem;
-        
-        
+
         [Association("Mail")]
         public DBBindingList<UserItem> Items { get; set; }
 

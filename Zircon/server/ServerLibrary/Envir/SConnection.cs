@@ -85,6 +85,7 @@ namespace Server.Envir
 
             CleanUp();
         }
+
         public override void TryDisconnect()
         {
             if (Stage == GameStage.Game)
@@ -106,6 +107,7 @@ namespace Server.Envir
 
             Disconnect();
         }
+
         public override void TrySendDisconnect(Packet p)
         {
             if (Stage == GameStage.Game)
@@ -124,7 +126,6 @@ namespace Server.Envir
                 }
 
                 if (SEnvir.Now <= TimeOutTime) return;
-
             }
 
             SendDisconnect(p);
@@ -146,6 +147,7 @@ namespace Server.Envir
                 Enqueue(new S.SelectLogout());
             }
         }
+
         public void CleanUp()
         {
             Stage = GameStage.Disconnected;
@@ -188,7 +190,7 @@ namespace Server.Envir
                 SEnvir.Log($"{IPAddress} Disconnected, Large Packet");
                 return;
             }
-            
+
             if (ReceiveList.Count > Config.MaxPacket)
             {
                 TryDisconnect();
@@ -231,6 +233,7 @@ namespace Server.Envir
                         ObserverPacket = false,
                     });
                     break;
+
                 default:
                     return;
             }
@@ -251,16 +254,18 @@ namespace Server.Envir
                 case "ENGLISH":
                     Language = (StringMessages)ConfigReader.ConfigObjects[typeof(EnglishMessages)];
                     break;
+
                 case "CHINESE":
                     Language = (StringMessages)ConfigReader.ConfigObjects[typeof(ChineseMessages)];
                     break;
             }
-
         }
+
         public void Process(G.Disconnect p)
         {
             Disconnecting = true;
         }
+
         public void Process(G.Connected p)
         {
             if (Config.CheckVersion)
@@ -272,6 +277,7 @@ namespace Server.Envir
             Stage = GameStage.Login;
             Enqueue(new G.GoodVersion() { DatabaseKey = Config.EncryptionEnabled ? SEnvir.CryptoKey : null });
         }
+
         public void Process(G.Version p)
         {
             if (Stage != GameStage.None) return;
@@ -285,6 +291,7 @@ namespace Server.Envir
             Stage = GameStage.Login;
             Enqueue(new G.GoodVersion() { DatabaseKey = Config.EncryptionEnabled ? SEnvir.CryptoKey : null });
         }
+
         public void Process(G.Ping p)
         {
             if (Stage == GameStage.None) return;
@@ -303,45 +310,51 @@ namespace Server.Envir
 
             SEnvir.NewAccount(p, this);
         }
+
         public void Process(C.ChangePassword p)
         {
             if (Stage != GameStage.Login) return;
 
             SEnvir.ChangePassword(p, this);
         }
+
         public void Process(C.RequestPasswordReset p)
         {
             if (Stage != GameStage.Login) return;
 
             SEnvir.RequestPasswordReset(p, this);
         }
+
         public void Process(C.ResetPassword p)
         {
             if (Stage != GameStage.Login) return;
 
             SEnvir.ResetPassword(p, this);
         }
+
         public void Process(C.Activation p)
         {
             if (Stage != GameStage.Login) return;
 
             SEnvir.Activation(p, this);
         }
+
         public void Process(C.RequestActivationKey p)
         {
             if (Stage != GameStage.Login) return;
 
             SEnvir.RequestActivationKey(p, this);
         }
+
         public void Process(C.Login p)
         {
             if (Stage != GameStage.Login) return;
 
             SEnvir.Login(p, this);
         }
+
         public void Process(C.Logout p)
         {
-
             switch (Stage)
             {
                 case GameStage.Select:
@@ -351,6 +364,7 @@ namespace Server.Envir
 
                     Enqueue(new S.SelectLogout());
                     break;
+
                 case GameStage.Game:
 
                     if (SEnvir.Now < Player.CombatTime.AddSeconds(10)) return;
@@ -361,12 +375,12 @@ namespace Server.Envir
 
                     Enqueue(new S.GameLogout { Characters = Account.GetSelectInfo() });
                     break;
+
                 case GameStage.Observer:
                     EndObservation();
                     break;
             }
             ;
-
         }
 
         public void Process(C.NewCharacter p)
@@ -375,25 +389,28 @@ namespace Server.Envir
 
             SEnvir.NewCharacter(p, this);
         }
+
         public void Process(C.DeleteCharacter p)
         {
             if (Stage != GameStage.Select) return;
 
             SEnvir.DeleteCharacter(p, this);
         }
+
         public void Process(C.StartGame p)
         {
             if (Stage != GameStage.Select) return;
 
-
             SEnvir.StartGame(p, this);
         }
+
         public void Process(C.TownRevive p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.TownRevive();
         }
+
         public void Process(C.Turn p)
         {
             if (Stage != GameStage.Game) return;
@@ -402,6 +419,7 @@ namespace Server.Envir
 
             Player.Turn(p.Direction);
         }
+
         public void Process(C.Harvest p)
         {
             if (Stage != GameStage.Game) return;
@@ -410,6 +428,7 @@ namespace Server.Envir
 
             Player.Harvest(p.Direction);
         }
+
         public void Process(C.Move p)
         {
             if (Stage != GameStage.Game) return;
@@ -424,12 +443,14 @@ namespace Server.Envir
 
             Player.Move(p.Direction, p.Distance);
         }
+
         public void Process(C.Mount p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.Mount();
         }
+
         public void Process(C.FishingCast p)
         {
             if (Stage != GameStage.Game) return;
@@ -454,6 +475,7 @@ namespace Server.Envir
 
             Player.RangeAttack(p.Direction, p.DelayedTime, p.Target);
         }
+
         public void Process(C.Magic p)
         {
             if (Stage != GameStage.Game) return;
@@ -462,12 +484,14 @@ namespace Server.Envir
 
             Player.Magic(p);
         }
+
         public void Process(C.MagicToggle p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.MagicToggle(p);
         }
+
         public void Process(C.Mining p)
         {
             if (Stage != GameStage.Game) return;
@@ -483,36 +507,42 @@ namespace Server.Envir
 
             Player.ItemMove(p);
         }
+
         public void Process(C.ItemSort p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.ItemSort(p);
         }
+
         public void Process(C.ItemDelete p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.ItemDelete(p);
         }
+
         public void Process(C.ItemDrop p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.ItemDrop(p);
         }
+
         public void Process(C.PickUp p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.PickUp();
         }
+
         public void Process(C.CurrencyDrop p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.CurrencyDrop(p);
         }
+
         public void Process(C.ItemUse p)
         {
             if (Stage != GameStage.Game) return;
@@ -526,6 +556,7 @@ namespace Server.Envir
 
             Player.BeltLinkChanged(p);
         }
+
         public void Process(C.AutoPotionLinkChanged p)
         {
             if (Stage != GameStage.Game) return;
@@ -564,6 +595,7 @@ namespace Server.Envir
 
             Player.NPCRoll(p.Type);
         }
+
         public void Process(C.NPCRollResult p)
         {
             if (Stage != GameStage.Game) return;
@@ -577,48 +609,56 @@ namespace Server.Envir
 
             Player.NPCBuy(p);
         }
+
         public void Process(C.NPCSell p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCSell(p.Links);
         }
+
         public void Process(C.NPCRepair p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCRepair(p);
         }
+
         public void Process(C.NPCRefinementStone p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCRefinementStone(p);
         }
+
         public void Process(C.NPCRefine p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCRefine(p);
         }
+
         public void Process(C.NPCRefineRetrieve p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCRefineRetrieve(p.Index);
         }
+
         public void Process(C.NPCMasterRefine p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCMasterRefine(p);
         }
+
         public void Process(C.NPCMasterRefineEvaluate p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCMasterRefineEvaluate(p);
         }
+
         public void Process(C.NPCClose p)
         {
             if (Stage != GameStage.Game) return;
@@ -631,18 +671,21 @@ namespace Server.Envir
                 con.Enqueue(new S.NPCClose());
             }
         }
+
         public void Process(C.NPCFragment p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCFragment(p.Links);
         }
+
         public void Process(C.NPCAccessoryLevelUp p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.NPCAccessoryLevelUp(p);
         }
+
         public void Process(C.NPCAccessoryUpgrade p)
         {
             if (Stage != GameStage.Game) return;
@@ -685,18 +728,21 @@ namespace Server.Envir
 
             Player.GroupSwitch(p.Allow);
         }
+
         public void Process(C.GroupInvite p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GroupInvite(p.Name);
         }
+
         public void Process(C.GroupRemove p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GroupRemove(p.Name);
         }
+
         public void Process(C.GroupResponse p)
         {
             if (Stage != GameStage.Game) return;
@@ -715,6 +761,7 @@ namespace Server.Envir
             if (Stage == GameStage.Observer)
                 Observed.Player.Inspect(p.Index, p.Ranking, this);
         }
+
         public void Process(C.RankRequest p)
         {
             if (Stage != GameStage.Game && Stage != GameStage.Observer && Stage != GameStage.Login) return;
@@ -777,6 +824,7 @@ namespace Server.Envir
 
             player.SetUpObserver(this);
         }
+
         public void Process(C.ObservableSwitch p)
         {
             if (Stage != GameStage.Game) return;
@@ -794,7 +842,6 @@ namespace Server.Envir
         public void Process(C.MarketPlaceHistory p)
         {
             if (Stage != GameStage.Game && Stage != GameStage.Observer) return;
-
 
             S.MarketPlaceHistory result = new S.MarketPlaceHistory { Index = p.Index, Display = p.Display, ObserverPacket = false };
             Enqueue(result);
@@ -820,6 +867,7 @@ namespace Server.Envir
             if (count == 0) return;
             result.AveragePrice = average / count;
         }
+
         public void Process(C.MarketPlaceConsign p)
         {
             if (Stage != GameStage.Game) return;
@@ -843,7 +891,6 @@ namespace Server.Envir
                     if (!string.IsNullOrEmpty(p.Name) && info.ItemName.IndexOf(p.Name, StringComparison.OrdinalIgnoreCase) < 0) continue;
 
                     matches.Add(info.Index);
-
                 }
                 catch (Exception e)
                 {
@@ -863,6 +910,7 @@ namespace Server.Envir
                     case ItemEffect.ItemPart:
                         if (!matches.Contains(info.Item.Stats[Stat.ItemIndex])) continue;
                         break;
+
                     default:
                         if (!matches.Contains(info.Item.Info.Index)) continue;
                         break;
@@ -876,12 +924,15 @@ namespace Server.Envir
                 case MarketPlaceSort.Newest:
                     MPSearchResults.Sort((x1, x2) => x2.Index.CompareTo(x1.Index));
                     break;
+
                 case MarketPlaceSort.Oldest:
                     MPSearchResults.Sort((x1, x2) => x1.Index.CompareTo(x2.Index));
                     break;
+
                 case MarketPlaceSort.HighestPrice:
                     MPSearchResults.Sort((x1, x2) => x2.Price.CompareTo(x1.Price));
                     break;
+
                 case MarketPlaceSort.LowestPrice:
                     MPSearchResults.Sort((x1, x2) => x1.Price.CompareTo(x2.Price));
                     break;
@@ -898,15 +949,14 @@ namespace Server.Envir
                 VisibleResults.Add(info);
             }
 
-
             Enqueue(new S.MarketPlaceSearch { Count = MPSearchResults.Count, Results = results, ObserverPacket = false });
         }
+
         public void Process(C.MarketPlaceSearchIndex p)
         {
             if (Stage != GameStage.Game && Stage != GameStage.Observer) return;
 
             if (p.Index < 0 || p.Index >= MPSearchResults.Count) return;
-
 
             AuctionInfo info = MPSearchResults[p.Index];
 
@@ -916,18 +966,21 @@ namespace Server.Envir
 
             Enqueue(new S.MarketPlaceSearchIndex { Index = p.Index, Result = info.ToClientInfo(Account), ObserverPacket = false });
         }
+
         public void Process(C.MarketPlaceCancelConsign p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.MarketPlaceCancelConsign(p);
         }
+
         public void Process(C.MarketPlaceBuy p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.MarketPlaceBuy(p);
         }
+
         public void Process(C.MarketPlaceStoreBuy p)
         {
             if (Stage != GameStage.Game) return;
@@ -945,18 +998,21 @@ namespace Server.Envir
 
             mail.Opened = true;
         }
+
         public void Process(C.MailGetItem p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.MailGetItem(p);
         }
+
         public void Process(C.MailDelete p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.MailDelete(p.Index);
         }
+
         public void Process(C.MailSend p)
         {
             if (Stage != GameStage.Game) return;
@@ -980,6 +1036,7 @@ namespace Server.Envir
                     break;
             }
         }
+
         public void Process(C.ChangePetMode p)
         {
             if (Stage != GameStage.Game) return;
@@ -1003,6 +1060,7 @@ namespace Server.Envir
 
             Player.ItemSplit(p);
         }
+
         public void Process(C.ItemLock p)
         {
             if (Stage != GameStage.Game) return;
@@ -1010,13 +1068,13 @@ namespace Server.Envir
             Player.ItemLock(p);
         }
 
-
         public void Process(C.TradeRequest p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.TradeRequest();
         }
+
         public void Process(C.TradeRequestResponse p)
         {
             if (Stage != GameStage.Game) return;
@@ -1026,24 +1084,28 @@ namespace Server.Envir
 
             Player.TradePartnerRequest = null;
         }
+
         public void Process(C.TradeClose p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.TradeClose();
         }
+
         public void Process(C.TradeAddItem p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.TradeAddItem(p.Cell);
         }
+
         public void Process(C.TradeAddGold p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.TradeAddGold(p.Gold);
         }
+
         public void Process(C.TradeConfirm p)
         {
             if (Stage != GameStage.Game) return;
@@ -1057,48 +1119,56 @@ namespace Server.Envir
 
             Player.GuildCreate(p);
         }
+
         public void Process(C.GuildEditNotice p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildEditNotice(p);
         }
+
         public void Process(C.GuildEditMember p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildEditMember(p);
         }
+
         public void Process(C.GuildTax p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildTax(p);
         }
+
         public void Process(C.GuildIncreaseMember p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildIncreaseMember(p);
         }
+
         public void Process(C.GuildIncreaseStorage p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildIncreaseStorage(p);
         }
+
         public void Process(C.GuildInviteMember p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildInviteMember(p);
         }
+
         public void Process(C.GuildKickMember p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildKickMember(p);
         }
+
         public void Process(C.GuildResponse p)
         {
             if (Stage != GameStage.Game) return;
@@ -1108,12 +1178,14 @@ namespace Server.Envir
 
             Player.GuildInvitation = null;
         }
+
         public void Process(C.GuildWar p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildWar(p.GuildName);
         }
+
         public void Process(C.GuildRequestConquest p)
         {
             if (Stage != GameStage.Game) return;
@@ -1127,24 +1199,28 @@ namespace Server.Envir
 
             Player.GuildColour(p.Colour);
         }
+
         public void Process(C.GuildFlag p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildFlag(p.Flag);
         }
+
         public void Process(C.GuildToggleCastleGates p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildToggleCastleGates();
         }
+
         public void Process(C.GuildRepairCastleGates p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.GuildRepairCastleGates();
         }
+
         public void Process(C.GuildRepairCastleGuards p)
         {
             if (Stage != GameStage.Game) return;
@@ -1158,18 +1234,21 @@ namespace Server.Envir
 
             Player.QuestAccept(p.Index);
         }
+
         public void Process(C.QuestComplete p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.QuestComplete(p);
         }
+
         public void Process(C.QuestTrack p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.QuestTrack(p);
         }
+
         public void Process(C.QuestAbandon p)
         {
             if (Stage != GameStage.Game) return;
@@ -1183,12 +1262,14 @@ namespace Server.Envir
 
             Player.CompanionUnlock(p.Index);
         }
+
         public void Process(C.CompanionAdopt p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.CompanionAdopt(p);
         }
+
         public void Process(C.CompanionRetrieve p)
         {
             if (Stage != GameStage.Game) return;
@@ -1212,12 +1293,14 @@ namespace Server.Envir
 
             Player.MarriageInvitation = null;
         }
+
         public void Process(C.MarriageMakeRing p)
         {
             if (Stage != GameStage.Game) return;
 
             Player.MarriageMakeRing(p.Slot);
         }
+
         public void Process(C.MarriageTeleport p)
         {
             if (Stage != GameStage.Game) return;
@@ -1254,6 +1337,7 @@ namespace Server.Envir
 
             Enqueue(new S.BlockAdd { Info = block.ToClientInfo(), ObserverPacket = false });
         }
+
         public void Process(C.BlockRemove p)
         {
             if (Stage != GameStage.Game && Stage != GameStage.Observer) return;
@@ -1294,6 +1378,7 @@ namespace Server.Envir
 
             Player.ArmourDye(p.ArmourColour);
         }
+
         public void Process(C.NameChange p)
         {
             if (Stage != GameStage.Game) return;
@@ -1328,6 +1413,7 @@ namespace Server.Envir
 
             Player.JoinStarterGuild();
         }
+
         public void Process(C.NPCAccessoryReset p)
         {
             if (Stage != GameStage.Game) return;

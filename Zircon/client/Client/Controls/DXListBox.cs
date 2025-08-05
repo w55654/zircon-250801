@@ -24,8 +24,11 @@ namespace Client.Controls
                 OnselectedItemChanged(oldValue, value);
             }
         }
+
         private DXListBoxItem _SelectedItem;
+
         public event EventHandler<EventArgs> selectedItemChanged;
+
         public void OnselectedItemChanged(DXListBoxItem oValue, DXListBoxItem nValue)
         {
             if (oValue != null)
@@ -77,6 +80,7 @@ namespace Client.Controls
         }
 
         #region Methods
+
         public override void OnMouseClick(MouseEventArgs e)
         {
             base.OnMouseClick(e);
@@ -88,6 +92,7 @@ namespace Client.Controls
         {
             UpdateItems();
         }
+
         public void UpdateItems()
         {
             foreach (DXControl control in Controls)
@@ -135,6 +140,7 @@ namespace Client.Controls
                 break;
             }
         }
+
         #endregion
 
         #region IDisposable
@@ -158,10 +164,7 @@ namespace Client.Controls
                         ScrollBar.Dispose();
                     ScrollBar = null;
                 }
-
-
             }
-
         }
 
         #endregion
@@ -186,13 +189,16 @@ namespace Client.Controls
                 OnItemChanged(oldValue, value);
             }
         }
+
         private object _Item;
+
         public event EventHandler<EventArgs> ItemChanged;
+
         public virtual void OnItemChanged(object oValue, object nValue)
         {
             ItemChanged?.Invoke(this, EventArgs.Empty);
         }
-        
+
         #endregion
 
         #region Selected
@@ -210,8 +216,11 @@ namespace Client.Controls
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public virtual void OnSelectedChanged(bool oValue, bool nValue)
         {
             UpdateColours();
@@ -238,6 +247,7 @@ namespace Client.Controls
 
             MouseWheel += listBox.ScrollBar.DoMouseWheel;
         }
+
         #endregion
 
         public DXListBoxItem()
@@ -261,7 +271,6 @@ namespace Client.Controls
             DXListBox listBox = Parent as DXListBox;
             if (listBox == null) return;
 
-
             listBox.SelectedItem = this;
         }
 
@@ -271,13 +280,13 @@ namespace Client.Controls
 
             UpdateColours();
         }
+
         public override void OnMouseLeave()
         {
             base.OnMouseLeave();
 
             UpdateColours();
         }
-
 
         public void UpdateLocation()
         {
@@ -296,7 +305,6 @@ namespace Client.Controls
 
             Location = new Point(0, y);
         }
-        
 
         public virtual void UpdateColours()
         {
@@ -316,6 +324,7 @@ namespace Client.Controls
                 BackColour = Color.Empty;
             }
         }
+
         #endregion
 
         #region IDisposable
@@ -340,7 +349,6 @@ namespace Client.Controls
                     Label = null;
                 }
             }
-
         }
 
         #endregion

@@ -21,12 +21,16 @@ namespace Library
     {
         [Description("Attack: Peaceful")]
         Peace,
+
         [Description("Attack: Group")]
         Group,
+
         [Description("Attack: Guild")]
         Guild,
+
         [Description("Attack: War, Red, Brown")]
         WarRedBrown,
+
         [Description("Attack: All")]
         All
     }
@@ -35,12 +39,16 @@ namespace Library
     {
         [Description("Pet: Move, Attack")]
         Both,
+
         [Description("Pet: Move")]
         Move,
+
         [Description("Pet: Attack")]
         Attack,
+
         [Description("Pet: PvP")]
         PvP,
+
         [Description("Pet: None")]
         None,
     }
@@ -48,15 +56,22 @@ namespace Library
     public enum MirDirection : byte
     {
         Up = 0,
+
         [Description("Up Right")]
         UpRight = 1,
+
         Right = 2,
+
         [Description("Down Right")]
         DownRight = 3,
+
         Down = 4,
+
         [Description("Down Left")]
         DownLeft = 5,
+
         Left = 6,
+
         [Description("Up Left")]
         UpLeft = 7
     }
@@ -69,12 +84,16 @@ namespace Library
         Wizard = 2,
         Taoist = 4,
         Assassin = 8,
+
         [Description("Warrior, Wizard, Taoist")]
         WarWizTao = Warrior | Wizard | Taoist,
+
         [Description("Wizard, Taoist")]
         WizTao = Wizard | Taoist,
+
         [Description("Warrior, Assassin")]
         AssWar = Warrior | Assassin,
+
         All = WarWizTao | Assassin
     }
 
@@ -147,10 +166,13 @@ namespace Library
 
         [Description("Snow, Fog")]
         SnowFog = 6,
+
         [Description("Rain, Lightning")]
         RainLightning = 9,
+
         [Description("Fog, Lightning")]
         FogLightning = 12,
+
         [Description("Rain, Fog, Lightning")]
         RainFogLightning = 13
     }
@@ -220,7 +242,7 @@ namespace Library
         HuntGold = 2,
 
         Observable = 3,
-        Brown  = 4,
+        Brown = 4,
         PKPoint = 5,
         PvPCurse = 6,
         Redemption = 7,
@@ -245,6 +267,7 @@ namespace Library
 
         //War
         Defiance = 100,
+
         Might = 101,
         Endurance = 102,
         ReflectDamage = 103,
@@ -253,6 +276,7 @@ namespace Library
 
         //Wiz
         Renounce = 200,
+
         MagicShield = 201,
         JudgementOfHeaven = 202,
         ElementalHurricane = 203,
@@ -262,6 +286,7 @@ namespace Library
 
         //Tao
         Heal = 300,
+
         Invisibility = 301,
         MagicResistance = 302,
         Resilience = 303,
@@ -276,7 +301,8 @@ namespace Library
 
         //Ass
         PoisonousCloud = 400,
-        FullBloom = 401, 
+
+        FullBloom = 401,
         WhiteLotus = 402,
         RedLotus = 403,
         Cloak = 404,
@@ -391,24 +417,35 @@ namespace Library
         Ore = 13,
         Book = 14,
         Scroll = 15,
+
         [Description("Dark Stone")]
         DarkStone = 16,
+
         [Description("Refine Special")]
         RefineSpecial = 17,
+
         [Description("Horse Armour")]
         HorseArmour = 18,
+
         Flower = 19,
+
         [Description("Companion Food")]
         CompanionFood = 20,
+
         [Description("Companion Bag")]
         CompanionBag = 21,
+
         [Description("Companion Head")]
         CompanionHead = 22,
+
         [Description("Companion Back")]
         CompanionBack = 23,
+
         System = 24,
+
         [Description("Item Part")]
         ItemPart = 25,
+
         Emblem = 26,
         Shield = 27,
         Costume = 28,
@@ -419,6 +456,7 @@ namespace Library
         Reel = 33,
         Currency = 34,
         Bundle = 35,
+
         [Description("Loot Box")]
         LootBox = 36
     }
@@ -494,7 +532,6 @@ namespace Library
         FishingWait,
         FishingReel
     }
-    
 
     public enum MessageAction
     {
@@ -566,7 +603,7 @@ namespace Library
 
         Discipline = 20
     }
-    
+
     public enum Element : byte
     {
         None,
@@ -812,8 +849,10 @@ namespace Library
         //NF_StonePillar = 10,
         //NF_BlackPumpkinMan = 11,
         MutatedOctopus = 12,
+
         //NF_StoneBuilding13 = 13,
         StoneGolem = 14,
+
         NetherWorldGate = 15,
         LightArmedSoldier = 16,
         AntHealer = 17,
@@ -821,20 +860,26 @@ namespace Library
         Stomper = 19,
 
         ChaosKnight = 20,
+
         //NF_CrystalPillar = 21,
         CorpseStalker = 22,
+
         NumaMage = 23,
         AntSoldier = 24,
+
         //NF_StoneBuilding25 = 25,
         //NF_StoneBuilding26 = 26,
         NumaElite = 27,
+
         //NF_Phantom = 28,
         CrimsonNecromancer = 29,
 
         Chicken = 30,
         Deer = 31,
+
         //NF_Man1 = 32,
         Oma = 33,
+
         OmaHero = 34,
         SpittingSpider = 35,
         Guard = 36,
@@ -869,16 +914,20 @@ namespace Library
         CorpseRaisingGhost = 62,
         GhoulChampion = 63,
         RedSnake = 64,
+
         //NF_KatanaGuard = 65,
         WhiteBone = 66,
+
         TigerSnake = 67,
         Sheep = 68,
         SkyStinger = 69,
 
         ShellNipper = 70,
         VisceralWorm = 71,
+
         //NF_KingScorpion = 72,
         Beetle = 73,
+
         SpikedBeetle = 74,
         Wolf = 75,
         Centipede = 76,
@@ -904,6 +953,7 @@ namespace Library
         ZumaGuardian = 94,
         ZumaKing = 95,
         ArcherGuard = 96,
+
         //NF_DemonGuardMace = 97,
         //NF_DemonGuardSword = 98,
         Shinsu = 99, //Small
@@ -916,14 +966,17 @@ namespace Library
         CursedCactus = 105,
         AntNeedler = 106,
         WindfurySorceress = 107,
+
         //NF_NumaMounted = 108,
         PhantomSoldier = 109,
 
         //NF_FoxWarrior = 110,
         SpiderBat = 111,
+
         //NF_FoxTaoist = 112,
         //NF_FoxWizard = 113,
         RedMoonTheFallen = 114,
+
         Larva = 115,
         ArachnidGazer = 116,
         RedMoonGuardian = 117,
@@ -932,10 +985,12 @@ namespace Library
 
         //NF_RedMoonGrayProtector = 120,
         VenomousArachnid = 121,
+
         DarkArachnid = 122,
         ForestGuard = 123,
         TownGuard = 124,
         SandGuard = 125,
+
         //NF_Blank126 = 126,
         //NF_Blank127 = 127,
         //NF_Blank128 = 128,
@@ -943,12 +998,14 @@ namespace Library
 
         PachonTheChaosBringer = 130,
         Cow = 131,
+
         //NF_NumaAxeman = 132,
         //NF_Football = 133,
         //NF_HermitFemale = 134,
         //NF_HermitMale = 135,
         //NF_WhiteSnake = 136,
         ChestnutTree = 137,
+
         NumaGrunt = 138,
         NumaWarrior = 139,
 
@@ -969,18 +1026,23 @@ namespace Library
         BoneBladesman = 153,
         BoneArcher = 154,
         MutantFlea = 155,
+
         //NF_PurpleFlea = 156,
         BlasterMutantFlea = 157,
+
         //NF_BlueBlasterMutantFlea = 158,
         PoisonousMutantFlea = 159,
 
         RazorTusk = 160,
+
         //NF_Reindeer = 161,
         //NF_EvilScorpion = 162,
         //NF_ChristmasTree = 163,
         Monkey = 164,
+
         //NF_Santa = 165,
         CannibalFanatic = 166,
+
         EvilFanatic = 167,
         EvilElephant = 168,
         FlameGriffin = 169,
@@ -1009,17 +1071,22 @@ namespace Library
 
         NumaCavalry = 190,
         NumaArmoredSoldier = 191,
+
         //NF_NumaAxeSoldier = 192,
         NumaStoneThrower = 193,
+
         NumaHighMage = 194,
         NumaRoyalGuard = 195,
+
         //NF_NumaWarlord = 196,
         BloodStone = 197,
+
         //NF_Chest = 198,
         //NF_BonePile199 = 199,
 
         //NF_Snowman = 200,
         RagingLizard = 201,
+
         SawToothLizard = 202,
         MutantLizard = 203,
         VenomSpitter = 204,
@@ -1097,9 +1164,11 @@ namespace Library
 
         Salamander = 280,
         SandGolem = 281,
+
         //NF_NumaLoneGuard = 282,
         //NF_SmallSpider = 283,
         OmaInfant = 284,
+
         Yob = 285,
         RakingCat = 286,
         UmaTridentInfidel = 287,
@@ -1109,12 +1178,14 @@ namespace Library
         SDMob4 = 290,
         SDMob5 = 291,
         SDMob6 = 292,
+
         //NF_SpiritSpider = 293,
         //NF_DarkMage = 294,
         //NF_Lizard = 295,
         //NF_DarkDevil = 296,
         //NF_NumaSoldier = 297,
         SDMob7 = 298,
+
         OmaMage = 299,
 
         WildMonkey = 300,
@@ -1132,10 +1203,12 @@ namespace Library
 
         SDMob8 = 320,
         SDMob9 = 321,
+
         //NF_BlueMouseWithTail = 322,
         //NF_VampireDagger = 323,
         //NF_VampireSpear = 324,
         SDMob10 = 325,
+
         SDMob11 = 326,
         SDMob12 = 327,
         SDMob13 = 328,
@@ -1213,6 +1286,7 @@ namespace Library
 
         //NF_Nameless410 = 410,
         DustDevil = 411,
+
         TwinTailScorpion = 412,
         BloodyMole = 413,
         //NF_Nameless414 = 414,
@@ -1227,6 +1301,7 @@ namespace Library
         //NF_HellPuddle = 422,
         //NF_CrystalPillar2 = 423,
         Terracotta1 = 424,
+
         Terracotta2 = 425,
         Terracotta3 = 426,
         Terracotta4 = 427,
@@ -1239,6 +1314,7 @@ namespace Library
         //NF_Nameless441 = 441,
         //NF_Nameless442 = 442,
         SDMob19 = 443,
+
         SDMob20 = 444,
         SDMob21 = 445,
         SDMob22 = 446,
@@ -1283,6 +1359,7 @@ namespace Library
 
         //MonMagicEx25
         SeaHorseCavalry = 530,
+
         Seamancer = 531,
         CoralStoneDuin = 532,
         Brachiopod = 533,
@@ -1295,6 +1372,7 @@ namespace Library
 
         //Mon54
         SabukGateSouth = 540,
+
         SabukGateNorth = 541,
         SabukGateEast = 542,
         SabukGateWest = 543,
@@ -1316,12 +1394,10 @@ namespace Library
 
         //Mon59
 
-
         //Flag
         CastleFlag = 1000
     }
 
-   
     public enum MapIcon
     {
         None,
@@ -1452,7 +1528,6 @@ namespace Library
         ZombieHole
     }
 
-
     public enum MagicEffect
     {
         ReflectDamage,
@@ -1491,8 +1566,10 @@ namespace Library
     {
         Newest,
         Oldest,
+
         [Description("Highest Price")]
         HighestPrice,
+
         [Description("Lowest Price")]
         LowestPrice,
     }
@@ -1500,10 +1577,13 @@ namespace Library
     public enum MarketPlaceStoreSort
     {
         Alphabetical,
+
         [Description("Highest Price")]
         HighestPrice,
+
         [Description("Lowest Price")]
         LowestPrice,
+
         Favourite
     }
 
@@ -1511,6 +1591,7 @@ namespace Library
     {
         Name,
         Level,
+
         [Description("Player Count")]
         PlayerCount,
     }
@@ -1555,8 +1636,9 @@ namespace Library
     {
         None = 0,
 
-        //EquipEffect_Part [1~99] 
+        //EquipEffect_Part [1~99]
         A_WhiteAura = 1,
+
         A_FlameAura = 2,
         A_BlueAura = 3,
 
@@ -1572,14 +1654,14 @@ namespace Library
         A_IceKingWings = 17,
         A_BlueButterflyWings = 18,
 
-
         S_WarThurible = 50,
         S_PenanceThurible = 51,
         S_CensorshipThurible = 52,
         S_PetrichorThurible = 53,
-        
+
         //EquipEffect_Full [100~119]
         A_FireDragonWings = 100,
+
         A_SmallYellowWings = 101,
         A_GreenFeatherWings = 102,
         A_RedFeatherWings = 103,
@@ -1591,11 +1673,12 @@ namespace Library
         W_JanitorsScimitar = 111,
         W_JanitorsDualBlade = 112,
 
-        //EquipEffect_FullEx1 [120~139] 
+        //EquipEffect_FullEx1 [120~139]
         A_LionWings = 120,
+
         A_AngelicWings = 121,
 
-        //EquipEffect_FullEx2 [140~159] 
+        //EquipEffect_FullEx2 [140~159]
         A_BlueDragonWings = 140,
 
         //EquipEffect_FullEx3 [160~179]
@@ -1604,8 +1687,9 @@ namespace Library
         //EquipEffect_Item [180~199]
         //Reserved
 
-        //MonMagicEx26 [200~250] 
+        //MonMagicEx26 [200~250]
         E_RedEyeRing = 200,
+
         E_BlueEyeRing = 201,
         E_GreenSpiralRing = 202,
         E_Fireworks = 203
@@ -1617,6 +1701,7 @@ namespace Library
 
         //Gold = 1,
         Experience = 2,
+
         CompanionTicket = 3,
         BasicCompanionBag = 4,
         PickAxe = 5,
@@ -1685,8 +1770,10 @@ namespace Library
     {
         [Description("Any Of")]
         AnyOf,
+
         [Description("All Of")]
         AllOf,
+
         [Description("One Of")]
         OneOf
     }
@@ -1714,7 +1801,7 @@ namespace Library
     public enum UserItemFlags
     {
         None = 0,
-        
+
         Locked = 1,
         Bound = 2,
         Worthless = 4,
@@ -1725,7 +1812,7 @@ namespace Library
         Marriage = 128,
         NonRefinable = 256
     }
-    
+
     public enum HorseType : byte
     {
         None = 0,
@@ -1736,7 +1823,7 @@ namespace Library
         WhiteUnicorn = 5,
         RedUnicorn = 6
     }
-    
+
     public enum OnlineState : byte
     {
         Online,
@@ -1823,51 +1910,73 @@ namespace Library
 
         [Description("Key\n1")]
         Spell01,
+
         [Description("Key\n2")]
         Spell02,
+
         [Description("Key\n3")]
         Spell03,
+
         [Description("Key\n4")]
         Spell04,
+
         [Description("Key\n5")]
         Spell05,
+
         [Description("Key\n6")]
         Spell06,
+
         [Description("Key\n7")]
         Spell07,
+
         [Description("Key\n8")]
         Spell08,
+
         [Description("Key\n9")]
         Spell09,
+
         [Description("Key\n10")]
         Spell10,
+
         [Description("Key\n11")]
         Spell11,
+
         [Description("Key\n12")]
         Spell12,
 
         [Description("Key\n13")]
         Spell13,
+
         [Description("Key\n14")]
         Spell14,
+
         [Description("Key\n15")]
         Spell15,
+
         [Description("Key\n16")]
         Spell16,
+
         [Description("Key\n17")]
         Spell17,
+
         [Description("Key\n18")]
         Spell18,
+
         [Description("Key\n19")]
         Spell19,
+
         [Description("Key\n20")]
         Spell20,
+
         [Description("Key\n21")]
         Spell21,
+
         [Description("Key\n22")]
         Spell22,
+
         [Description("Key\n23")]
         Spell23,
+
         [Description("Key\n24")]
         Spell24,
     }
@@ -1990,6 +2099,7 @@ namespace Library
         Banned,
         Success
     }
+
     public enum RequestPasswordResetResult : byte
     {
         Disabled,
@@ -2000,6 +2110,7 @@ namespace Library
         Banned,
         Success
     }
+
     public enum ResetPasswordResult : byte
     {
         Disabled,
@@ -2008,7 +2119,6 @@ namespace Library
         KeyExpired,
         Success
     }
-    
 
     public enum ActivationResult : byte
     {
@@ -2121,6 +2231,7 @@ namespace Library
         SelectScene,
 
         #region Province Music
+
         B000 = 3,
         B2,
         B8,
@@ -2159,6 +2270,7 @@ namespace Library
         TS001,
         TS002,
         TS003,
+
         #endregion
 
         LoginScene2,
@@ -2449,6 +2561,7 @@ namespace Library
         RagingWindStart,
 
         ChainofFireExplode,
+
         #endregion
 
         #region Monsters
@@ -2638,7 +2751,6 @@ namespace Library
         BloodThirstyGhoulStruck,
         BloodThirstyGhoulDie,
 
-
         SpinedDarkLizardAttack,
         SpinedDarkLizardStruck,
         SpinedDarkLizardDie,
@@ -2696,7 +2808,6 @@ namespace Library
         RedMoonTheFallenAttack,
         RedMoonTheFallenStruck,
         RedMoonTheFallenDie,
-
 
         ViciousRatAttack,
         ViciousRatStruck,
@@ -2936,7 +3047,6 @@ namespace Library
         PachontheChaosbringerStruck,
         PachontheChaosbringerDie,
 
-
         NumaCavalryAttack,
         NumaCavalryStruck,
         NumaCavalryDie,
@@ -3125,5 +3235,4 @@ namespace Library
     }
 
     #endregion
-
 }

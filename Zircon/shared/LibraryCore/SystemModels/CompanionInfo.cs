@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MonsterInfo");
             }
         }
+
         private MonsterInfo _MonsterInfo;
 
         public int Price
@@ -38,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Price");
             }
         }
+
         private int _Price;
 
         public bool Available
@@ -53,6 +50,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Available");
             }
         }
+
         private bool _Available;
     }
 }

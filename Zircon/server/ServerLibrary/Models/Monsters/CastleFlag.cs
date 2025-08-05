@@ -54,7 +54,6 @@ namespace Server.Models.Monsters
             return true;
         }
 
-
         protected override void OnSpawned()
         {
             base.OnSpawned();
@@ -219,7 +218,9 @@ namespace Server.Models.Monsters
             base.ProcessTarget();
         }
 
-        public override void ProcessRegen() { }
+        public override void ProcessRegen()
+        { }
+
         public override bool ShouldAttackTarget(MapObject ob)
         {
             if (ob == this || ob?.Node == null || ob.Dead || !ob.Visible || War == null) return false;
@@ -248,10 +249,12 @@ namespace Server.Models.Monsters
                     PlayerObject player = (PlayerObject)ob;
 
                     return player.Character.Account.GuildMember?.Guild.Castle != War.Castle;
+
                 default:
                     throw new NotImplementedException();
             }
         }
+
         public override bool CanAttackTarget(MapObject ob)
         {
             if (ob == this || ob?.Node == null || ob.Dead || !ob.Visible || War == null) return false;
@@ -271,6 +274,7 @@ namespace Server.Models.Monsters
                     PlayerObject player = (PlayerObject)ob;
 
                     return player.Character.Account.GuildMember?.Guild.Castle != War.Castle;
+
                 default:
                     throw new NotImplementedException();
             }

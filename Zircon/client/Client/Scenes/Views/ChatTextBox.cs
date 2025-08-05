@@ -29,8 +29,11 @@ namespace Client.Scenes.Views
                 OnModeChanged(oldValue, value);
             }
         }
+
         private ChatMode _Mode;
+
         public event EventHandler<EventArgs> ModeChanged;
+
         public void OnModeChanged(ChatMode oValue, ChatMode nValue)
         {
             ModeChanged?.Invoke(this, EventArgs.Empty);
@@ -42,7 +45,7 @@ namespace Client.Scenes.Views
         #endregion
 
         public string LastPM;
-        
+
         public DXTextBox TextBox;
         public DXButton OptionsButton;
         public DXButton ChatModeButton;
@@ -55,6 +58,7 @@ namespace Client.Scenes.Views
 
             SetDefaultLocation();
         }
+
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
@@ -94,7 +98,7 @@ namespace Client.Scenes.Views
                 Label = { Text = Mode.ToString() },
                 Parent = this,
             };
-            ChatModeButton.MouseClick += (o, e) => Mode = (ChatMode) (((int) (Mode) + 1)%7);
+            ChatModeButton.MouseClick += (o, e) => Mode = (ChatMode)(((int)(Mode) + 1) % 7);
 
             OptionsButton = new DXButton
             {
@@ -137,6 +141,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar)
@@ -163,6 +168,7 @@ namespace Client.Scenes.Views
 
                     ToggleVisibility(e, true);
                     break;
+
                 case (char)Keys.Escape:
                     e.Handled = true;
                     DXTextBox.ActiveTextBox = null;
@@ -187,6 +193,7 @@ namespace Client.Scenes.Views
                     TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
                     e.Handled = true;
                     break;
+
                 case '!':
                     if (!Config.ShiftOpenChat) return;
                     TextBox.SetFocus();
@@ -196,11 +203,13 @@ namespace Client.Scenes.Views
                     TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
                     e.Handled = true;
                     break;
+
                 case ' ':
                 case (char)Keys.Enter:
                     OpenChat();
                     e.Handled = true;
                     break;
+
                 case '/':
                     TextBox.SetFocus();
                     if (string.IsNullOrEmpty(LastPM))
@@ -249,19 +258,24 @@ namespace Client.Scenes.Views
                     case ChatMode.Shout:
                         TextBox.TextBox.Text = @"!";
                         break;
+
                     case ChatMode.Whisper:
                         if (!string.IsNullOrWhiteSpace(LastPM))
                             TextBox.TextBox.Text = LastPM + " ";
                         break;
+
                     case ChatMode.Group:
                         TextBox.TextBox.Text = @"!!";
                         break;
+
                     case ChatMode.Guild:
                         TextBox.TextBox.Text = @"!~";
                         break;
+
                     case ChatMode.Global:
                         TextBox.TextBox.Text = @"!@";
                         break;
+
                     case ChatMode.Observer:
                         TextBox.TextBox.Text = @"#";
                         break;
@@ -271,6 +285,7 @@ namespace Client.Scenes.Views
             TextBox.TextBox.SelectionLength = 0;
             TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
         }
+
         public void StartPM(string name)
         {
             TextBox.TextBox.Text = $"/{name} ";
@@ -288,6 +303,7 @@ namespace Client.Scenes.Views
             TextBox.TextBox.SelectionLength = 0;
             TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
         }
+
         #endregion
 
         #region IDisposable
@@ -310,7 +326,7 @@ namespace Client.Scenes.Views
 
                     TextBox = null;
                 }
-                
+
                 if (OptionsButton != null)
                 {
                     if (!OptionsButton.IsDisposed)
@@ -318,7 +334,7 @@ namespace Client.Scenes.Views
 
                     OptionsButton = null;
                 }
-                
+
                 if (ChatModeButton != null)
                 {
                     if (!ChatModeButton.IsDisposed)
@@ -327,7 +343,6 @@ namespace Client.Scenes.Views
                     ChatModeButton = null;
                 }
             }
-
         }
 
         #endregion
@@ -349,5 +364,5 @@ namespace Client.Scenes.Views
         public string Text { get; set; }
         public DateTime ReceivedTime { get; set; }
         public MessageType Type { get; set; }
-    } 
+    }
 }

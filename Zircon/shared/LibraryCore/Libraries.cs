@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Library
 {
@@ -138,8 +134,6 @@ namespace Library
             [LibraryFile.WM_Weapon15] = $"{AppInfo.AppPath}Data/WM-Weapon15.Zl",
             [LibraryFile.WM_Weapon16] = $"{AppInfo.AppPath}Data/WM-Weapon16.Zl",
 
-
-
             [LibraryFile.M_WeaponADL1] = $"{AppInfo.AppPath}Data/M-WeaponADL1.Zl",
             [LibraryFile.M_WeaponADL2] = $"{AppInfo.AppPath}Data/M-WeaponADL2.Zl",
             [LibraryFile.M_WeaponADL6] = $"{AppInfo.AppPath}Data/M-WeaponADL6.Zl",
@@ -153,7 +147,6 @@ namespace Library
             [LibraryFile.M_WeaponAOH4] = $"{AppInfo.AppPath}Data/M-WeaponAOH4.Zl",
             [LibraryFile.M_WeaponAOH5] = $"{AppInfo.AppPath}Data/M-WeaponAOH5.Zl",
             [LibraryFile.M_WeaponAOH6] = $"{AppInfo.AppPath}Data/M-WeaponAOH6.Zl",
-
 
             [LibraryFile.WM_WeaponADL1] = $"{AppInfo.AppPath}Data/WM-WeaponADL1.Zl",
             [LibraryFile.WM_WeaponADL2] = $"{AppInfo.AppPath}Data/WM-WeaponADL2.Zl",
@@ -169,7 +162,6 @@ namespace Library
             [LibraryFile.WM_WeaponAOH5] = $"{AppInfo.AppPath}Data/WM-WeaponAOH5.Zl",
             [LibraryFile.WM_WeaponAOH6] = $"{AppInfo.AppPath}Data/WM-WeaponAOH6.Zl",
 
-
             [LibraryFile.M_Helmet1] = $"{AppInfo.AppPath}Data/M-Helmet1.Zl",
             [LibraryFile.M_Helmet2] = $"{AppInfo.AppPath}Data/M-Helmet2.Zl",
             [LibraryFile.M_Helmet3] = $"{AppInfo.AppPath}Data/M-Helmet3.Zl",
@@ -180,7 +172,6 @@ namespace Library
             [LibraryFile.M_Helmet12] = $"{AppInfo.AppPath}Data/M-Helmet12.Zl",
             [LibraryFile.M_Helmet13] = $"{AppInfo.AppPath}Data/M-Helmet13.Zl",
             [LibraryFile.M_Helmet14] = $"{AppInfo.AppPath}Data/M-Helmet14.Zl",
-
 
             [LibraryFile.WM_Helmet1] = $"{AppInfo.AppPath}Data/WM-Helmet1.Zl",
             [LibraryFile.WM_Helmet2] = $"{AppInfo.AppPath}Data/WM-Helmet2.Zl",
@@ -193,19 +184,15 @@ namespace Library
             [LibraryFile.WM_Helmet13] = $"{AppInfo.AppPath}Data/WM-Helmet13.Zl",
             [LibraryFile.WM_Helmet14] = $"{AppInfo.AppPath}Data/WM-Helmet14.Zl",
 
-
             [LibraryFile.M_HelmetA1] = $"{AppInfo.AppPath}Data/M-HelmetA1.Zl",
             [LibraryFile.M_HelmetA2] = $"{AppInfo.AppPath}Data/M-HelmetA2.Zl",
             [LibraryFile.M_HelmetA3] = $"{AppInfo.AppPath}Data/M-HelmetA3.Zl",
             [LibraryFile.M_HelmetA4] = $"{AppInfo.AppPath}Data/M-HelmetA4.Zl",
 
-
             [LibraryFile.WM_HelmetA1] = $"{AppInfo.AppPath}Data/WM-HelmetA1.Zl",
             [LibraryFile.WM_HelmetA2] = $"{AppInfo.AppPath}Data/WM-HelmetA2.Zl",
             [LibraryFile.WM_HelmetA3] = $"{AppInfo.AppPath}Data/WM-HelmetA3.Zl",
             [LibraryFile.WM_HelmetA4] = $"{AppInfo.AppPath}Data/WM-HelmetA4.Zl",
-
-
 
             [LibraryFile.MonMagic] = $"{AppInfo.AppPath}Data/MonMagic.Zl", //
             [LibraryFile.MonMagicEx] = $"{AppInfo.AppPath}Data/MonMagicEx.Zl", //
@@ -353,7 +340,6 @@ namespace Library
             [LibraryFile.Snow_Tilesc] = $"{AppInfo.AppPath}Data/Map Data/Snow/Tilesc.Zl",
             [LibraryFile.Snow_Wallsc] = $"{AppInfo.AppPath}Data/Map Data/Snow/Wallsc.Zl",
 
-
             [LibraryFile.Wood_Animationsc] = $"{AppInfo.AppPath}Data/Map Data/Wood/Animationsc.Zl",
             [LibraryFile.Wood_Cliffsc] = $"{AppInfo.AppPath}Data/Map Data/Wood/Cliffsc.Zl",
             [LibraryFile.Wood_Dungeonsc] = $"{AppInfo.AppPath}Data/Map Data/Wood/Dungeonsc.Zl",
@@ -366,7 +352,6 @@ namespace Library
             [LibraryFile.Wood_Tiles30c] = $"{AppInfo.AppPath}Data/Map Data/Wood/Tiles30c.Zl",
             [LibraryFile.Wood_Tilesc] = $"{AppInfo.AppPath}Data/Map Data/Wood/Tilesc.Zl",
             [LibraryFile.Wood_Wallsc] = $"{AppInfo.AppPath}Data/Map Data/Wood/Wallsc.Zl",
-
         };
 
         public static Dictionary<int, LibraryFile> KROrder = new Dictionary<int, LibraryFile>
@@ -386,7 +371,6 @@ namespace Library
             [12] = LibraryFile.Object1c,
             [13] = LibraryFile.Object2c,
 
-
             [15] = LibraryFile.Wood_Tilesc,
             [16] = LibraryFile.Wood_Tiles30c,
             [17] = LibraryFile.Wood_Tiles5c,
@@ -399,7 +383,6 @@ namespace Library
             [24] = LibraryFile.Wood_Wallsc,
             [25] = LibraryFile.Wood_SmObjectsc,
             [26] = LibraryFile.Wood_Animationsc,
-
 
             [30] = LibraryFile.Sand_Tilesc,
             [31] = LibraryFile.Sand_Tiles30c,
@@ -414,7 +397,6 @@ namespace Library
             [40] = LibraryFile.Sand_SmObjectsc,
             [41] = LibraryFile.Sand_Animationsc,
 
-
             [45] = LibraryFile.Snow_Tilesc,
             [46] = LibraryFile.Snow_Tiles30c,
             [47] = LibraryFile.Snow_Tiles5c,
@@ -427,7 +409,6 @@ namespace Library
             [54] = LibraryFile.Snow_Wallsc,
             [55] = LibraryFile.Snow_SmObjectsc,
             [56] = LibraryFile.Snow_Animationsc,
-
 
             [60] = LibraryFile.Forest_Tilesc,
             [61] = LibraryFile.Forest_Tiles30c,

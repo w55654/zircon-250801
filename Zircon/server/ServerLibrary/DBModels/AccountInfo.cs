@@ -24,8 +24,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "EMailAddress");
             }
         }
+
         private string _EMailAddress;
-        
+
         public byte[] Password
         {
             get { return _Password; }
@@ -39,6 +40,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Password");
             }
         }
+
         private byte[] _Password;
 
         public string RealName
@@ -54,6 +56,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "RealName");
             }
         }
+
         private string _RealName;
 
         public DateTime BirthDate
@@ -69,6 +72,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BirthDate");
             }
         }
+
         private DateTime _BirthDate;
 
         public string Question
@@ -84,6 +88,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Question");
             }
         }
+
         private string _Question;
 
         public string Answer
@@ -99,6 +104,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Answer");
             }
         }
+
         private string _Answer;
 
         [Association("Referrals")]
@@ -115,8 +121,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Referral");
             }
         }
+
         private AccountInfo _Referral;
-        
+
         public string CreationIP
         {
             get { return _CreationIP; }
@@ -130,8 +137,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CreationIP");
             }
         }
+
         private string _CreationIP;
-        
+
         public DateTime CreationDate
         {
             get { return _CreationDate; }
@@ -145,6 +153,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "CreationDate");
             }
         }
+
         private DateTime _CreationDate;
 
         public string LastIP
@@ -160,6 +169,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastIP");
             }
         }
+
         private string _LastIP;
 
         public DateTime LastLogin
@@ -175,6 +185,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastLogin");
             }
         }
+
         private DateTime _LastLogin;
 
         public string ActivationKey
@@ -190,6 +201,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ActivationKey");
             }
         }
+
         private string _ActivationKey;
 
         public DateTime ActivationTime
@@ -205,8 +217,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ActivationTime");
             }
         }
+
         private DateTime _ActivationTime;
-        
+
         public bool Activated
         {
             get { return _Activated; }
@@ -220,6 +233,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Activated");
             }
         }
+
         private bool _Activated;
 
         public string ResetKey
@@ -235,6 +249,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ResetKey");
             }
         }
+
         private string _ResetKey;
 
         public DateTime ResetTime
@@ -250,6 +265,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ResetTime");
             }
         }
+
         private DateTime _ResetTime;
 
         public DateTime PasswordTime
@@ -265,6 +281,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PasswordTime");
             }
         }
+
         private DateTime _PasswordTime;
 
         public DateTime ChatBanExpiry
@@ -280,6 +297,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ChatBanExpiry");
             }
         }
+
         private DateTime _ChatBanExpiry;
 
         public bool Banned
@@ -295,6 +313,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Banned");
             }
         }
+
         private bool _Banned;
 
         public DateTime BanExpiry
@@ -310,6 +329,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ExpiryDate");
             }
         }
+
         private DateTime _ExpiryDate;
 
         public string BanReason
@@ -325,6 +345,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "BanReason");
             }
         }
+
         private string _BanReason;
 
         [IgnoreProperty]
@@ -349,6 +370,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "AllowGroup");
             }
         }
+
         private bool _AllowGroup;
 
         public bool AllowTrade
@@ -364,6 +386,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "AllowTrade");
             }
         }
+
         private bool _AllowTrade;
 
         public bool AllowGuild
@@ -379,6 +402,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "AllowGuild");
             }
         }
+
         private bool _AllowGuild;
 
         public bool AllowGroupRecall
@@ -394,9 +418,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "AllowGroupRecall");
             }
         }
-        private bool _AllowGroupRecall;
-        
 
+        private bool _AllowGroupRecall;
 
         [Association("Member")]
         public GuildMemberInfo GuildMember
@@ -412,8 +435,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildMember");
             }
         }
+
         private GuildMemberInfo _GuildMember;
-        
+
         public DateTime GlobalShoutExpiry
         {
             get { return _GlobalTime; }
@@ -427,6 +451,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GlobalTime");
             }
         }
+
         private DateTime _GlobalTime;
 
         public HorseType Horse
@@ -442,6 +467,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Horse");
             }
         }
+
         private HorseType _Horse;
 
         public bool Admin
@@ -457,6 +483,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Admin");
             }
         }
+
         private bool _Admin;
 
         public int StorageSize
@@ -472,6 +499,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "StorageSize");
             }
         }
+
         private int _StorageSize;
 
         public string LastSum
@@ -487,6 +515,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastSum");
             }
         }
+
         private string _LastSum;
 
         public bool GoldBot
@@ -502,6 +531,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GoldBot");
             }
         }
+
         private bool _GoldBot;
 
         public bool ItemBot
@@ -517,8 +547,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "ItemBot");
             }
         }
+
         private bool _ItemBot;
-        
 
         public DateTime GuildTime
         {
@@ -533,6 +563,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "GuildTime");
             }
         }
+
         private DateTime _GuildTime;
 
         public bool Observer
@@ -548,8 +579,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Observer");
             }
         }
+
         private bool _Observer;
-        
+
         public bool TempAdmin;
 
         [Association("Currencies")]
@@ -569,10 +601,10 @@ namespace Server.DBModels
 
         [Association("Auctions")]
         public DBBindingList<AuctionInfo> Auctions { get; set; }
-        
+
         [Association("Mail")]
         public DBBindingList<MailInfo> Mail { get; set; }
-        
+
         [Association("UserDrops")]
         public DBBindingList<UserDrop> UserDrops { get; set; }
 
@@ -613,8 +645,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastCharacter");
             }
         }
+
         private CharacterInfo _LastCharacter;
-        
 
         public int WrongPasswordCount;
         public SConnection Connection;
@@ -636,6 +668,7 @@ namespace Server.DBModels
 
             AddDefaultCurrencies();
         }
+
         protected override void OnLoaded()
         {
             base.OnLoaded();

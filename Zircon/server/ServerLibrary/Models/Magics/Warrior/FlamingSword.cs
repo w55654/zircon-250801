@@ -16,7 +16,6 @@ namespace Server.Models.Magics
 
         public FlamingSword(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void Process()

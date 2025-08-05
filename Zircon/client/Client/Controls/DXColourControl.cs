@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Client.Envir;
+using Client.UserModels;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
-using Client.Envir;
-using Client.UserModels;
 
 //Cleaned
 namespace Client.Controls
@@ -10,6 +10,7 @@ namespace Client.Controls
     public sealed class DXColourControl : DXControl
     {
         #region Properies
+
         private DXColourPicker Window;
 
         #region AllowNoColour
@@ -27,8 +28,11 @@ namespace Client.Controls
                 OnAllowNoColourChanged(oldValue, value);
             }
         }
+
         private bool _AllowNoColour;
+
         public event EventHandler<EventArgs> AllowNoColourChanged;
+
         public void OnAllowNoColourChanged(bool oValue, bool nValue)
         {
             AllowNoColourChanged?.Invoke(this, EventArgs.Empty);
@@ -53,6 +57,7 @@ namespace Client.Controls
         }
 
         #region Methods
+
         private void DXColourControl_MouseClick(object sender, MouseEventArgs e)
         {
             if (Window != null)
@@ -72,9 +77,11 @@ namespace Client.Controls
             };
             Window.Location = new Point((ActiveScene.Size.Width - Window.Size.Width) / 2, (ActiveScene.Size.Height - Window.Size.Height) / 2);
         }
+
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -90,13 +97,14 @@ namespace Client.Controls
                 }
             }
         }
+
         #endregion
     }
 
     public sealed class DXColourPicker : DXWindow
     {
         #region Properties
-        
+
         #region SelectedColour
 
         public Color SelectedColour
@@ -112,8 +120,11 @@ namespace Client.Controls
                 OnSelectedColourChanged(oldValue, value);
             }
         }
+
         private Color _SelectedColour;
+
         public event EventHandler<EventArgs> SelectedColourChanged;
+
         public void OnSelectedColourChanged(Color oValue, Color nValue)
         {
             SelectedColourChanged?.Invoke(this, EventArgs.Empty);
@@ -159,8 +170,11 @@ namespace Client.Controls
                 OnAllowNoColourChanged(oldValue, value);
             }
         }
+
         private bool _AllowNoColour;
+
         public event EventHandler<EventArgs> AllowNoColourChanged;
+
         public void OnAllowNoColourChanged(bool oValue, bool nValue)
         {
             AllowNoColourChanged?.Invoke(this, EventArgs.Empty);
@@ -184,6 +198,7 @@ namespace Client.Controls
         public override WindowType Type => WindowType.None;
         public override bool CustomSize => false;
         public override bool AutomaticVisibility => false;
+
         #endregion
 
         public DXColourPicker()
@@ -313,6 +328,7 @@ namespace Client.Controls
         }
 
         #region Methods
+
         private void ColourScaleBox_MouseClick(object sender, MouseEventArgs e)
         {
             int x = e.X - ColourScaleBox.DisplayArea.X;
@@ -322,16 +338,18 @@ namespace Client.Controls
 
             SelectedColour = Color.FromArgb(DXManager.PalleteData[(y * 200 + x) * 4 + 2], DXManager.PalleteData[(y * 200 + x) * 4 + 1], DXManager.PalleteData[(y * 200 + x) * 4]);
         }
+
         private void CancelButton_MouseClick(object sender, MouseEventArgs e)
         {
             Target.BackColour = PreviousColour;
             Dispose();
         }
+
         private void ColourBox_ValueChanged(object sender, EventArgs e)
         {
             if (Updating) return;
 
-            SelectedColour = Color.FromArgb((int) RedBox.Value, (int) GreenBox.Value, (int) BlueBox.Value);
+            SelectedColour = Color.FromArgb((int)RedBox.Value, (int)GreenBox.Value, (int)BlueBox.Value);
         }
 
         private void EmptyButton_MouseClick(object sender, MouseEventArgs e)
@@ -344,6 +362,7 @@ namespace Client.Controls
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -430,6 +449,7 @@ namespace Client.Controls
                 }
             }
         }
+
         #endregion
     }
 }

@@ -17,7 +17,6 @@ namespace Server.Models.Magics
 
         public DragonRise(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void Process()

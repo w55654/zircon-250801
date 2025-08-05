@@ -1,11 +1,8 @@
 ﻿using Library;
-using Library.Network.ClientPackets;
 using Server.DBModels;
 using Server.Envir;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
 namespace Server.Models.Magics
 {
@@ -16,7 +13,6 @@ namespace Server.Models.Magics
 
         public ScortchedEarth(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetBurn(int burn, Stats stats = null)
@@ -71,6 +67,7 @@ namespace Server.Models.Magics
                         ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, CurrentMap.GetCell(Functions.Move(location, Functions.ShiftDirection(direction, -2))), false));
                         ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, CurrentMap.GetCell(Functions.Move(location, Functions.ShiftDirection(direction, 2))), false));
                         break;
+
                     case MirDirection.UpRight:
                     case MirDirection.DownRight:
                     case MirDirection.DownLeft:

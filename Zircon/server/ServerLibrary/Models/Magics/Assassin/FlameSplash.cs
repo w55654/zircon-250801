@@ -21,7 +21,6 @@ namespace Server.Models.Magics
 
         public FlameSplash(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override void RefreshToggle()

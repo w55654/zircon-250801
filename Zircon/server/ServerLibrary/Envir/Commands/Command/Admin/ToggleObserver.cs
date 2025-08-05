@@ -2,7 +2,7 @@
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class ToggleObserver : AbstractCommand<IAdminCommand>
+    internal class ToggleObserver : AbstractCommand<IAdminCommand>
     {
         public override string VALUE => "OBSERVER";
 

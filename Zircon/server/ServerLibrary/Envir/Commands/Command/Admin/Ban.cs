@@ -6,7 +6,7 @@ using G = Library.Network.GeneralPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class Ban : AbstractParameterizedCommand<IAdminCommand>
+    internal class Ban : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "BAN";
         public override int PARAMS_LENGTH => 2;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Server.DBModels
 {
@@ -23,8 +18,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Info");
             }
         }
+
         private int _Info;
-        
+
         public long SaleCount
         {
             get { return _SaleCount; }
@@ -38,6 +34,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "SaleCount");
             }
         }
+
         private long _SaleCount;
 
         public int LastPrice
@@ -53,8 +50,9 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "LastPrice");
             }
         }
+
         private int _LastPrice;
-        
+
         public int[] Average
         {
             get { return _Average; }
@@ -68,6 +66,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Average");
             }
         }
+
         private int[] _Average;
 
         public int PartIndex
@@ -83,8 +82,8 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "PartIndex");
             }
         }
+
         private int _PartIndex;
-        
 
         protected override void OnCreated()
         {

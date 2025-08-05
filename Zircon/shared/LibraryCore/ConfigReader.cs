@@ -37,6 +37,7 @@ namespace Library
                     ReadConfig(type, AdjustPath(config.Path, assembly), ob);
             }
         }
+
         public static void Save(Assembly assembly)
         {
             Type[] types = assembly.GetTypes();
@@ -186,6 +187,7 @@ namespace Library
 
             return value.Replace("\n", "\\n").Replace("\r", "\\r").Replace("\t", "\\t");
         }
+
         private static string UnescapeSpecialCharacters(string value)
         {
             if (string.IsNullOrEmpty(value)) return value;
@@ -212,6 +214,7 @@ namespace Library
         }
 
         #region Reads
+
         public static Boolean Read(Type type, string section, string key, Boolean value)
         {
             string entry;
@@ -245,6 +248,7 @@ namespace Library
 
             return value;
         }
+
         public static Int16 Read(Type type, string section, string key, Int16 value)
         {
             string entry;
@@ -261,6 +265,7 @@ namespace Library
 
             return value;
         }
+
         public static Int32 Read(Type type, string section, string key, Int32 value)
         {
             string entry;
@@ -277,6 +282,7 @@ namespace Library
 
             return value;
         }
+
         public static Int64 Read(Type type, string section, string key, Int64 value)
         {
             string entry;
@@ -310,6 +316,7 @@ namespace Library
 
             return value;
         }
+
         public static UInt16 Read(Type type, string section, string key, UInt16 value)
         {
             string entry;
@@ -326,6 +333,7 @@ namespace Library
 
             return value;
         }
+
         public static UInt32 Read(Type type, string section, string key, UInt32 value)
         {
             string entry;
@@ -342,6 +350,7 @@ namespace Library
 
             return value;
         }
+
         public static UInt64 Read(Type type, string section, string key, UInt64 value)
         {
             string entry;
@@ -375,6 +384,7 @@ namespace Library
 
             return value;
         }
+
         public static Double Read(Type type, string section, string key, Double value)
         {
             string entry;
@@ -391,6 +401,7 @@ namespace Library
 
             return value;
         }
+
         public static Decimal Read(Type type, string section, string key, Decimal value)
         {
             string entry;
@@ -424,6 +435,7 @@ namespace Library
 
             return value;
         }
+
         public static String Read(Type type, string section, string key, String value)
         {
             string entry;
@@ -454,6 +466,7 @@ namespace Library
 
             return value;
         }
+
         public static Size Read(Type type, string section, string key, Size value)
         {
             string entry;
@@ -472,6 +485,7 @@ namespace Library
 
             return value;
         }
+
         public static SizeF Read(Type type, string section, string key, SizeF value)
         {
             string entry;
@@ -507,6 +521,7 @@ namespace Library
 
             return value;
         }
+
         public static DateTime Read(Type type, string section, string key, DateTime value)
         {
             string entry;
@@ -527,7 +542,6 @@ namespace Library
         public static Color Read(Type type, string section, string key, Color value)
         {
             string entry;
-
 
             if (TryGetEntry(type, section, key, out entry))
             {
@@ -551,9 +565,11 @@ namespace Library
 
             return value;
         }
+
         #endregion
 
         #region Writes
+
         public static void Write(Type type, string section, string key, Boolean value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
@@ -567,18 +583,21 @@ namespace Library
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, Int16 value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, Int32 value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, Int64 value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
@@ -592,18 +611,21 @@ namespace Library
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, UInt16 value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, UInt32 value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, UInt64 value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
@@ -617,12 +639,14 @@ namespace Library
 
             ConfigContents[type][section][key] = value.ToString(CultureInfo.InvariantCulture);
         }
+
         public static void Write(Type type, string section, string key, Double value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = value.ToString(CultureInfo.InvariantCulture);
         }
+
         public static void Write(Type type, string section, string key, Decimal value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
@@ -636,6 +660,7 @@ namespace Library
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, String value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
@@ -649,6 +674,7 @@ namespace Library
 
             ConfigContents[type][section][key] = $"{value.X}, {value.Y}";
         }
+
         public static void Write(Type type, string section, string key, Size value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
@@ -662,18 +688,21 @@ namespace Library
 
             ConfigContents[type][section][key] = value.ToString();
         }
+
         public static void Write(Type type, string section, string key, DateTime value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = value.ToString(CultureInfo.InvariantCulture);
         }
+
         public static void Write(Type type, string section, string key, Color value)
         {
             if (!ConfigContents[type].ContainsKey(section)) ConfigContents[type][section] = new Dictionary<string, string>();
 
             ConfigContents[type][section][key] = $"[A:{value.A}, R:{value.R}, G:{value.G}, B:{value.B}]";
         }
+
         #endregion
     }
 
@@ -683,7 +712,9 @@ namespace Library
         public string Path { get; set; }
         public bool Disabled { get; set; } // Skip the local ini file
 
-        public ConfigPath(string path) : this(path, false) { }
+        public ConfigPath(string path) : this(path, false)
+        {
+        }
 
         public ConfigPath(string path, bool disabled)
         {
@@ -706,7 +737,7 @@ namespace Library
     [AttributeUsage(AttributeTargets.Property)]
     public class ConfigPropertyIgnore : Attribute
     {
-        public ConfigPropertyIgnore() { }
+        public ConfigPropertyIgnore()
+        { }
     }
-
 }

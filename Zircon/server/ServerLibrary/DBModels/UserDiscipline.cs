@@ -1,8 +1,6 @@
 ﻿using Library;
-using Library.Network.ClientPackets;
 using Library.SystemModels;
 using MirDB;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Server.DBModels
@@ -23,6 +21,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Info");
             }
         }
+
         private DisciplineInfo _Info;
 
         [Association("Discipline")]
@@ -39,6 +38,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Character");
             }
         }
+
         private CharacterInfo _Character;
 
         public int Level
@@ -54,6 +54,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public long Experience
@@ -69,6 +70,7 @@ namespace Server.DBModels
                 OnChanged(oldValue, value, "Experience");
             }
         }
+
         private long _Experience;
 
         [Association("DisciplineMagics", true)]

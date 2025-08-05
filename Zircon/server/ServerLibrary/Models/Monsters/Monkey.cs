@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System.Collections.Generic;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -25,7 +24,7 @@ namespace Server.Models.Monsters
 
             if (CurrentLocation == Target.CurrentLocation)
             {
-                MirDirection direction = (MirDirection) SEnvir.Random.Next(8);
+                MirDirection direction = (MirDirection)SEnvir.Random.Next(8);
                 int rotation = SEnvir.Random.Next(2) == 0 ? 1 : -1;
 
                 for (int d = 0; d < 8; d++)
@@ -42,7 +41,6 @@ namespace Server.Models.Monsters
                 Attack();
         }
 
-
         protected override void Attack()
         {
             Direction = Functions.DirectionFromPoint(CurrentLocation, Target.CurrentLocation);
@@ -52,7 +50,7 @@ namespace Server.Models.Monsters
             if (Functions.InRange(CurrentLocation, Target.CurrentLocation, 1))
             {
                 Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
-                
+
                 ActionList.Add(new DelayedAction(
                                    SEnvir.Now.AddMilliseconds(400),
                                    ActionType.DelayAttack,
@@ -63,7 +61,7 @@ namespace Server.Models.Monsters
             else
             {
                 Broadcast(new S.ObjectRangeAttack { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation, Targets = new List<uint> { Target.ObjectID } });
-                
+
                 ActionList.Add(new DelayedAction(
                                    SEnvir.Now.AddMilliseconds(400),
                                    ActionType.DelayAttack,
@@ -71,7 +69,6 @@ namespace Server.Models.Monsters
                                    GetDC(),
                                    AttackElement));
             }
-
         }
     }
 }

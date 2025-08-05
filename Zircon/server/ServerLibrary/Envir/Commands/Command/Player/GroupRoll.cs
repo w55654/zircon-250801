@@ -3,7 +3,7 @@ using Server.Models;
 
 namespace Server.Envir.Commands.Command.Player
 {
-    class GroupRoll : AbstractCommand<IPlayerCommand>
+    internal class GroupRoll : AbstractCommand<IPlayerCommand>
     {
         public override string VALUE => "ROLL";
 

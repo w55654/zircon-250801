@@ -3,7 +3,7 @@ using Server.Models;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class ToggleSuperman : AbstractCommand<IAdminCommand>
+    internal class ToggleSuperman : AbstractCommand<IAdminCommand>
     {
         public override string VALUE => "SUPERMAN";
 

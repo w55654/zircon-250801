@@ -1,10 +1,9 @@
-﻿using SlimDX.DirectSound;
+﻿using NAudio.Wave;
+using SlimDX.DirectSound;
 using SlimDX.Multimedia;
-using NAudio;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using NAudio.Wave;
 using WaveFormat = SlimDX.Multimedia.WaveFormat;
 using WaveStream = SlimDX.Multimedia.WaveStream;
 
@@ -18,7 +17,6 @@ namespace Client.Envir
 
         private WaveFormat Format;
         private byte[] RawData;
-
 
         public DateTime ExpireTime { get; set; }
         public bool Loop { get; set; }
@@ -34,6 +32,7 @@ namespace Client.Envir
 
             Volume = DXSoundManager.GetVolume(SoundType);
         }
+
         public void Play()
         {
             if (RawData == null)
@@ -74,7 +73,6 @@ namespace Client.Envir
                 }
                 DXManager.SoundList.Add(this);
             }
-
 
             if (BufferList.Count == 0)
             {
@@ -118,6 +116,7 @@ namespace Client.Envir
             SecondarySoundBuffer buff = CreateBuffer();
             buff.Play(0, PlayFlags.None);
         }
+
         public void Stop()
         {
             if (BufferList == null)
@@ -157,11 +156,11 @@ namespace Client.Envir
                 Volume = Volume
             });
 
-
             buff.Write(RawData, 0, LockFlags.EntireBuffer);
 
             return buff;
         }
+
         public void DisposeSoundBuffer()
         {
             RawData = null;
@@ -216,7 +215,6 @@ namespace Client.Envir
 
                 BufferList.RemoveAt(0);
             }
-
         }
     }
 }

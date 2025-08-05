@@ -10,21 +10,24 @@ namespace PluginCore
         IPluginType Type { get; set; }
 
         /// <summary>
-        /// Event handler to send log messages to the current console 
+        /// Event handler to send log messages to the current console
         /// </summary>
         event EventHandler<LogEventArgs> Log;
+
         void LogMessage(string message);
 
         /// <summary>
         /// Event handler to show a view in the main window
         /// </summary>
         event EventHandler<ShowViewEventArgs> View;
+
         void ShowView(Type type);
 
         /// <summary>
         /// Event handler to open the map viewer with a specific map
         /// </summary>
         event EventHandler<ShowMapViewerEventArgs> MapViewer;
+
         void ShowMapViewer(string mapName);
 
         /// <summary>

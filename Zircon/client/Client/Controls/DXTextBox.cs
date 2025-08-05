@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Client.Envir;
+using SlimDX;
+using SlimDX.Direct3D9;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using Client.Envir;
-using SlimDX;
-using SlimDX.Direct3D9;
 using Font = System.Drawing.Font;
 
 //Cleaned
@@ -34,6 +34,7 @@ namespace Client.Controls
                 _ActiveTextBox?.OnActivated();
             }
         }
+
         private static DXTextBox _ActiveTextBox;
 
         #endregion
@@ -55,8 +56,11 @@ namespace Client.Controls
                 OnEditableChanged(oldValue, value);
             }
         }
+
         private bool _Editable;
+
         public event EventHandler<EventArgs> EditableChanged;
+
         public virtual void OnEditableChanged(bool oValue, bool nValue)
         {
             EditableChanged?.Invoke(this, EventArgs.Empty);
@@ -65,7 +69,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         #region Font
 
         public Font Font
@@ -81,8 +85,11 @@ namespace Client.Controls
                 OnFontChanged(oldValue, value);
             }
         }
+
         private Font _Font;
+
         public event EventHandler<EventArgs> FontChanged;
+
         public virtual void OnFontChanged(Font oValue, Font nValue)
         {
             FontChanged?.Invoke(this, EventArgs.Empty);
@@ -107,8 +114,11 @@ namespace Client.Controls
                 OnKeepFocusChanged(oldValue, value);
             }
         }
+
         private bool _KeepFocus;
+
         public event EventHandler<EventArgs> KeepFocusChanged;
+
         public virtual void OnKeepFocusChanged(bool oValue, bool nValue)
         {
             KeepFocusChanged?.Invoke(this, EventArgs.Empty);
@@ -131,8 +141,11 @@ namespace Client.Controls
                 OnMaxLengthChanged(oldValue, value);
             }
         }
+
         private int _MaxLength;
+
         public event EventHandler<EventArgs> MaxLengthChanged;
+
         public virtual void OnMaxLengthChanged(int oValue, int nValue)
         {
             MaxLengthChanged?.Invoke(this, EventArgs.Empty);
@@ -141,7 +154,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         #region Password
 
         public bool Password
@@ -157,8 +170,11 @@ namespace Client.Controls
                 OnPasswordChanged(oldValue, value);
             }
         }
+
         private bool _Password;
+
         public event EventHandler<EventArgs> PasswordChanged;
+
         public virtual void OnPasswordChanged(bool oValue, bool nValue)
         {
             PasswordChanged?.Invoke(this, EventArgs.Empty);
@@ -183,8 +199,11 @@ namespace Client.Controls
                 OnReadOnlyChanged(oldValue, value);
             }
         }
+
         private bool _ReadOnly;
+
         public event EventHandler<EventArgs> ReadOnlyChanged;
+
         public virtual void OnReadOnlyChanged(bool oValue, bool nValue)
         {
             ReadOnlyChanged?.Invoke(this, EventArgs.Empty);
@@ -208,8 +227,11 @@ namespace Client.Controls
                 OnTextBoxChanged(oldValue, value);
             }
         }
+
         private MirTextBox _TextBox;
+
         public event EventHandler<EventArgs> TextBoxChanged;
+
         public virtual void OnTextBoxChanged(MirTextBox oValue, MirTextBox nValue)
         {
             TextBoxChanged?.Invoke(this, EventArgs.Empty);
@@ -223,6 +245,7 @@ namespace Client.Controls
 
             TextBox.BackColor = BackColour;
         }
+
         public override void OnForeColourChanged(Color oValue, Color nValue)
         {
             base.OnForeColourChanged(oValue, nValue);
@@ -231,6 +254,7 @@ namespace Client.Controls
 
             TextBox.ForeColor = ForeColour;
         }
+
         public override void OnDisplayAreaChanged(Rectangle oValue, Rectangle nValue)
         {
             base.OnDisplayAreaChanged(oValue, nValue);
@@ -239,6 +263,7 @@ namespace Client.Controls
 
             TextBox.Location = DisplayArea.Location;
         }
+
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
@@ -247,12 +272,14 @@ namespace Client.Controls
 
             TextBox.Size = Size;
         }
+
         public override void OnIsVisibleChanged(bool oValue, bool nValue)
         {
             base.OnIsVisibleChanged(oValue, nValue);
 
             CheckFocus();
         }
+
         public override void OnIsEnabledChanged(bool oValue, bool nValue)
         {
             base.OnIsEnabledChanged(oValue, nValue);
@@ -264,6 +291,7 @@ namespace Client.Controls
         public DateTime ClickTime;
 
         public bool NeedFocus;
+
         #endregion
 
         public DXTextBox()
@@ -279,10 +307,8 @@ namespace Client.Controls
                 ForeColor = Color.White,
             };
 
-
             Border = true;
             BorderColour = Color.FromArgb(198, 166, 99);
-
 
             Font = new Font(Config.FontName, CEnvir.FontSize(10F));
             Editable = true;
@@ -311,7 +337,7 @@ namespace Client.Controls
             TextureValid = true;
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
-        
+
         public virtual void OnActivated()
         {
             if (TextBox.Visible != Editable)
@@ -323,6 +349,7 @@ namespace Client.Controls
             if (TextBox.Visible && CEnvir.Target.ActiveControl != TextBox)
                 CEnvir.Target.ActiveControl = TextBox;
         }
+
         public virtual void OnDeactivated()
         {
             if (TextBox.Visible)
@@ -339,6 +366,7 @@ namespace Client.Controls
             if (IsEnabled && Editable)
                 CEnvir.Target.Cursor = Cursors.IBeam;
         }
+
         public override void OnMouseLeave()
         {
             base.OnMouseLeave();
@@ -356,15 +384,14 @@ namespace Client.Controls
             DisplayArea = area;
         }
 
-
         [DllImport("user32.dll")]
-        static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         public override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
 
-            if (!TextBox.Visible ) return;
+            if (!TextBox.Visible) return;
 
             int location = (e.X - DisplayArea.X) | (e.Y - DisplayArea.Y) << 16;
 
@@ -373,11 +400,13 @@ namespace Client.Controls
                 case MouseButtons.Left:
                     SendMessage(TextBox.Handle, 0x201, e.Clicks, location);
                     break;
+
                 case MouseButtons.Right:
                     SendMessage(TextBox.Handle, 0xA4, e.Clicks, location);
                     break;
             }
         }
+
         public override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
@@ -386,15 +415,14 @@ namespace Client.Controls
 
             int location = (e.X - DisplayArea.X) | (e.Y - DisplayArea.Y) << 16;
 
-
             SendMessage(TextBox.Handle, 0x200, e.Clicks, location);
         }
+
         public override void OnMouseUp(MouseEventArgs e)
         {
             base.OnMouseUp(e);
 
             if (!TextBox.Visible) return;
-
 
             int location = (e.X - DisplayArea.X) | (e.Y - DisplayArea.Y) << 16;
 
@@ -403,6 +431,7 @@ namespace Client.Controls
                 case MouseButtons.Left:
                     SendMessage(TextBox.Handle, 0x202, e.Clicks, location);
                     break;
+
                 case MouseButtons.Right:
                     SendMessage(TextBox.Handle, 0xA5, e.Clicks, location);
                     break;
@@ -413,6 +442,7 @@ namespace Client.Controls
         {
             return IsVisible && Editable && IsEnabled;
         }
+
         public void SetFocus()
         {
             if (!CanFocus())
@@ -423,6 +453,7 @@ namespace Client.Controls
                 TextBox.SelectAll();
             }
         }
+
         public void CheckFocus()
         {
             if (TextBox == null) return;
@@ -433,7 +464,6 @@ namespace Client.Controls
 
                 NeedFocus = false;
                 SetFocus();
-
             }
             else if (ActiveTextBox == this)
                 ActiveTextBox = null;
@@ -455,9 +485,11 @@ namespace Client.Controls
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
+
         #endregion
-        
+
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -487,21 +519,24 @@ namespace Client.Controls
                 FontChanged = null;
                 KeepFocusChanged = null;
                 MaxLengthChanged = null;
-                PasswordChanged = null; 
+                PasswordChanged = null;
                 ReadOnlyChanged = null;
                 TextBoxChanged = null;
             }
 
             if (_ActiveTextBox == this) _ActiveTextBox = null;
         }
+
         #endregion
 
         public class MirTextBox : TextBox
         {
             #region Properties
+
             public DXTextBox Owner;
+
             #endregion
-            
+
             public MirTextBox(DXTextBox owner)
             {
                 Owner = owner;
@@ -539,6 +574,7 @@ namespace Client.Controls
 
                 next?.SetFocus();
             }
+
             public void PreviousTextBox()
             {
                 DXTextBox previous = null;
@@ -624,6 +660,7 @@ namespace Client.Controls
                         break;
                 }
             }
+
             protected override void OnKeyUp(KeyEventArgs e)
             {
                 base.OnKeyUp(e);
@@ -657,6 +694,7 @@ namespace Client.Controls
                         break;
                 }
             }
+
             protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
             {
                 base.OnPreviewKeyDown(e);
@@ -672,6 +710,7 @@ namespace Client.Controls
                 else
                     NextTextBox();
             }
+
             protected override void OnTextChanged(EventArgs e)
             {
                 base.OnTextChanged(e);
@@ -680,6 +719,7 @@ namespace Client.Controls
 
                 Owner.TextureValid = false;
             }
+
             protected override void OnSizeChanged(EventArgs e)
             {
                 base.OnSizeChanged(e);

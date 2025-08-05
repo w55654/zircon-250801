@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public SummonDead(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -73,6 +72,7 @@ namespace Server.Models.Magics
                 case ObjectType.Player:
                     ((PlayerObject)target).TownRevive();
                     break;
+
                 case ObjectType.Monster:
                     ((MonsterObject)target).DeadTime = SEnvir.Now.AddMilliseconds(500);
                     break;

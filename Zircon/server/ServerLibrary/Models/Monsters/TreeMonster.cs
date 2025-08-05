@@ -12,17 +12,20 @@ namespace Server.Models.Monsters
             Direction = MirDirection.Up;
             Passive = true;
         }
-        
+
         public override void ProcessRoam()
         {
         }
+
         public override void ProcessSearch()
         {
         }
+
         public override bool CanAttackTarget(MapObject ob)
         {
             return false;
         }
+
         public override void ProcessTarget()
         {
         }

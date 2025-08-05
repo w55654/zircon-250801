@@ -13,7 +13,6 @@ namespace Server.Models.Magics
 
         public MeteorShower(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override int GetBurn(int burn, Stats stats = null)
@@ -68,7 +67,7 @@ namespace Server.Models.Magics
                 var delay = GetDelayFromDistance(500, ob);
 
                 response.Targets.Add(ob.ObjectID);
-                ActionList.Add(new DelayedAction( delay, ActionType.DelayMagic, Type, ob));
+                ActionList.Add(new DelayedAction(delay, ActionType.DelayMagic, Type, ob));
             }
 
             return response;

@@ -26,11 +26,11 @@ namespace Server.Models
         public virtual string Name { get; set; }
 
         public virtual string Caption { get; set; }
-       
-    
+
         public virtual int Level { get; set; }
 
         public Cell PreviousCell { get; private set; }
+
         public Cell CurrentCell
         {
             get { return _CurrentCell; }
@@ -44,9 +44,11 @@ namespace Server.Models
                 LocationChanged(PreviousCell, value);
             }
         }
+
         private Cell _CurrentCell;
 
         public Map PreviousMap { get; private set; }
+
         public Map CurrentMap
         {
             get { return _CurrentMap; }
@@ -60,6 +62,7 @@ namespace Server.Models
                 MapChanged(PreviousMap, value);
             }
         }
+
         private Map _CurrentMap;
 
         public virtual Point CurrentLocation { get; set; }
@@ -150,12 +153,10 @@ namespace Server.Models
 
             if (oldColour != NameColour)
                 Broadcast(new S.ObjectNameColour { ObjectID = ObjectID, Colour = NameColour });
-
         }
 
         public virtual void Process()
         {
-
         }
 
         public virtual void ProcessHPMP()
@@ -205,6 +206,7 @@ namespace Server.Models
             foreach (PlayerObject player in DataSeenByPlayers)
                 player.Enqueue(p);
         }
+
         public virtual void ProcessPoison()
         {
             PoisonType current = PoisonType.None;
@@ -222,7 +224,7 @@ namespace Server.Models
 
                 if (SEnvir.Now < poison.TickTime) continue;
 
-                if (poison.TickCount-- <= 0) 
+                if (poison.TickCount-- <= 0)
                     PoisonList.RemoveAt(i);
 
                 poison.TickTime = SEnvir.Now + poison.TickFrequency;
@@ -235,15 +237,18 @@ namespace Server.Models
                     case PoisonType.Green:
                         damage += poison.Value;
                         break;
+
                     case PoisonType.WraithGrip:
                         ChangeMP(-poison.Value);
 
                         if (poison.Extra != null)
                             poison.Owner.ChangeMP(poison.Value * (((UserMagic)poison.Extra).Level + 1));
                         break;
+
                     case PoisonType.HellFire:
                         damage += poison.Value;
                         break;
+
                     case PoisonType.Parasite:
                         {
                             damage += poison.Value;
@@ -265,15 +270,19 @@ namespace Server.Models
                             }
                         }
                         break;
+
                     case PoisonType.Burn:
                         damage += poison.Value;
                         break;
+
                     case PoisonType.Containment:
-                        damage += poison.Value; 
+                        damage += poison.Value;
                         break;
+
                     case PoisonType.Chain:
                         damage += Chain.PoisonTick(this);
                         break;
+
                     case PoisonType.Hemorrhage:
                         damage += poison.Value;
                         break;
@@ -291,7 +300,7 @@ namespace Server.Models
                         if (!poison.CanKill)
                             damage = Math.Min(CurrentHP - 1, damage);
                     }
-                        
+
                     if (damage > 0)
                     {
                         #region Conquest Stats
@@ -315,6 +324,7 @@ namespace Server.Models
                                             if (conquest != null)
                                                 conquest.PvPDamageDealt += damage;
                                             break;
+
                                         case ObjectType.Monster:
                                             mob = (MonsterObject)poison.Owner;
 
@@ -333,6 +343,7 @@ namespace Server.Models
                                     }
                                 }
                                 break;
+
                             case ObjectType.Monster:
                                 mob = (MonsterObject)this;
 
@@ -346,6 +357,7 @@ namespace Server.Models
                                             if (conquest != null)
                                                 conquest.BossDamageDealt += damage;
                                             break;
+
                                         case ObjectType.Monster:
 
                                             mob = (MonsterObject)poison.Owner;
@@ -361,6 +373,7 @@ namespace Server.Models
                                 }
                                 break;
                         }
+
                         #endregion
 
                         ChangeHP(-damage);
@@ -404,8 +417,10 @@ namespace Server.Models
             Poison = current;
             Broadcast(new S.ObjectPoison { ObjectID = ObjectID, Poison = Poison });
         }
+
         public virtual void ProcessNameColour()
         { }
+
         public virtual void ProcessBuff()
         {
             TimeSpan ticks = SEnvir.Now - BuffTime;
@@ -464,6 +479,7 @@ namespace Server.Models
                         if (player.Companion.UserCompanion.Hunger <= 0)
                             expiredBuffs.Add(buff);
                         break;
+
                     case BuffType.Heal:
                         buff.TickTime -= ticks;
 
@@ -485,6 +501,7 @@ namespace Server.Models
                             expiredBuffs.Add(buff);
 
                         break;
+
                     case BuffType.Cloak:
                         buff.TickTime -= ticks;
 
@@ -502,6 +519,7 @@ namespace Server.Models
 
                         ChangeHP(-amount);
                         break;
+
                     case BuffType.DarkConversion:
                         buff.TickTime -= ticks;
 
@@ -528,6 +546,7 @@ namespace Server.Models
                             player.LevelMagic(darkConversion.Magic);
                         }
                         break;
+
                     case BuffType.PKPoint:
                         buff.TickTime -= ticks;
 
@@ -549,6 +568,7 @@ namespace Server.Models
                                 ((PlayerObject)this).Enqueue(new S.BuffChanged { Index = buff.Index, Stats = buff.Stats });
                         }
                         break;
+
                     case BuffType.HuntGold:
                         buff.TickTime -= ticks;
 
@@ -557,7 +577,6 @@ namespace Server.Models
                         buff.TickTime += buff.TickFrequency;
 
                         player = this as PlayerObject;
-
 
                         if (player != null)
                         {
@@ -571,7 +590,6 @@ namespace Server.Models
                             }
                         }
 
-
                         if (buff.Stats[Stat.AvailableHuntGold] >= buff.Stats[Stat.AvailableHuntGoldCap]) continue;
 
                         buff.Stats[Stat.AvailableHuntGold]++;
@@ -579,6 +597,7 @@ namespace Server.Models
                         if (Race == ObjectType.Player)
                             ((PlayerObject)this).Enqueue(new S.BuffChanged { Index = buff.Index, Stats = buff.Stats });
                         break;
+
                     case BuffType.DragonRepulse:
                         buff.TickTime -= ticks;
 
@@ -626,6 +645,7 @@ namespace Server.Models
                                     }
                                 }
                                 break;
+
                             case ObjectType.Monster:
                                 for (int c = cells.Count - 1; c >= 0; c--)
                                 {
@@ -648,9 +668,9 @@ namespace Server.Models
                                     }
                                 }
                                 break;
-
                         }
                         break;
+
                     case BuffType.FrostBite:
                         {
                             buff.RemainingTime -= ticks;
@@ -668,6 +688,7 @@ namespace Server.Models
                             expiredBuffs.Add(buff);
                         }
                         break;
+
                     case BuffType.ElementalHurricane:
                         buff.TickTime -= ticks;
 
@@ -730,6 +751,7 @@ namespace Server.Models
                                                     CurrentMap.GetCell(Functions.Move(location, Functions.ShiftDirection(Direction, 2))),
                                                     false));
                                                 break;
+
                                             case MirDirection.UpRight:
                                             case MirDirection.DownRight:
                                             case MirDirection.DownLeft:
@@ -753,6 +775,7 @@ namespace Server.Models
                                 }
                         }
                         break;
+
                     default:
                         if (buff.RemainingTime == TimeSpan.MaxValue) continue;
 
@@ -768,7 +791,6 @@ namespace Server.Models
             foreach (BuffInfo buff in expiredBuffs)
                 BuffRemove(buff);
         }
-
 
         public virtual void ProcessAction(DelayedAction action)
         {
@@ -825,14 +847,17 @@ namespace Server.Models
                         if ((map.Info.RequiredClass & RequiredClass.Warrior) != RequiredClass.Warrior)
                             return false;
                         break;
+
                     case MirClass.Wizard:
                         if ((map.Info.RequiredClass & RequiredClass.Wizard) != RequiredClass.Wizard)
                             return false;
                         break;
+
                     case MirClass.Taoist:
                         if ((map.Info.RequiredClass & RequiredClass.Taoist) != RequiredClass.Taoist)
                             return false;
                         break;
+
                     case MirClass.Assassin:
                         if ((map.Info.RequiredClass & RequiredClass.Assassin) != RequiredClass.Assassin)
                             return false;
@@ -853,6 +878,7 @@ namespace Server.Models
 
             return true;
         }
+
         protected void MapChanged(Map oMap, Map nMap)
         {
             oMap?.RemoveObject(this);
@@ -860,6 +886,7 @@ namespace Server.Models
 
             OnMapChanged();
         }
+
         public void LocationChanged(Cell oCell, Cell nCell)
         {
             oCell?.RemoveObject(this);
@@ -897,10 +924,13 @@ namespace Server.Models
 
                 ((SpellObject)ob).ProcessSpell(this);
 
-                if (cell != CurrentCell) break; //Tempest could repel this 
+                if (cell != CurrentCell) break; //Tempest could repel this
             }
         }
-        protected virtual void OnMapChanged() { }
+
+        protected virtual void OnMapChanged()
+        { }
+
         protected virtual void OnSpawned()
         {
             SpawnTime = SEnvir.Now;
@@ -970,6 +1000,7 @@ namespace Server.Models
                     ob.AddDataObject(this);
             }
         }
+
         public virtual void RemoveAllObjects()
         {
             for (int i = SeenByPlayers.Count - 1; i >= 0; i--)
@@ -993,6 +1024,7 @@ namespace Server.Models
                 NearByPlayers[i].RemoveNearBy(this);
             }
         }
+
         public virtual void Activate()
         {
             if (Activated) return;
@@ -1002,6 +1034,7 @@ namespace Server.Models
             Activated = true;
             SEnvir.ActiveObjects.Add(this);
         }
+
         public virtual void DeActivate()
         {
             if (!Activated) return;
@@ -1035,6 +1068,7 @@ namespace Server.Models
                     if (ob.CurrentMap == CurrentMap && ob.Stats[Stat.PlayerTracker] > 0) return true;
 
                     break;
+
                 case ObjectType.Monster:
 
                     MonsterObject mob = (MonsterObject)this;
@@ -1045,6 +1079,7 @@ namespace Server.Models
 
             return CanBeSeenBy(ob);
         }
+
         public virtual bool CanBeSeenBy(PlayerObject ob)
         {
             if (ob == this) return true;
@@ -1134,13 +1169,15 @@ namespace Server.Models
 
             GroupMembers?.Clear();
         }
+
         public virtual void OnDespawned()
         {
             for (int i = SpellList.Count - 1; i >= 0; i--)
                 SpellList[i].Despawn();
         }
 
-        public virtual void RefreshStats() { }
+        public virtual void RefreshStats()
+        { }
 
         public virtual Cell GetDropLocation(int distance, PlayerObject player)
         {
@@ -1197,7 +1234,7 @@ namespace Server.Models
                 }
             }
 
-            if (bestCell == null || layers >= Config.DropLayers) 
+            if (bestCell == null || layers >= Config.DropLayers)
                 return null;
 
             return bestCell;
@@ -1225,6 +1262,7 @@ namespace Server.Models
                 Die();
             }
         }
+
         public virtual void ChangeHP(int amount)
         {
             if (Dead) return;
@@ -1333,6 +1371,7 @@ namespace Server.Models
                             buffs.Add(buff);
                             result++;
                             break;
+
                         default:
                             continue;
                     }
@@ -1371,6 +1410,7 @@ namespace Server.Models
                             buffs.Add(buff);
                             result++;
                             break;
+
                         default:
                             continue;
                     }
@@ -1416,10 +1456,12 @@ namespace Server.Models
                 case BuffType.Fame:
                     info.IsTemporary = true;
                     break;
+
                 case BuffType.RagingWind:
                 case BuffType.MagicWeakness:
                     RefreshStats();
                     break;
+
                 case BuffType.Invisibility:
                     //Much faster than checking nearby cells?
                     foreach (MapObject mapOb in CurrentMap.Objects)
@@ -1435,6 +1477,7 @@ namespace Server.Models
                         }
                     }
                     break;
+
                 case BuffType.Cloak:
                 case BuffType.Transparency:
                     //Much faster than checking nearby cells?
@@ -1463,7 +1506,6 @@ namespace Server.Models
                     break;
             }
 
-
             if (!info.Visible) return info;
 
             Broadcast(new S.ObjectBuffAdd { ObjectID = ObjectID, Type = type });
@@ -1484,6 +1526,7 @@ namespace Server.Models
                 }
             }
         }
+
         public virtual void BuffRemove(BuffInfo info)
         {
             if (info.Visible)
@@ -1509,6 +1552,7 @@ namespace Server.Models
                         ((PlayerObject)this).Companion?.AddAllObjects();
                     }
                     break;
+
                 case BuffType.RagingWind:
                 case BuffType.MagicWeakness:
                     RefreshStats();
@@ -1541,7 +1585,9 @@ namespace Server.Models
             if (info != null)
                 BuffRemove(info);
         }
-        public virtual int Attacked(MapObject attacker, int power, Element element, bool canReflect = true, bool ignoreShield = false, bool canCrit = true, bool canStruck = true) { return 0; }
+
+        public virtual int Attacked(MapObject attacker, int power, Element element, bool canReflect = true, bool ignoreShield = false, bool canCrit = true, bool canStruck = true)
+        { return 0; }
 
         public List<MapObject> GetTargets(Map map, Point location, int radius)
         {
@@ -1572,6 +1618,7 @@ namespace Server.Models
 
             return targets;
         }
+
         public List<MapObject> GetAllObjects(Point location, int radius)
         {
             List<MapObject> obs = new List<MapObject>();
@@ -1611,10 +1658,12 @@ namespace Server.Models
         {
             DisplayMiss = true;
         }
+
         public virtual void Blocked()
         {
             DisplayBlock = true;
         }
+
         public virtual void Critical()
         {
             DisplayCrit = true;
@@ -1665,6 +1714,7 @@ namespace Server.Models
         }
 
         public abstract Packet GetInfoPacket(PlayerObject ob);
+
         public abstract Packet GetDataPacket(PlayerObject ob);
 
         public void Broadcast(Packet p)
@@ -1672,6 +1722,7 @@ namespace Server.Models
             foreach (PlayerObject player in SeenByPlayers)
                 player.Enqueue(p);
         }
+
         public virtual int Pushed(MirDirection direction, int distance)
         {
             int count = 0;
@@ -1731,6 +1782,7 @@ namespace Server.Models
 
             return SEnvir.Random.Next(min, max + 1);
         }
+
         public int GetMC()
         {
             int min = Stats[Stat.MinMC];
@@ -1753,6 +1805,7 @@ namespace Server.Models
 
             return SEnvir.Random.Next(min, max + 1);
         }
+
         public int GetSC()
         {
             int min = Stats[Stat.MinSC];
@@ -1775,6 +1828,7 @@ namespace Server.Models
 
             return SEnvir.Random.Next(min, max + 1);
         }
+
         public int GetSP()
         {
             int min = Math.Min(Stats[Stat.MinMC], Stats[Stat.MinSC]);
@@ -1797,6 +1851,7 @@ namespace Server.Models
 
             return SEnvir.Random.Next(min, max + 1);
         }
+
         public int GetAC()
         {
             int min = Stats[Stat.MinAC];
@@ -1815,6 +1870,7 @@ namespace Server.Models
 
             return SEnvir.Random.Next(min, max + 1);
         }
+
         public int GetMR()
         {
             int min = Stats[Stat.MinMR];

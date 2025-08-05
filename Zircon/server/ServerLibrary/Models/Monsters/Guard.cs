@@ -36,6 +36,7 @@ namespace Server.Models.Monsters
         {
             return Target.CurrentMap == CurrentMap && Functions.InRange(CurrentLocation, Target.CurrentLocation, ViewRange);
         }
+
         public override void ProcessNameColour()
         {
             NameColour = Color.SkyBlue;
@@ -45,15 +46,16 @@ namespace Server.Models.Monsters
         {
             return 0;
         }
-        
+
         public override bool ShouldAttackTarget(MapObject ob)
         {
             return CanAttackTarget(ob);
         }
+
         public override bool CanAttackTarget(MapObject ob)
         {
             if (ob?.Node == null || ob.Dead || !ob.Visible || ob is Guard || ob is CastleLord) return false;
-            
+
             switch (ob.Race)
             {
                 case ObjectType.Player:
@@ -87,7 +89,6 @@ namespace Server.Models.Monsters
             Broadcast(new S.ObjectAttack { ObjectID = ObjectID, Direction = Target.Direction, Location = targetBack });
             Broadcast(new S.ObjectTurn { ObjectID = ObjectID, Direction = Direction, Location = CurrentLocation });
 
-
             UpdateAttackTime();
 
             ActionList.Add(new DelayedAction(
@@ -104,7 +105,7 @@ namespace Server.Models.Monsters
 
             if (ob.Race == ObjectType.Monster)
             {
-                MonsterObject mob = (MonsterObject) ob;
+                MonsterObject mob = (MonsterObject)ob;
                 mob.EXPOwner = null;
                 power = ob.CurrentHP;
             }
@@ -121,9 +122,9 @@ namespace Server.Models.Monsters
             Activated = true;
             SEnvir.ActiveObjects.Add(this);
         }
+
         public override void DeActivate()
         {
         }
-
     }
 }

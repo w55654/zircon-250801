@@ -1,7 +1,7 @@
-﻿using System;
-using System.Drawing;
-using Library;
+﻿using Library;
 using Server.Envir;
+using System;
+using System.Drawing;
 
 namespace Server.Models.Monsters
 {
@@ -19,7 +19,6 @@ namespace Server.Models.Monsters
 
             if (x > AttackRange || y > AttackRange) return false;
 
-
             return x == 0 || x == y || y == 0;
         }
 
@@ -30,10 +29,9 @@ namespace Server.Models.Monsters
 
             UpdateAttackTime();
 
-
             LineAttack(AttackRange);
         }
-        
+
         private void LineAttack(int distance)
         {
             for (int i = 1; i <= distance; i++)
@@ -67,8 +65,6 @@ namespace Server.Models.Monsters
                         break;
                     }
                 }
-
-
             }
         }
     }

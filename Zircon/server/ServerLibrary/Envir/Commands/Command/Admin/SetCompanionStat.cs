@@ -6,7 +6,7 @@ using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class SetCompanionStat : AbstractParameterizedCommand<IAdminCommand>
+    internal class SetCompanionStat : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "SETCOMPANIONSTAT";
         public override int PARAMS_LENGTH => 2;
@@ -35,24 +35,31 @@ namespace Server.Envir.Commands.Command.Admin
                 case 3:
                     player.Companion.UserCompanion.Level3 = new Stats { [stat] = value };
                     break;
+
                 case 5:
                     player.Companion.UserCompanion.Level5 = new Stats { [stat] = value };
                     break;
+
                 case 7:
                     player.Companion.UserCompanion.Level7 = new Stats { [stat] = value };
                     break;
+
                 case 10:
                     player.Companion.UserCompanion.Level10 = new Stats { [stat] = value };
                     break;
+
                 case 11:
                     player.Companion.UserCompanion.Level11 = new Stats { [stat] = value };
                     break;
+
                 case 13:
                     player.Companion.UserCompanion.Level13 = new Stats { [stat] = value };
                     break;
+
                 case 15:
                     player.Companion.UserCompanion.Level15 = new Stats { [stat] = value };
                     break;
+
                 default:
                     throw new UserCommandException(string.Format("Companion level {0} does not exist.", level));
             }

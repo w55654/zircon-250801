@@ -10,7 +10,6 @@ namespace Server.Models.Magics
 
         public AugmentCelestialLight(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
     }
 }

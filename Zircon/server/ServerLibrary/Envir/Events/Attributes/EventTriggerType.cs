@@ -6,6 +6,7 @@ namespace Server.Envir.Events
     public class EventTriggerTypeAttribute : Attribute
     {
         public string TriggerName { get; set; }
+
         public EventTriggerTypeAttribute(string name)
         {
             TriggerName = name;

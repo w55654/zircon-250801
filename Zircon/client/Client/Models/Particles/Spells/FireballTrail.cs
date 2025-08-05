@@ -1,13 +1,9 @@
 ﻿using Client.Envir;
-using Client.Scenes;
 using Library;
 using SlimDX;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Client.Models.Particles
 {
@@ -46,7 +42,6 @@ namespace Client.Models.Particles
 
                 return new Particle(Library, texture, opacity, position, direction16, velocity, startingAngle, angularVelocity, Color, scale, scaleRate, ttl, fade, fadeRate);
             }
-
         }
 
         public class EmberParticle : ParticleType

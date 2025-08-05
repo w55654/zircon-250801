@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Client.Envir;
+using SlimDX;
+using SlimDX.Direct3D9;
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
-using Client.Envir;
-using SlimDX;
-using SlimDX.Direct3D9;
 using Font = System.Drawing.Font;
 
 //Cleaned
@@ -13,11 +13,12 @@ namespace Client.Controls
     public class DXLabel : DXControl
     {
         #region Static
+
         public static Size GetSize(string text, Font font, bool outline, int paddingBottom = 0)
         {
             if (string.IsNullOrEmpty(text))
                 return Size.Empty;
-            
+
             Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, text, font);
 
             if (outline && tempSize.Width > 0 && tempSize.Height > 0)
@@ -30,6 +31,7 @@ namespace Client.Controls
 
             return tempSize;
         }
+
         public static Size GetHeight(DXLabel label, int width)
         {
             Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, label.Text, label.Font, new Size(width, 2000), label.DrawFormat);
@@ -42,6 +44,7 @@ namespace Client.Controls
 
             return tempSize;
         }
+
         #endregion
 
         #region Properties
@@ -61,8 +64,11 @@ namespace Client.Controls
                 OnAutoSizeChanged(oldValue, value);
             }
         }
+
         private bool _AutoSize;
+
         public event EventHandler<EventArgs> AutoSizeChanged;
+
         public virtual void OnAutoSizeChanged(bool oValue, bool nValue)
         {
             TextureValid = false;
@@ -72,7 +78,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         #region DrawFormat
 
         public TextFormatFlags DrawFormat
@@ -88,8 +94,11 @@ namespace Client.Controls
                 OnDrawFormatChanged(oldValue, value);
             }
         }
+
         private TextFormatFlags _DrawFormat;
+
         public event EventHandler<EventArgs> DrawFormatChanged;
+
         public virtual void OnDrawFormatChanged(TextFormatFlags oValue, TextFormatFlags nValue)
         {
             TextureValid = false;
@@ -98,7 +107,7 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         #region Font
 
         public Font Font
@@ -114,8 +123,11 @@ namespace Client.Controls
                 OnFontChanged(oldValue, value);
             }
         }
+
         private Font _Font;
+
         public event EventHandler<EventArgs> FontChanged;
+
         public virtual void OnFontChanged(Font oValue, Font nValue)
         {
             FontChanged?.Invoke(this, EventArgs.Empty);
@@ -141,8 +153,11 @@ namespace Client.Controls
                 OnOutlineChanged(oldValue, value);
             }
         }
+
         private bool _Outline;
+
         public event EventHandler<EventArgs> OutlineChanged;
+
         public virtual void OnOutlineChanged(bool oValue, bool nValue)
         {
             TextureValid = false;
@@ -168,8 +183,11 @@ namespace Client.Controls
                 OnDropShadowChanged(oldValue, value);
             }
         }
+
         private bool _DropShadow;
+
         public event EventHandler<EventArgs> DropShadowChanged;
+
         public virtual void OnDropShadowChanged(bool oValue, bool nValue)
         {
             TextureValid = false;
@@ -195,8 +213,11 @@ namespace Client.Controls
                 OnOutlineColourChanged(oldValue, value);
             }
         }
+
         private Color _OutlineColour;
+
         public event EventHandler<EventArgs> OutlineColourChanged;
+
         public virtual void OnOutlineColourChanged(Color oValue, Color nValue)
         {
             TextureValid = false;
@@ -205,7 +226,6 @@ namespace Client.Controls
         }
 
         #endregion
-
 
         #region PaddingBottom
 
@@ -222,8 +242,11 @@ namespace Client.Controls
                 OnPaddingBottomChanged(oldValue, value);
             }
         }
+
         private int _PaddingBottom;
+
         public event EventHandler<EventArgs> PaddingBottomChanged;
+
         public virtual void OnPaddingBottomChanged(int oValue, int nValue)
         {
             TextureValid = false;
@@ -234,7 +257,6 @@ namespace Client.Controls
 
         #endregion
 
-
         public override void OnTextChanged(string oValue, string nValue)
         {
             base.OnTextChanged(oValue, nValue);
@@ -242,12 +264,14 @@ namespace Client.Controls
             TextureValid = false;
             CreateSize();
         }
+
         public override void OnForeColourChanged(Color oValue, Color nValue)
         {
             base.OnForeColourChanged(oValue, nValue);
 
             TextureValid = false;
         }
+
         #endregion
 
         public DXLabel()
@@ -257,13 +281,14 @@ namespace Client.Controls
             AutoSize = true;
             Font = new Font(Config.FontName, CEnvir.FontSize(8F));
             DrawFormat = TextFormatFlags.WordBreak;
-            
+
             Outline = true;
             ForeColour = Color.FromArgb(198, 166, 99);
             OutlineColour = Color.Black;
         }
 
         #region Methods
+
         private void CreateSize()
         {
             if (!AutoSize) return;
@@ -283,10 +308,10 @@ namespace Client.Controls
                 ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
                 DXManager.ControlList.Add(this);
             }
-            
+
             DataRectangle rect = ControlTexture.LockRectangle(0, LockFlags.Discard);
 
-            using (Bitmap image = new Bitmap(width, height, width*4, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
+            using (Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
             using (Graphics graphics = Graphics.FromImage(image))
             {
                 DXManager.ConfigureGraphics(graphics);
@@ -312,10 +337,11 @@ namespace Client.Controls
             }
             ControlTexture.UnlockRectangle(0);
             rect.Data.Dispose();
-            
+
             TextureValid = true;
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
+
         protected override void DrawControl()
         {
             if (!DrawTexture) return;
@@ -332,9 +358,11 @@ namespace Client.Controls
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
+
         #endregion
 
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -355,6 +383,7 @@ namespace Client.Controls
                 OutlineColourChanged = null;
             }
         }
+
         #endregion
     }
 }

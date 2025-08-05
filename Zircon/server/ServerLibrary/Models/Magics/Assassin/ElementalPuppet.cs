@@ -11,7 +11,6 @@ namespace Server.Models.Magics
 
         public ElementalPuppet(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override Element GetElement(Element element)

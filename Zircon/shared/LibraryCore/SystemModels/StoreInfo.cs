@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Price
@@ -38,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Price");
             }
         }
+
         private int _Price;
 
         public int HuntGoldPrice
@@ -53,8 +50,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "HuntGoldPrice");
             }
         }
+
         private int _HuntGoldPrice;
-        
+
         public string Filter
         {
             get { return _Filter; }
@@ -68,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Filter");
             }
         }
+
         private string _Filter;
 
         public bool Available
@@ -83,6 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Available");
             }
         }
+
         private bool _Available;
 
         public int Duration
@@ -98,7 +98,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Duration");
             }
         }
+
         private int _Duration;
     }
-
 }

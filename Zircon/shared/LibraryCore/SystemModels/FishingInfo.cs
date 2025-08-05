@@ -1,7 +1,4 @@
 ﻿using MirDB;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace Library.SystemModels
 {
@@ -21,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public MapRegion Region
@@ -36,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Region");
             }
         }
+
         private MapRegion _Region;
 
         [Association("Drops", true)]
@@ -58,6 +57,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Fishing");
             }
         }
+
         private FishingInfo _Fishing;
 
         public ItemInfo Item
@@ -73,6 +73,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Chance
@@ -88,6 +89,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Chance");
             }
         }
+
         private int _Chance;
 
         public int ThrowQuality
@@ -103,6 +105,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "ThrowQuality");
             }
         }
+
         private int _ThrowQuality;
 
         public bool PerfectCatch
@@ -118,6 +121,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "PerfectCatch");
             }
         }
+
         private bool _PerfectCatch;
     }
 }

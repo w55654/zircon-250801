@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Library;
+using System;
 using System.IO;
 using System.Security.Cryptography;
-using Library;
 
 namespace Server.Envir
 {
@@ -10,6 +10,7 @@ namespace Server.Envir
     {
         [ConfigSection("Network")]
         public static string IPAddress { get; set; } = "127.0.0.1";
+
         public static ushort Port { get; set; } = 7000;
         public static TimeSpan TimeOut { get; set; } = TimeSpan.FromSeconds(20);
         public static TimeSpan PingDelay { get; set; } = TimeSpan.FromSeconds(2);
@@ -20,6 +21,7 @@ namespace Server.Envir
 
         [ConfigSection("System")]
         public static bool CheckVersion { get; set; } = true;
+
         public static string VersionPath { get; set; } = @".\Zircon.dll";
 
         public static string MapPath { get; set; } = @".\Map\";
@@ -39,6 +41,7 @@ namespace Server.Envir
 
         [ConfigSection("Control")]
         public static bool AllowLogin { get; set; } = true;
+
         public static bool AllowNewAccount { get; set; } = true;
         public static bool AllowChangePassword { get; set; } = true;
 
@@ -64,6 +67,7 @@ namespace Server.Envir
 
         [ConfigSection("Mail")]
         public static string MailServer { get; set; } = @"smtp.gmail.com";
+
         public static int MailPort { get; set; } = 587;
         public static bool MailUseSSL { get; set; } = true;
         public static string MailAccount { get; set; } = @"admin@zirconserver.com";
@@ -73,6 +77,7 @@ namespace Server.Envir
 
         [ConfigSection("WebServer")]
         public static bool EnableWebServer { get; set; } = false;
+
         public static string WebPrefix { get; set; } = @"http://*:80/Command/";
         public static string WebCommandLink { get; set; } = @"https://www.zirconserver.com/Command";
 
@@ -90,9 +95,9 @@ namespace Server.Envir
         public static bool ProcessGameGold { get; set; } = true;
         public static bool AllowBuyGameGold { get; set; } = true;
 
-
         [ConfigSection("Players")]
         public static int MaxViewRange { get; set; } = 18;
+
         public static TimeSpan ShoutDelay { get; set; } = TimeSpan.FromSeconds(10);
         public static TimeSpan GlobalDelay { get; set; } = TimeSpan.FromSeconds(60);
         public static int MaxLevel { get; set; } = 10;
@@ -112,12 +117,14 @@ namespace Server.Envir
 
         [ConfigSection("Monsters")]
         public static TimeSpan DeadDuration { get; set; } = TimeSpan.FromMinutes(1);
+
         public static TimeSpan HarvestDuration { get; set; } = TimeSpan.FromMinutes(5);
         public static int MysteryShipRegionIndex { get; set; } = 0;
         public static int LairRegionIndex { get; set; } = 0;
 
         [ConfigSection("Items")]
         public static TimeSpan DropDuration { get; set; } = TimeSpan.FromMinutes(60);
+
         public static int DropDistance { get; set; } = 5;
         public static int DropLayers { get; set; } = 5;
         public static int TorchRate { get; set; } = 10;
@@ -134,6 +141,7 @@ namespace Server.Envir
 
         [ConfigSection("Rates")]
         public static int ExperienceRate { get; set; } = 0;
+
         public static int DropRate { get; set; } = 0;
         public static int GoldRate { get; set; } = 0;
         public static int SkillRate { get; set; } = 0;
@@ -141,6 +149,7 @@ namespace Server.Envir
 
         [ConfigSection("Fishing")]
         public static bool FishEnablePerfectCatch { get; set; } = true;
+
         public static int FishNibbleChanceBase { get; set; } = 10;
         public static int FishPointsRequired { get; set; } = 50;
         public static int FishPointSuccessRewardMin { get; set; } = 2;

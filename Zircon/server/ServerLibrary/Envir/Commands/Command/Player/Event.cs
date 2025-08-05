@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Server.Envir.Commands.Command.Player
 {
-    class Event : AbstractParameterizedCommand<IPlayerCommand>
+    internal class Event : AbstractParameterizedCommand<IPlayerCommand>
     {
         public override string VALUE => "EVENT";
         public override int PARAMS_LENGTH => 1;

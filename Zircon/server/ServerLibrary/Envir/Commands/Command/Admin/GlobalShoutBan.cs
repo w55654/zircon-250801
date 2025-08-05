@@ -4,7 +4,7 @@ using Server.Models;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class GlobalShoutBan : AbstractParameterizedCommand<IAdminCommand>
+    internal class GlobalShoutBan : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "GLOBALBAN";
         public override int PARAMS_LENGTH => 2;

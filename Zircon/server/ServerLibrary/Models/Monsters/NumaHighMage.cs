@@ -1,11 +1,8 @@
-﻿using System;
+﻿using Library;
+using Server.Envir;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Library;
-using Server.Envir;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Models.Monsters
@@ -23,7 +20,6 @@ namespace Server.Models.Monsters
             int y = Math.Abs(Target.CurrentLocation.Y - CurrentLocation.Y);
 
             if (x > AttackRange || y > AttackRange) return false;
-
 
             return x == 0 || x == y || y == 0;
         }
@@ -51,9 +47,7 @@ namespace Server.Models.Monsters
 
                 LineAttack(AttackRange);
             }
-
         }
-
 
         private void LineAttack(int distance)
         {
@@ -88,8 +82,6 @@ namespace Server.Models.Monsters
                         break;
                     }
                 }
-
-
             }
         }
     }

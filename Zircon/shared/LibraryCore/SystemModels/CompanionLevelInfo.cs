@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -23,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Level");
             }
         }
+
         private int _Level;
 
         public int MaxExperience
@@ -38,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxExperience");
             }
         }
+
         private int _MaxExperience;
 
         public int InventorySpace
@@ -53,6 +50,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "InventorySpace");
             }
         }
+
         private int _InventorySpace;
 
         public int InventoryWeight
@@ -68,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "InventoryWeight");
             }
         }
+
         private int _InventoryWeight;
 
         public int MaxHunger
@@ -83,7 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "MaxHunger");
             }
         }
+
         private int _MaxHunger;
-        
     }
 }

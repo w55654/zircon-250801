@@ -1,6 +1,4 @@
-﻿using Library;
-using Library.SystemModels;
-using MirDB;
+﻿using MirDB;
 
 namespace Library.SystemModels
 {
@@ -20,6 +18,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Name");
             }
         }
+
         private string _Name;
 
         public int Shape
@@ -35,6 +34,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Shape");
             }
         }
+
         private int _Shape;
 
         public string Description
@@ -50,6 +50,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Description");
             }
         }
+
         private string _Description;
 
         public int Cost
@@ -65,6 +66,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Cost");
             }
         }
+
         private int _Cost;
 
         public int Order
@@ -80,6 +82,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Order");
             }
         }
+
         private int _Order;
 
         [Association("FameInfoStats", true)]
@@ -106,6 +109,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Fame");
             }
         }
+
         private FameInfo _Fame;
 
         [IsIdentity]
@@ -122,6 +126,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Stat");
             }
         }
+
         private Stat _Stat;
 
         public int Amount
@@ -137,6 +142,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 
@@ -157,6 +163,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Fame");
             }
         }
+
         private FameInfo _Fame;
 
         [IsIdentity]
@@ -173,6 +180,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Item");
             }
         }
+
         private ItemInfo _Item;
 
         public int Amount
@@ -188,6 +196,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Amount");
             }
         }
+
         private int _Amount;
     }
 }

@@ -7,6 +7,7 @@ namespace Client.Envir.Translations
     {
         [ConfigSection("Message")]
         public override string CannotChangeGenderWhileWearingArmour { get; set; } = "衣服穿戴中无法进行变性操作.";
+
         public override string WearingArmourBeforeDye { get; set; } = "You need to be wearing an armour before you can apply a dye.";
         public override string UnableToRepairHere { get; set; } = "无法在 {0} 这里进行修复.";
         public override string UnableToRepairFullyRepaired { get; set; } = "无法重复修复 {0}, 它已经完全修复好了.";
@@ -113,6 +114,7 @@ namespace Client.Envir.Translations
 
         [ConfigSection("Common")]
         public override string CommonControlApply { get; set; } = "应用";
+
         public override string CommonControlCancel { get; set; } = "取消";
         public override string CommonControlClose { get; set; } = "关闭";
         public override string CommonControlConfirm { get; set; } = "确认";
@@ -127,7 +129,7 @@ namespace Client.Envir.Translations
         public override string CommonControlColourPickerGreenLabel { get; set; } = "绿色:";
         public override string CommonControlColourPickerBlueLabel { get; set; } = "蓝色:";
         public override string CommonControlColourPickerColourLabel { get; set; } = "颜色:";
-        public override string CommonControlColourPickerNoneLabel { get; set; } = "无";  
+        public override string CommonControlColourPickerNoneLabel { get; set; } = "无";
         public override string CommonControlColourPickerEmptyLabel { get; set; } = "无颜色";
         public override string CommonControlConfigWindowTitle { get; set; } = "配置";
         public override string CommonControlConfigWindowGraphicsTabLabel { get; set; } = "图形";
@@ -208,6 +210,7 @@ namespace Client.Envir.Translations
 
         [ConfigSection("Scenes")]
         public override string LoginConnectionAttemptMessage { get; set; } = "正在尝试连接至服务器.\n尝试次数:{0}";
+
         public override string LoginConnectionAttemptCaption { get; set; } = "连接中";
         public override string LoginLoadingMessage { get; set; } = "正在加载客户端信息...\n请稍候...";
         public override string LoginLoadingCaption { get; set; } = "加载中";

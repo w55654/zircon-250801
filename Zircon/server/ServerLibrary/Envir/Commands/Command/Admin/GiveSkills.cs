@@ -1,15 +1,13 @@
 ﻿using Library;
-using Library.Network.ClientPackets;
 using Library.SystemModels;
 using Server.DBModels;
 using Server.Envir.Commands.Exceptions;
 using Server.Models;
-using System.Runtime;
 using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class GiveSkills : AbstractParameterizedCommand<IAdminCommand>
+    internal class GiveSkills : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "GIVESKILLS";
         public override int PARAMS_LENGTH => 2;

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using MirDB;
+using System.Collections.Generic;
 using System.Drawing;
-using MirDB;
 
 namespace Library.SystemModels
 {
@@ -20,8 +20,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Region");
             }
         }
+
         private MapRegion _Region;
-        
+
         public MapRegion BindRegion
         {
             get { return _BindRegion; }
@@ -35,8 +36,9 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "BindRegion");
             }
         }
+
         private MapRegion _BindRegion;
-        
+
         public RequiredClass StartClass
         {
             get { return _StartClass; }
@@ -50,6 +52,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "StartClass");
             }
         }
+
         private RequiredClass _StartClass;
 
         public bool RedZone
@@ -65,6 +68,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "RedZone");
             }
         }
+
         private bool _RedZone;
 
         public bool Border
@@ -80,6 +84,7 @@ namespace Library.SystemModels
                 OnChanged(oldValue, value, "Border");
             }
         }
+
         private bool _Border;
 
         public List<Point> ValidBindPoints = new List<Point>();

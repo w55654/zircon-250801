@@ -9,14 +9,18 @@ namespace PluginCore
     public class PluginLoader
     {
         public event EventHandler<LogEventArgs> Log;
+
         public event EventHandler<ShowViewEventArgs> View;
+
         public event EventHandler<ShowMapViewerEventArgs> MapViewer;
 
         public List<IPluginStart> Plugins { get; } = new List<IPluginStart>();
 
-        private PluginLoader() { }
+        private PluginLoader()
+        { }
 
         private static PluginLoader instance;
+
         public static PluginLoader Instance
         {
             get

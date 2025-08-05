@@ -5,7 +5,7 @@ using S = Library.Network.ServerPackets;
 
 namespace Server.Envir.Commands.Command.Admin
 {
-    class AddStat : AbstractParameterizedCommand<IAdminCommand>
+    internal class AddStat : AbstractParameterizedCommand<IAdminCommand>
     {
         public override string VALUE => "ADDSTAT";
         public override int PARAMS_LENGTH => 4;

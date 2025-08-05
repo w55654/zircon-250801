@@ -153,6 +153,7 @@ namespace Client.Scenes.Views
                     }
 
                     break;
+
                 case BundleType.AllOf:
                     ConfirmButton.Label.Text = CEnvir.Language.BundleConfirmAllButtonLabel;
                     ConfirmButton.Enabled = true;
@@ -164,6 +165,7 @@ namespace Client.Scenes.Views
                     }
 
                     break;
+
                 case BundleType.OneOf:
                     ConfirmButton.Label.Text = CEnvir.Language.BundleConfirmOneButtonLabel;
                     ConfirmButton.Enabled = false;

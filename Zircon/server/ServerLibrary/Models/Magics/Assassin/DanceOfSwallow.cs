@@ -15,7 +15,6 @@ namespace Server.Models.Magics
 
         public DanceOfSwallow(PlayerObject player, UserMagic magic) : base(player, magic)
         {
-
         }
 
         public override MagicCast MagicCast(MapObject target, Point location, MirDirection direction)
@@ -73,13 +72,11 @@ namespace Server.Models.Magics
             attackDelay = Math.Max(800, attackDelay);
             Player.AttackTime = SEnvir.Now.AddMilliseconds(attackDelay);
 
-
             Player.Broadcast(new S.ObjectAttack { ObjectID = Player.ObjectID, Direction = Direction, Location = CurrentLocation, AttackMagic = Magic.Info.Magic });
 
             var delay = SEnvir.Now.AddMilliseconds(400);
 
             ActionList.Add(new DelayedAction(delay, ActionType.DelayAttack, target, new List<MagicType> { Type }, true, 0));
-
 
             int magicDelay = Magic.Info.Delay;
             if (SEnvir.Now <= Player.PvPTime.AddSeconds(30))

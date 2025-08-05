@@ -1,5 +1,5 @@
-﻿using System;
-using Client.Envir;
+﻿using Client.Envir;
+using System;
 
 //Cleaned
 namespace Client.Controls
@@ -23,8 +23,11 @@ namespace Client.Controls
                 OnAnimatedChanged(oldValue, value);
             }
         }
+
         private bool _Animated;
+
         public event EventHandler<EventArgs> AnimatedChanged;
+
         public virtual void OnAnimatedChanged(bool oValue, bool nValue)
         {
             if (!Animated) Index = BaseIndex;
@@ -51,8 +54,11 @@ namespace Client.Controls
                 OnBaseIndexChanged(oldValue, value);
             }
         }
+
         private int _BaseIndex;
+
         public event EventHandler<EventArgs> BaseIndexChanged;
+
         public virtual void OnBaseIndexChanged(int oValue, int nValue)
         {
             if (!Animated) Index = BaseIndex;
@@ -79,8 +85,11 @@ namespace Client.Controls
                 OnFrameCountChanged(oldValue, value);
             }
         }
+
         private int _FrameCount;
+
         public event EventHandler<EventArgs> FrameCountChanged;
+
         public virtual void OnFrameCountChanged(int oValue, int nValue)
         {
             FrameCountChanged?.Invoke(this, EventArgs.Empty);
@@ -103,8 +112,11 @@ namespace Client.Controls
                 OnAnimationDelayChanged(oldValue, value);
             }
         }
+
         private TimeSpan _AnimationDelay;
+
         public event EventHandler<EventArgs> AnimationDelayChanged;
+
         public virtual void OnAnimationDelayChanged(TimeSpan oValue, TimeSpan nValue)
         {
             Process();
@@ -129,8 +141,11 @@ namespace Client.Controls
                 OnLoopChanged(oldValue, value);
             }
         }
+
         private bool _Loop;
+
         public event EventHandler<EventArgs> LoopChanged;
+
         public virtual void OnLoopChanged(bool oValue, bool nValue)
         {
             LoopChanged?.Invoke(this, EventArgs.Empty);
@@ -139,8 +154,11 @@ namespace Client.Controls
         #endregion
 
         public event EventHandler AfterAnimation;
+
         public event EventHandler AfterAnimationLoop;
+
         public DateTime AnimationStart;
+
         #endregion
 
         public DXAnimatedControl()
@@ -179,8 +197,9 @@ namespace Client.Controls
         }
 
         #endregion
-        
+
         #region IDisposable
+
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
@@ -203,6 +222,7 @@ namespace Client.Controls
                 AnimationStart = DateTime.MinValue;
             }
         }
+
         #endregion
     }
 }
