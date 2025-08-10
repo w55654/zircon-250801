@@ -1873,11 +1873,11 @@ namespace Client.Controls
             fX /= scale;
             fY /= scale;
 
-            DXManager.Sprite.Transform = Matrix.Scaling(scale, scale, 1);
+            DXManager.SpriteTransform = Matrix.Scaling(scale, scale, 1);
 
-            DXManager.Sprite.Draw(texture, textureArea, Vector3.Zero, new Vector3(fX, fY, 0), colour);
+            DXManager.SpriteDraw(texture, textureArea, Vector3.Zero, new Vector3(fX, fY, 0), colour);
 
-            DXManager.Sprite.Transform = Matrix.Identity;
+            DXManager.SpriteTransform = Matrix.Identity;
         }
 
         #endregion

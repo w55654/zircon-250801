@@ -1002,7 +1002,7 @@ namespace Client.Models
             Surface oldSurface = DXManager.CurrentSurface;
             DXManager.SetSurface(DXManager.ScratchSurface);
             DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
-            DXManager.Sprite.Flush();
+            DXManager.SpriteFlush();
 
             int l = int.MaxValue, t = int.MaxValue, r = int.MinValue, b = int.MinValue;
 
@@ -1272,7 +1272,7 @@ namespace Client.Models
                     break;
             }
 
-            DXManager.Sprite.Draw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector3.Zero, new Vector3(l, t, 0), DrawColour);
+            DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector3.Zero, new Vector3(l, t, 0), DrawColour);
             CEnvir.DPSCounter++;
 
             if (oldOpacity != Opacity && !DXManager.Blending) DXManager.SetOpacity(oldOpacity);
@@ -1290,15 +1290,15 @@ namespace Client.Models
             Matrix m = Matrix.Scaling(1F, 0.5f, 0);
 
             m.M21 = -0.50F;
-            DXManager.Sprite.Transform = m * Matrix.Translation(DrawX + image.ShadowOffSetX - w + (image.Height) / 2 + h / 2, DrawY + image.ShadowOffSetY - h / 2, 0);
+            DXManager.SpriteTransform = m * Matrix.Translation(DrawX + image.ShadowOffSetX - w + (image.Height) / 2 + h / 2, DrawY + image.ShadowOffSetY - h / 2, 0);
 
             DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
 
             float oldOpacity = DXManager.Opacity;
             if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
-            DXManager.Sprite.Draw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector3.Zero, Vector3.Zero, Color.Black);
+            DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector3.Zero, Vector3.Zero, Color.Black);
 
-            DXManager.Sprite.Transform = Matrix.Identity;
+            DXManager.SpriteTransform = Matrix.Identity;
             DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
 
             if (0.5F != oldOpacity) DXManager.SetOpacity(oldOpacity);

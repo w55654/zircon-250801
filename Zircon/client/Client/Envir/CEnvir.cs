@@ -145,6 +145,7 @@ namespace Client.Envir
             if (Config.LimitFPS)
                 Thread.Sleep(1);
         }
+
         private static void UpdateGame()
         {
             Now = Time.Now;
@@ -286,6 +287,7 @@ namespace Client.Envir
                 DXControl.HintLabel.Text = null;
             }
         }
+
         private static void RenderGame()
         {
             try
@@ -305,11 +307,11 @@ namespace Client.Envir
 
                 DXManager.Device.Clear(ClearFlags.Target, Color.Black, 1, 0);
                 DXManager.Device.BeginScene();
-                DXManager.Sprite.Begin(SpriteFlags.AlphaBlend);
+                DXManager.SpriteBegin(SpriteFlags.AlphaBlend);
 
                 DXControl.ActiveScene?.Draw();
 
-                DXManager.Sprite.End();
+                DXManager.SpriteEnd();
                 DXManager.Device.EndScene();
 
                 DXManager.Device.Present();
@@ -503,6 +505,7 @@ namespace Client.Envir
                 else
                     Storage[item.Slot] = item;
         }
+
         public static void Enqueue(Packet packet)
         {
             Connection?.Enqueue(packet);
@@ -515,6 +518,7 @@ namespace Client.Envir
 
             CheckKeyBinds();
         }
+
         public static void CheckKeyBinds()
         {
             foreach (KeyBindAction action in Enum.GetValues(typeof(KeyBindAction)).Cast<KeyBindAction>())
@@ -990,6 +994,7 @@ namespace Client.Envir
 
         public static int ErrorCount;
         private static string LastError;
+
         public static void SaveError(string ex)
         {
             try
@@ -1024,10 +1029,12 @@ namespace Client.Envir
 
             con?.Disconnect();
         }
+
         public static KeyBindInfo GetKeyBind(KeyBindAction action)
         {
             return KeyBinds.Binding.FirstOrDefault(x => x.Action == action);
         }
+
         public static string GetText(Keys key)
         {
             switch (key)

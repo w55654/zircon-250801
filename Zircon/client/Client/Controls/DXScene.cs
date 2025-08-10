@@ -52,9 +52,6 @@ namespace Client.Controls
             Size = size;
 
             DXManager.SetResolution(size);
-
-            if (!Config.FullScreen)
-                CEnvir.Target.Center();
         }
 
         #region Methods

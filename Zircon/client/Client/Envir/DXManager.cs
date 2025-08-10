@@ -24,7 +24,15 @@ namespace Client.Envir
 
         public static PresentParameters Parameters { get; private set; }
         public static Device Device { get; private set; }
-        public static Sprite Sprite { get; private set; }
+
+        private static Sprite Sprite { get; set; }
+
+        public static SlimDX.Matrix SpriteTransform
+        {
+            get => Sprite.Transform;
+            set => Sprite.Transform = value;
+        }
+
         public static Line Line { get; private set; }
 
         public static Surface CurrentSurface { get; private set; }
@@ -67,36 +75,6 @@ namespace Client.Envir
                 }
 
                 return _ColourPallete;
-            }
-        }
-
-        public const int LightWidth = 1024;
-        public const int LightHeight = 768;
-
-        public static byte[] LightData;
-        private static Texture _LightTexture;
-
-        public static Texture LightTexture
-        {
-            get
-            {
-                if (_LightTexture == null || _LightTexture.Disposed)
-                    CreateLight();
-
-                return _LightTexture;
-            }
-        }
-
-        private static Surface _LightSurface;
-
-        public static Surface LightSurface
-        {
-            get
-            {
-                if (_LightSurface == null || _LightSurface.Disposed)
-                    _LightSurface = LightTexture.GetSurfaceLevel(0);
-
-                return _LightSurface;
             }
         }
 
@@ -189,31 +167,34 @@ namespace Client.Envir
             ScratchSurface = ScratchTexture.GetSurfaceLevel(0);
         }
 
-        private static void CreateLight()
+        public static void SpriteBegin(SpriteFlags flags)
         {
-            Texture light = new Texture(Device, LightWidth, LightHeight, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
+            Sprite.Begin(flags);
+        }
 
-            DataRectangle rect = light.LockRectangle(0, LockFlags.Discard);
+        public static void SpriteEnd()
+        {
+            Sprite.End();
+        }
 
-            using (Bitmap image = new Bitmap(LightWidth, LightHeight, LightWidth * 4, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
-            using (Graphics graphics = Graphics.FromImage(image))
-            using (GraphicsPath path = new GraphicsPath())
-            {
-                path.AddEllipse(new Rectangle(0, 0, LightWidth, LightHeight));
-                using (PathGradientBrush brush = new PathGradientBrush(path))
-                {
-                    graphics.Clear(Color.FromArgb(0, 0, 0, 0));
-                    brush.SurroundColors = new[] { Color.FromArgb(0, 0, 0, 0) };
-                    brush.CenterColor = Color.FromArgb(255, 200, 200, 200);
-                    graphics.FillPath(brush, path);
-                    graphics.Save();
-                }
-            }
+        public static void SpriteFlush()
+        {
+            Sprite.Flush();
+        }
 
-            light.UnlockRectangle(0);
-            rect.Data.Dispose();
+        public static void SpriteDraw(Texture texture, Vector3? center, Vector3? position, Color4 color)
+        {
+            Sprite.Draw(texture, center, position, color);
+        }
 
-            _LightTexture = light;
+        public static void SpriteDraw(Texture texture, Rectangle? sourceRect, Vector3? center, Vector3? position, Color4 color)
+        {
+            Sprite.Draw(texture, sourceRect, center, position, color);
+        }
+
+        public static void SpriteDraw(Texture texture, Color4 color)
+        {
+            Sprite.Draw(texture, color);
         }
 
         private static void CleanUp()
@@ -272,22 +253,6 @@ namespace Client.Envir
                     PoisonTexture.Dispose();
 
                 PoisonTexture = null;
-            }
-
-            if (_LightTexture != null)
-            {
-                if (!_LightTexture.Disposed)
-                    _LightTexture.Dispose();
-
-                _LightTexture = null;
-            }
-
-            if (_LightSurface != null)
-            {
-                if (!_LightSurface.Disposed)
-                    _LightSurface.Dispose();
-
-                _LightSurface = null;
             }
 
             for (int i = ControlList.Count - 1; i >= 0; i--)

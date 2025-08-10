@@ -201,7 +201,7 @@ namespace Client.Scenes.Views
             DrawBackground();
 
             if (FLayer.TextureValid)
-                DXManager.Sprite.Draw(FLayer.ControlTexture, Color.White);
+                DXManager.SpriteDraw(FLayer.ControlTexture, Color.White);
 
             if (Config.DrawEffects)
             {
@@ -228,17 +228,17 @@ namespace Client.Scenes.Views
                 }
             }
 
-            DXManager.Sprite.Flush();
+            DXManager.SpriteFlush();
 
             // todo w
             //DXManager.Device.SetRenderState(RenderState.SourceBlend, Blend.Zero);
             //DXManager.Device.SetRenderState(RenderState.DestinationBlend, Blend.SourceColor);
 
-            //DXManager.Sprite.Draw(LLayer.ControlTexture, Color.White);
+            //DXManager.SpriteDraw(LLayer.ControlTexture, Color.White);
 
-            DXManager.Sprite.End();
+            DXManager.SpriteEnd();
 
-            DXManager.Sprite.Begin(SpriteFlags.AlphaBlend);
+            DXManager.SpriteBegin(SpriteFlags.AlphaBlend);
 
             foreach (MapObject ob in Objects)
             {

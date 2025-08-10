@@ -164,7 +164,9 @@ namespace Client
             CEnvir.Ctrl = e.Control;
 
             if (e.KeyCode == Keys.Pause || e.KeyCode == Keys.PrintScreen)
+            {
                 CreateScreenShot();
+            }
 
             try
             {
@@ -203,103 +205,8 @@ namespace Client
             catch { }
         }
 
-        public void Center()
-        {
-            CenterToScreen();
-        }
-
         public static void CreateScreenShot()
         {
-            Bitmap image = CEnvir.Target.GetImage();
-
-            using (Graphics graphics = Graphics.FromImage(image))
-            {
-                string text = $"Date: {CEnvir.Now.ToShortDateString()}{Environment.NewLine}";
-                text += $"Time: {CEnvir.Now.TimeOfDay:hh\\:mm\\:ss}{Environment.NewLine}";
-                if (GameScene.Game != null)
-                    text += $"Player: {MapObject.User.Name}{Environment.NewLine}";
-
-                using (Font font = new Font(Config.FontName, CEnvir.FontSize(8F)))
-                {
-                    graphics.DrawString(text, font, Brushes.Black, 3, 33);
-                    graphics.DrawString(text, font, Brushes.Black, 4, 32);
-                    graphics.DrawString(text, font, Brushes.Black, 5, 33);
-                    graphics.DrawString(text, font, Brushes.Black, 4, 34);
-                    graphics.DrawString(text, font, Brushes.White, 4, 33);
-                }
-            }
-
-            string path = Path.Combine(Application.StartupPath, @"Screenshots\");
-            if (!Directory.Exists(path))
-                Directory.CreateDirectory(path);
-
-            int count = Directory.GetFiles(path, "*.png").Length;
-            string fileName = $"Image {count}.png";
-
-            image.Save(Path.Combine(path, fileName), ImageFormat.Png);
-            image.Dispose();
-
-            if (GameScene.Game != null)
-                GameScene.Game.ReceiveChat(string.Format(CEnvir.Language.ScreenshotSaved, fileName), MessageType.System);
         }
-
-        #region ScreenCapture
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetWindowDC(IntPtr handle);
-
-        [DllImport("gdi32.dll")]
-        public static extern IntPtr CreateCompatibleDC(IntPtr handle);
-
-        [DllImport("gdi32.dll")]
-        public static extern IntPtr CreateCompatibleBitmap(IntPtr handle, int width, int height);
-
-        [DllImport("gdi32.dll")]
-        public static extern IntPtr SelectObject(IntPtr handle, IntPtr handle2);
-
-        [DllImport("gdi32.dll")]
-        public static extern bool BitBlt(IntPtr handle, int destX, int desty, int width, int height,
-                                         IntPtr handle2, int sourX, int sourY, int flag);
-
-        [DllImport("gdi32.dll")]
-        public static extern int DeleteDC(IntPtr handle);
-
-        [DllImport("user32.dll")]
-        public static extern int ReleaseDC(IntPtr handle, IntPtr handle2);
-
-        [DllImport("gdi32.dll")]
-        public static extern int DeleteObject(IntPtr handle);
-
-        public Bitmap GetImage()
-        {
-            Point location = PointToClient(Location);
-
-            location = new Point(-location.X, -location.Y);
-
-            Rectangle r = new Rectangle(location, ClientSize);
-
-            IntPtr sourceDc = GetWindowDC(Handle);
-            IntPtr destDc = CreateCompatibleDC(sourceDc);
-
-            IntPtr hBmp = CreateCompatibleBitmap(sourceDc, r.Width, r.Height);
-            if (hBmp != IntPtr.Zero)
-            {
-                IntPtr hOldBmp = SelectObject(destDc, hBmp);
-                BitBlt(destDc, 0, 0, r.Width, r.Height, sourceDc, r.X, r.Y, 0xCC0020); //0, 0, 13369376);
-                SelectObject(destDc, hOldBmp);
-                DeleteDC(destDc);
-                ReleaseDC(Handle, sourceDc);
-
-                Bitmap bmp = Image.FromHbitmap(hBmp);
-
-                DeleteObject(hBmp);
-
-                return bmp;
-            }
-
-            return null;
-        }
-
-        #endregion
     }
 }

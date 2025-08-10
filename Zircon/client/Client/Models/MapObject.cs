@@ -5137,31 +5137,31 @@ namespace Client.Models
 
             if ((Poison & PoisonType.Paralysis) == PoisonType.Paralysis)
             {
-                DXManager.Sprite.Draw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.DimGray);
+                DXManager.SpriteDraw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.DimGray);
                 count++;
             }
 
             if ((Poison & PoisonType.Slow) == PoisonType.Slow)
             {
-                DXManager.Sprite.Draw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.CornflowerBlue);
+                DXManager.SpriteDraw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.CornflowerBlue);
                 count++;
             }
 
             if ((Poison & PoisonType.Red) == PoisonType.Red)
             {
-                DXManager.Sprite.Draw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.IndianRed);
+                DXManager.SpriteDraw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.IndianRed);
                 count++;
             }
 
             if ((Poison & PoisonType.Green) == PoisonType.Green)
             {
-                DXManager.Sprite.Draw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.SeaGreen);
+                DXManager.SpriteDraw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.SeaGreen);
                 count++;
             }
 
             if (Poison.HasFlag(PoisonType.Burn) || Poison.HasFlag(PoisonType.HellFire))
             {
-                DXManager.Sprite.Draw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.OrangeRed);
+                DXManager.SpriteDraw(DXManager.PoisonTexture, Vector3.Zero, new Vector3(DrawX + count * 5, DrawY - 50, 0), Color.OrangeRed);
             }
         }
 

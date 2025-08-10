@@ -659,7 +659,6 @@ namespace Client.Scenes
             MagicBarBox = new MagicBarDialog
             {
                 Parent = this,
-                Visible = false,
             };
 
             FortuneCheckerBox = new FortuneCheckerDialog
