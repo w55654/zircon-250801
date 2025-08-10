@@ -36,6 +36,7 @@
 		<Content Include="Zircon.ico" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Raylib-cs" Version="7.0.1" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="NAudio" Version="2.2.1" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
@@ -52,10 +53,5 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\shared\LibraryCore\LibraryCore.csproj" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="SlimDX">
-			<HintPath>..\..\3rd\SlimDX.dll</HintPath>
-		</Reference>
 	</ItemGroup>
 </Project>

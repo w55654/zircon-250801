@@ -2,8 +2,8 @@
 using Client.Envir;
 using Client.Scenes;
 using Library;
+using Raylib_cs;
 using Sentry;
-using SlimDX.Windows;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,14 +51,23 @@ namespace Client
                 CEnvir.LibraryList[pair.Key] = new MirLibrary(pair.Value);
             }
 
-            CEnvir.Target = new TargetForm();
+            var form = new Client.TargetForm();   // 为了保持外部引用不改
 
             DXManager.Create();
             DXSoundManager.Create();
 
             DXControl.ActiveScene = new LoginScene(Config.IntroSceneSize);
 
-            MessagePump.Run(CEnvir.Target, CEnvir.GameLoop);
+            while (!Raylib.WindowShouldClose())
+            {
+                form.PumpInput();                 // 轮询输入并转发到 DXControl.ActiveScene
+                CEnvir.GameLoop();                // 你的更新
+                DXManager.BeginFrame(System.Drawing.Color.Black);
+                // 你的渲染逻辑（场景里还是调用 DXManager.SpriteXXX）
+                DXManager.PresentToScreen();
+            }
+
+            //MessagePump.Run(CEnvir.Target, CEnvir.GameLoop);
 
             CEnvir.Session?.Save(true);
             CEnvir.Unload();
