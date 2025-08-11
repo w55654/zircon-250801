@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryCore", "shared\Libra
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ray2D", "client\Ray2D\Ray2D.csproj", "{702B42CD-07F6-B0FE-D959-C19C239CE744}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UtilsShared", "shared\UtilsShared\UtilsShared.shproj", "{D85E3765-7CFD-4A3D-BD52-509B5A954BEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -23,14 +27,24 @@ Global
 		{39BD8C1A-7122-AEFE-EFF7-D1B148DF3F14}.Debug|x64.Build.0 = Debug|x64
 		{39BD8C1A-7122-AEFE-EFF7-D1B148DF3F14}.Release|x64.ActiveCfg = Release|x64
 		{39BD8C1A-7122-AEFE-EFF7-D1B148DF3F14}.Release|x64.Build.0 = Release|x64
+		{702B42CD-07F6-B0FE-D959-C19C239CE744}.Debug|x64.ActiveCfg = Debug|x64
+		{702B42CD-07F6-B0FE-D959-C19C239CE744}.Debug|x64.Build.0 = Debug|x64
+		{702B42CD-07F6-B0FE-D959-C19C239CE744}.Release|x64.ActiveCfg = Release|x64
+		{702B42CD-07F6-B0FE-D959-C19C239CE744}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{39BD8C1A-7122-AEFE-EFF7-D1B148DF3F14} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{D85E3765-7CFD-4A3D-BD52-509B5A954BEF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0A1E6870-A7CB-4165-960E-81486A3F1A0D}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		shared\UtilsShared\UtilsShared.projitems*{702b42cd-07f6-b0fe-d959-c19c239ce744}*SharedItemsImports = 5
+		shared\UtilsShared\UtilsShared.projitems*{84bea272-fce6-3271-6311-ac7dae7faa47}*SharedItemsImports = 5
+		shared\UtilsShared\UtilsShared.projitems*{d85e3765-7cfd-4a3d-bd52-509b5a954bef}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
