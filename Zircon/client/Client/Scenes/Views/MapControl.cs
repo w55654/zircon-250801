@@ -238,7 +238,7 @@ namespace Client.Scenes.Views
 
             DXManager.SpriteEnd();
 
-            DXManager.SpriteBegin(SpriteFlags.AlphaBlend);
+            DXManager.SpriteBegin();
 
             foreach (MapObject ob in Objects)
             {
@@ -321,7 +321,7 @@ namespace Client.Scenes.Views
 
             if (image?.Image == null) return;
 
-            PresentTexture(image.Image, Parent, DisplayArea, Color.White, this, 0, 0, 1F);
+            PresentTexture(image.Image, Parent, DisplayArea, Color.White, this, 0, 0);
         }
 
         private void DrawObjects()

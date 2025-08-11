@@ -245,8 +245,7 @@ namespace Client.Controls
 
             if (WindowTexture == null || DisplayArea.Size != TextureSize)
             {
-                WindowTexture = new Texture(DXManager.Device, DXManager.Parameters.BackBufferWidth, DXManager.Parameters.BackBufferHeight, 1, Usage.RenderTarget, Format.A8R8G8B8, Pool.Default);
-                WindowSurface = WindowTexture.GetSurfaceLevel(0);
+                WindowTexture = new Texture(Config.GameSize.Width, Config.GameSize.Height);
                 WindowValid = false;
             }
         }
@@ -257,17 +256,12 @@ namespace Client.Controls
 
             if (WindowTexture != null)
             {
-                if (!WindowTexture.Disposed)
-                    WindowTexture.Dispose();
-
+                WindowTexture.Dispose();
                 WindowTexture = null;
             }
 
             if (WindowSurface != null)
             {
-                if (!WindowSurface.Disposed)
-                    WindowSurface.Dispose();
-
                 WindowSurface = null;
             }
         }
@@ -379,7 +373,7 @@ namespace Client.Controls
             {
                 Surface oldSurface = DXManager.CurrentSurface;
                 DXManager.SetSurface(WindowSurface);
-                DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
+                //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0); // todo w
 
                 DrawEdges();
 
@@ -565,17 +559,12 @@ namespace Client.Controls
 
                 if (WindowTexture != null)
                 {
-                    if (!WindowTexture.Disposed)
-                        WindowTexture.Dispose();
-
+                    WindowTexture.Dispose();
                     WindowTexture = null;
                 }
 
                 if (WindowSurface != null)
                 {
-                    if (!WindowSurface.Disposed)
-                        WindowSurface.Dispose();
-
                     WindowSurface = null;
                 }
 

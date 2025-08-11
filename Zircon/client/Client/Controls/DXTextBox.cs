@@ -302,7 +302,7 @@ namespace Client.Controls
             {
                 Visible = false,
                 BorderStyle = BorderStyle.None,
-                Parent = CEnvir.Target,
+                //Parent = CEnvir.Target, // todo w
                 BackColor = Color.Black,
                 ForeColor = Color.White,
             };
@@ -318,24 +318,25 @@ namespace Client.Controls
 
         protected override void CreateTexture()
         {
-            if (ControlTexture == null || DisplayArea.Size != TextureSize)
-            {
-                DisposeTexture();
-                TextureSize = DisplayArea.Size;
-                ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
-                DXManager.ControlList.Add(this);
-            }
+            // todo w 很重要 记得实现1
+            //if (ControlTexture == null || DisplayArea.Size != TextureSize)
+            //{
+            //    DisposeTexture();
+            //    TextureSize = DisplayArea.Size;
+            //    ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
+            //    DXManager.ControlList.Add(this);
+            //}
 
-            DataRectangle rect = ControlTexture.LockRectangle(0, LockFlags.Discard);
+            //DataRectangle rect = ControlTexture.LockRectangle(0, LockFlags.Discard);
 
-            using (Bitmap image = new Bitmap(DisplayArea.Width, DisplayArea.Height, rect.Pitch, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
-                TextBox.DrawToBitmap(image, new Rectangle(Point.Empty, Size.Round(DisplayArea.Size)));
+            //using (Bitmap image = new Bitmap(DisplayArea.Width, DisplayArea.Height, rect.Pitch, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
+            //    TextBox.DrawToBitmap(image, new Rectangle(Point.Empty, Size.Round(DisplayArea.Size)));
 
-            ControlTexture.UnlockRectangle(0);
-            rect.Data.Dispose();
+            //ControlTexture.UnlockRectangle(0);
+            //rect.Data.Dispose();
 
-            TextureValid = true;
-            ExpireTime = CEnvir.Now + Config.CacheDuration;
+            //TextureValid = true;
+            //ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         public virtual void OnActivated()
@@ -346,8 +347,9 @@ namespace Client.Controls
             if (TextBox.Location != DisplayArea.Location)
                 TextBox.Location = DisplayArea.Location;
 
-            if (TextBox.Visible && CEnvir.Target.ActiveControl != TextBox)
-                CEnvir.Target.ActiveControl = TextBox;
+            // todo w
+            //if (TextBox.Visible && CEnvir.Target.ActiveControl != TextBox)
+            //    CEnvir.Target.ActiveControl = TextBox;
         }
 
         public virtual void OnDeactivated()
@@ -356,22 +358,22 @@ namespace Client.Controls
                 TextureValid = false;
 
             TextBox.Visible = false;
-            CEnvir.Target.ActiveControl = null;
+            //CEnvir.Target.ActiveControl = null;  // todo w
         }
 
         public override void OnMouseEnter()
         {
             base.OnMouseEnter();
 
-            if (IsEnabled && Editable)
-                CEnvir.Target.Cursor = Cursors.IBeam;
+            //if (IsEnabled && Editable)
+            //    CEnvir.Target.Cursor = Cursors.IBeam; // todo w
         }
 
         public override void OnMouseLeave()
         {
             base.OnMouseLeave();
 
-            CEnvir.Target.Cursor = Cursors.Default;
+            //CEnvir.Target.Cursor = Cursors.Default; // todo w
         }
 
         protected internal override void UpdateDisplayArea()
@@ -411,11 +413,13 @@ namespace Client.Controls
         {
             base.OnMouseMove(e);
 
-            if (CEnvir.Target.ActiveControl == TextBox) return;
+            // todo w
+            //if (CEnvir.Target.ActiveControl == TextBox)
+            //    return;
 
-            int location = (e.X - DisplayArea.X) | (e.Y - DisplayArea.Y) << 16;
+            //int location = (e.X - DisplayArea.X) | (e.Y - DisplayArea.Y) << 16;
 
-            SendMessage(TextBox.Handle, 0x200, e.Clicks, location);
+            //SendMessage(TextBox.Handle, 0x200, e.Clicks, location);
         }
 
         public override void OnMouseUp(MouseEventArgs e)

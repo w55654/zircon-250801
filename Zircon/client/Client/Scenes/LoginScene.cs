@@ -79,7 +79,10 @@ namespace Client.Scenes
             {
                 ConnectionBox = new DXMessageBox(message, CEnvir.Language.LoginConnectionAttemptCaption, DXMessageBoxButtons.Cancel);
                 ConnectionBox.Disposing += (o, e1) => ConnectionBox = null;
-                ConnectionBox.CancelButton.MouseClick += (o, e1) => CEnvir.Target.Close();
+                ConnectionBox.CancelButton.MouseClick += (o, e1) =>
+                {
+                    //CEnvir.CloseWin32();
+                };
                 ConnectionBox.CloseButton.Visible = false;
 
                 ConnectionBox.Modal = false;
@@ -145,11 +148,11 @@ namespace Client.Scenes
             };
             control.BeforeDraw += (o, e) =>
             {
-                DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
+                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
             };
             control.AfterDraw += (o, e) =>
             {
-                DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
+                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
             };
 
             // Flags
@@ -165,11 +168,11 @@ namespace Client.Scenes
             };
             control.BeforeDraw += (o, e) =>
             {
-                DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
+                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
             };
             control.AfterDraw += (o, e) =>
             {
-                DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
+                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
             };
 
             // Ray of light
@@ -294,7 +297,10 @@ namespace Client.Scenes
                     ConnectionBox = new DXMessageBox(message, CEnvir.Language.LoginLoadingCaption, DXMessageBoxButtons.Cancel);
 
                     ConnectionBox.Disposing += (o, e1) => ConnectionBox = null;
-                    ConnectionBox.CancelButton.MouseClick += (o, e1) => CEnvir.Target.Close();
+                    ConnectionBox.CancelButton.MouseClick += (o, e1) =>
+                    {
+                        //CEnvir.CloseWin32();
+                    };
                     ConnectionBox.CloseButton.Visible = false;
                     ConnectionBox.Modal = false;
 
@@ -738,7 +744,10 @@ namespace Client.Scenes
                     Label = { Text = CEnvir.Language.LoginDialogExitButtonLabel },
                     Enabled = true,
                 };
-                ExitButton.MouseClick += (o, e) => CEnvir.Target.Close();
+                ExitButton.MouseClick += (o, e) =>
+                {
+                    //CEnvir.CloseWin32();
+                };
 
                 RankingButton = new DXButton
                 {

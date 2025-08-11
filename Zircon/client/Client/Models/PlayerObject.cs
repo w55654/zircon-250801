@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using Frame = Library.Frame;
 using S = Library.Network.ServerPackets;
 
@@ -1001,7 +1002,9 @@ namespace Client.Models
         {
             Surface oldSurface = DXManager.CurrentSurface;
             DXManager.SetSurface(DXManager.ScratchSurface);
-            DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
+
+            // todo w
+            //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
             DXManager.SpriteFlush();
 
             int l = int.MaxValue, t = int.MaxValue, r = int.MinValue, b = int.MinValue;
@@ -1272,7 +1275,7 @@ namespace Client.Models
                     break;
             }
 
-            DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector3.Zero, new Vector3(l, t, 0), DrawColour);
+            DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector2.Zero, new Vector2(l, t), DrawColour);
             CEnvir.DPSCounter++;
 
             if (oldOpacity != Opacity && !DXManager.Blending) DXManager.SetOpacity(oldOpacity);
@@ -1280,28 +1283,28 @@ namespace Client.Models
 
         public void DrawShadow2(int l, int t, int r, int b)
         {
-            MirImage image = BodyLibrary?.GetImage(ArmourFrame);
+            //MirImage image = BodyLibrary?.GetImage(ArmourFrame);
 
-            if (image == null) return;
+            //if (image == null) return;
 
-            int w = (DrawX + image.OffSetX) - l;
-            int h = (DrawY + image.OffSetY) - t;
+            //int w = (DrawX + image.OffSetX) - l;
+            //int h = (DrawY + image.OffSetY) - t;
 
-            Matrix m = Matrix.Scaling(1F, 0.5f, 0);
+            //Matrix m = Matrix.Scaling(1F, 0.5f, 0);
 
-            m.M21 = -0.50F;
-            DXManager.SpriteTransform = m * Matrix.Translation(DrawX + image.ShadowOffSetX - w + (image.Height) / 2 + h / 2, DrawY + image.ShadowOffSetY - h / 2, 0);
+            //m.M21 = -0.50F;
+            //DXManager.SpriteTransform = m * Matrix.Translation(DrawX + image.ShadowOffSetX - w + (image.Height) / 2 + h / 2, DrawY + image.ShadowOffSetY - h / 2, 0);
 
-            DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
+            //DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
 
-            float oldOpacity = DXManager.Opacity;
-            if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
-            DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector3.Zero, Vector3.Zero, Color.Black);
+            //float oldOpacity = DXManager.Opacity;
+            //if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
+            //DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector2.Zero, Vector2.Zero, Color.Black);
 
-            DXManager.SpriteTransform = Matrix.Identity;
-            DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
+            //DXManager.SpriteTransform = Matrix.Identity;
+            //DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
 
-            if (0.5F != oldOpacity) DXManager.SetOpacity(oldOpacity);
+            //if (0.5F != oldOpacity) DXManager.SetOpacity(oldOpacity);
         }
 
         public override void DrawHealth()

@@ -248,7 +248,8 @@ namespace Client.Controls
             };
             AfterDraw += (o, e) =>
             {
-                PresentTexture(DXManager.ColourPallete, ColourScaleBox, ColourScaleBox.DisplayArea, Color.White, this);
+                // todo w
+                //PresentTexture(DXManager.ColourPallete, ColourScaleBox, ColourScaleBox.DisplayArea, Color.White, this);
             };
             ColourScaleBox.MouseClick += ColourScaleBox_MouseClick;
 

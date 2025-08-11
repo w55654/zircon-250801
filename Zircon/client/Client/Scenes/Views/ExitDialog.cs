@@ -92,7 +92,7 @@ namespace Client.Scenes.Views
                 }
 
                 Exiting = true;
-                CEnvir.Target.Close();
+                CEnvir.CloseWin32();
             };
         }
 

@@ -298,48 +298,49 @@ namespace Client.Controls
 
         protected override void CreateTexture()
         {
-            int width = DisplayArea.Width;
-            int height = DisplayArea.Height;
+            // todo w 很重要 记得实现
+            //int width = DisplayArea.Width;
+            //int height = DisplayArea.Height;
 
-            if (ControlTexture == null || DisplayArea.Size != TextureSize)
-            {
-                DisposeTexture();
-                TextureSize = DisplayArea.Size;
-                ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
-                DXManager.ControlList.Add(this);
-            }
+            //if (ControlTexture == null || DisplayArea.Size != TextureSize)
+            //{
+            //    DisposeTexture();
+            //    TextureSize = DisplayArea.Size;
+            //    ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
+            //    DXManager.ControlList.Add(this);
+            //}
 
-            DataRectangle rect = ControlTexture.LockRectangle(0, LockFlags.Discard);
+            //DataRectangle rect = ControlTexture.LockRectangle(0, LockFlags.Discard);
 
-            using (Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
-            using (Graphics graphics = Graphics.FromImage(image))
-            {
-                DXManager.ConfigureGraphics(graphics);
-                graphics.Clear(BackColour);
+            //using (Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
+            //using (Graphics graphics = Graphics.FromImage(image))
+            //{
+            //    DXManager.ConfigureGraphics(graphics);
+            //    graphics.Clear(BackColour);
 
-                if (Outline)
-                {
-                    TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 0, width, height), OutlineColour, DrawFormat);
-                    TextRenderer.DrawText(graphics, Text, Font, new Rectangle(0, 1, width, height), OutlineColour, DrawFormat);
-                    TextRenderer.DrawText(graphics, Text, Font, new Rectangle(2, 1, width, height), OutlineColour, DrawFormat);
-                    TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 2, width, height), OutlineColour, DrawFormat);
-                    TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 1, width, height), ForeColour, DrawFormat);
-                }
-                else
-                {
-                    if (DropShadow)
-                    {
-                        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(2, 1, width, height), Color.Black, DrawFormat);
-                    }
+            //    if (Outline)
+            //    {
+            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 0, width, height), OutlineColour, DrawFormat);
+            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(0, 1, width, height), OutlineColour, DrawFormat);
+            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(2, 1, width, height), OutlineColour, DrawFormat);
+            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 2, width, height), OutlineColour, DrawFormat);
+            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 1, width, height), ForeColour, DrawFormat);
+            //    }
+            //    else
+            //    {
+            //        if (DropShadow)
+            //        {
+            //            TextRenderer.DrawText(graphics, Text, Font, new Rectangle(2, 1, width, height), Color.Black, DrawFormat);
+            //        }
 
-                    TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 0, width, height), ForeColour, DrawFormat);
-                }
-            }
-            ControlTexture.UnlockRectangle(0);
-            rect.Data.Dispose();
+            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 0, width, height), ForeColour, DrawFormat);
+            //    }
+            //}
+            //ControlTexture.UnlockRectangle(0);
+            //rect.Data.Dispose();
 
-            TextureValid = true;
-            ExpireTime = CEnvir.Now + Config.CacheDuration;
+            //TextureValid = true;
+            //ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         protected override void DrawControl()

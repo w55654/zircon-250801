@@ -255,7 +255,7 @@ namespace Client.Controls
             ForeColour = Color.White;
             Sound = SoundIndex.ButtonA;
             CanBePressed = true;
-            ForeColour = new Color4(0.85F, 0.85F, 0.85F).ToColor();
+            ForeColour = Color.FromArgb(1, 200, 200, 200);
 
             Label = new DXLabel
             {
@@ -291,7 +291,7 @@ namespace Client.Controls
 
                 Surface oldSurface = DXManager.CurrentSurface;
                 DXManager.SetSurface(DXManager.ScratchSurface);
-                DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
+                //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
 
                 switch (ButtonType)
                 {
@@ -393,9 +393,9 @@ namespace Client.Controls
         public void UpdateForeColour()
         {
             if (!IsEnabled)
-                ForeColour = new Color4(0.2F, 0.2F, 0.2F).ToColor();
+                ForeColour = Color.FromArgb(1, 50, 50, 50);
             else
-                ForeColour = MouseControl == this || Pressed ? new Color4(1F, 1F, 1F).ToColor() : new Color4(0.85F, 0.85F, 0.85F).ToColor();
+                ForeColour = MouseControl == this || Pressed ? Color.White : Color.FromArgb(1, 200, 200, 200);
         }
 
         private void DrawDefault()

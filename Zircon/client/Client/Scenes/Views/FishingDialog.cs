@@ -730,7 +730,7 @@ namespace Client.Scenes.Views
         //    //        bitmap.Dispose();
         //    //    }
         //    //}
-        //    //DXManager.SpriteDraw(tex, null, Vector3.Zero, new Vector3((float)Location.X + 1, (float)Location.Y - 2, 0.0F), Color.White);
+        //    //DXManager.SpriteDraw(tex, null, Vector2.Zero, new Vector3((float)Location.X + 1, (float)Location.Y - 2, 0.0F), Color.White);
         //    //tex.Dispose();
         //};
 

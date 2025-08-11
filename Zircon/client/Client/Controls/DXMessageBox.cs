@@ -148,8 +148,8 @@ namespace Client.Controls
                     break;
 
                 case DialogAction.Close:
-                    box.OKButton.MouseClick += (o, e) => CEnvir.Target.Close();
-                    box.CloseButton.MouseClick += (o, e) => CEnvir.Target.Close();
+                    box.OKButton.MouseClick += (o, e) => CEnvir.CloseWin32();
+                    box.CloseButton.MouseClick += (o, e) => CEnvir.CloseWin32();
                     break;
 
                 case DialogAction.ReturnToLogin:

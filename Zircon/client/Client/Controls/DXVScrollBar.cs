@@ -249,25 +249,6 @@ namespace Client.Controls
             Value -= e.Delta / SystemInformation.MouseWheelScrollDelta * Change;
         }
 
-        protected internal override void UpdateBorderInformation()
-        {
-            BorderInformation = null;
-            if (!Border || DisplayArea.Width == 0 || DisplayArea.Height == 0) return;
-
-            BorderInformation = new[]
-            {
-                new Vector2(0, 0),
-                new Vector2(Size.Width + 1, 0),
-                new Vector2(Size.Width + 1, Size.Height + 1),
-                new Vector2(0, Size.Height + 1),
-                new Vector2(0, 0),
-                new Vector2(0,  14),
-                new Vector2(Size.Width + 1, 14),
-                new Vector2(Size.Width + 1, Size.Height - 13),
-                new Vector2(0, Size.Height - 13),
-            };
-        }
-
         private void PositionBar_Moving(object sender, MouseEventArgs e)
         {
             Value = (int)Math.Round((PositionBar.Location.Y - 16) * (MaxValue - MinValue - VisibleSize) / (float)ScrollHeight);

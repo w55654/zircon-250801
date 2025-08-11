@@ -678,25 +678,9 @@ namespace Client.Controls
         {
             base.OnClearTexture();
 
-            if (!Border || BorderInformation == null) return;
+            //if (!Border || BorderInformation == null) return;
 
-            DXManager.Line.Draw(BorderInformation, BorderColour);
-        }
-
-        protected internal override void UpdateBorderInformation()
-        {
-            BorderInformation = null;
-            if (!Border || Size.Width == 0 || Size.Height == 0) return;
-
-            BorderInformation = new[]
-            {
-                new Vector2(0, 0),
-                new Vector2(Size.Width - 1, 0 ),
-                new Vector2(Size.Width - 1, Size.Height - 1),
-                new Vector2(0 , Size.Height - 1),
-                new Vector2(0 , 0 )
-            };
-            TextureValid = false;
+            //DXManager.Line.Draw(BorderInformation, BorderColour);
         }
 
         protected override void DrawBorder()

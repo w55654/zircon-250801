@@ -603,21 +603,6 @@ namespace Client.Controls
             Opacity = 0.5F;
         }
 
-        protected internal override void UpdateBorderInformation()
-        {
-            BorderInformation = null;
-            if (!Border || Size.Width == 0 || Size.Height == 0) return;
-
-            BorderInformation = new[]
-            {
-                new Vector2(1, 1),
-                new Vector2(Size.Width - 1, 1 ),
-                new Vector2(Size.Width - 1, Size.Height - 1),
-                new Vector2(1 , Size.Height - 1),
-                new Vector2(1 , 1)
-            };
-        }
-
         public override void Draw()
         {
             if (!IsVisible || Size.Width == 0 || Size.Height == 0) return;
@@ -638,7 +623,7 @@ namespace Client.Controls
 
             Surface oldSurface = DXManager.CurrentSurface;
             DXManager.SetSurface(DXManager.ScratchSurface);
-            DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
+            //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
 
             DrawEdges();
 

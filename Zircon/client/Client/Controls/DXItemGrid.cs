@@ -362,43 +362,6 @@ namespace Client.Controls
         protected override void OnClearTexture()
         {
             base.OnClearTexture();
-
-            if (!Border || BorderInformation == null) return;
-
-            DXManager.Line.Draw(BorderInformation, BorderColour);
-
-            for (int i = 0; i <= GridSize.Width; i++)
-            {
-                DXManager.Line.Draw(new[] {
-                    new Vector2(((DXItemCell.CellWidth - 1 + (GridPadding * 2)) * i), 0),
-                    new Vector2(((DXItemCell.CellWidth - 1 + (GridPadding * 2)) * i), Size.Height)
-                }, BorderColour);
-            }
-
-            for (int i = 0; i <= Math.Min(GridSize.Height, VisibleHeight); i++)
-            {
-                DXManager.Line.Draw(new[] {
-                    new Vector2(0, ((DXItemCell.CellHeight - 1 + (GridPadding * 2)) * i)),
-                    new Vector2(Size.Width, ((DXItemCell.CellHeight - 1 + (GridPadding * 2)) * i))
-                }, BorderColour);
-            }
-        }
-
-        protected internal override void UpdateBorderInformation()
-        {
-            BorderInformation = null;
-            if (!Border || Size.Width == 0 || Size.Height == 0) return;
-
-            List<Vector2> border = new List<Vector2>
-            {
-                new Vector2(0, 0),
-                new Vector2(Size.Width - 1, 0),
-                new Vector2(Size.Width - 1, Size.Height - 1),
-                new Vector2(0, Size.Height - 1),
-                new Vector2(0, 0)
-            };
-
-            BorderInformation = border.ToArray();
         }
 
         protected override void DrawBorder()

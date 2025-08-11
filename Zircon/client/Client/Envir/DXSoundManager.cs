@@ -1,5 +1,4 @@
 ﻿using Library;
-using SlimDX.DirectSound;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +8,6 @@ namespace Client.Envir
     {
         private static string SoundPath = $"{AppInfo.AppPath}Sound/";
 
-        public static DirectSound Device;
         public static bool Error;
 
         #region SoundList
@@ -992,17 +990,6 @@ namespace Client.Envir
 
         public static void Create()
         {
-            try
-            {
-                Device = new DirectSound();
-                Device.SetCooperativeLevel(CEnvir.Target.Handle, CooperativeLevel.Normal);
-                AdjustVolume();
-            }
-            catch (Exception ex)
-            {
-                CEnvir.SaveException(ex);
-                Error = true;
-            }
         }
 
         public static void Play(SoundIndex index)
@@ -1086,14 +1073,6 @@ namespace Client.Envir
         {
             for (int i = DXManager.SoundList.Count - 1; i >= 0; i--)
                 DXManager.SoundList[i].DisposeSoundBuffer();
-
-            if (Device != null)
-            {
-                if (!Device.Disposed)
-                    Device.Dispose();
-
-                Device = null;
-            }
         }
     }
 

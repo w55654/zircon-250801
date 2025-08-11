@@ -945,7 +945,6 @@ namespace Client.Controls
             if (Config.VSync != VSyncCheckBox.Checked)
             {
                 Config.VSync = VSyncCheckBox.Checked;
-                DXManager.ResetDevice();
             }
 
             Config.LimitFPS = LimitFPSCheckBox.Checked;

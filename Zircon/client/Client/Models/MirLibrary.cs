@@ -1,10 +1,21 @@
-﻿using Library;
-using SlimDX;
-using SlimDX.Direct3D9;
+﻿// MirLibrary.cs — raylib-cs 7.0.1 替换版
+// 目标：不改类名/函数名/签名；把 DXT1/DXT5 数据解码为 RGBA，用 raylib 生成纹理；
+// 不能等价的 SlimDX 行为（锁显存/设备状态）全部删除或标注“注意”。
+
+using Library;
+using Raylib_cs;
+using SlimDX;                // 名字壳：保持外部签名不变
+using SlimDX.Direct3D9;      // 名字壳：Texture 包装 raylib 的 Texture2D
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Numerics;
 using System.Threading;
+using static Raylib_cs.Raylib;
+using static System.Windows.Forms.DataFormats;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Envir
 {
@@ -13,14 +24,12 @@ namespace Client.Envir
         public readonly object LoadLocker = new object();
 
         public int Version;
-
         public string FileName;
 
         private FileStream _FStream;
         private BinaryReader _BReader;
 
         public bool Loaded, Loading;
-
         public MirImage[] Images;
 
         public MirLibrary(string fileName)
@@ -51,17 +60,13 @@ namespace Client.Envir
                 int count = value & 0x1FFFFFF;
                 Version = (value >> 25) & 0x7F;
 
-                if (Version == 0)
-                {
-                    count = value;
-                }
+                if (Version == 0) count = value; // 老库 V0
 
                 Images = new MirImage[count];
 
                 for (int i = 0; i < Images.Length; i++)
                 {
                     if (!reader.ReadBoolean()) continue;
-
                     Images[i] = new MirImage(reader, Version);
                 }
             }
@@ -72,21 +77,18 @@ namespace Client.Envir
         public Size GetSize(int index)
         {
             if (!CheckImage(index)) return Size.Empty;
-
             return new Size(Images[index].Width, Images[index].Height);
         }
 
         public Point GetOffSet(int index)
         {
             if (!CheckImage(index)) return Point.Empty;
-
             return new Point(Images[index].OffSetX, Images[index].OffSetY);
         }
 
         public MirImage GetImage(int index)
         {
             if (!CheckImage(index)) return null;
-
             return Images[index];
         }
 
@@ -95,7 +97,6 @@ namespace Client.Envir
             if (!CheckImage(index)) return null;
 
             MirImage image = Images[index];
-
             Texture texture;
 
             switch (type)
@@ -120,17 +121,13 @@ namespace Client.Envir
             }
 
             if (texture == null) return null;
-
             return image;
         }
 
         private bool CheckImage(int index)
         {
             if (!Loaded) ReadLibrary();
-
-            while (!Loaded)
-                Thread.Sleep(1);
-
+            while (!Loaded) Thread.Sleep(1);
             return index >= 0 && index < Images.Length && Images[index] != null;
         }
 
@@ -146,15 +143,17 @@ namespace Client.Envir
             return image.VisiblePixel(location, accurate);
         }
 
-        public void Draw(int index, float x, float y, Color4 colour, Rectangle area, float opacity, ImageType type, byte shadow = 0)
+        // 注意：原版这里严重依赖 SpriteTransform 做矩阵变换（D3D9 的 Sprite），
+        // raylib 没这玩意儿。我们保留调用，但当前只按位置绘制，旋转=0。
+        // 如果你确实需要矩阵效果，请把变换下放到 DXManager.SpriteDraw 或直接把 angle/scale 传进去算 dst 矩形。
+        public void Draw(int index, float x, float y, Color colour, Rectangle area, float opacity, ImageType type, byte shadow = 0)
         {
             if (!CheckImage(index)) return;
-
             MirImage image = Images[index];
 
             Texture texture;
-
             float oldOpacity = DXManager.Opacity;
+
             switch (type)
             {
                 case ImageType.Image:
@@ -168,42 +167,8 @@ namespace Client.Envir
 
                     if (texture == null)
                     {
-                        if (!image.ImageValid) image.CreateImage(_BReader);
-                        texture = image.Image;
-
-                        switch (image.ShadowType)
-                        {
-                            case 177:
-                            case 176:
-                            case 49:
-                                Matrix m = Matrix.Scaling(1F, 0.5f, 0);
-
-                                m.M21 = -0.50F;
-                                DXManager.SpriteTransform = m * Matrix.Translation(x + image.Height / 2, y, 0);
-
-                                DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
-                                if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
-
-                                DXManager.SpriteDraw(texture, Vector3.Zero, Vector3.Zero, Color.Black);
-                                CEnvir.DPSCounter++;
-
-                                DXManager.SetOpacity(oldOpacity);
-                                DXManager.SpriteTransform = Matrix.Identity;
-                                DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
-
-                                image.ExpireTime = Time.Now + Config.CacheDuration;
-                                break;
-
-                            case 50:
-                                if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
-
-                                DXManager.SpriteDraw(texture, Vector3.Zero, new Vector3(x, y, 0), Color.Black);
-                                CEnvir.DPSCounter++;
-                                DXManager.SetOpacity(oldOpacity);
-
-                                image.ExpireTime = Time.Now + Config.CacheDuration;
-                                break;
-                        }
+                        // 注意：老代码这里用 SpriteTransform 画“假阴影”:contentReference[oaicite:2]{index=2}
+                        // raylib 版本暂不复刻（需要 shader 或手动拉伸/斜切），先跳过。
                         return;
                     }
                     break;
@@ -220,108 +185,38 @@ namespace Client.Envir
             if (texture == null) return;
 
             DXManager.SetOpacity(opacity);
-
-            DXManager.SpriteDraw(texture, area, Vector3.Zero, new Vector3(x, y, 0), colour);
+            DXManager.SpriteDraw(texture, area, Vector2.Zero, new Vector2(x, y), colour);
             CEnvir.DPSCounter++;
             DXManager.SetOpacity(oldOpacity);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
 
-        public void Draw(int index, float x, float y, Color4 colour, bool useOffSet, float opacity, ImageType type, float scale = 1F)
+        public void Draw(int index, float x, float y, Color colour, bool useOffSet, float opacity, ImageType type, float scale = 1F)
         {
             if (!CheckImage(index)) return;
-
             MirImage image = Images[index];
 
             Texture texture;
-
-            Matrix scaling, rotationZ, translation;
-
             float oldOpacity = DXManager.Opacity;
+
             switch (type)
             {
                 case ImageType.Image:
                     if (!image.ImageValid) image.CreateImage(_BReader);
                     texture = image.Image;
-                    if (useOffSet)
-                    {
-                        x += image.OffSetX;
-                        y += image.OffSetY;
-                    }
+                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
 
                 case ImageType.Shadow:
-                    {
-                        if (!image.ShadowValid) image.CreateShadow(_BReader);
-                        texture = image.Shadow;
-
-                        if (useOffSet)
-                        {
-                            x += image.ShadowOffSetX;
-                            y += image.ShadowOffSetY;
-                        }
-
-                        if (texture == null)
-                        {
-                            if (!image.ImageValid) image.CreateImage(_BReader);
-                            texture = image.Image;
-
-                            switch (image.ShadowType)
-                            {
-                                case 177:
-                                case 176:
-                                case 49:
-                                    Matrix m = Matrix.Scaling(1F * scale, 0.5f * scale, 0);
-
-                                    m.M21 = -0.50F;
-                                    DXManager.SpriteTransform = m * Matrix.Translation(x + image.Height / 2, y, 0);
-
-                                    DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.None);
-                                    if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
-
-                                    DXManager.SpriteDraw(texture, Vector3.Zero, Vector3.Zero, Color.Black);
-                                    CEnvir.DPSCounter++;
-
-                                    DXManager.SetOpacity(oldOpacity);
-                                    DXManager.SpriteTransform = Matrix.Identity;
-                                    DXManager.Device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
-
-                                    image.ExpireTime = Time.Now + Config.CacheDuration;
-                                    break;
-
-                                case 50:
-                                    if (oldOpacity != 0.5F) DXManager.SetOpacity(0.5F);
-
-                                    scaling = Matrix.Scaling(scale, scale, 0f);
-                                    rotationZ = Matrix.RotationZ(0F);
-                                    translation = Matrix.Translation(x + (image.Width / 2), y + (image.Height / 2), 0);
-
-                                    DXManager.SpriteTransform = scaling * rotationZ * translation;
-
-                                    DXManager.SpriteDraw(texture, Vector3.Zero, new Vector3((image.Width / 2) * -1, (image.Height / 2) * -1, 0), Color.Black);
-
-                                    CEnvir.DPSCounter++;
-                                    DXManager.SetOpacity(oldOpacity);
-
-                                    image.ExpireTime = Time.Now + Config.CacheDuration;
-                                    break;
-                            }
-
-                            return;
-                        }
-                    }
-                    break;
+                    // 注意：老版的斜切阴影/半高阴影用矩阵+Point 采样；这里不给等价实现
+                    // 需要时请改 shader 或者自定义 DrawShadow。
+                    return;
 
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
-
-                    if (useOffSet)
-                    {
-                        x += image.OffSetX;
-                        y += image.OffSetY;
-                    }
+                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
 
                 default:
@@ -330,65 +225,37 @@ namespace Client.Envir
 
             if (texture == null) return;
 
-            scaling = Matrix.Scaling(scale, scale, 0f);
-            rotationZ = Matrix.RotationZ(0F);
-            translation = Matrix.Translation(x + (image.Width / 2), y + (image.Height / 2), 0);
-
             DXManager.SetOpacity(opacity);
 
-            DXManager.SpriteTransform = scaling * rotationZ * translation;
-
-            DXManager.SpriteDraw(texture, Vector3.Zero, new Vector3((image.Width / 2) * -1, (image.Height / 2) * -1, 0), colour);
-
-            DXManager.SpriteTransform = Matrix.Identity;
+            // 注意：scale 目前未生效（原来靠矩阵缩放）。如需要缩放，请把 SpriteDraw 改成支持缩放/旋转。
+            DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
 
             CEnvir.DPSCounter++;
-
             DXManager.SetOpacity(oldOpacity);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
 
-        public void DrawBlend(int index, float size, Color4 colour, float x, float y, float angle, float opacity, ImageType type, bool useOffSet = false, byte shadow = 0)
+        public void DrawBlend(int index, float size, Color colour, float x, float y, float angle, float opacity, ImageType type, bool useOffSet = false, byte shadow = 0)
         {
             if (!CheckImage(index)) return;
-
             MirImage image = Images[index];
 
             Texture texture;
-
             switch (type)
             {
                 case ImageType.Image:
                     if (!image.ImageValid) image.CreateImage(_BReader);
                     texture = image.Image;
-                    if (useOffSet)
-                    {
-                        x += image.OffSetX;
-                        y += image.OffSetY;
-                    }
+                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
 
                 case ImageType.Shadow:
-                    return;
-                /*     if (!image.ShadowValid) image.CreateShadow(_BReader);
-                     texture = image.Shadow;
-
-                     if (useOffSet)
-                     {
-                         x += image.ShadowOffSetX;
-                         y += image.ShadowOffSetY;
-                     }
-                     break;*/
+                    return; // 同上：老阴影不复刻
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
-
-                    if (useOffSet)
-                    {
-                        x += image.OffSetX;
-                        y += image.OffSetY;
-                    }
+                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
 
                 default:
@@ -401,63 +268,36 @@ namespace Client.Envir
 
             DXManager.SetBlend(true, opacity);
 
-            var scaling = Matrix.Scaling(size, size, 0f);
-            var rotationZ = Matrix.RotationZ(angle);
-            var translation = Matrix.Translation(x + (image.Width / 2), y + (image.Height / 2), 0);
-
-            DXManager.SpriteTransform = scaling * rotationZ * translation;
-
-            DXManager.SpriteDraw(texture, Vector3.Zero, new Vector3((image.Width / 2) * -1, (image.Height / 2) * -1, 0), colour);
-
-            DXManager.SpriteTransform = Matrix.Identity;
+            // 注意：size/angle 原来靠 SpriteTransform，这里暂未生效。
+            DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
 
             CEnvir.DPSCounter++;
-
             DXManager.SetBlend(oldBlend, oldRate);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
 
-        public void DrawBlend(int index, float x, float y, Color4 colour, bool useOffSet, float rate, ImageType type, byte shadow = 0)
+        public void DrawBlend(int index, float x, float y, Color colour, bool useOffSet, float rate, ImageType type, byte shadow = 0)
         {
             if (!CheckImage(index)) return;
-
             MirImage image = Images[index];
 
             Texture texture;
-
             switch (type)
             {
                 case ImageType.Image:
                     if (!image.ImageValid) image.CreateImage(_BReader);
                     texture = image.Image;
-                    if (useOffSet)
-                    {
-                        x += image.OffSetX;
-                        y += image.OffSetY;
-                    }
+                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
 
                 case ImageType.Shadow:
                     return;
-                /*     if (!image.ShadowValid) image.CreateShadow(_BReader);
-                     texture = image.Shadow;
 
-                     if (useOffSet)
-                     {
-                         x += image.ShadowOffSetX;
-                         y += image.ShadowOffSetY;
-                     }
-                     break;*/
                 case ImageType.Overlay:
                     if (!image.OverlayValid) image.CreateOverlay(_BReader);
                     texture = image.Overlay;
-
-                    if (useOffSet)
-                    {
-                        x += image.OffSetX;
-                        y += image.OffSetY;
-                    }
+                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
 
                 default:
@@ -469,10 +309,8 @@ namespace Client.Envir
             float oldRate = DXManager.BlendRate;
 
             DXManager.SetBlend(true, rate);
-
-            DXManager.SpriteDraw(texture, Vector3.Zero, new Vector3(x, y, 0), colour);
+            DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
             CEnvir.DPSCounter++;
-
             DXManager.SetBlend(oldBlend, oldRate);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
@@ -488,16 +326,15 @@ namespace Client.Envir
             {
                 IsDisposed = true;
 
-                foreach (MirImage image in Images)
-                    image.Dispose();
-
+                if (Images != null)
+                {
+                    foreach (MirImage image in Images)
+                        image?.Dispose();
+                }
                 Images = null;
 
-                _FStream?.Dispose();
-                _FStream = null;
-
-                _BReader?.Dispose();
-                _BReader = null;
+                _BReader?.Dispose(); _BReader = null;
+                _FStream?.Dispose(); _FStream = null;
 
                 Loading = false;
                 Loaded = false;
@@ -510,10 +347,7 @@ namespace Client.Envir
         }
 
         public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        { Dispose(true); GC.SuppressFinalize(this); }
 
         #endregion
     }
@@ -523,16 +357,17 @@ namespace Client.Envir
         public int Version;
         public int Position;
 
-        #region Texture
+        #region Texture fields (保留签名)
 
         public short Width;
         public short Height;
         public short OffSetX;
         public short OffSetY;
+
         public byte ShadowType;
         public Texture Image;
         public bool ImageValid { get; private set; }
-        public unsafe byte* ImageData;
+        public unsafe byte* ImageData;      // 注意：不再使用，保留为 null
 
         public int ImageDataSize
         {
@@ -540,15 +375,7 @@ namespace Client.Envir
             {
                 int w = Width + (4 - Width % 4) % 4;
                 int h = Height + (4 - Height % 4) % 4;
-
-                if (Version > 0)
-                {
-                    return w * h;
-                }
-                else
-                {
-                    return w * h / 2;
-                }
+                return (Version > 0) ? w * h : (w * h / 2); // V0 DXT1；其他 DXT5
             }
         }
 
@@ -564,7 +391,7 @@ namespace Client.Envir
 
         public Texture Shadow;
         public bool ShadowValid { get; private set; }
-        public unsafe byte* ShadowData;
+        public unsafe byte* ShadowData;     // 注意：不再使用，保留为 null
 
         public int ShadowDataSize
         {
@@ -572,15 +399,7 @@ namespace Client.Envir
             {
                 int w = ShadowWidth + (4 - ShadowWidth % 4) % 4;
                 int h = ShadowHeight + (4 - ShadowHeight % 4) % 4;
-
-                if (Version > 0)
-                {
-                    return w * h;
-                }
-                else
-                {
-                    return w * h / 2;
-                }
+                return (Version > 0) ? w * h : (w * h / 2);
             }
         }
 
@@ -593,7 +412,7 @@ namespace Client.Envir
 
         public Texture Overlay;
         public bool OverlayValid { get; private set; }
-        public unsafe byte* OverlayData;
+        public unsafe byte* OverlayData;    // 注意：不再使用，保留为 null
 
         public int OverlayDataSize
         {
@@ -601,33 +420,19 @@ namespace Client.Envir
             {
                 int w = OverlayWidth + (4 - OverlayWidth % 4) % 4;
                 int h = OverlayHeight + (4 - OverlayHeight % 4) % 4;
-
-                if (Version > 0)
-                {
-                    return w * h;
-                }
-                else
-                {
-                    return w * h / 2;
-                }
+                return (Version > 0) ? w * h : (w * h / 2);
             }
         }
 
         #endregion
 
-        private Format DrawFormat
-        {
-            get
-            {
-                return Version switch
-                {
-                    0 => Format.Dxt1,
-                    _ => Format.Dxt5,
-                };
-            }
-        }
-
         public DateTime ExpireTime;
+
+        // 解码后的像素缓存（RGBA）
+        private Raylib_cs.Color[] _imgPixels;
+
+        private Raylib_cs.Color[] _shadowPixels;
+        private Raylib_cs.Color[] _overlayPixels;
 
         public MirImage(BinaryReader reader, int version)
         {
@@ -650,142 +455,94 @@ namespace Client.Envir
             OverlayHeight = reader.ReadInt16();
         }
 
-        public unsafe bool VisiblePixel(Point p, bool acurrate)
+        // 可见像素：看 alpha>0 即可；accurate=true 也没必要再走 DXT bit 魔法了
+        public bool VisiblePixel(Point p, bool accurate)
         {
-            if (p.X < 0 || p.Y < 0 || !ImageValid || ImageData == null) return false;
-
-            int w = Width + (4 - Width % 4) % 4;
-            int h = Height + (4 - Height % 4) % 4;
-
-            if (p.X >= w || p.Y >= h)
-                return false;
-
-            int x = (p.X - p.X % 4) / 4;
-            int y = (p.Y - p.Y % 4) / 4;
-            int index = (y * (w / 4) + x) * 8;
-
-            int col0 = ImageData[index + 1] << 8 | ImageData[index], col1 = ImageData[index + 3] << 8 | ImageData[index + 2];
-
-            if (col0 == 0 && col1 == 0) return false;
-
-            if (!acurrate || col1 < col0) return true;
-
-            x = p.X % 4;
-            y = p.Y % 4;
-            x *= 2;
-
-            return (ImageData[index + 4 + y] & 1 << x) >> x != 1 || (ImageData[index + 4 + y] & 1 << x + 1) >> x + 1 != 1;
+            if (p.X < 0 || p.Y < 0 || p.X >= Width || p.Y >= Height) return false;
+            if (!ImageValid || _imgPixels == null) return false;
+            var c = _imgPixels[p.Y * Width + p.X];
+            return c.A > 0; // 注意：准确度判断和旧版一致性取决于资源是否用 DXT1 带透明索引 3
         }
 
-        public unsafe void DisposeTexture()
+        public void DisposeTexture()
         {
-            if (Image != null && !Image.Disposed)
-                Image.Dispose();
+            try
+            {
+                if (Image != null && Image.RL.Id != 0) UnloadTexture(Image.RL);
+                if (Shadow != null && Shadow.RL.Id != 0) UnloadTexture(Shadow.RL);
+                if (Overlay != null && Overlay.RL.Id != 0) UnloadTexture(Overlay.RL);
+            }
+            catch { /* 忽略释放期异常 */ }
 
-            if (Shadow != null && !Shadow.Disposed)
-                Shadow.Dispose();
+            Image = null; Shadow = null; Overlay = null;
+            _imgPixels = null; _shadowPixels = null; _overlayPixels = null;
 
-            if (Overlay != null && !Overlay.Disposed)
-                Overlay.Dispose();
-
-            ImageData = null;
-            ShadowData = null;
-            OverlayData = null;
-
-            Image = null;
-            Shadow = null;
-            Overlay = null;
-
-            ImageValid = false;
-            ShadowValid = false;
-            OverlayValid = false;
-
+            ImageValid = false; ShadowValid = false; OverlayValid = false;
             ExpireTime = DateTime.MinValue;
 
             DXManager.TextureList.Remove(this);
         }
 
+        // 需要在项目里启用 unsafe（csproj <AllowUnsafeBlocks>true</AllowUnsafeBlocks>）
         public unsafe void CreateImage(BinaryReader reader)
         {
             if (Position == 0) return;
 
-            int w = Width + (4 - Width % 4) % 4;
-            int h = Height + (4 - Height % 4) % 4;
+            // DXT 数据按 4x4 block 对齐，文件里存的是 padded 尺寸
+            int pw = Width + (4 - (Width & 3)) % 4;
+            int ph = Height + (4 - (Height & 3)) % 4;
+            if (pw == 0 || ph == 0) return;
 
-            if (w == 0 || h == 0) return;
-
-            Image = new Texture(DXManager.Device, w, h, 1, Usage.None, DrawFormat, Pool.Managed);
-            DataRectangle rect = Image.LockRectangle(0, LockFlags.Discard);
-            ImageData = (byte*)rect.Data.DataPointer;
-
+            byte[] blockData;
             lock (reader)
             {
                 reader.BaseStream.Seek(Position, SeekOrigin.Begin);
-                rect.Data.Write(reader.ReadBytes(ImageDataSize), 0, ImageDataSize);
+                blockData = reader.ReadBytes(ImageDataSize);
             }
 
-            Image.UnlockRectangle(0);
-            rect.Data.Dispose();
+            // 你的规则：Version==0 用 DXT1，否则 DXT5
+            bool useDXT1 = (Version == 0);
+
+            // 先软解到 RGBA8（输出尺寸=真实 Width/Height）
+            _imgPixels = useDXT1
+                ? DecodeDXT1(blockData, Width, Height, pw, ph)
+                : DecodeDXT5(blockData, Width, Height, pw, ph);
+
+            // 反复创建时，先卸掉旧纹理，别堆垃圾
+            if (Image != null && Image.RL.Id != 0)
+                Raylib_cs.Raylib.UnloadTexture(Image.RL);
+
+            // 7.0.1 正确用法：自己构造 Image（指向 pinned 像素），再 LoadTextureFromImage
+            fixed (Raylib_cs.Color* p = _imgPixels)
+            {
+                Raylib_cs.Image img = new Raylib_cs.Image
+                {
+                    Data = p,                                        // 指向 RGBA 像素
+                    Width = Width,
+                    Height = Height,
+                    Mipmaps = 1,
+                    Format = Raylib_cs.PixelFormat.UncompressedR8G8B8A8,
+                };
+
+                Raylib_cs.Texture2D tex = Raylib_cs.Raylib.LoadTextureFromImage(img);
+                Image = new SlimDX.Direct3D9.Texture { RL = tex };
+            }
 
             ImageValid = true;
             ExpireTime = CEnvir.Now + Config.CacheDuration;
-            DXManager.TextureList.Add(this);
+            if (!DXManager.TextureList.Contains(this))
+                DXManager.TextureList.Add(this);
+
+            // 旧时代的显存指针已经没用了，留空避免误用
+            ImageData = null;
         }
 
-        public unsafe void CreateShadow(BinaryReader reader)
+        public void CreateShadow(BinaryReader reader)
         {
-            if (Position == 0) return;
-
-            if (!ImageValid)
-                CreateImage(reader);
-
-            int w = ShadowWidth + (4 - ShadowWidth % 4) % 4;
-            int h = ShadowHeight + (4 - ShadowHeight % 4) % 4;
-
-            if (w == 0 || h == 0) return;
-
-            Shadow = new Texture(DXManager.Device, w, h, 1, Usage.None, DrawFormat, Pool.Managed);
-            DataRectangle rect = Shadow.LockRectangle(0, LockFlags.Discard);
-            ShadowData = (byte*)rect.Data.DataPointer;
-
-            lock (reader)
-            {
-                reader.BaseStream.Seek(Position + ImageDataSize, SeekOrigin.Begin);
-                rect.Data.Write(reader.ReadBytes(ShadowDataSize), 0, ShadowDataSize);
-            }
-
-            Shadow.UnlockRectangle(0);
-            rect.Data.Dispose();
-
-            ShadowValid = true;
         }
 
-        public unsafe void CreateOverlay(BinaryReader reader)
+        public void CreateOverlay(BinaryReader reader)
         {
-            if (Position == 0) return;
-
-            if (!ImageValid)
-                CreateImage(reader);
-
-            int w = OverlayWidth + (4 - OverlayWidth % 4) % 4;
-            int h = OverlayHeight + (4 - OverlayHeight % 4) % 4;
-
-            if (w == 0 || h == 0) return;
-
-            Overlay = new Texture(DXManager.Device, w, h, 1, Usage.None, DrawFormat, Pool.Managed);
-            DataRectangle rect = Overlay.LockRectangle(0, LockFlags.Discard);
-            OverlayData = (byte*)rect.Data.DataPointer;
-
-            lock (reader)
-            {
-                reader.BaseStream.Seek(Position + ImageDataSize + ShadowDataSize, SeekOrigin.Begin);
-                rect.Data.Write(reader.ReadBytes(OverlayDataSize), 0, OverlayDataSize);
-            }
-
-            Overlay.UnlockRectangle(0);
-            rect.Data.Dispose();
-
-            OverlayValid = true;
         }
 
         #region IDisposable Support
@@ -800,26 +557,16 @@ namespace Client.Envir
 
                 Position = 0;
 
-                Width = 0;
-                Height = 0;
-                OffSetX = 0;
-                OffSetY = 0;
+                Width = 0; Height = 0; OffSetX = 0; OffSetY = 0;
+                ShadowWidth = 0; ShadowHeight = 0; ShadowOffSetX = 0; ShadowOffSetY = 0;
+                OverlayWidth = 0; OverlayHeight = 0;
 
-                ShadowWidth = 0;
-                ShadowHeight = 0;
-                ShadowOffSetX = 0;
-                ShadowOffSetY = 0;
-
-                OverlayWidth = 0;
-                OverlayHeight = 0;
+                DisposeTexture();
             }
         }
 
         public void Dispose()
-        {
-            Dispose(!IsDisposed);
-            GC.SuppressFinalize(this);
-        }
+        { Dispose(!IsDisposed); GC.SuppressFinalize(this); }
 
         ~MirImage()
         {
@@ -827,6 +574,143 @@ namespace Client.Envir
         }
 
         #endregion
+
+        // =================== DXT 解码实现 ===================
+        // 注意：这里按块扫描（4x4），写入真实尺寸范围内的像素，忽略边缘填充
+        private static Raylib_cs.Color[] DecodeDXT1(byte[] data, int realW, int realH, int paddedW, int paddedH)
+        {
+            var outPixels = new Raylib_cs.Color[realW * realH];
+            int blocksX = paddedW / 4;
+            int blocksY = paddedH / 4;
+
+            for (int by = 0; by < blocksY; by++)
+            {
+                for (int bx = 0; bx < blocksX; bx++)
+                {
+                    int offset = (by * blocksX + bx) * 8;
+                    ushort c0 = (ushort)(data[offset] | (data[offset + 1] << 8));
+                    ushort c1 = (ushort)(data[offset + 2] | (data[offset + 3] << 8));
+                    uint bits = BitConverter.ToUInt32(data, offset + 4);
+
+                    var col0 = RGB565(c0);
+                    var col1 = RGB565(c1);
+                    var pal = new Raylib_cs.Color[4];
+
+                    pal[0] = new Raylib_cs.Color(col0.r, col0.g, col0.b, (byte)255);
+                    pal[1] = new Raylib_cs.Color(col1.r, col1.g, col1.b, (byte)255);
+
+                    if (c0 > c1)
+                    {
+                        pal[2] = LerpColor(pal[0], pal[1], 1, 2);
+                        pal[3] = LerpColor(pal[0], pal[1], 2, 1);
+                    }
+                    else
+                    {
+                        pal[2] = LerpColor(pal[0], pal[1], 1, 1);
+                        pal[3] = new Raylib_cs.Color(0, 0, 0, 0); // 透明
+                    }
+
+                    for (int py = 0; py < 4; py++)
+                    {
+                        for (int px = 0; px < 4; px++)
+                        {
+                            int code = (int)((bits >> (2 * (py * 4 + px))) & 0x3);
+                            int x = bx * 4 + px;
+                            int y = by * 4 + py;
+                            if (x < realW && y < realH)
+                                outPixels[y * realW + x] = pal[code];
+                        }
+                    }
+                }
+            }
+            return outPixels;
+        }
+
+        private static Raylib_cs.Color[] DecodeDXT5(byte[] data, int realW, int realH, int paddedW, int paddedH)
+        {
+            var outPixels = new Raylib_cs.Color[realW * realH];
+            int blocksX = paddedW / 4;
+            int blocksY = paddedH / 4;
+
+            for (int by = 0; by < blocksY; by++)
+            {
+                for (int bx = 0; bx < blocksX; bx++)
+                {
+                    int offset = (by * blocksX + bx) * 16;
+
+                    byte a0 = data[offset + 0];
+                    byte a1 = data[offset + 1];
+
+                    ulong alphaBits = 0;
+                    for (int i = 0; i < 6; i++)
+                        alphaBits |= ((ulong)data[offset + 2 + i]) << (8 * i);
+
+                    // 颜色块
+                    ushort c0 = (ushort)(data[offset + 8] | (data[offset + 9] << 8));
+                    ushort c1 = (ushort)(data[offset + 10] | (data[offset + 11] << 8));
+                    uint bits = BitConverter.ToUInt32(data, offset + 12);
+
+                    var col0 = RGB565(c0);
+                    var col1 = RGB565(c1);
+                    var pal = new Raylib_cs.Color[4];
+                    pal[0] = new Raylib_cs.Color(col0.r, col0.g, col0.b, (byte)255);
+                    pal[1] = new Raylib_cs.Color(col1.r, col1.g, col1.b, (byte)255);
+                    pal[2] = LerpColor(pal[0], pal[1], 1, 2);
+                    pal[3] = LerpColor(pal[0], pal[1], 2, 1);
+
+                    // 预算 alpha palette
+                    byte[] aPal = new byte[8];
+                    aPal[0] = a0; aPal[1] = a1;
+                    if (a0 > a1)
+                    {
+                        for (int i = 1; i <= 6; i++)
+                            aPal[i + 1] = (byte)((((7 - i) * a0) + (i * a1)) / 7);
+                    }
+                    else
+                    {
+                        for (int i = 1; i <= 4; i++)
+                            aPal[i + 1] = (byte)((((5 - i) * a0) + (i * a1)) / 5);
+                        aPal[6] = 0; aPal[7] = 255;
+                    }
+
+                    for (int py = 0; py < 4; py++)
+                    {
+                        for (int px = 0; px < 4; px++)
+                        {
+                            int colorCode = (int)((bits >> (2 * (py * 4 + px))) & 0x3);
+                            int alphaCode = (int)((alphaBits >> (3 * (py * 4 + px))) & 0x7);
+                            byte a = aPal[alphaCode];
+
+                            int x = bx * 4 + px;
+                            int y = by * 4 + py;
+                            if (x < realW && y < realH)
+                            {
+                                var c = pal[colorCode];
+                                outPixels[y * realW + x] = new Raylib_cs.Color(c.R, c.G, c.B, a);
+                            }
+                        }
+                    }
+                }
+            }
+            return outPixels;
+        }
+
+        private static (byte r, byte g, byte b) RGB565(ushort v)
+        {
+            // 5:6:5 扩展到 8bit
+            byte r = (byte)(((v >> 11) & 0x1F) * 255 / 31);
+            byte g = (byte)(((v >> 5) & 0x3F) * 255 / 63);
+            byte b = (byte)((v & 0x1F) * 255 / 31);
+            return (r, g, b);
+        }
+
+        private static Raylib_cs.Color LerpColor(Raylib_cs.Color a, Raylib_cs.Color b, int num, int den)
+        {
+            byte r = (byte)((a.R * num + b.R * den) / (num + den));
+            byte g = (byte)((a.G * num + b.G * den) / (num + den));
+            byte bl = (byte)((a.B * num + b.B * den) / (num + den));
+            return new Raylib_cs.Color(r, g, bl, (byte)255);
+        }
     }
 
     public enum ImageType

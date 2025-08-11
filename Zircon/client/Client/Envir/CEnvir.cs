@@ -76,6 +76,10 @@ namespace Client.Envir
             catch { }
         }
 
+        public static void CloseWin32()
+        {
+        }
+
         public static void LoadLanguage()
         {
             switch (Config.Language.ToUpper())
@@ -227,7 +231,7 @@ namespace Client.Envir
             }
             else
             {
-                CEnvir.Target.Text = $"{Globals.ClientName} - {debugText} - {connectionText}";
+                //CEnvir.Target.Text = $"{Globals.ClientName} - {debugText} - {connectionText}";
 
                 DXControl.PingLabel.Text = string.Empty;
                 DXControl.DebugLabel.Text = string.Empty;
@@ -292,40 +296,30 @@ namespace Client.Envir
         {
             try
             {
-                if (Target.ClientSize.Width == 0 || Target.ClientSize.Height == 0)
-                {
-                    Thread.Sleep(1);
-                    return;
-                }
+                // raylib 不存在设备丢失，删掉整段 AttemptReset/AttemptRecovery/DeviceLost
 
-                if (DXManager.DeviceLost)
-                {
-                    DXManager.AttemptReset();
-                    Thread.Sleep(1);
-                    return;
-                }
+                // 等价于 Clear + BeginScene
+                DXManager.BeginFrame(System.Drawing.Color.Black);
 
-                DXManager.Device.Clear(ClearFlags.Target, Color.Black, 1, 0);
-                DXManager.Device.BeginScene();
-                DXManager.SpriteBegin(SpriteFlags.AlphaBlend);
+                // 兼容旧调用，内部是 no-op/确保在 RenderTexture 里作画
+                DXManager.SpriteBegin();
 
+                // 你的实际绘制
                 DXControl.ActiveScene?.Draw();
 
+                // 兼容旧调用
                 DXManager.SpriteEnd();
-                DXManager.Device.EndScene();
 
-                DXManager.Device.Present();
+                // 等价于 EndScene + Present，把离屏目标贴回屏幕
+                DXManager.PresentToScreen();
+
                 FPSCounter++;
-            }
-            catch (Direct3D9Exception)
-            {
-                DXManager.DeviceLost = true;
             }
             catch (Exception ex)
             {
+                // 没有 Direct3D9Exception 这种鬼东西了，统一收敛到这里
                 SaveException(ex);
-
-                DXManager.AttemptRecovery();
+                // raylib 不需要 AttemptRecovery，留着会误导，别做多余操作
             }
         }
 
@@ -1004,12 +998,11 @@ namespace Client.Envir
                 string LogPath = $"{AppInfo.AppPath}/Errors/";
 
                 LastError = ex;
-                string state = $"State = {Target?.DisplayRectangle}";
 
                 if (!Directory.Exists(LogPath))
                     Directory.CreateDirectory(LogPath);
 
-                File.AppendAllText($"{LogPath}{Now.Year}-{Now.Month}-{Now.Day}.txt", LastError + Environment.NewLine + state + Environment.NewLine);
+                File.AppendAllText($"{LogPath}{Now.Year}-{Now.Month}-{Now.Day}.txt", LastError + Environment.NewLine + Environment.NewLine);
             }
             catch
             { }

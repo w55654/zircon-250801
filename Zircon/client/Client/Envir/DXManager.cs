@@ -4,17 +4,16 @@
 
 using Client.Controls;
 using Library;
+using Microsoft.Extensions.Logging;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
-using System.Windows.Forms;
-using Raylib_cs;
-using static Raylib_cs.Raylib;
 using Color = Raylib_cs.Color;
-using Rectangle = Raylib_cs.Rectangle;
 using Image = Raylib_cs.Image;
+using Rectangle = Raylib_cs.Rectangle;
 
 // ====================== SlimDX 名字壳（签名占位，不做真实 D3D9） ======================
 namespace SlimDX
@@ -22,30 +21,6 @@ namespace SlimDX
     public struct Matrix
     {
         public static Matrix Identity => new Matrix();
-    }
-
-    public struct Vector3
-    {
-        public float X, Y, Z;
-
-        public Vector3(float x, float y, float z = 0)
-        { X = x; Y = y; Z = z; }
-
-        public static implicit operator Vector2(Vector3 v) => new Vector2(v.X, v.Y);
-    }
-
-    public struct Color4
-    {
-        public float Alpha, Red, Green, Blue;
-
-        public Color4(float a, float r, float g, float b)
-        { Alpha = a; Red = r; Green = g; Blue = b; }
-
-        public static implicit operator Raylib_cs.Color(Color4 c)
-            => new Raylib_cs.Color((byte)(c.Red * 255), (byte)(c.Green * 255), (byte)(c.Blue * 255), (byte)(c.Alpha * 255));
-
-        public static implicit operator System.Drawing.Color(Color4 c)
-            => System.Drawing.Color.FromArgb((int)(c.Alpha * 255), (int)(c.Red * 255), (int)(c.Green * 255), (int)(c.Blue * 255));
     }
 }
 
@@ -69,11 +44,41 @@ namespace SlimDX.Direct3D9
     { } // 概念占位（映射为 RenderTexture）
 
     // 包一层，让旧签名还吃 SlimDX.Texture；内部是真 Texture2D
-    public class Texture
+    public class Texture : HDisposable
     {
         internal Texture2D RL;
         public int Width => RL.Width;
         public int Height => RL.Height;
+
+        public Texture()
+        { }
+
+        public Texture(int w, int h, Color color = default)
+        {
+            // 创建一个 100x100 的纯白 Image
+            Image image = Raylib.GenImageColor(w, h, color);
+
+            // 画红色边框（上下左右各一条线）
+            Raylib.ImageDrawRectangleLines(ref image, new Rectangle(0, 0, w, h), 1, Color.Red);
+
+            // 将 Image 转换为 GPU 上的 Texture2D
+            RL = Raylib.LoadTextureFromImage(image);
+
+            //if (!IsValid())
+            //{
+            //    Logger.Print($"创建纹理文件失败!!!!!!!!!!", LogLevel.Error);
+            //}
+            Raylib.UnloadImage(image);  // 释放 image 占用的 CPU 内存
+        }
+
+        protected override void OnDisposeManaged()
+        {
+            if (RL.Id != 0)
+            {
+                Raylib.UnloadTexture(RL);
+                RL = default;
+            }
+        }
     }
 
     public class Sprite
@@ -141,22 +146,22 @@ namespace Client.Envir
 
             var size = DXControl.ActiveScene?.Size ?? new Size(1024, 768);
 
-            SetConfigFlags(ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow);
-            InitWindow(size.Width, size.Height, "Game");
-            SetTargetFPS(Config.VSync ? 60 : 0);
-            InitAudioDevice();
+            Raylib.SetConfigFlags(ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow);
+            Raylib.InitWindow(size.Width, size.Height, "Game");
+            Raylib.SetTargetFPS(Config.VSync ? 60 : 0);
+            Raylib.InitAudioDevice();
 
-            _mainTarget = LoadRenderTexture(size.Width, size.Height);
-            _scratchTarget = LoadRenderTexture(size.Width, size.Height);
+            _mainTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
+            _scratchTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
             _currentTarget = _mainTarget;
 
             _windowInited = true;
 
             // 分辨率列表（简单够用）
             ValidResolutions.Clear();
-            int mon = GetCurrentMonitor();
-            int mw = GetMonitorWidth(mon);
-            int mh = GetMonitorHeight(mon);
+            int mon = Raylib.GetCurrentMonitor();
+            int mw = Raylib.GetMonitorWidth(mon);
+            int mh = Raylib.GetMonitorHeight(mon);
             for (int w = MinimumResolution.Width; w <= mw; w *= 2)
             {
                 int h = (int)((double)w * size.Height / size.Width);
@@ -171,10 +176,10 @@ namespace Client.Envir
 
         public static void Unload()
         {
-            if (_mainTarget.Id != 0) UnloadRenderTexture(_mainTarget);
-            if (_scratchTarget.Id != 0) UnloadRenderTexture(_scratchTarget);
-            CloseAudioDevice();
-            if (_windowInited) CloseWindow();
+            if (_mainTarget.Id != 0) Raylib.UnloadRenderTexture(_mainTarget);
+            if (_scratchTarget.Id != 0) Raylib.UnloadRenderTexture(_scratchTarget);
+            Raylib.CloseAudioDevice();
+            if (_windowInited) Raylib.CloseWindow();
             _windowInited = false;
         }
 
@@ -182,26 +187,26 @@ namespace Client.Envir
         public static void BeginFrame(System.Drawing.Color clear)
         {
             BeginTextureIfNeeded(); // 在 RenderTexture 内绘制
-            ClearBackground(clear.ToRay());
+            Raylib.ClearBackground(clear.ToRay());
         }
 
         public static void PresentToScreen()
         {
             EndTextureIfNeeded();
 
-            BeginDrawing();
-            ClearBackground(Color.Gray);
+            Raylib.BeginDrawing();
+            Raylib.ClearBackground(Raylib_cs.Color.Gray);
 
             // 注意：RenderTexture 在 raylib 需要 Y 翻转：源矩形高度用负数
-            Rectangle src = new Rectangle(0, 0, _mainTarget.Texture.Width, -_mainTarget.Texture.Height);
-            Rectangle dst = new Rectangle(0, 0, GetScreenWidth(), GetScreenHeight());
-            DrawTexturePro(_mainTarget.Texture, src, dst, Vector2.Zero, 0, Color.White);
+            Raylib_cs.Rectangle src = new Raylib_cs.Rectangle(0, 0, _mainTarget.Texture.Width, -_mainTarget.Texture.Height);
+            Raylib_cs.Rectangle dst = new Raylib_cs.Rectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
+            Raylib.DrawTexturePro(_mainTarget.Texture, src, dst, Vector2.Zero, 0, Raylib_cs.Color.White);
 
-            EndDrawing();
+            Raylib.EndDrawing();
         }
 
         // ============== Sprite 兼容层 ==============
-        public static void SpriteBegin(SlimDX.Direct3D9.SpriteFlags flags)
+        public static void SpriteBegin()
         {
             BeginTextureIfNeeded(); // raylib 默认批处理，这里只保证在 RTT 中
         }
@@ -213,11 +218,11 @@ namespace Client.Envir
         { /* 不需要 */ }
 
         // ============== 三个 SpriteDraw 重载：DrawTexturePro 实现 ==============
-        public static void SpriteDraw(SlimDX.Direct3D9.Texture texture, SlimDX.Vector3? center, SlimDX.Vector3? position, SlimDX.Color4 color)
+        public static void SpriteDraw(SlimDX.Direct3D9.Texture texture, Vector2? center, Vector2? position, System.Drawing.Color color)
         {
             if (texture == null || texture.RL.Id == 0) return;
-            var pos = position.HasValue ? (Vector2)position.Value : Vector2.Zero;
-            var org = center.HasValue ? (Vector2)center.Value : Vector2.Zero;
+            var pos = position.HasValue ? position.Value : Vector2.Zero;
+            var org = center.HasValue ? center.Value : Vector2.Zero;
 
             var src = new Rectangle(0, 0, texture.Width, texture.Height);
             var dst = new Rectangle((int)pos.X, (int)pos.Y, texture.Width, texture.Height);
@@ -225,7 +230,7 @@ namespace Client.Envir
             DrawOne(texture.RL, src, dst, org, 0f, color);
         }
 
-        public static void SpriteDraw(SlimDX.Direct3D9.Texture texture, System.Drawing.Rectangle? sourceRect, SlimDX.Vector3? center, SlimDX.Vector3? position, SlimDX.Color4 color)
+        public static void SpriteDraw(SlimDX.Direct3D9.Texture texture, System.Drawing.Rectangle? sourceRect, Vector2? center, Vector2? position, System.Drawing.Color color)
         {
             if (texture == null || texture.RL.Id == 0) return;
             var pos = position.HasValue ? (Vector2)position.Value : Vector2.Zero;
@@ -240,7 +245,7 @@ namespace Client.Envir
             DrawOne(texture.RL, src, dst, org, 0f, color);
         }
 
-        public static void SpriteDraw(SlimDX.Direct3D9.Texture texture, SlimDX.Color4 color)
+        public static void SpriteDraw(SlimDX.Direct3D9.Texture texture, System.Drawing.Color color)
         {
             if (texture == null || texture.RL.Id == 0) return;
             var src = new Rectangle(0, 0, texture.Width, texture.Height);
@@ -274,28 +279,19 @@ namespace Client.Envir
             _currentTarget = _mainTarget; // 注意：如需多 RTT，请扩展映射表
         }
 
-        public static void ResetDevice()
-        { }
-
-        public static void AttemptReset()
-        { }
-
-        public static void AttemptRecovery()
-        { }
-
         public static void ToggleFullScreen() => Raylib.ToggleFullscreen();
 
         public static void SetResolution(Size size)
         {
             if (!_windowInited) return;
 
-            SetWindowSize(size.Width, size.Height);
+            Raylib.SetWindowSize(size.Width, size.Height);
 
-            if (_mainTarget.Id != 0) UnloadRenderTexture(_mainTarget);
-            if (_scratchTarget.Id != 0) UnloadRenderTexture(_scratchTarget);
+            if (_mainTarget.Id != 0) Raylib.UnloadRenderTexture(_mainTarget);
+            if (_scratchTarget.Id != 0) Raylib.UnloadRenderTexture(_scratchTarget);
 
-            _mainTarget = LoadRenderTexture(size.Width, size.Height);
-            _scratchTarget = LoadRenderTexture(size.Width, size.Height);
+            _mainTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
+            _scratchTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
             _currentTarget = _mainTarget;
         }
 
@@ -309,41 +305,41 @@ namespace Client.Envir
         public static SlimDX.Direct3D9.Texture CreateTextureFromFile(string path)
         {
             if (!File.Exists(path)) return null;
-            Image img = LoadImage(path);
-            Texture2D tex = LoadTextureFromImage(img);
-            UnloadImage(img);
+            Image img = Raylib.LoadImage(path);
+            Texture2D tex = Raylib.LoadTextureFromImage(img);
+            Raylib.UnloadImage(img);
             return new SlimDX.Direct3D9.Texture { RL = tex };
         }
 
         public static SlimDX.Direct3D9.Texture CreateTextureFromImage(byte[] imageBytes)
         {
-            Image img = LoadImageFromMemory(".png", imageBytes); // 7.0.1: ReadOnlySpan<byte> 重载
-            Texture2D tex = LoadTextureFromImage(img);
-            UnloadImage(img);
+            Raylib_cs.Image img = Raylib.LoadImageFromMemory(".png", imageBytes); // 7.0.1: ReadOnlySpan<byte> 重载
+            Texture2D tex = Raylib.LoadTextureFromImage(img);
+            Raylib.UnloadImage(img);
             return new SlimDX.Direct3D9.Texture { RL = tex };
         }
 
         // ============== 内部绘制实现 ==============
-        private static void DrawOne(Texture2D tex, Rectangle src, Rectangle dst, Vector2 origin, float rotationDeg, SlimDX.Color4 c)
+        private static void DrawOne(Texture2D tex, Rectangle src, Rectangle dst, Vector2 origin, float rotationDeg, System.Drawing.Color c)
         {
             BeginTextureIfNeeded();
 
             bool useBlend = Blending;
-            if (useBlend) BeginBlendMode(MapBlendMode(BlendMode));
+            if (useBlend) Raylib.BeginBlendMode(MapBlendMode(BlendMode));
 
-            var tint = ((System.Drawing.Color)c).ToRay();
+            var tint = c.ToRay();
             tint.A = (byte)(tint.A * Opacity); // 透明度叠乘
 
-            DrawTexturePro(tex, src, dst, origin, rotationDeg, tint);
+            Raylib.DrawTexturePro(tex, src, dst, origin, rotationDeg, tint);
 
-            if (useBlend) EndBlendMode();
+            if (useBlend) Raylib.EndBlendMode();
         }
 
         private static void BeginTextureIfNeeded()
         {
             if (!_textureModeBegun)
             {
-                BeginTextureMode(_currentTarget);
+                Raylib.BeginTextureMode(_currentTarget);
                 _textureModeBegun = true;
             }
         }
@@ -352,18 +348,18 @@ namespace Client.Envir
         {
             if (_textureModeBegun)
             {
-                EndTextureMode();
+                Raylib.EndTextureMode();
                 _textureModeBegun = false;
             }
         }
 
         private static SlimDX.Direct3D9.Texture CreatePoisonTexture()
         {
-            Image img = GenImageColor(6, 6, Color.White);
+            Image img = Raylib.GenImageColor(6, 6, Color.White);
             // 7.0.1：ImageDrawRectangleLines(ref Image, Rectangle, int, Color)
-            ImageDrawRectangleLines(ref img, new Rectangle(0, 0, 6, 6), 1, Color.Green);
-            Texture2D tex = LoadTextureFromImage(img);
-            UnloadImage(img);
+            Raylib.ImageDrawRectangleLines(ref img, new Rectangle(0, 0, 6, 6), 1, Color.Green);
+            Texture2D tex = Raylib.LoadTextureFromImage(img);
+            Raylib.UnloadImage(img);
             return new SlimDX.Direct3D9.Texture { RL = tex };
         }
 

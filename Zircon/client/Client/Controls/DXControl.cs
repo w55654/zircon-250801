@@ -1,11 +1,15 @@
 ﻿using Client.Envir;
 using Library;
+using Raylib_cs;
 using SlimDX;
 using SlimDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Numerics;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 //Cleaned
 namespace Client.Controls
@@ -246,7 +250,6 @@ namespace Client.Controls
 
         public virtual void OnBorderChanged(bool oValue, bool nValue)
         {
-            UpdateBorderInformation();
             BorderChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -275,33 +278,6 @@ namespace Client.Controls
         public virtual void OnBorderColourChanged(Color oValue, Color nValue)
         {
             BorderColourChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
-
-        #region BorderInformation
-
-        public Vector2[] BorderInformation
-        {
-            get => _BorderInformation;
-            set
-            {
-                if (_BorderInformation == value) return;
-
-                Vector2[] oldValue = _BorderInformation;
-                _BorderInformation = value;
-
-                OnBorderInformationChanged(oldValue, value);
-            }
-        }
-
-        private Vector2[] _BorderInformation;
-
-        public event EventHandler<EventArgs> BorderInformationChanged;
-
-        public virtual void OnBorderInformationChanged(Vector2[] oValue, Vector2[] nValue)
-        {
-            BorderInformationChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -440,7 +416,6 @@ namespace Client.Controls
             foreach (DXControl control in Controls)
                 control.UpdateDisplayArea();
 
-            UpdateBorderInformation();
             DisplayAreaChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -839,7 +814,6 @@ namespace Client.Controls
         public virtual void OnSizeChanged(Size oValue, Size nValue)
         {
             UpdateDisplayArea();
-            UpdateBorderInformation();
             TextureValid = false;
 
             SizeChanged?.Invoke(this, EventArgs.Empty);
@@ -1078,10 +1052,11 @@ namespace Client.Controls
 
         public virtual void OnIsMovingChanged(bool oValue, bool nValue)
         {
-            if (IsMoving)
-                CEnvir.Target.SuspendLayout();
-            else
-                CEnvir.Target.ResumeLayout();
+            // todo w
+            //if (IsMoving)
+            //    CEnvir.Target.SuspendLayout();
+            //else
+            //    CEnvir.Target.ResumeLayout();
 
             IsMovingChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -1128,27 +1103,41 @@ namespace Client.Controls
         public Surface ControlSurface { get; set; }
         public DateTime ExpireTime { get; protected set; }
 
+        private Raylib_cs.RenderTexture2D _controlRT;
+
         protected virtual void CreateTexture()
         {
+            // 尺寸变了就重建离屏目标
             if (ControlTexture == null || DisplayArea.Size != TextureSize)
             {
-                DisposeTexture();
+                DisposeTexture();                            // 你原有的回收逻辑，记得里头要卸载 _controlRT
+
                 TextureSize = DisplayArea.Size;
-                ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.RenderTarget, Format.A8R8G8B8, Pool.Default);
-                ControlSurface = ControlTexture.GetSurfaceLevel(0);
+
+                // 1) 建离屏渲染目标
+                _controlRT = Raylib_cs.Raylib.LoadRenderTexture(TextureSize.Width, TextureSize.Height);
+
+                // 2) 给外部留的“贴图”句柄：用 render target 的 color texture
+                ControlTexture = new SlimDX.Direct3D9.Texture() { RL = _controlRT.Texture };
+
+                // 3) 兼容占位（WinForms/SlimDX 的 Surface 已经没意义了）
+                ControlSurface = new SlimDX.Direct3D9.Surface();
+
                 DXManager.ControlList.Add(this);
             }
 
-            Surface previous = DXManager.CurrentSurface;
-            DXManager.SetSurface(ControlSurface);
+            // 在控件自己的 RTT 上作画
+            Raylib_cs.Raylib.BeginTextureMode(_controlRT);
 
-            DXManager.Device.Clear(ClearFlags.Target, BackColour, 0, 0);
+            // 清背景（注意 BackColour 是 System.Drawing.Color）
+            Raylib_cs.Raylib.ClearBackground(new Raylib_cs.Color(BackColour.R, BackColour.G, BackColour.B, BackColour.A));
 
+            // 你原来的钩子，通常在这里把控件自身的静态内容画进去
             OnClearTexture();
 
-            DXManager.SetSurface(previous);
-            TextureValid = true;
+            Raylib_cs.Raylib.EndTextureMode();
 
+            TextureValid = true;
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
@@ -1160,22 +1149,26 @@ namespace Client.Controls
         {
             if (ControlTexture != null)
             {
-                if (!ControlTexture.Disposed)
-                    ControlTexture.Dispose();
-
+                ControlTexture.Dispose();
                 ControlTexture = null;
             }
 
             if (ControlSurface != null)
             {
-                if (!ControlSurface.Disposed)
-                    ControlSurface.Dispose();
-
+                //ControlSurface.Dispose();
                 ControlSurface = null;
             }
 
             TextureSize = Size.Empty;
             ExpireTime = DateTime.MinValue;
+
+            try
+            {
+                if (_controlRT.Id != 0) Raylib.UnloadRenderTexture(_controlRT);
+            }
+            catch { }
+            _controlRT = default;
+
             TextureValid = false;
 
             DXManager.ControlList.Remove(this);
@@ -1220,31 +1213,6 @@ namespace Client.Controls
 
                 control.Process();
             }
-        }
-
-        protected internal virtual void UpdateBorderInformation()
-        {
-            BorderInformation = null;
-            if (!Border || DisplayArea.Width == 0 || DisplayArea.Height == 0) return;
-            /*
-            BorderInformation = new[]
-            {
-                new Vector2(DisplayArea.Left - 1, DisplayArea.Top - 1),
-                new Vector2(DisplayArea.Right, DisplayArea.Top - 1),
-                new Vector2(DisplayArea.Right, DisplayArea.Bottom),
-                new Vector2(DisplayArea.Left - 1, DisplayArea.Bottom),
-                new Vector2(DisplayArea.Left - 1, DisplayArea.Top - 1)
-            };
-            */
-
-            BorderInformation = new[]
-            {
-                new Vector2(0, 0),
-                new Vector2(Size.Width + 1, 0),
-                new Vector2(Size.Width + 1, Size.Height + 1),
-                new Vector2(0, Size.Height + 1),
-                new Vector2(0, 0)
-            };
         }
 
         protected internal virtual void CheckIsVisible()
@@ -1789,21 +1757,21 @@ namespace Client.Controls
 
         protected virtual void DrawBorder()
         {
-            if (!Border || BorderInformation == null) return;
+            //if (!Border || BorderInformation == null) return;
 
-            if (DXManager.Line.Width != BorderSize)
-                DXManager.Line.Width = BorderSize;
+            //if (DXManager.Line.Width != BorderSize)
+            //    DXManager.Line.Width = BorderSize;
 
-            Surface old = DXManager.CurrentSurface;
-            DXManager.SetSurface(DXManager.ScratchSurface);
+            //Surface old = DXManager.CurrentSurface;
+            //DXManager.SetSurface(DXManager.ScratchSurface);
 
-            DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
+            //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
 
-            DXManager.Line.Draw(BorderInformation, BorderColour);
+            //DXManager.Line.Draw(BorderInformation, BorderColour);
 
-            DXManager.SetSurface(old);
+            //DXManager.SetSurface(old);
 
-            PresentTexture(DXManager.ScratchTexture, Parent, Rectangle.Inflate(DisplayArea, 1, 1), Color.White, this);
+            //PresentTexture(DXManager.ScratchTexture, Parent, Rectangle.Inflate(DisplayArea, 1, 1), Color.White, this);
         }
 
         protected virtual void DrawChildControls()
@@ -1836,7 +1804,7 @@ namespace Client.Controls
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
-        public static void PresentTexture(Texture texture, DXControl parent, Rectangle displayArea, Color colour, DXControl control, int offX = 0, int offY = 0, float scale = 1.0f)
+        public static void PresentTexture(Texture texture, DXControl parent, Rectangle displayArea, Color colour, DXControl control, int offX = 0, int offY = 0)
         {
             Rectangle bounds = ActiveScene.DisplayArea;
             Rectangle textureArea = Rectangle.Intersect(bounds, displayArea);
@@ -1870,14 +1838,7 @@ namespace Client.Controls
             float fX = displayArea.X + textureArea.Location.X + offX;
             float fY = displayArea.Y + textureArea.Location.Y + offY;
 
-            fX /= scale;
-            fY /= scale;
-
-            DXManager.SpriteTransform = Matrix.Scaling(scale, scale, 1);
-
-            DXManager.SpriteDraw(texture, textureArea, Vector3.Zero, new Vector3(fX, fY, 0), colour);
-
-            DXManager.SpriteTransform = Matrix.Identity;
+            DXManager.SpriteDraw(texture, textureArea, Vector2.Zero, new Vector2(fX, fY), colour);
         }
 
         #endregion
@@ -1924,7 +1885,6 @@ namespace Client.Controls
                 _BackColour = Color.Empty;
                 _Border = false;
                 _BorderColour = Color.Empty;
-                _BorderInformation = null;
                 _BorderSize = 0;
                 _CanResizeHeight = false;
                 _CanResizeWidth = false;
@@ -1966,7 +1926,6 @@ namespace Client.Controls
                 BackColourChanged = null;
                 BorderChanged = null;
                 BorderColourChanged = null;
-                BorderInformationChanged = null;
                 BorderSizeChanged = null;
                 CanResizeHeightChanged = null;
                 CanResizeWidthChanged = null;

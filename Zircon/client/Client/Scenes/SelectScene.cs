@@ -1821,21 +1821,6 @@ namespace Client.Scenes
                 InterfaceLibrary.Draw(1, location.X + Size.Width - s.Width, location.Y + y, Color.White, new Rectangle(0, 0, s.Width, Size.Height - y * 2), 1f, ImageType.Image);
             }
 
-            protected internal override void UpdateBorderInformation()
-            {
-                BorderInformation = null;
-                if (!Border || Size.Width == 0 || Size.Height == 0) return;
-
-                BorderInformation = new[]
-                {
-                    new Vector2(DisplayArea.Left, DisplayArea.Top),
-                    new Vector2(DisplayArea.Right - 1, DisplayArea.Top),
-                    new Vector2(DisplayArea.Right - 1, DisplayArea.Bottom - 1),
-                    new Vector2(DisplayArea.Left, DisplayArea.Bottom - 1),
-                    new Vector2(DisplayArea.Left, DisplayArea.Top)
-                };
-            }
-
             #endregion
 
             #region IDisposable

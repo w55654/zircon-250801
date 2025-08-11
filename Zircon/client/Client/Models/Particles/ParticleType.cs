@@ -3,6 +3,7 @@ using SlimDX;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Numerics;
 
 namespace Client.Models.Particles
 {
