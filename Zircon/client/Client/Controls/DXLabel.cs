@@ -19,17 +19,20 @@ namespace Client.Controls
             if (string.IsNullOrEmpty(text))
                 return Size.Empty;
 
-            Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, text, font);
+            return new Size(150, 22);
 
-            if (outline && tempSize.Width > 0 && tempSize.Height > 0)
-            {
-                tempSize.Width += 2;
-                tempSize.Height += 2;
-            }
+            // todo w 很重要 记得实现
+            //Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, text, font);
 
-            tempSize.Height += paddingBottom;
+            //if (outline && tempSize.Width > 0 && tempSize.Height > 0)
+            //{
+            //    tempSize.Width += 2;
+            //    tempSize.Height += 2;
+            //}
 
-            return tempSize;
+            //tempSize.Height += paddingBottom;
+
+            //return tempSize;
         }
 
         public static Size GetHeight(DXLabel label, int width)

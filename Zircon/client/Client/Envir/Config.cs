@@ -1,18 +1,41 @@
 ﻿using Library;
 using System;
 using System.Drawing;
+using System.Threading;
 
 namespace Client.Envir
 {
     [ConfigPath(@".\Zircon.ini")]
     public static class Config
     {
+        public static readonly string AppPath;
+        public static readonly int MainThread;
+
+        public static readonly string ServerListPath;
+
         public const string DefaultIPAddress = "127.0.0.1";
         public const int DefaultPort = 7000;
 
         public static readonly Size IntroSceneSize = new Size(1024, 768);
 
         public static bool FullScreen = false;
+
+        static Config()
+        {
+            // 在静态类第一次访问时自动设置
+            MainThread = Thread.CurrentThread.ManagedThreadId;
+
+            // 获取 exe 所在目录的上级目录
+#if DEBUG
+            //AppPath = Directory.CreateDirectory(AppContext.BaseDirectory + "../").FullName;
+            AppPath = "../";
+#else
+            //AppPath = Directory.CreateDirectory(AppContext.BaseDirectory).FullName;
+            AppPath = "./";
+#endif
+
+            ServerListPath = $"{AppPath}/Data/ServerList.txt";
+        }
 
         [ConfigSection("Network")]
         public static bool UseNetworkConfig { get; set; } = false;

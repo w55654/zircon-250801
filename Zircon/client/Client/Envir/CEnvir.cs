@@ -983,7 +983,7 @@ namespace Client.Envir
 
         public static float FontSize(float size)
         {
-            return (size - Config.FontSizeMod) * (96F / DXManager.Graphics.DpiX);
+            return 20;
         }
 
         public static int ErrorCount;

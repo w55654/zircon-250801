@@ -16,6 +16,8 @@ namespace Client.Controls
 {
     public class DXControl : IDisposable
     {
+        public static readonly Color DefForeColor = Color.FromArgb(198, 166, 99);
+
         #region Static
 
         public static List<DXControl> MessageBoxList = new List<DXControl>();
@@ -107,7 +109,7 @@ namespace Client.Controls
                 IsVisible = true,
                 Outline = false,
                 ForeColour = Color.Black,//Color.Yellow
-                PaddingBottom = 2
+                //PaddingBottom = 2
             };
             PingLabel = new DXLabel
             {

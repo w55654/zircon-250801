@@ -182,7 +182,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Outline = false,
-                DrawFormat = TextFormatFlags.WordBreak | TextFormatFlags.WordEllipsis,
+                DrawFormat = TextFormatFlags.WordBreak,
                 Parent = PageTextContainer,
                 Location = new Point(0, 0),
                 Size = new Size(350, 10),
