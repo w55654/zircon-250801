@@ -142,7 +142,6 @@ namespace Client.Controls
         public DXLabel TitleLabel { get; protected set; }
 
         public Texture WindowTexture;
-        public Surface WindowSurface;
         public bool WindowValid;
 
         public override void OnSizeChanged(Size oValue, Size nValue)
@@ -259,11 +258,6 @@ namespace Client.Controls
                 WindowTexture.Dispose();
                 WindowTexture = null;
             }
-
-            if (WindowSurface != null)
-            {
-                WindowSurface = null;
-            }
         }
 
         private void UpdateLocations()
@@ -371,13 +365,10 @@ namespace Client.Controls
 
             if (!WindowValid)
             {
-                Surface oldSurface = DXManager.CurrentSurface;
-                DXManager.SetSurface(WindowSurface);
                 //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0); // todo w
 
                 DrawEdges();
 
-                DXManager.SetSurface(oldSurface);
                 WindowValid = true;
             }
 
@@ -561,11 +552,6 @@ namespace Client.Controls
                 {
                     WindowTexture.Dispose();
                     WindowTexture = null;
-                }
-
-                if (WindowSurface != null)
-                {
-                    WindowSurface = null;
                 }
 
                 WindowValid = false;

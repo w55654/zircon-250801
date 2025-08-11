@@ -1,0 +1,34 @@
+using Raylib_cs;
+using System.Drawing;
+using System.Numerics;
+
+namespace Ray2D
+{
+    //
+    public readonly struct MouseEvent
+    {
+        public MouseButton Button { get; }
+        public Point Location { get; }
+        public Point WorldLocation { get; }
+        public int Delta { get; }  // ¹öÂÖÔöÁ¿
+
+        public MouseEvent(MouseButton button, Vector2 pos, Vector2 worldpos, int delta = 0)
+        {
+            Button = button;
+            Location = pos.ToPoint();
+            WorldLocation = worldpos.ToPoint();
+            Delta = delta;
+        }
+    }
+
+    public struct KeyEvent
+    {
+        public KeyboardKey KeyCode { get; }
+        public bool Handled;
+
+        public KeyEvent(KeyboardKey keyCode)
+        {
+            KeyCode = keyCode;
+        }
+    }
+}

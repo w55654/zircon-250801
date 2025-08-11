@@ -11,38 +11,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
+using UtilsShared;
 using Color = Raylib_cs.Color;
 using Image = Raylib_cs.Image;
 using Rectangle = Raylib_cs.Rectangle;
 
-// ====================== SlimDX 名字壳（签名占位，不做真实 D3D9） ======================
-namespace SlimDX
-{
-    public struct Matrix
-    {
-        public static Matrix Identity => new Matrix();
-    }
-}
-
 namespace SlimDX.Direct3D9
 {
-    [Flags] public enum SpriteFlags { None = 0 }
-
-    public class PresentParameters
-    { }
-
-    public class Device
-    {
-        public void Clear(int flags, System.Drawing.Color color, float z, int stencil)
-        { }
-
-        public void Present()
-        { }
-    }
-
-    public class Surface
-    { } // 概念占位（映射为 RenderTexture）
-
     // 包一层，让旧签名还吃 SlimDX.Texture；内部是真 Texture2D
     public class Texture : HDisposable
     {
@@ -80,12 +55,6 @@ namespace SlimDX.Direct3D9
             }
         }
     }
-
-    public class Sprite
-    { public SlimDX.Matrix Transform { get; set; } }
-
-    public class Line
-    { }
 }
 
 // ====================== DXManager：对外 API 保持不变 ======================
@@ -97,22 +66,6 @@ namespace Client.Envir
 
         public static List<Size> ValidResolutions = new List<Size>();
         private static Size MinimumResolution = new Size(1024, 768);
-
-        public static SlimDX.Direct3D9.PresentParameters Parameters { get; private set; }
-        public static SlimDX.Direct3D9.Device Device { get; private set; } = new SlimDX.Direct3D9.Device();
-
-        public static SlimDX.Direct3D9.Sprite Sprite { get; private set; } = new SlimDX.Direct3D9.Sprite();
-
-        public static SlimDX.Matrix SpriteTransform
-        {
-            get => Sprite?.Transform ?? SlimDX.Matrix.Identity;
-            set { if (Sprite != null) Sprite.Transform = value; }
-        }
-
-        public static SlimDX.Direct3D9.Line Line { get; private set; } = new SlimDX.Direct3D9.Line();
-
-        public static SlimDX.Direct3D9.Surface CurrentSurface { get; private set; }
-        public static SlimDX.Direct3D9.Surface MainSurface { get; private set; }
 
         public static float Opacity { get; private set; } = 1f;
         public static bool Blending { get; private set; }
@@ -126,7 +79,6 @@ namespace Client.Envir
         public static List<DXSound> SoundList { get; } = new List<DXSound>();
 
         public static SlimDX.Direct3D9.Texture ScratchTexture { get; private set; }
-        public static SlimDX.Direct3D9.Surface ScratchSurface { get; private set; }
 
         public static byte[] PalleteData { get; private set; }
         public static SlimDX.Direct3D9.Texture PoisonTexture { get; private set; }
@@ -148,7 +100,7 @@ namespace Client.Envir
 
             Raylib.SetConfigFlags(ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow);
             Raylib.InitWindow(size.Width, size.Height, "Game");
-            Raylib.SetTargetFPS(Config.VSync ? 60 : 0);
+            Raylib.SetTargetFPS(60);
             Raylib.InitAudioDevice();
 
             _mainTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
@@ -273,9 +225,8 @@ namespace Client.Envir
         }
 
         // ============== Surface/设备/重置（保留接口，最小实现） ==============
-        public static void SetSurface(SlimDX.Direct3D9.Surface surface)
+        public static void SetSurface()
         {
-            CurrentSurface = surface ?? MainSurface;
             _currentTarget = _mainTarget; // 注意：如需多 RTT，请扩展映射表
         }
 

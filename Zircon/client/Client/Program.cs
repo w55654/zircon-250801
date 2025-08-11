@@ -2,7 +2,6 @@
 using Client.Envir;
 using Client.Scenes;
 using Library;
-using RayEngine;
 using Raylib_cs;
 using Sentry;
 using System;
@@ -52,7 +51,7 @@ namespace Client
                 CEnvir.LibraryList[pair.Key] = new MirLibrary(pair.Value);
             }
 
-            RayFont.LoadFont($"{Config.AppPath}/Data123/Fonts/SourceHanSansSC-Bold.ttf");
+            //RayFont.LoadFont($"{Config.AppPath}/Data123/Fonts/SourceHanSansSC-Bold.ttf");
             //RayFont.LoadCommChars($"{Config.AppPath}/Data123/Chars/chars3500.txt");
 
             var form = new Client.TargetForm();   // 为了保持外部引用不改

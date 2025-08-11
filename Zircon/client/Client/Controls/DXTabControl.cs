@@ -621,13 +621,9 @@ namespace Client.Controls
         {
             if (InterfaceLibrary == null) return;
 
-            Surface oldSurface = DXManager.CurrentSurface;
-            DXManager.SetSurface(DXManager.ScratchSurface);
             //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
 
             DrawEdges();
-
-            DXManager.SetSurface(oldSurface);
 
             float oldOpacity = DXManager.Opacity;
 

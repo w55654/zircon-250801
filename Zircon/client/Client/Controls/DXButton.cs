@@ -287,10 +287,6 @@ namespace Client.Controls
 
             if (Library == null)
             {
-                DXManager.SetOpacity(Opacity);
-
-                Surface oldSurface = DXManager.CurrentSurface;
-                DXManager.SetSurface(DXManager.ScratchSurface);
                 //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
 
                 switch (ButtonType)
@@ -319,8 +315,6 @@ namespace Client.Controls
                         InterfaceLibrary.Draw(242, 0, 0, Color.White, false, 1F, ImageType.Image);
                         break;
                 }
-
-                DXManager.SetSurface(oldSurface);
 
                 texture = DXManager.ScratchTexture;
             }

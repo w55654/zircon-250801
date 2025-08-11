@@ -1000,9 +1000,6 @@ namespace Client.Models
 
         public void DrawBody(bool shadow)
         {
-            Surface oldSurface = DXManager.CurrentSurface;
-            DXManager.SetSurface(DXManager.ScratchSurface);
-
             // todo w
             //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
             DXManager.SpriteFlush();
@@ -1219,7 +1216,6 @@ namespace Client.Models
                 }
             }
 
-            DXManager.SetSurface(oldSurface);
             float oldOpacity = DXManager.Opacity;
 
             if (shadow)

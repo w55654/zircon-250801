@@ -54,5 +54,5 @@
 	<ItemGroup>
 		<ProjectReference Include="..\..\shared\LibraryCore\LibraryCore.csproj" />
 	</ItemGroup>
-	<Import Project="..\..\RayShared\RayShared.projitems" Label="Shared" />
+	<Import Project="..\..\shared\UtilsShared\UtilsShared.projitems" Label="Shared" />
 </Project>

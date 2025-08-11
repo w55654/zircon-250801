@@ -1102,7 +1102,6 @@ namespace Client.Controls
         public bool TextureValid { get; set; }
         public Texture ControlTexture { get; set; }
         public Size TextureSize { get; set; }
-        public Surface ControlSurface { get; set; }
         public DateTime ExpireTime { get; protected set; }
 
         private Raylib_cs.RenderTexture2D _controlRT;
@@ -1121,9 +1120,6 @@ namespace Client.Controls
 
                 // 2) 给外部留的“贴图”句柄：用 render target 的 color texture
                 ControlTexture = new SlimDX.Direct3D9.Texture() { RL = _controlRT.Texture };
-
-                // 3) 兼容占位（WinForms/SlimDX 的 Surface 已经没意义了）
-                ControlSurface = new SlimDX.Direct3D9.Surface();
 
                 DXManager.ControlList.Add(this);
             }
@@ -1153,12 +1149,6 @@ namespace Client.Controls
             {
                 ControlTexture.Dispose();
                 ControlTexture = null;
-            }
-
-            if (ControlSurface != null)
-            {
-                //ControlSurface.Dispose();
-                ControlSurface = null;
             }
 
             TextureSize = Size.Empty;
