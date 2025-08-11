@@ -1,5 +1,4 @@
 ﻿using Library;
-using SlimDX;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

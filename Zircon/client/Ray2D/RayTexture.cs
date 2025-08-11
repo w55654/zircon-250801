@@ -1,5 +1,4 @@
-﻿using Client1000.RayDraw;
-using Raylib_cs;
+﻿using Raylib_cs;
 using System.Collections;
 using System.Drawing;
 using System.Numerics;
@@ -14,10 +13,7 @@ namespace Ray2D
     {
         private static Vector2 def_origin = new Vector2(0, 0);
 
-        public string Name { get; private set; }
         public Texture2D Texture { get; private set; }
-        private int _RefCount { get; set; }
-        private bool _UseCache { get; set; }
 
         private BitArray AlphaMask; // 每个位代表一个像素是否不透明
 
@@ -82,13 +78,6 @@ namespace Ray2D
             Raylib.UnloadImage(image);  // 释放 image 占用的 CPU 内存
         }
 
-        public RayTexture(Texture2D text, string name, bool useCache = false)
-        {
-            Texture = text;
-            Name = name;
-            _UseCache = useCache;
-        }
-
         private void InitMask(Raylib_cs.Image image)
         {
             if (!RayFunc.IsImageValid(image))
@@ -122,11 +111,6 @@ namespace Ray2D
                 return false;
 
             return AlphaMask[y * Texture.Width + x];
-        }
-
-        public void AddRef()
-        {
-            _RefCount++;
         }
 
         private bool IsValid()
@@ -249,31 +233,10 @@ namespace Ray2D
                 throw new Exception();
             }
 
-            if (_UseCache)
+            if (IsValid())
             {
-                if (_RefCount <= 0)
-                {
-                    //Logger.Print($"RefCount必须大于0 {_RefCount}, {Name}", LogLevel.Error);
-                    throw new Exception();
-                }
-                --_RefCount;
-
-                if (_RefCount <= 0)
-                {
-                    if (IsValid())
-                    {
-                        Raylib.UnloadTexture(Texture);
-                        Texture = default;
-                    }
-                }
-            }
-            else
-            {
-                if (IsValid())
-                {
-                    Raylib.UnloadTexture(Texture);
-                    Texture = default;
-                }
+                Raylib.UnloadTexture(Texture);
+                Texture = default;
             }
 
             AlphaMask = null;

@@ -53,6 +53,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\..\shared\LibraryCore\LibraryCore.csproj" />
+		<ProjectReference Include="..\Ray2D\Ray2D.csproj" />
 	</ItemGroup>
 	<Import Project="..\..\shared\UtilsShared\UtilsShared.projitems" Label="Shared" />
 </Project>

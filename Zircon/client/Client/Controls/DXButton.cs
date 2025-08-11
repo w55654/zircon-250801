@@ -1,7 +1,6 @@
 ﻿using Client.Envir;
 using Library;
-using SlimDX;
-using SlimDX.Direct3D9;
+using Ray2D;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -283,7 +282,7 @@ namespace Client.Controls
 
         protected override void DrawMirTexture()
         {
-            Texture texture = null;
+            RayTexture texture = null;
 
             if (Library == null)
             {

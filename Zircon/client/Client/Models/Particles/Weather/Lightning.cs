@@ -1,7 +1,6 @@
 ﻿using Client.Envir;
 using Client.Scenes;
 using Library;
-using SlimDX;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

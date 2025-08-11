@@ -1,6 +1,4 @@
 ﻿using Client.Envir;
-using SlimDX;
-using SlimDX.Direct3D9;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;

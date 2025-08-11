@@ -5,8 +5,7 @@ using Client.Scenes;
 using Client.Scenes.Views;
 using Library;
 using Library.SystemModels;
-using SlimDX;
-using SlimDX.Direct3D9;
+using Ray2D;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -63,7 +62,7 @@ namespace Client.Models
             }
         }
 
-        public static Texture ShadowTexture;
+        public static RayTexture ShadowTexture;
 
         public abstract ObjectType Race { get; }
         public virtual bool Blocking => Visible && !Dead;

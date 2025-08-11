@@ -3,15 +3,14 @@
 // 不能等价的 SlimDX 行为（锁显存/设备状态）全部删除或标注“注意”。
 
 using Library;
+using Ray2D;
 using Raylib_cs;
-using SlimDX;                // 名字壳：保持外部签名不变
-using SlimDX.Direct3D9;      // 名字壳：Texture 包装 raylib 的 Texture2D
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
 using System.Threading;
+using UtilsShared;
 using static Raylib_cs.Raylib;
 using static System.Windows.Forms.DataFormats;
 using Color = System.Drawing.Color;
@@ -19,7 +18,7 @@ using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Envir
 {
-    public sealed class MirLibrary : IDisposable
+    public sealed class MirLibrary : HDisposable
     {
         public readonly object LoadLocker = new object();
 
@@ -97,7 +96,7 @@ namespace Client.Envir
             if (!CheckImage(index)) return null;
 
             MirImage image = Images[index];
-            Texture texture;
+            RayTexture texture;
 
             switch (type)
             {
@@ -151,7 +150,7 @@ namespace Client.Envir
             if (!CheckImage(index)) return;
             MirImage image = Images[index];
 
-            Texture texture;
+            RayTexture texture;
             float oldOpacity = DXManager.Opacity;
 
             switch (type)
@@ -197,7 +196,7 @@ namespace Client.Envir
             if (!CheckImage(index)) return;
             MirImage image = Images[index];
 
-            Texture texture;
+            RayTexture texture;
             float oldOpacity = DXManager.Opacity;
 
             switch (type)
@@ -241,7 +240,7 @@ namespace Client.Envir
             if (!CheckImage(index)) return;
             MirImage image = Images[index];
 
-            Texture texture;
+            RayTexture texture;
             switch (type)
             {
                 case ImageType.Image:
@@ -277,18 +276,35 @@ namespace Client.Envir
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
 
+        public void DrawPro(int index, int x, int y, Color color, float alpha, Rectangle clip, Size? dest = null)
+        {
+            MirImage image = GetImage(index);
+
+            if (image == null)
+                return;
+
+            image.DrawPro(x, y, color, alpha, clip, dest);
+        }
+
         public void DrawBlend(int index, float x, float y, Color colour, bool useOffSet, float rate, ImageType type, byte shadow = 0)
         {
-            if (!CheckImage(index)) return;
+            if (!CheckImage(index))
+                return;
+
             MirImage image = Images[index];
 
-            Texture texture;
+            RayTexture texture;
             switch (type)
             {
                 case ImageType.Image:
-                    if (!image.ImageValid) image.CreateImage(_BReader);
+                    if (!image.ImageValid)
+                        image.CreateImage(_BReader);
                     texture = image.Image;
-                    if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
+                    if (useOffSet)
+                    {
+                        x += image.OffSetX;
+                        y += image.OffSetY;
+                    }
                     break;
 
                 case ImageType.Shadow:
@@ -316,40 +332,21 @@ namespace Client.Envir
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
 
-        #region IDisposable Support
-
-        public bool IsDisposed { get; private set; }
-
-        private void Dispose(bool disposing)
+        protected override void OnDisposeManaged()
         {
-            if (disposing)
+            if (Images != null)
             {
-                IsDisposed = true;
-
-                if (Images != null)
-                {
-                    foreach (MirImage image in Images)
-                        image?.Dispose();
-                }
-                Images = null;
-
-                _BReader?.Dispose(); _BReader = null;
-                _FStream?.Dispose(); _FStream = null;
-
-                Loading = false;
-                Loaded = false;
+                foreach (MirImage image in Images)
+                    image?.Dispose();
             }
+            Images = null;
+
+            _BReader?.Dispose(); _BReader = null;
+            _FStream?.Dispose(); _FStream = null;
+
+            Loading = false;
+            Loaded = false;
         }
-
-        ~MirLibrary()
-        {
-            Dispose(false);
-        }
-
-        public void Dispose()
-        { Dispose(true); GC.SuppressFinalize(this); }
-
-        #endregion
     }
 
     public sealed class MirImage : IDisposable
@@ -365,7 +362,7 @@ namespace Client.Envir
         public short OffSetY;
 
         public byte ShadowType;
-        public Texture Image;
+        public RayTexture Image;
         public bool ImageValid { get; private set; }
         public unsafe byte* ImageData;      // 注意：不再使用，保留为 null
 
@@ -389,7 +386,7 @@ namespace Client.Envir
         public short ShadowOffSetX;
         public short ShadowOffSetY;
 
-        public Texture Shadow;
+        public RayTexture Shadow;
         public bool ShadowValid { get; private set; }
         public unsafe byte* ShadowData;     // 注意：不再使用，保留为 null
 
@@ -410,7 +407,7 @@ namespace Client.Envir
         public short OverlayWidth;
         public short OverlayHeight;
 
-        public Texture Overlay;
+        public RayTexture Overlay;
         public bool OverlayValid { get; private set; }
         public unsafe byte* OverlayData;    // 注意：不再使用，保留为 null
 
@@ -468,9 +465,9 @@ namespace Client.Envir
         {
             try
             {
-                if (Image != null && Image.RL.Id != 0) UnloadTexture(Image.RL);
-                if (Shadow != null && Shadow.RL.Id != 0) UnloadTexture(Shadow.RL);
-                if (Overlay != null && Overlay.RL.Id != 0) UnloadTexture(Overlay.RL);
+                if (Image != null && Image.Texture.Id != 0) UnloadTexture(Image.Texture);
+                if (Shadow != null && Shadow.Texture.Id != 0) UnloadTexture(Shadow.Texture);
+                if (Overlay != null && Overlay.Texture.Id != 0) UnloadTexture(Overlay.Texture);
             }
             catch { /* 忽略释放期异常 */ }
 
@@ -509,8 +506,8 @@ namespace Client.Envir
                 : DecodeDXT5(blockData, Width, Height, pw, ph);
 
             // 反复创建时，先卸掉旧纹理，别堆垃圾
-            if (Image != null && Image.RL.Id != 0)
-                Raylib_cs.Raylib.UnloadTexture(Image.RL);
+            if (Image != null && Image.Texture.Id != 0)
+                Raylib_cs.Raylib.UnloadTexture(Image.Texture);
 
             // 7.0.1 正确用法：自己构造 Image（指向 pinned 像素），再 LoadTextureFromImage
             fixed (Raylib_cs.Color* p = _imgPixels)
@@ -525,7 +522,7 @@ namespace Client.Envir
                 };
 
                 Raylib_cs.Texture2D tex = Raylib_cs.Raylib.LoadTextureFromImage(img);
-                Image = new SlimDX.Direct3D9.Texture { RL = tex };
+                Image = new RayTexture(tex);
             }
 
             ImageValid = true;
@@ -543,6 +540,27 @@ namespace Client.Envir
 
         public void CreateOverlay(BinaryReader reader)
         {
+        }
+
+        public void UpdateExpireTime()
+        {
+            ExpireTime = DateTime.Now + TimeSpan.FromMinutes(30);
+        }
+
+        public void DrawPro(int x, int y, Color color, float alpha, Rectangle clip, Size? dest = null)
+        {
+            if (Image == null || !ImageValid)
+                return;
+
+            //if (useOffset)
+            //{
+            //    x += OffSetX;
+            //    y += OffSetY;
+            //}
+
+            Image.DrawPro(x, y, color, alpha, clip, dest);
+
+            UpdateExpireTime();
         }
 
         #region IDisposable Support

@@ -1,8 +1,7 @@
 ﻿using Client.Envir;
 using Library;
+using Ray2D;
 using Raylib_cs;
-using SlimDX;
-using SlimDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,7 +15,12 @@ namespace Client.Controls
 {
     public class DXControl : IDisposable
     {
+        public static readonly Color EnabledColor = Color.FromArgb(128, 128, 128);
         public static readonly Color DefForeColor = Color.FromArgb(198, 166, 99);
+        public static readonly Color DisableColor = Color.FromArgb(50, 50, 0, 0);
+        public static readonly Color DefGoldColor = Color.FromArgb(198, 166, 99); // 暗金色
+        public static readonly Color DefBackColor = Color.FromArgb(25, 25, 25);
+        public static readonly Color WinBackColor = Color.FromArgb(50, 40, 20);
 
         #region Static
 
@@ -1100,7 +1104,7 @@ namespace Client.Controls
         #region Texture
 
         public bool TextureValid { get; set; }
-        public Texture ControlTexture { get; set; }
+        public RayTexture ControlTexture { get; set; }
         public Size TextureSize { get; set; }
         public DateTime ExpireTime { get; protected set; }
 
@@ -1119,7 +1123,7 @@ namespace Client.Controls
                 _controlRT = Raylib_cs.Raylib.LoadRenderTexture(TextureSize.Width, TextureSize.Height);
 
                 // 2) 给外部留的“贴图”句柄：用 render target 的 color texture
-                ControlTexture = new SlimDX.Direct3D9.Texture() { RL = _controlRT.Texture };
+                ControlTexture = new RayTexture(_controlRT.Texture);
 
                 DXManager.ControlList.Add(this);
             }
@@ -1796,7 +1800,7 @@ namespace Client.Controls
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
-        public static void PresentTexture(Texture texture, DXControl parent, Rectangle displayArea, Color colour, DXControl control, int offX = 0, int offY = 0)
+        public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, DXControl control, int offX = 0, int offY = 0)
         {
             Rectangle bounds = ActiveScene.DisplayArea;
             Rectangle textureArea = Rectangle.Intersect(bounds, displayArea);

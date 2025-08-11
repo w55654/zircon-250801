@@ -6,13 +6,11 @@ using Client.Controls;
 using Client.Envir;
 using Client.Scenes;
 using Library;
-
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 

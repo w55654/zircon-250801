@@ -1,5 +1,4 @@
 ﻿using Client.Envir;
-using SlimDX;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

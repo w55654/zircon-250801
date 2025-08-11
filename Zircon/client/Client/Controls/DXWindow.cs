@@ -1,7 +1,7 @@
 ﻿using Client.Envir;
 using Client.UserModels;
 using Library;
-using SlimDX.Direct3D9;
+using Ray2D;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -141,7 +141,7 @@ namespace Client.Controls
         public DXButton CloseButton { get; protected set; }
         public DXLabel TitleLabel { get; protected set; }
 
-        public Texture WindowTexture;
+        public RayTexture WindowTexture;
         public bool WindowValid;
 
         public override void OnSizeChanged(Size oValue, Size nValue)
@@ -244,7 +244,7 @@ namespace Client.Controls
 
             if (WindowTexture == null || DisplayArea.Size != TextureSize)
             {
-                WindowTexture = new Texture(Config.GameSize.Width, Config.GameSize.Height);
+                WindowTexture = new RayTexture(Config.GameSize.Width, Config.GameSize.Height);
                 WindowValid = false;
             }
         }
