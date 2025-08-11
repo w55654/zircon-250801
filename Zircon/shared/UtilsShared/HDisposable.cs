@@ -7,7 +7,7 @@ using System.Collections.Generic;
 // 托管资源
 // 非托管资源释放基类
 
-namespace Library
+namespace UtilsShared
 {
     public abstract class HDisposable : IDisposable, INotifyPropertyChanged
     {
