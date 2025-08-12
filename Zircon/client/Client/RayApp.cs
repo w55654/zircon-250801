@@ -194,7 +194,7 @@ namespace Client1000.RayDraw
             // 文本输入（Unicode）
             for (int ch = Raylib.GetCharPressed(); ch != 0; ch = Raylib.GetCharPressed())
             {
-                OnKeyPress(new KeyEvent(KeyboardKey.Null) { Char = (char)ch });
+                OnKeyPress(new KeyEvent(KeyboardKey.Null) { Char = ch });
             }
 
             // 更新全局鼠标位置（旧逻辑兼容）
