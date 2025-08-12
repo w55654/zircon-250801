@@ -2,12 +2,16 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 //Cleaned
 namespace Client.Scenes
@@ -337,7 +341,7 @@ namespace Client.Scenes
                    CharacterAnimation.BodyLibrary.Draw(CharacterAnimation.Index + 30, x, y, ScaleMatrix, Color.FromArgb(180, 255, 255, 255), true, 1f, ImageType.Image);*/
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
@@ -573,7 +577,7 @@ namespace Client.Scenes
                 CreateButton.Enabled = CharacterList.Count < 4;
             }
 
-            private void CreateButton_MouseClick(object sender, MouseEventArgs e)
+            private void CreateButton_MouseClick(object sender, MouseEvent e)
             {
                 SelectScene scene = ActiveScene as SelectScene;
 
@@ -585,7 +589,7 @@ namespace Client.Scenes
                 scene.CharacterAnimation.Visible = false;
             }
 
-            private void DeleteButton_MouseClick(object sender, MouseEventArgs e)
+            private void DeleteButton_MouseClick(object sender, MouseEvent e)
             {
                 DateTime deleteTime = CEnvir.Now.AddSeconds(5);
                 SelectInfo character = SelectedButton.SelectInfo;
@@ -610,18 +614,18 @@ namespace Client.Scenes
                 };
             }
 
-            public override void OnKeyPress(KeyPressEventArgs e)
+            public override void OnKeyPress(KeyEvent e)
             {
                 base.OnKeyPress(e);
 
-                switch ((Keys)e.KeyChar)
+                switch (e.KeyCode)
                 {
-                    case Keys.Enter:
+                    case KeyboardKey.Enter:
                         if (StartButton.Enabled)
                             StartGame();
                         break;
 
-                    case Keys.Down:
+                    case KeyboardKey.Down:
 
                         bool select = false;
 
@@ -639,7 +643,7 @@ namespace Client.Scenes
                         }
                         break;
 
-                    case Keys.Up:
+                    case KeyboardKey.Up:
 
                         SelectButton previous = null;
 
@@ -659,13 +663,13 @@ namespace Client.Scenes
                 }
             }
 
-            public override void OnKeyDown(KeyEventArgs e)
+            public override void OnKeyDown(KeyEvent e)
             {
                 base.OnKeyDown(e);
 
                 switch (e.KeyCode)
                 {
-                    case Keys.Down:
+                    case KeyboardKey.Down:
 
                         bool select = false;
 
@@ -684,7 +688,7 @@ namespace Client.Scenes
                         }
                         break;
 
-                    case Keys.Up:
+                    case KeyboardKey.Up:
 
                         SelectButton previous = null;
 
@@ -1020,7 +1024,7 @@ namespace Client.Scenes
                 DXLabel label = new DXLabel
                 {
                     Parent = panel,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                     Text = CEnvir.Language.NewCharacterSelectClassLabel,
                 };
                 label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -1097,7 +1101,7 @@ namespace Client.Scenes
                 label = new DXLabel
                 {
                     Parent = panel,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                     Text = CEnvir.Language.NewCharacterSelectGenderLabel,
                 };
                 label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -1151,7 +1155,7 @@ namespace Client.Scenes
                 label = new DXLabel
                 {
                     Parent = panel,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                     Text = CEnvir.Language.NewCharacterCustomizationLabel,
                 };
                 label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -1219,7 +1223,7 @@ namespace Client.Scenes
                 label = new DXLabel
                 {
                     Parent = previewPanel,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                     Text = CEnvir.Language.NewCharacterPreviewLabel,
                 };
                 label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -1233,10 +1237,10 @@ namespace Client.Scenes
                     BorderColour = Color.FromArgb(198, 166, 99),
                     Size = new Size(155, 20),
                 };
-                CharacterNameTextBox.TextBox.TextChanged += CharacterNameTextBox_TextChanged;
-                CharacterNameTextBox.TextBox.GotFocus += (o, e) => CharacterNameHelpLabel.Visible = true;
-                CharacterNameTextBox.TextBox.LostFocus += (o, e) => CharacterNameHelpLabel.Visible = false;
-                CharacterNameTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                CharacterNameTextBox.TextChanged += CharacterNameTextBox_TextChanged;
+                CharacterNameTextBox.GotFocus += (o, e) => CharacterNameHelpLabel.Visible = true;
+                CharacterNameTextBox.LostFocus += (o, e) => CharacterNameHelpLabel.Visible = false;
+                CharacterNameTextBox.KeyPress += TextBox_KeyPress;
 
                 label = new DXLabel
                 {
@@ -1265,7 +1269,7 @@ namespace Client.Scenes
 
                 C.NewCharacter p = new C.NewCharacter
                 {
-                    CharacterName = CharacterNameTextBox.TextBox.Text,
+                    CharacterName = CharacterNameTextBox.Text,
                     Class = SelectedClass,
                     Gender = SelectedGender,
                     HairType = (int)HairNumberBox.Value,
@@ -1281,7 +1285,7 @@ namespace Client.Scenes
             {
                 SelectedClass = MirClass.Warrior;
                 SelectedGender = MirGender.Male;
-                CharacterNameTextBox.TextBox.Text = string.Empty;
+                CharacterNameTextBox.Text = string.Empty;
                 HairNumberBox.Value = 1;
 
                 Close();
@@ -1298,9 +1302,10 @@ namespace Client.Scenes
                 scene.CharacterAnimation.Visible = scene.SelectBox.CharacterList.Count > 0;
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.Char != (char)KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -1310,9 +1315,9 @@ namespace Client.Scenes
 
             private void CharacterNameTextBox_TextChanged(object sender, EventArgs e)
             {
-                CharacterNameValid = Globals.CharacterReg.IsMatch(CharacterNameTextBox.TextBox.Text);
+                CharacterNameValid = Globals.CharacterReg.IsMatch(CharacterNameTextBox.Text);
 
-                if (string.IsNullOrEmpty(CharacterNameTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(CharacterNameTextBox.Text))
                     CharacterNameTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     CharacterNameTextBox.BorderColour = CharacterNameValid ? Color.Green : Color.Red;

@@ -1174,11 +1174,11 @@ namespace Client.Controls
 
         public event EventHandler<EventArgs> MouseEnter, MouseLeave, Focus, LostFocus;
 
-        public event EventHandler<MouseEventArgs> MouseDown, MouseUp, MouseMove, Moving, MouseClick, MouseDoubleClick, MouseWheel;
+        public event EventHandler<MouseEvent> MouseDown, MouseUp, MouseMove, Moving, MouseClick, MouseDoubleClick, MouseWheel;
 
-        public event EventHandler<KeyEventArgs> KeyDown, KeyUp;
+        public event EventHandler<KeyEvent> KeyDown, KeyUp;
 
-        public event EventHandler<KeyPressEventArgs> KeyPress;
+        public event EventHandler<KeyEvent> KeyPress;
 
         public Action ProcessAction;
 
@@ -1269,7 +1269,7 @@ namespace Client.Controls
         {
             if (!IsEnabled) return;
 
-            MouseClick?.Invoke(this, null);
+            MouseClick?.Invoke(this, default);
         }
 
         public virtual bool IsMouseOver(Point p)
@@ -1323,7 +1323,7 @@ namespace Client.Controls
             MouseLeave?.Invoke(this, EventArgs.Empty);
         }
 
-        public virtual void OnMouseMove(MouseEventArgs e)
+        public virtual void OnMouseMove(MouseEvent e)
         {
             if (!IsEnabled)
             {
@@ -1534,7 +1534,7 @@ namespace Client.Controls
             return size;
         }
 
-        public virtual void OnMouseDown(MouseEventArgs e)
+        public virtual void OnMouseDown(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1561,7 +1561,7 @@ namespace Client.Controls
                 }
 
                 IsResizing = ResizeLeft || ResizeRight || ResizeUp || ResizeDown;
-                ResizePoint = new Point(e.X, e.Y);
+                ResizePoint = new Point(e.Location.X, e.Location.Y);
 
                 if (ResizeLeft)
                 {
@@ -1585,10 +1585,10 @@ namespace Client.Controls
                     Cursor.Current = Cursors.SizeNS;
             }
 
-            if (!IsResizing && Movable && e.Button.HasFlag(MouseButtons.Left) && (!Modal || DisplayArea.Contains(e.Location)))
+            if (!IsResizing && Movable && e.Button.HasFlag(MouseButton.Left) && (!Modal || DisplayArea.Contains(e.Location)))
             {
                 IsMoving = true;
-                MovePoint = new Point(e.X - Location.X, e.Y - Location.Y);
+                MovePoint = new Point(e.Location.X - Location.X, e.Location.Y - Location.Y);
                 Parent.Controls.Remove(this);
                 Parent.Controls.Add(this);
             }
@@ -1596,7 +1596,7 @@ namespace Client.Controls
             MouseDown?.Invoke(this, e);
         }
 
-        public virtual void OnMouseUp(MouseEventArgs e)
+        public virtual void OnMouseUp(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1605,7 +1605,7 @@ namespace Client.Controls
             MouseUp?.Invoke(this, e);
         }
 
-        public virtual void OnMouseClick(MouseEventArgs e)
+        public virtual void OnMouseClick(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1615,7 +1615,7 @@ namespace Client.Controls
             MouseClick?.Invoke(this, e);
         }
 
-        public virtual void OnMouseDoubleClick(MouseEventArgs e)
+        public virtual void OnMouseDClick(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1630,7 +1630,7 @@ namespace Client.Controls
                 OnMouseClick(e);
         }
 
-        public virtual void OnMouseWheel(MouseEventArgs e)
+        public virtual void OnMouseWheel(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1667,7 +1667,7 @@ namespace Client.Controls
             LostFocus?.Invoke(this, EventArgs.Empty);
         }
 
-        public virtual void OnKeyPress(KeyPressEventArgs e)
+        public virtual void OnKeyPress(KeyEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1683,7 +1683,7 @@ namespace Client.Controls
             KeyPress?.Invoke(this, e);
         }
 
-        public virtual void OnKeyDown(KeyEventArgs e)
+        public virtual void OnKeyDown(KeyEvent e)
         {
             if (!IsEnabled) return;
 
@@ -1699,7 +1699,7 @@ namespace Client.Controls
             KeyDown?.Invoke(this, e);
         }
 
-        public virtual void OnKeyUp(KeyEventArgs e)
+        public virtual void OnKeyUp(KeyEvent e)
         {
             if (!IsEnabled) return;
 

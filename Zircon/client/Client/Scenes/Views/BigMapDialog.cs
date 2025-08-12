@@ -4,6 +4,8 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +13,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Scenes.Views
 {
@@ -212,9 +216,9 @@ namespace Client.Scenes.Views
             Image.MouseClick += Image_MouseClick;
         }
 
-        private void Image_MouseClick(object sender, MouseEventArgs e)
+        private void Image_MouseClick(object sender, MouseEvent e)
         {
-            if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
+            if ((e.Button & MouseButton.Right) == MouseButton.Right)
             {
                 int x = (int)((e.Location.X - Image.DisplayArea.X) / ScaleX);
                 int y = (int)((e.Location.Y - Image.DisplayArea.Y) / ScaleY);

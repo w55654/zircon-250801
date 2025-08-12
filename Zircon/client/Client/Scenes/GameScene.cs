@@ -6,6 +6,8 @@ using Client.UserModels;
 using Library;
 using Library.SystemModels;
 using MirDB;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 //Cleaned
 namespace Client.Scenes
@@ -855,7 +858,7 @@ namespace Client.Scenes
                     if (tabControl.SelectedTab == tab)
                         cSetting.SelectedPage = pSetting;
 
-                    pSetting.Name = tab.Panel.NameTextBox.TextBox.Text;
+                    pSetting.Name = tab.Panel.NameTextBox.Text;
                     pSetting.Transparent = tab.Panel.TransparentCheckBox.Checked;
                     pSetting.Alert = tab.Panel.AlertCheckBox.Checked;
                     pSetting.HideTab = tab.Panel.HideTabCheckBox.Checked;
@@ -907,7 +910,7 @@ namespace Client.Scenes
 
                     tab.Parent = tabControl;
 
-                    tab.Panel.NameTextBox.TextBox.Text = tab.Settings.Name;
+                    tab.Panel.NameTextBox.Text = tab.Settings.Name;
                     tab.Panel.AlertCheckBox.Checked = tab.Settings.Alert;
                     tab.Panel.HideTabCheckBox.Checked = tab.Settings.HideTab;
                     tab.Panel.ReverseListCheckBox.Checked = tab.Settings.ReverseList;
@@ -1072,21 +1075,21 @@ namespace Client.Scenes
             }
         }
 
-        public override void OnKeyPress(KeyPressEventArgs e)
+        public override void OnKeyPress(KeyEvent e)
         {
             base.OnKeyPress(e);
 
             if (e.Handled) return;
 
-            switch ((Keys)e.KeyChar)
+            switch (e.KeyCode)
             {
-                case Keys.Enter:
+                case KeyboardKey.Enter:
                     ChatTextBox.ToggleVisibility(e, false);
                     break;
             }
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
@@ -1094,7 +1097,7 @@ namespace Client.Scenes
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     MonsterBox.Monster = null;
                     e.Handled = true;
                     break;
@@ -4460,7 +4463,7 @@ namespace Client.Scenes
                     ForeColour = colour,
                     Hint = npc.NPCName,
                     Tag = npc.CurrentQuest,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold)
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold)
                 };
 
                 return label;

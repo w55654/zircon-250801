@@ -2,12 +2,15 @@
 using Client.UserModels;
 using Library;
 using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
 using Font = System.Drawing.Font;
+using Rectangle = System.Drawing.Rectangle;
 
 //Cleaned
 namespace Client.Controls
@@ -217,7 +220,7 @@ namespace Client.Controls
             {
                 Text = "Window",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -276,13 +279,13 @@ namespace Client.Controls
             WindowValid = false;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();

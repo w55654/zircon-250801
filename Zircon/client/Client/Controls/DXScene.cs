@@ -2,9 +2,9 @@
 using Client.Scenes.Views;
 using Library;
 using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 
 //Cleaned
 namespace Client.Controls
@@ -13,9 +13,7 @@ namespace Client.Controls
     {
         #region Properties
 
-        public DXControl ClickControl;
-        public DateTime ClickTime;
-        public MouseButtons Buttons;
+        public MouseButton Buttons;
 
         public override sealed Size Size
         {
@@ -57,7 +55,7 @@ namespace Client.Controls
 
         #region Methods
 
-        public void HandleMouseDown(MouseEventArgs e)
+        public void HandleMouseDown(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -82,7 +80,7 @@ namespace Client.Controls
             }
         }
 
-        public void HandleMouseUp(MouseEventArgs e)
+        public void HandleMouseUp(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -92,7 +90,7 @@ namespace Client.Controls
                 base.OnMouseUp(e);
         }
 
-        public void HandleMouseMove(MouseEventArgs e)
+        public void HandleMouseMove(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -104,19 +102,9 @@ namespace Client.Controls
                 base.OnMouseMove(e);
         }
 
-        public void HandleMouseClick(MouseEventArgs e)
+        public void HandleMouseClick(MouseEvent e)
         {
             if (!IsEnabled) return;
-
-            if (Buttons == e.Button)
-            {
-                if (ClickTime.AddMilliseconds(SystemInformation.DoubleClickTime) >= Time.Now)
-                {
-                    OnMouseDoubleClick(e);
-                    return;
-                }
-            }
-            else ClickTime = DateTime.MinValue;
 
             if (MouseControl != null && MouseControl != this)
             {
@@ -126,34 +114,20 @@ namespace Client.Controls
             else
                 base.OnMouseClick(e);
 
-            ClickControl = MouseControl;
-
-            ClickTime = CEnvir.Now;
             Buttons = e.Button;
         }
 
-        public void HandleMouseDoubleClick(MouseEventArgs e)
+        public void HandleMouseDClick(MouseEvent e)
         {
             if (!IsEnabled) return;
 
             if (MouseControl != null && MouseControl != this)
             {
-                if (MouseControl == ClickControl)
-                {
-                    MouseControl.OnMouseDoubleClick(e);
-                    ClickTime = DateTime.MinValue;
-                }
-                else
-                {
-                    MouseControl.OnMouseClick(e);
-                    ClickTime = CEnvir.Now;
-                }
+                MouseControl.OnMouseDClick(e);
             }
-
-            ClickControl = MouseControl;
         }
 
-        public void HandleMouseWheel(MouseEventArgs e)
+        public void HandleMouseWheel(MouseEvent e)
         {
             if (!IsEnabled) return;
 
@@ -163,17 +137,17 @@ namespace Client.Controls
                 base.OnMouseWheel(e);
         }
 
-        public void HandleKeyDown(KeyEventArgs e)
+        public void HandleKeyDown(KeyEvent e)
         {
             OnKeyDown(e);
         }
 
-        public void HandleKeyUp(KeyEventArgs e)
+        public void HandleKeyUp(KeyEvent e)
         {
             OnKeyUp(e);
         }
 
-        public void HandleKeyPress(KeyPressEventArgs e)
+        public void HandleKeyPress(KeyEvent e)
         {
             OnKeyPress(e);
         }
@@ -222,9 +196,6 @@ namespace Client.Controls
 
             if (disposing)
             {
-                ClickControl = null;
-                ClickTime = DateTime.MinValue;
-                Buttons = MouseButtons.None;
             }
         }
 

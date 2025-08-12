@@ -4,6 +4,8 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -330,13 +333,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -372,7 +375,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GuildDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -441,7 +444,7 @@ namespace Client.Scenes.Views
 
             TitleLabel.Text = "Guild";
 
-            NoticeTextBox.TextBox.Text = string.Empty;
+            NoticeTextBox.Text = string.Empty;
 
             MemberLimitLabel.Text = string.Empty;
             GuildFundLabel.Text = string.Empty;
@@ -461,7 +464,7 @@ namespace Client.Scenes.Views
 
             EditNoticeButton.Visible = false;
 
-            ItemNameTextBox.TextBox.Text = string.Empty;
+            ItemNameTextBox.Text = string.Empty;
 
             ItemTypeComboBox.ListBox.SelectItem(null);
         }
@@ -480,7 +483,7 @@ namespace Client.Scenes.Views
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
             if (!NoticeTextBox.Editable)
-                NoticeTextBox.TextBox.Text = GuildInfo.Notice;
+                NoticeTextBox.Text = GuildInfo.Notice;
 
             MemberLimitLabel.Text = $"{GuildInfo.Members.Count} / {GuildInfo.MemberLimit}";
             GuildFundLabel.Text = GuildInfo.GuildFunds.ToString("#,##0");
@@ -647,7 +650,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GuildDialogCreateTabStep1Label,
                 Parent = CreateTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -674,13 +677,13 @@ namespace Client.Scenes.Views
                 Location = new Point((CreateTab.Size.Width - label.Size.Width - 5 - 110) / 2 + label.Size.Width + 5, label.Location.Y),
                 Parent = CreateTab,
             };
-            GuildNameBox.TextBox.TextChanged += GuildNameTextBox_TextChanged;
+            GuildNameBox.TextChanged += GuildNameTextBox_TextChanged;
 
             stepLabel = new DXLabel
             {
                 Text = CEnvir.Language.GuildDialogCreateTabStep2Label,
                 Parent = CreateTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -724,7 +727,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GuildDialogCreateTabStep3Label,
                 Parent = CreateTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -802,7 +805,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GuildDialogCreateTabStep4Label,
                 Parent = CreateTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -846,20 +849,20 @@ namespace Client.Scenes.Views
             CreateButton.MouseClick += CreateButton_MouseClick;
         }
 
-        private void StarterGuildButton_MouseClick(object sender, MouseEventArgs e)
+        private void StarterGuildButton_MouseClick(object sender, MouseEvent e)
         {
             CEnvir.Enqueue(new C.JoinStarterGuild
             {
             });
         }
 
-        private void CreateButton_MouseClick(object sender, MouseEventArgs e)
+        private void CreateButton_MouseClick(object sender, MouseEvent e)
         {
             CreateAttempted = true;
 
             CEnvir.Enqueue(new C.GuildCreate
             {
-                Name = GuildNameBox.TextBox.Text,
+                Name = GuildNameBox.Text,
                 UseGold = GoldCheckBox.Checked,
                 Members = MemberLimit,
                 Storage = StorageSize,
@@ -868,9 +871,9 @@ namespace Client.Scenes.Views
 
         private void GuildNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            GuildNameValid = Globals.GuildNameRegex.IsMatch(GuildNameBox.TextBox.Text);
+            GuildNameValid = Globals.GuildNameRegex.IsMatch(GuildNameBox.Text);
 
-            if (string.IsNullOrEmpty(GuildNameBox.TextBox.Text))
+            if (string.IsNullOrEmpty(GuildNameBox.Text))
                 GuildNameBox.BorderColour = Color.FromArgb(198, 166, 99);
             else if (GuildNameValid)
                 GuildNameBox.BorderColour = Color.Green;
@@ -921,7 +924,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GuildDialogHomeTabNoticeLabel,
                 Parent = HomeTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -949,7 +952,6 @@ namespace Client.Scenes.Views
             NoticeTextBox = new DXTextBox
             {
                 Parent = HomeTab,
-                TextBox = { Multiline = true },
                 Location = new Point(16, 33),
                 Size = new Size(403, 252),
                 KeepFocus = false,
@@ -957,23 +959,23 @@ namespace Client.Scenes.Views
                 Border = false,
                 MaxLength = Globals.MaxGuildNoticeLength
             };
-            NoticeTextBox.TextBox.TextChanged += (o, e) => UpdateNoticePosition();
-            NoticeTextBox.TextBox.MouseMove += (o, e) => UpdateNoticePosition();
-            NoticeTextBox.TextBox.MouseDown += (o, e) => UpdateNoticePosition();
-            NoticeTextBox.TextBox.MouseUp += (o, e) => UpdateNoticePosition();
-            NoticeTextBox.TextBox.KeyDown += (o, e) => UpdateNoticePosition();
-            NoticeTextBox.TextBox.KeyUp += (o, e) => UpdateNoticePosition();
-            NoticeTextBox.TextBox.KeyPress += (o, e) =>
+            NoticeTextBox.TextChanged += (o, e) => UpdateNoticePosition();
+            NoticeTextBox.MouseMove += (o, e) => UpdateNoticePosition();
+            NoticeTextBox.MouseDown += (o, e) => UpdateNoticePosition();
+            NoticeTextBox.MouseUp += (o, e) => UpdateNoticePosition();
+            NoticeTextBox.KeyDown += (o, e) => UpdateNoticePosition();
+            NoticeTextBox.KeyUp += (o, e) => UpdateNoticePosition();
+            NoticeTextBox.KeyPress += (o, e) =>
             {
-                if (e.KeyChar == (char)1)
+                if (e.KeyCode == KeyboardKey.One)
                 {
-                    NoticeTextBox.TextBox.SelectAll();
+                    NoticeTextBox.SelectAll();
                     e.Handled = true;
                 }
 
                 UpdateNoticePosition();
             };
-            NoticeTextBox.TextBox.MouseWheel += (o, e) => NoticeScrollBar.Value -= e.Delta / SystemInformation.MouseWheelScrollDelta;
+            NoticeTextBox.MouseWheel += (o, e) => NoticeScrollBar.Value -= e.Delta / SystemInformation.MouseWheelScrollDelta;
             NoticeTextBox.MouseWheel += (o, e) => NoticeScrollBar.Value -= e.Delta / SystemInformation.MouseWheelScrollDelta;
 
             EditNoticeButton = new DXButton
@@ -1009,7 +1011,7 @@ namespace Client.Scenes.Views
                 CancelNoticeButton.Visible = false;
                 NoticeTextBox.Editable = false;
 
-                CEnvir.Enqueue(new C.GuildEditNotice { Notice = NoticeTextBox.TextBox.Text });
+                CEnvir.Enqueue(new C.GuildEditNotice { Notice = NoticeTextBox.Text });
             };
 
             CancelNoticeButton = new DXButton
@@ -1028,7 +1030,7 @@ namespace Client.Scenes.Views
                 CancelNoticeButton.Visible = false;
                 NoticeTextBox.Editable = false;
 
-                NoticeTextBox.TextBox.Text = GuildInfo.Notice;
+                NoticeTextBox.Text = GuildInfo.Notice;
             };
 
             DXControl panel = new DXControl
@@ -1044,7 +1046,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GuildDialogHomeTabNoticeStatsLabel,
                 Parent = panel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -1186,9 +1188,9 @@ namespace Client.Scenes.Views
                     ConfirmButton = { Enabled = false },
                     Modal = true
                 };
-                window.ValueTextBox.TextBox.TextChanged += (o1, e1) =>
+                window.ValueTextBox.TextChanged += (o1, e1) =>
                 {
-                    window.ConfirmButton.Enabled = Globals.GuildTaxReg.IsMatch(window.ValueTextBox.TextBox.Text);
+                    window.ConfirmButton.Enabled = Globals.GuildTaxReg.IsMatch(window.ValueTextBox.Text);
                 };
                 window.ConfirmButton.MouseClick += (o1, e1) =>
                 {
@@ -1199,13 +1201,15 @@ namespace Client.Scenes.Views
 
         public void UpdateNoticePosition()
         {
-            NoticeScrollBar.MaxValue = NoticeTextBox.TextBox.GetLineFromCharIndex(NoticeTextBox.TextBox.TextLength) + 1;
+            NoticeScrollBar.MaxValue = NoticeTextBox.GetLineFromCharIndex(NoticeTextBox.TextLength) + 1;
             NoticeScrollBar.Value = GetCurrentLine();
         }
 
         private int GetCurrentLine()
         {
-            return SendMessage(NoticeTextBox.TextBox.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
+            return 1;
+            // todo w
+            //return SendMessage(NoticeTextBox.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
         }
 
         private const int EM_GETFIRSTVISIBLELINE = 0x00CE;
@@ -1219,7 +1223,7 @@ namespace Client.Scenes.Views
             int line = GetCurrentLine();
             if (line == lineIndex) return;
 
-            SendMessage(NoticeTextBox.TextBox.Handle, EM_LINESCROLL, 0, lineIndex - GetCurrentLine());
+            //SendMessage(NoticeTextBox.Handle, EM_LINESCROLL, 0, lineIndex - GetCurrentLine());
             NoticeTextBox.DisposeTexture();
         }
 
@@ -1307,9 +1311,9 @@ namespace Client.Scenes.Views
                     ConfirmButton = { Enabled = false },
                     Modal = true
                 };
-                window.ValueTextBox.TextBox.TextChanged += (o1, e1) =>
+                window.ValueTextBox.TextChanged += (o1, e1) =>
                 {
-                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.TextBox.Text);
+                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.Text);
                 };
                 window.ConfirmButton.MouseClick += (o1, e1) =>
                 {
@@ -1328,7 +1332,7 @@ namespace Client.Scenes.Views
             EditDefaultMemberButton.MouseClick += (o, e) =>
             {
                 GameScene.Game.GuildMemberBox.MemberNameLabel.Text = "Default Member";
-                GameScene.Game.GuildMemberBox.RankTextBox.TextBox.Text = GuildInfo.DefaultRank;
+                GameScene.Game.GuildMemberBox.RankTextBox.Text = GuildInfo.DefaultRank;
                 GameScene.Game.GuildMemberBox.Permission = GuildInfo.DefaultPermission;
                 GameScene.Game.GuildMemberBox.MemberIndex = 0;
 
@@ -1411,12 +1415,12 @@ namespace Client.Scenes.Views
             ItemNameTextBox = new DXTextBox
             {
                 Parent = filterPanel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Size = new Size(110, 16),
                 Border = false,
                 Location = new Point(label.Location.X + label.Size.Width + 2, label.Location.Y),
             };
-            ItemNameTextBox.TextBox.TextChanged += (o, e) => ApplyStorageFilter();
+            ItemNameTextBox.TextChanged += (o, e) => ApplyStorageFilter();
 
             label = new DXLabel
             {
@@ -1470,7 +1474,7 @@ namespace Client.Scenes.Views
             ClearButton.MouseClick += (o, e) =>
             {
                 ItemTypeComboBox.ListBox.SelectItem(null);
-                ItemNameTextBox.TextBox.Text = string.Empty;
+                ItemNameTextBox.Text = string.Empty;
             };
 
             StorageGrid = new DXItemGrid
@@ -1551,7 +1555,7 @@ namespace Client.Scenes.Views
                 return;
             }
 
-            if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text)))
+            if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.Text)))
             {
                 cell.Enabled = false;
                 return;
@@ -1563,7 +1567,7 @@ namespace Client.Scenes.Views
                 return;
             }
 
-            if (!string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text) && cell.Item != null && cell.Item.Info.ItemName.IndexOf(ItemNameTextBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
+            if (!string.IsNullOrEmpty(ItemNameTextBox.Text) && cell.Item != null && cell.Item.Info.ItemName.IndexOf(ItemNameTextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 cell.Enabled = false;
                 return;
@@ -1625,9 +1629,9 @@ namespace Client.Scenes.Views
                     ConfirmButton = { Enabled = false },
                     Modal = true
                 };
-                window.ValueTextBox.TextBox.TextChanged += (o1, e1) =>
+                window.ValueTextBox.TextChanged += (o1, e1) =>
                 {
-                    window.ConfirmButton.Enabled = Globals.GuildNameRegex.IsMatch(window.ValueTextBox.TextBox.Text);
+                    window.ConfirmButton.Enabled = Globals.GuildNameRegex.IsMatch(window.ValueTextBox.Text);
                 };
                 window.ConfirmButton.MouseClick += (o1, e1) =>
                 {
@@ -1654,7 +1658,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Desert Conquest",
                 Parent = panel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -1702,7 +1706,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Colour",
                 Parent = StyleColourPanel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -1743,7 +1747,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Flag",
                 Parent = StyleFlagPanel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -2581,18 +2585,18 @@ namespace Client.Scenes.Views
             }
         }
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             base.OnMouseClick(e);
 
             switch (e.Button)
             {
-                case MouseButtons.Left:
+                case MouseButton.Left:
 
                     if (!Enabled || MemberInfo == null || (GameScene.Game.GuildBox.GuildInfo.Permission & GuildPermission.Leader) != GuildPermission.Leader) return;
 
                     GameScene.Game.GuildMemberBox.MemberNameLabel.Text = MemberInfo.Name;
-                    GameScene.Game.GuildMemberBox.RankTextBox.TextBox.Text = MemberInfo.Rank;
+                    GameScene.Game.GuildMemberBox.RankTextBox.Text = MemberInfo.Rank;
                     GameScene.Game.GuildMemberBox.Permission = MemberInfo.Permission;
                     GameScene.Game.GuildMemberBox.MemberIndex = MemberInfo.Index;
 
@@ -2600,7 +2604,7 @@ namespace Client.Scenes.Views
                     GameScene.Game.GuildMemberBox.BringToFront();
                     break;
 
-                case MouseButtons.Right:
+                case MouseButton.Right:
                     if (MemberInfo == null || MemberInfo.ObjectID == MapObject.User.ObjectID) return;
 
                     GameScene.Game.BigMapBox.Visible = true;
@@ -2618,7 +2622,7 @@ namespace Client.Scenes.Views
                     GameScene.Game.BigMapBox.SelectedInfo = map;
                     break;
 
-                case MouseButtons.Middle:
+                case MouseButton.Middle:
                     if (MemberInfo == null) return;
 
                     CEnvir.Enqueue(new C.GroupInvite { Name = MemberInfo.Name });
@@ -2888,7 +2892,7 @@ namespace Client.Scenes.Views
 
             ConfirmButton.MouseClick += (o, e) =>
             {
-                CEnvir.Enqueue(new C.GuildEditMember { Index = MemberIndex, Permission = Permission, Rank = RankTextBox.TextBox.Text });
+                CEnvir.Enqueue(new C.GuildEditMember { Index = MemberIndex, Permission = Permission, Rank = RankTextBox.Text });
 
                 Visible = false;
             };
@@ -3106,7 +3110,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,

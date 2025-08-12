@@ -54,7 +54,7 @@ namespace Client.Scenes.Views
                 List<string> dropItems = new List<string>();
                 for (int i = 0; i < 10; i++)
                 {
-                    dropItems.Add(DropFiltersMap[i].TextBox.Text);
+                    dropItems.Add(DropFiltersMap[i].Text);
                 }
                 Config.HighlightedItems = String.Join(",", dropItems);
                 GameScene.Game.ReceiveChat(CEnvir.Language.FilterConfigSaved, MessageType.System);
@@ -68,7 +68,7 @@ namespace Client.Scenes.Views
                 string[] items = Config.HighlightedItems.Split(',');
                 for (int i = 0; i < 10; i++)
                 {
-                    DropFiltersMap[i].TextBox.Text = items[i];
+                    DropFiltersMap[i].Text = items[i];
                 }
             }
         }

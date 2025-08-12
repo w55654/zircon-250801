@@ -1,4 +1,5 @@
 ﻿using Library;
+using Ray2D;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -121,7 +122,7 @@ namespace Client.Controls
             Box.Location = new Point(Label.DisplayArea.Width, 0);
         }
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             if (!IsEnabled) return;
 

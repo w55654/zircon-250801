@@ -1,5 +1,6 @@
 ﻿using Client.Envir;
 using Client.UserModels;
+using Ray2D;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -58,7 +59,7 @@ namespace Client.Controls
 
         #region Methods
 
-        private void DXColourControl_MouseClick(object sender, MouseEventArgs e)
+        private void DXColourControl_MouseClick(object sender, MouseEvent e)
         {
             if (Window != null)
             {
@@ -330,17 +331,17 @@ namespace Client.Controls
 
         #region Methods
 
-        private void ColourScaleBox_MouseClick(object sender, MouseEventArgs e)
+        private void ColourScaleBox_MouseClick(object sender, MouseEvent e)
         {
-            int x = e.X - ColourScaleBox.DisplayArea.X;
-            int y = e.Y - ColourScaleBox.DisplayArea.Y;
+            int x = e.Location.X - ColourScaleBox.DisplayArea.X;
+            int y = e.Location.Y - ColourScaleBox.DisplayArea.Y;
 
             if (x < 0 || y < 0 || x >= 200 || y >= 149) return;
 
             SelectedColour = Color.FromArgb(DXManager.PalleteData[(y * 200 + x) * 4 + 2], DXManager.PalleteData[(y * 200 + x) * 4 + 1], DXManager.PalleteData[(y * 200 + x) * 4]);
         }
 
-        private void CancelButton_MouseClick(object sender, MouseEventArgs e)
+        private void CancelButton_MouseClick(object sender, MouseEvent e)
         {
             Target.BackColour = PreviousColour;
             Dispose();
@@ -353,7 +354,7 @@ namespace Client.Controls
             SelectedColour = Color.FromArgb((int)RedBox.Value, (int)GreenBox.Value, (int)BlueBox.Value);
         }
 
-        private void EmptyButton_MouseClick(object sender, MouseEventArgs e)
+        private void EmptyButton_MouseClick(object sender, MouseEvent e)
         {
             if (Updating) return;
 

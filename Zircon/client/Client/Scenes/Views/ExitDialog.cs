@@ -50,7 +50,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.ExitDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,

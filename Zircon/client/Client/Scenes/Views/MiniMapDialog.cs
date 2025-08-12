@@ -3,6 +3,7 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -91,7 +92,7 @@ namespace Client.Scenes.Views
 
         #region Methods
 
-        private void Image_Moving(object sender, System.Windows.Forms.MouseEventArgs e)
+        private void Image_Moving(object sender, MouseEvent e)
         {
             ClipMap();
         }

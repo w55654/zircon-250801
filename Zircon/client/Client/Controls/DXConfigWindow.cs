@@ -3,9 +3,12 @@ using Client.Scenes;
 using Client.Scenes.Views;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System.Drawing;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 //Cleaned
 namespace Client.Controls
@@ -74,14 +77,14 @@ namespace Client.Controls
             LanguageComboBox.ListBox.SelectItem(Config.Language);
 
             BackgroundSoundBox.Checked = Config.SoundInBackground;
-            SystemVolumeBox.ValueTextBox.TextBox.Text = Config.SystemVolume.ToString();
-            MusicVolumeBox.ValueTextBox.TextBox.Text = Config.MusicVolume.ToString();
-            PlayerVolumeBox.ValueTextBox.TextBox.Text = Config.PlayerVolume.ToString();
-            MonsterVolumeBox.ValueTextBox.TextBox.Text = Config.MonsterVolume.ToString();
-            SpellVolumeBox.ValueTextBox.TextBox.Text = Config.MagicVolume.ToString();
+            SystemVolumeBox.ValueTextBox.Text = Config.SystemVolume.ToString();
+            MusicVolumeBox.ValueTextBox.Text = Config.MusicVolume.ToString();
+            PlayerVolumeBox.ValueTextBox.Text = Config.PlayerVolume.ToString();
+            MonsterVolumeBox.ValueTextBox.Text = Config.MonsterVolume.ToString();
+            SpellVolumeBox.ValueTextBox.Text = Config.MagicVolume.ToString();
             UseNetworkConfigCheckBox.Checked = Config.UseNetworkConfig;
-            IPAddressTextBox.TextBox.Text = Config.IPAddress;
-            PortBox.ValueTextBox.TextBox.Text = Config.Port.ToString();
+            IPAddressTextBox.Text = Config.IPAddress;
+            PortBox.ValueTextBox.Text = Config.Port.ToString();
 
             ItemNameCheckBox.Checked = Config.ShowItemNames;
             MonsterNameCheckBox.Checked = Config.ShowMonsterNames;
@@ -909,12 +912,12 @@ namespace Client.Controls
 
         #region Methods
 
-        private void CancelSettings(object o, MouseEventArgs e)
+        private void CancelSettings(object o, MouseEvent e)
         {
             Visible = false;
         }
 
-        private void SaveSettings(object o, MouseEventArgs e)
+        private void SaveSettings(object o, MouseEvent e)
         {
             if (Config.FullScreen != FullScreenCheckBox.Checked)
             {
@@ -1014,7 +1017,7 @@ namespace Client.Controls
                 DXSoundManager.AdjustVolume();
 
             Config.UseNetworkConfig = UseNetworkConfigCheckBox.Checked;
-            Config.IPAddress = IPAddressTextBox.TextBox.Text;
+            Config.IPAddress = IPAddressTextBox.Text;
             Config.Port = (int)PortBox.Value;
 
             bool coloursChanged = false;
@@ -1186,13 +1189,13 @@ namespace Client.Controls
             }
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     Visible = false;
                     break;
             }

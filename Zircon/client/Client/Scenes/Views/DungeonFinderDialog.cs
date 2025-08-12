@@ -4,6 +4,8 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +14,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -49,8 +52,11 @@ namespace Client.Scenes.Views
                 OnSelectedDungeonRowChanged(oldValue, value);
             }
         }
+
         private DungeonRow _SelectedDungeonRow;
+
         public event EventHandler<EventArgs> SelectedDungeonRowChanged;
+
         public void OnSelectedDungeonRowChanged(DungeonRow oValue, DungeonRow nValue)
         {
             if (oValue != null)
@@ -125,7 +131,7 @@ namespace Client.Scenes.Views
                 Size = new Size(180, 20),
                 Location = new Point(label.Location.X + label.Size.Width + 5, label.Location.Y),
             };
-            DungeonNameBox.TextBox.KeyPress += TextBox_KeyPress;
+            DungeonNameBox.KeyPress += TextBox_KeyPress;
 
             label = new DXLabel
             {
@@ -200,7 +206,7 @@ namespace Client.Scenes.Views
             //};
             //ClearButton.MouseClick += (o, e) =>
             //{
-            //    DungeonNameBox.TextBox.Text = "";
+            //    DungeonNameBox.Text = "";
             //    //DungeonTypeBox.ListBox.SelectItem(null);
             //    DungeonSearch();
             //};
@@ -262,9 +268,10 @@ namespace Client.Scenes.Views
                 DungeonSearch();
         }
 
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (e.KeyChar != (char)Keys.Enter) return;
+            if (e.KeyCode != KeyboardKey.Enter)
+                return;
 
             e.Handled = true;
 
@@ -296,7 +303,7 @@ namespace Client.Scenes.Views
 
                 //if (filter != null && !info.Filter.Contains(filter)) continue;
 
-                if (!string.IsNullOrEmpty(DungeonNameBox.TextBox.Text) && info.Name.IndexOf(DungeonNameBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0) continue;
+                if (!string.IsNullOrEmpty(DungeonNameBox.Text) && info.Name.IndexOf(DungeonNameBox.Text, StringComparison.OrdinalIgnoreCase) < 0) continue;
 
                 DungeonSearchResults.Add(info);
             }
@@ -453,8 +460,11 @@ namespace Client.Scenes.Views
                 OnSelectedChanged(oldValue, value);
             }
         }
+
         private bool _Selected;
+
         public event EventHandler<EventArgs> SelectedChanged;
+
         public void OnSelectedChanged(bool oValue, bool nValue)
         {
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
@@ -479,8 +489,11 @@ namespace Client.Scenes.Views
                 OnInstanceInfoChanged(oldValue, value);
             }
         }
+
         private InstanceInfo _InstanceInfo;
+
         public event EventHandler<EventArgs> StoreInfoChanged;
+
         public void OnInstanceInfoChanged(InstanceInfo oValue, InstanceInfo nValue)
         {
             Visible = true;

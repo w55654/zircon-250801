@@ -2,10 +2,13 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -305,7 +308,7 @@ namespace Client.Scenes.Views
             DXLabel label = new DXLabel
             {
                 Parent = panel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 Text = "Select Class",
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -382,7 +385,7 @@ namespace Client.Scenes.Views
             label = new DXLabel
             {
                 Parent = panel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 Text = "Select Gender",
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -436,7 +439,7 @@ namespace Client.Scenes.Views
             label = new DXLabel
             {
                 Parent = panel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 Text = "Customization",
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -504,7 +507,7 @@ namespace Client.Scenes.Views
             label = new DXLabel
             {
                 Parent = previewPanel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 Text = "Preview",
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
@@ -518,10 +521,10 @@ namespace Client.Scenes.Views
                 BorderColour = Color.FromArgb(198, 166, 99),
                 Size = new Size(155, 20),
             };
-            CharacterNameTextBox.TextBox.TextChanged += CharacterNameTextBox_TextChanged;
-            CharacterNameTextBox.TextBox.GotFocus += (o, e) => CharacterNameHelpLabel.Visible = true;
-            CharacterNameTextBox.TextBox.LostFocus += (o, e) => CharacterNameHelpLabel.Visible = false;
-            CharacterNameTextBox.TextBox.KeyPress += TextBox_KeyPress;
+            CharacterNameTextBox.TextChanged += CharacterNameTextBox_TextChanged;
+            CharacterNameTextBox.GotFocus += (o, e) => CharacterNameHelpLabel.Visible = true;
+            CharacterNameTextBox.LostFocus += (o, e) => CharacterNameHelpLabel.Visible = false;
+            CharacterNameTextBox.KeyPress += TextBox_KeyPress;
 
             CharacterNameTextBoxLabel = new DXLabel
             {
@@ -567,7 +570,7 @@ namespace Client.Scenes.Views
                     break;
 
                 case ChangeType.NameChange:
-                    CEnvir.Enqueue(new C.NameChange { Name = CharacterNameTextBox.TextBox.Text });
+                    CEnvir.Enqueue(new C.NameChange { Name = CharacterNameTextBox.Text });
                     break;
 
                 default:
@@ -581,7 +584,7 @@ namespace Client.Scenes.Views
         {
             SelectedClass = MirClass.Warrior;
             SelectedGender = MirGender.Male;
-            CharacterNameTextBox.TextBox.Text = string.Empty;
+            CharacterNameTextBox.Text = string.Empty;
             HairNumberBox.Value = 1;
 
             Close();
@@ -598,18 +601,19 @@ namespace Client.Scenes.Views
             scene.CharacterAnimation.Visible = scene.SelectBox.CharacterList.Count > 0;
         }
 
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (e.KeyChar != (char)Keys.Enter) return;
+            if (e.KeyCode != KeyboardKey.Enter)
+                return;
 
             e.Handled = true;
         }
 
         private void CharacterNameTextBox_TextChanged(object sender, EventArgs e)
         {
-            CharacterNameValid = Globals.CharacterReg.IsMatch(CharacterNameTextBox.TextBox.Text);
+            CharacterNameValid = Globals.CharacterReg.IsMatch(CharacterNameTextBox.Text);
 
-            if (string.IsNullOrEmpty(CharacterNameTextBox.TextBox.Text))
+            if (string.IsNullOrEmpty(CharacterNameTextBox.Text))
                 CharacterNameTextBox.BorderColour = Color.FromArgb(198, 166, 99);
             else
                 CharacterNameTextBox.BorderColour = CharacterNameValid ? Color.Green : Color.Red;

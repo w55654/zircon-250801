@@ -1,5 +1,7 @@
 ﻿using Client.Envir;
 using Client.UserModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -51,8 +53,8 @@ namespace Client.Controls
                 KeepFocus = true,
             };
             ValueTextBox.SetFocus();
-            ValueTextBox.TextBox.TextChanged += TextBox_TextChanged;
-            ValueTextBox.TextBox.KeyPress += (o, e) => OnKeyPress(e);
+            ValueTextBox.TextChanged += TextBox_TextChanged;
+            ValueTextBox.KeyPress += (o, e) => OnKeyPress(e);
 
             SetClientSize(new Size(300, Label.Size.Height + 30));
             Label.Location = ClientArea.Location;
@@ -80,30 +82,30 @@ namespace Client.Controls
 
         #region Methods
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
             e.Handled = true;
         }
 
-        public override void OnKeyUp(KeyEventArgs e)
+        public override void OnKeyUp(KeyEvent e)
         {
             base.OnKeyUp(e);
             e.Handled = true;
         }
 
-        public override void OnKeyPress(KeyPressEventArgs e)
+        public override void OnKeyPress(KeyEvent e)
         {
             base.OnKeyPress(e);
 
-            switch (e.KeyChar)
+            switch (e.KeyCode)
             {
-                case (char)Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CancelButton != null && !CancelButton.IsDisposed)
                         CancelButton.InvokeMouseClick();
                     break;
 
-                case (char)Keys.Enter:
+                case KeyboardKey.Enter:
                     if (ConfirmButton != null && !ConfirmButton.IsDisposed)
                         ConfirmButton.InvokeMouseClick();
                     break;
@@ -115,7 +117,7 @@ namespace Client.Controls
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            Value = ValueTextBox.TextBox.Text;
+            Value = ValueTextBox.Text;
         }
 
         #endregion

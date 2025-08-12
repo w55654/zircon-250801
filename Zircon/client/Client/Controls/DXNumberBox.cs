@@ -42,12 +42,12 @@ namespace Client.Controls
                 Size = new Size(50, 20),
                 Location = new Point(19, 1),
                 Parent = this,
-                TextBox = { Text = "0" }
+                Text = "0"
             };
 
-            ValueTextBox.TextBox.KeyPress += (o, e) =>
+            ValueTextBox.KeyPress += (o, e) =>
             {
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                if (!char.IsControl((char)e.Char) && !char.IsDigit((char)e.Char))
                     e.Handled = true;
             };
             DownButton = new DXButton
@@ -57,7 +57,7 @@ namespace Client.Controls
                 Location = new Point(0, 1),
                 Parent = this,
             };
-            DownButton.MouseClick += (o, e) => ValueTextBox.TextBox.Text = (Value - Change).ToString();
+            DownButton.MouseClick += (o, e) => ValueTextBox.Text = (Value - Change).ToString();
 
             UpButton = new DXButton
             {
@@ -66,7 +66,7 @@ namespace Client.Controls
                 Location = new Point(73, 1),
                 Parent = this,
             };
-            UpButton.MouseClick += (o, e) => ValueTextBox.TextBox.Text = (Value + Change).ToString();
+            UpButton.MouseClick += (o, e) => ValueTextBox.Text = (Value + Change).ToString();
         }
 
         #region IDisposable

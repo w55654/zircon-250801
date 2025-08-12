@@ -25,7 +25,6 @@ namespace Client.Envir
 {
     public static class CEnvir
     {
-        public static TargetForm Target;
         public static Random Random = new Random();
 
         private static DateTime _FPSTime;
@@ -153,7 +152,7 @@ namespace Client.Envir
         public static void UpdateGame()
         {
             Now = Time.Now;
-            DXControl.ActiveScene?.OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, MouseLocation.X, MouseLocation.Y, 0));
+            //DXControl.ActiveScene?.OnMouseMove(new MouseEvent(MouseButton.None, 0, MouseLocation.X, MouseLocation.Y, 0));
 
             if (Time.Now >= _FPSTime)
             {
@@ -386,52 +385,9 @@ namespace Client.Envir
             });
         }
 
-        public static IEnumerable<KeyBindAction> GetKeyAction(Keys key)
+        public static IEnumerable<KeyBindAction> GetKeyAction(KeyboardKey key)
         {
             if (!Loaded) yield break;
-
-            switch (key)
-            {
-                case Keys.NumPad0:
-                    key = Keys.D0;
-                    break;
-
-                case Keys.NumPad1:
-                    key = Keys.D1;
-                    break;
-
-                case Keys.NumPad2:
-                    key = Keys.D2;
-                    break;
-
-                case Keys.NumPad3:
-                    key = Keys.D3;
-                    break;
-
-                case Keys.NumPad4:
-                    key = Keys.D4;
-                    break;
-
-                case Keys.NumPad5:
-                    key = Keys.D5;
-                    break;
-
-                case Keys.NumPad6:
-                    key = Keys.D6;
-                    break;
-
-                case Keys.NumPad7:
-                    key = Keys.D7;
-                    break;
-
-                case Keys.NumPad8:
-                    key = Keys.D8;
-                    break;
-
-                case Keys.NumPad9:
-                    key = Keys.D9;
-                    break;
-            }
 
             foreach (KeyBindInfo bind in KeyBinds.Binding)
             {
@@ -447,7 +403,7 @@ namespace Client.Envir
 
             if (bind == null)
             {
-                return Keys.None.ToString();
+                return KeyboardKey.Null.ToString();
             }
 
             string text = "";
@@ -462,7 +418,7 @@ namespace Client.Envir
 
             text += CEnvir.GetText(bind.Key1);
 
-            if (bind.Key2 != Keys.None)
+            if (bind.Key2 != KeyboardKey.Null)
             {
                 text += ", ";
                 if (bind.Control2)
@@ -538,376 +494,376 @@ namespace Client.Envir
             {
                 case KeyBindAction.MenuWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.N;
+                    bind.Key1 = KeyboardKey.N;
                     break;
 
                 case KeyBindAction.ConfigWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.O;
+                    bind.Key1 = KeyboardKey.O;
                     break;
 
                 case KeyBindAction.CharacterWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.Q;
+                    bind.Key1 = KeyboardKey.Q;
                     break;
 
                 case KeyBindAction.InventoryWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.W;
+                    bind.Key1 = KeyboardKey.W;
                     break;
 
                 case KeyBindAction.MagicWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.E;
+                    bind.Key1 = KeyboardKey.E;
                     break;
 
                 case KeyBindAction.MagicBarWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.E;
+                    bind.Key1 = KeyboardKey.E;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.RankingWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.R;
+                    bind.Key1 = KeyboardKey.R;
                     break;
 
                 case KeyBindAction.GameStoreWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.Y;
+                    bind.Key1 = KeyboardKey.Y;
                     break;
 
                 case KeyBindAction.DungeonFinderWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.D;
+                    bind.Key1 = KeyboardKey.D;
                     bind.Shift1 = true;
                     break;
 
                 case KeyBindAction.CompanionWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.U;
+                    bind.Key1 = KeyboardKey.U;
                     break;
 
                 case KeyBindAction.GroupWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.P;
+                    bind.Key1 = KeyboardKey.P;
                     break;
 
                 case KeyBindAction.AutoPotionWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.A;
+                    bind.Key1 = KeyboardKey.A;
                     break;
 
                 case KeyBindAction.StorageWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.S;
+                    bind.Key1 = KeyboardKey.S;
                     break;
 
                 case KeyBindAction.BlockListWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.F;
+                    bind.Key1 = KeyboardKey.F;
                     break;
 
                 case KeyBindAction.GuildWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.G;
+                    bind.Key1 = KeyboardKey.G;
                     break;
 
                 case KeyBindAction.QuestLogWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.J;
+                    bind.Key1 = KeyboardKey.J;
                     break;
 
                 case KeyBindAction.QuestTrackerWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.L;
+                    bind.Key1 = KeyboardKey.L;
                     break;
 
                 case KeyBindAction.BeltWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.Z;
+                    bind.Key1 = KeyboardKey.Z;
                     break;
 
                 case KeyBindAction.MarketPlaceWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.C;
+                    bind.Key1 = KeyboardKey.C;
                     break;
 
                 case KeyBindAction.MapMiniWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.V;
+                    bind.Key1 = KeyboardKey.V;
                     break;
 
                 case KeyBindAction.MapBigWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.B;
+                    bind.Key1 = KeyboardKey.B;
                     break;
 
                 case KeyBindAction.MailBoxWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.Oemcomma;
+                    //bind.Key1 = KeyboardKey.Oemcomma;
                     break;
 
                 case KeyBindAction.MailSendWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.OemPeriod;
+                    //bind.Key1 = KeyboardKey.OemPeriod;
                     break;
 
                 case KeyBindAction.ChatOptionsWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.O;
+                    bind.Key1 = KeyboardKey.O;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.ExitGameWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.Q;
+                    bind.Key1 = KeyboardKey.Q;
                     bind.Alt1 = true;
-                    bind.Key2 = Keys.X;
+                    bind.Key2 = KeyboardKey.X;
                     bind.Alt2 = true;
                     break;
 
                 case KeyBindAction.ChangeAttackMode:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.H;
+                    bind.Key1 = KeyboardKey.H;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.ChangePetMode:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.A;
+                    bind.Key1 = KeyboardKey.A;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.GroupAllowSwitch:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.P;
+                    bind.Key1 = KeyboardKey.P;
                     bind.Alt1 = true;
                     break;
 
                 case KeyBindAction.GroupTarget:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.G;
+                    bind.Key1 = KeyboardKey.G;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.TradeRequest:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.T;
+                    bind.Key1 = KeyboardKey.T;
                     break;
 
                 case KeyBindAction.TradeAllowSwitch:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.T;
+                    bind.Key1 = KeyboardKey.T;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.MountToggle:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.M;
+                    bind.Key1 = KeyboardKey.M;
                     break;
 
                 case KeyBindAction.AutoRunToggle:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.D;
+                    bind.Key1 = KeyboardKey.D;
                     break;
 
                 case KeyBindAction.ChangeChatMode:
                     bind.Category = "Functions";
-                    bind.Key1 = Keys.K;
+                    bind.Key1 = KeyboardKey.K;
                     break;
 
                 case KeyBindAction.ItemPickUp:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.Tab;
+                    bind.Key1 = KeyboardKey.Tab;
                     break;
 
                 case KeyBindAction.PartnerTeleport:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.Z;
+                    bind.Key1 = KeyboardKey.Z;
                     bind.Shift1 = true;
                     break;
 
                 case KeyBindAction.ToggleItemLock:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.Scroll;
+                    bind.Key1 = KeyboardKey.ScrollLock;
                     break;
 
                 case KeyBindAction.UseBelt01:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D1;
-                    bind.Key2 = Keys.D1;
+                    bind.Key1 = KeyboardKey.Kp1;
+                    bind.Key2 = KeyboardKey.Kp1;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt02:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D2;
-                    bind.Key2 = Keys.D2;
+                    bind.Key1 = KeyboardKey.Kp2;
+                    bind.Key2 = KeyboardKey.Kp2;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt03:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D3;
-                    bind.Key2 = Keys.D3;
+                    bind.Key1 = KeyboardKey.Kp3;
+                    bind.Key2 = KeyboardKey.Kp3;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt04:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D4;
-                    bind.Key2 = Keys.D4;
+                    bind.Key1 = KeyboardKey.Kp4;
+                    bind.Key2 = KeyboardKey.Kp4;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt05:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D5;
-                    bind.Key2 = Keys.D5;
+                    bind.Key1 = KeyboardKey.Kp5;
+                    bind.Key2 = KeyboardKey.Kp5;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt06:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D6;
-                    bind.Key2 = Keys.D6;
+                    bind.Key1 = KeyboardKey.Kp6;
+                    bind.Key2 = KeyboardKey.Kp6;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt07:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D7;
-                    bind.Key2 = Keys.D7;
+                    bind.Key1 = KeyboardKey.Kp7;
+                    bind.Key2 = KeyboardKey.Kp7;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt08:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D8;
-                    bind.Key2 = Keys.D8;
+                    bind.Key1 = KeyboardKey.Kp8;
+                    bind.Key2 = KeyboardKey.Kp8;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt09:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D9;
-                    bind.Key2 = Keys.D9;
+                    bind.Key1 = KeyboardKey.Kp9;
+                    bind.Key2 = KeyboardKey.Kp9;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.UseBelt10:
                     bind.Category = "Items";
-                    bind.Key1 = Keys.D0;
-                    bind.Key2 = Keys.D0;
+                    bind.Key1 = KeyboardKey.Kp0;
+                    bind.Key2 = KeyboardKey.Kp0;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellSet01:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F1;
+                    bind.Key1 = KeyboardKey.F1;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.SpellSet02:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F2;
+                    bind.Key1 = KeyboardKey.F2;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.SpellSet03:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F3;
+                    bind.Key1 = KeyboardKey.F3;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.SpellSet04:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F4;
+                    bind.Key1 = KeyboardKey.F4;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.SpellUse01:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F1;
-                    bind.Key2 = Keys.F1;
+                    bind.Key1 = KeyboardKey.F1;
+                    bind.Key2 = KeyboardKey.F1;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse02:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F2;
-                    bind.Key2 = Keys.F2;
+                    bind.Key1 = KeyboardKey.F2;
+                    bind.Key2 = KeyboardKey.F2;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse03:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F3;
-                    bind.Key2 = Keys.F3;
+                    bind.Key1 = KeyboardKey.F3;
+                    bind.Key2 = KeyboardKey.F3;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse04:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F4;
-                    bind.Key2 = Keys.F4;
+                    bind.Key1 = KeyboardKey.F4;
+                    bind.Key2 = KeyboardKey.F4;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse05:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F5;
-                    bind.Key2 = Keys.F5;
+                    bind.Key1 = KeyboardKey.F5;
+                    bind.Key2 = KeyboardKey.F5;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse06:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F6;
-                    bind.Key2 = Keys.F6;
+                    bind.Key1 = KeyboardKey.F6;
+                    bind.Key2 = KeyboardKey.F6;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse07:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F7;
-                    bind.Key2 = Keys.F7;
+                    bind.Key1 = KeyboardKey.F7;
+                    bind.Key2 = KeyboardKey.F7;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse08:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F8;
-                    bind.Key2 = Keys.F8;
+                    bind.Key1 = KeyboardKey.F8;
+                    bind.Key2 = KeyboardKey.F8;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse09:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F9;
-                    bind.Key2 = Keys.F9;
+                    bind.Key1 = KeyboardKey.F9;
+                    bind.Key2 = KeyboardKey.F9;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse10:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F10;
-                    bind.Key2 = Keys.F10;
+                    bind.Key1 = KeyboardKey.F10;
+                    bind.Key2 = KeyboardKey.F10;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse11:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F11;
-                    bind.Key2 = Keys.F11;
+                    bind.Key1 = KeyboardKey.F11;
+                    bind.Key2 = KeyboardKey.F11;
                     bind.Shift2 = true;
                     break;
 
                 case KeyBindAction.SpellUse12:
                     bind.Category = "Magic";
-                    bind.Key1 = Keys.F12;
-                    bind.Key2 = Keys.F12;
+                    bind.Key1 = KeyboardKey.F12;
+                    bind.Key2 = KeyboardKey.F12;
                     bind.Shift2 = true;
                     break;
 
@@ -961,19 +917,19 @@ namespace Client.Envir
 
                 case KeyBindAction.FortuneWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.W;
+                    bind.Key1 = KeyboardKey.W;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.CurrencyWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.C;
+                    bind.Key1 = KeyboardKey.C;
                     bind.Control1 = true;
                     break;
 
                 case KeyBindAction.FilterDropWindow:
                     bind.Category = "Windows";
-                    bind.Key1 = Keys.F;
+                    bind.Key1 = KeyboardKey.F;
                     bind.Control1 = true;
                     break;
             }
@@ -1026,113 +982,78 @@ namespace Client.Envir
             return KeyBinds.Binding.FirstOrDefault(x => x.Action == action);
         }
 
-        public static string GetText(Keys key)
+        public static string GetText(Raylib_cs.KeyboardKey key)
         {
             switch (key)
             {
-                case Keys.None:
-                    return string.Empty;
+                case Raylib_cs.KeyboardKey.Null: return string.Empty;
 
-                case Keys.Back:
-                    return "Backspace";
+                // 锁定/导航
+                case Raylib_cs.KeyboardKey.Backspace: return "Backspace";
+                case Raylib_cs.KeyboardKey.CapsLock: return "Caps Lock";
+                case Raylib_cs.KeyboardKey.ScrollLock: return "Scroll Lock";
+                case Raylib_cs.KeyboardKey.NumLock: return "Num Lock";
+                case Raylib_cs.KeyboardKey.PageUp: return "Page Up";
+                case Raylib_cs.KeyboardKey.PageDown: return "Page Down";
 
-                case Keys.Capital:
-                    return "Cap Lock";
+                // 小键盘（KP）
+                case Raylib_cs.KeyboardKey.KpMultiply: return "Num Pad *";
+                case Raylib_cs.KeyboardKey.KpAdd: return "Num Pad +";
+                case Raylib_cs.KeyboardKey.KpSubtract: return "Num Pad -";
+                case Raylib_cs.KeyboardKey.KpDecimal: return "Num Pad .";
+                case Raylib_cs.KeyboardKey.KpDivide: return "Num Pad /";
+                case Raylib_cs.KeyboardKey.KpEnter: return "Num Pad Enter";
+                case Raylib_cs.KeyboardKey.KpEqual: return "Num Pad =";
+                case Raylib_cs.KeyboardKey.Kp0: return "Num Pad 0";
+                case Raylib_cs.KeyboardKey.Kp1: return "Num Pad 1";
+                case Raylib_cs.KeyboardKey.Kp2: return "Num Pad 2";
+                case Raylib_cs.KeyboardKey.Kp3: return "Num Pad 3";
+                case Raylib_cs.KeyboardKey.Kp4: return "Num Pad 4";
+                case Raylib_cs.KeyboardKey.Kp5: return "Num Pad 5";
+                case Raylib_cs.KeyboardKey.Kp6: return "Num Pad 6";
+                case Raylib_cs.KeyboardKey.Kp7: return "Num Pad 7";
+                case Raylib_cs.KeyboardKey.Kp8: return "Num Pad 8";
+                case Raylib_cs.KeyboardKey.Kp9: return "Num Pad 9";
 
-                case Keys.Scroll:
-                    return "Scroll Lock";
+                // 主键区标点（raylib 没有 Oem*，用这组）
+                case Raylib_cs.KeyboardKey.Semicolon: return ";";
+                case Raylib_cs.KeyboardKey.Equal: return "=";
+                case Raylib_cs.KeyboardKey.Comma: return ",";
+                case Raylib_cs.KeyboardKey.Minus: return "-";
+                case Raylib_cs.KeyboardKey.Period: return ".";
+                case Raylib_cs.KeyboardKey.Slash: return "/";
+                case Raylib_cs.KeyboardKey.Apostrophe: return "'";
+                case Raylib_cs.KeyboardKey.Grave: return "`";
+                case Raylib_cs.KeyboardKey.LeftBracket: return "[";
+                case Raylib_cs.KeyboardKey.RightBracket: return "]";
+                case Raylib_cs.KeyboardKey.Backslash: return "\\";
 
-                case Keys.NumLock:
-                    return "Num Lock";
+                // 顶部数字行（不是 D0..D9）
+                case Raylib_cs.KeyboardKey.One: return "1";
+                case Raylib_cs.KeyboardKey.Two: return "2";
+                case Raylib_cs.KeyboardKey.Three: return "3";
+                case Raylib_cs.KeyboardKey.Four: return "4";
+                case Raylib_cs.KeyboardKey.Five: return "5";
+                case Raylib_cs.KeyboardKey.Six: return "6";
+                case Raylib_cs.KeyboardKey.Seven: return "7";
+                case Raylib_cs.KeyboardKey.Eight: return "8";
+                case Raylib_cs.KeyboardKey.Nine: return "9";
+                case Raylib_cs.KeyboardKey.Zero: return "0";
 
-                case Keys.Prior:
-                    return "Page Up";
-
-                case Keys.Next:
-                    return "Page Down";
-
-                case Keys.Multiply:
-                    return "Num Pad *";
-
-                case Keys.Add:
-                    return "Num Pad +";
-
-                case Keys.Subtract:
-                    return "Num Pad -";
-
-                case Keys.Decimal:
-                    return "Num Pad .";
-
-                case Keys.Divide:
-                    return "Num Pad /";
-
-                case Keys.OemSemicolon:
-                    return ";";
-                case Keys.Oemplus:
-                    return "=";
-
-                case Keys.Oemcomma:
-                    return ",";
-
-                case Keys.OemMinus:
-                    return "-";
-
-                case Keys.OemPeriod:
-                    return ".";
-
-                case Keys.OemQuestion:
-                    return "/";
-
-                case Keys.Oemtilde:
-                    return "'";
-
-                case Keys.OemOpenBrackets:
-                    return "[";
-
-                case Keys.OemCloseBrackets:
-                    return "]";
-
-                case Keys.OemQuotes:
-                    return "#";
-
-                case Keys.Oem8:
-                    return "`";
-
-                case Keys.OemBackslash:
-                    return "\\";
-
-                case Keys.D1:
-                    return "1";
-
-                case Keys.D2:
-                    return "2";
-
-                case Keys.D3:
-                    return "3";
-
-                case Keys.D4:
-                    return "4";
-
-                case Keys.D5:
-                    return "5";
-
-                case Keys.D6:
-                    return "6";
-
-                case Keys.D7:
-                    return "7";
-
-                case Keys.D8:
-                    return "8";
-
-                case Keys.D9:
-                    return "9";
-
-                case Keys.D0:
-                    return "0";
+                // 顺手补几个常见的（你要显示名字更友好点）
+                case Raylib_cs.KeyboardKey.Space: return "Space";
+                case Raylib_cs.KeyboardKey.Enter: return "Enter";
+                case Raylib_cs.KeyboardKey.Tab: return "Tab";
+                case Raylib_cs.KeyboardKey.Escape: return "Esc";
+                case Raylib_cs.KeyboardKey.Delete: return "Delete";
+                case Raylib_cs.KeyboardKey.Insert: return "Insert";
+                case Raylib_cs.KeyboardKey.Home: return "Home";
+                case Raylib_cs.KeyboardKey.End: return "End";
+                case Raylib_cs.KeyboardKey.PrintScreen: return "Print Screen";
+                case Raylib_cs.KeyboardKey.Pause: return "Pause";
 
                 default:
-                    return key.ToString();
+                    return key.ToString(); // 其它直接用枚举名
             }
         }
 

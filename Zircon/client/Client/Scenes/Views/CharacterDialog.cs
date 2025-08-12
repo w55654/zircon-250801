@@ -5,6 +5,8 @@ using Client.Scenes.Views.Character;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +15,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 using S = Library.Network.ServerPackets;
 
 namespace Client.Scenes.Views
@@ -217,13 +221,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -364,7 +368,7 @@ namespace Client.Scenes.Views
                 ForeColour = Color.FromArgb(222, 255, 222),
                 Outline = false,
                 Parent = namePanel,
-                Font = new System.Drawing.Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new System.Drawing.Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter
             };
             GuildNameLabel = new DXLabel
@@ -3345,7 +3349,7 @@ namespace Client.Scenes.Views
             KeyLabel = new DXLabel
             {
                 Parent = Image,
-                Font = new System.Drawing.Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new System.Drawing.Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 IsControl = false,
                 ForeColour = Color.Aquamarine,
                 AutoSize = false,
@@ -3359,7 +3363,7 @@ namespace Client.Scenes.Views
 
         #region Methods
 
-        private void Image_MouseClick(object sender, MouseEventArgs e)
+        private void Image_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -3391,7 +3395,7 @@ namespace Client.Scenes.Views
             GameScene.Game.MagicBarBox.UpdateIcons();
         }
 
-        private void Image_KeyDown(object sender, KeyEventArgs e)
+        private void Image_KeyDown(object sender, KeyEvent e)
         {
             if (GameScene.Game.Observer) return;
 

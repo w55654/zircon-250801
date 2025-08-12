@@ -293,7 +293,7 @@ namespace Client.Scenes.Views
             {
                 Parent = ItemCell,
                 Text = (Index + 1).ToString(),
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Italic),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Italic),
                 IsControl = false,
                 Location = new Point(-2, -1)
             };

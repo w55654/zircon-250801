@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ray2D;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -81,7 +82,7 @@ namespace Client.Controls
 
         #region Methods
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             base.OnMouseClick(e);
 
@@ -264,7 +265,7 @@ namespace Client.Controls
 
         #region Methods
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             base.OnMouseClick(e);
 

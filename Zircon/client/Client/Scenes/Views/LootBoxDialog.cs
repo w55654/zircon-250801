@@ -3,6 +3,7 @@ using Client.Envir;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -291,7 +292,7 @@ namespace Client.Scenes.Views
             Visible = false;
         }
 
-        private void Cell_MouseClick(object sender, MouseEventArgs e)
+        private void Cell_MouseClick(object sender, MouseEvent e)
         {
             var cell = (DXItemCell)sender;
 

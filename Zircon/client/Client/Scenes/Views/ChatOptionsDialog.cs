@@ -342,7 +342,7 @@ namespace Client.Scenes.Views
             base.OnTextChanged(oValue, nValue);
 
             if (NameTextBox != null)
-                NameTextBox.TextBox.Text = Text;
+                NameTextBox.Text = Text;
         }
 
         #endregion
@@ -363,7 +363,7 @@ namespace Client.Scenes.Views
                 Size = new Size(80, 20),
                 Parent = this,
             };
-            NameTextBox.TextBox.TextChanged += (o, e) => Text = NameTextBox.TextBox.Text;
+            NameTextBox.TextChanged += (o, e) => Text = NameTextBox.Text;
 
             TransparentCheckBox = new DXCheckBox
             {

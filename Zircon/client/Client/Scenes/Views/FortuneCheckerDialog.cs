@@ -3,6 +3,8 @@ using Client.Envir;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +12,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -58,7 +61,7 @@ namespace Client.Scenes.Views
                 Size = new Size(180, 20),
                 Location = new Point(label.Location.X + label.Size.Width + 5, label.Location.Y),
             };
-            ItemNameBox.TextBox.KeyPress += TextBox_KeyPress;
+            ItemNameBox.KeyPress += TextBox_KeyPress;
 
             label = new DXLabel
             {
@@ -137,9 +140,9 @@ namespace Client.Scenes.Views
             #endregion
         }
 
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (e.KeyChar != (char)Keys.Enter) return;
+            if (e.KeyCode != KeyboardKey.Enter) return;
 
             e.Handled = true;
 
@@ -165,7 +168,7 @@ namespace Client.Scenes.Views
 
                 if (useFilter && info.ItemType != filter) continue;
 
-                if (!string.IsNullOrEmpty(ItemNameBox.TextBox.Text) && info.ItemName.IndexOf(ItemNameBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0) continue;
+                if (!string.IsNullOrEmpty(ItemNameBox.Text) && info.ItemName.IndexOf(ItemNameBox.Text, StringComparison.OrdinalIgnoreCase) < 0) continue;
 
                 SearchResults.Add(info);
             }
@@ -396,7 +399,7 @@ namespace Client.Scenes.Views
             CheckButton.MouseClick += CheckButton_MouseClick;
         }
 
-        private void CheckButton_MouseClick(object sender, MouseEventArgs e)
+        private void CheckButton_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 

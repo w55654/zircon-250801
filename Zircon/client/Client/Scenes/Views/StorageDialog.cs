@@ -3,6 +3,8 @@ using Client.Envir;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -54,13 +57,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -131,7 +134,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.StorageDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -183,7 +186,7 @@ namespace Client.Scenes.Views
                 Size = new Size(180, 20),
                 Location = new Point(label.Location.X + label.Size.Width + 5, label.Location.Y),
             };
-            ItemNameTextBox.TextBox.TextChanged += (o, e) => ApplyStorageFilter();
+            ItemNameTextBox.TextChanged += (o, e) => ApplyStorageFilter();
 
             label = new DXLabel
             {
@@ -237,7 +240,7 @@ namespace Client.Scenes.Views
             ClearButton.MouseClick += (o, e) =>
             {
                 ItemTypeComboBox.ListBox.SelectItem(null);
-                ItemNameTextBox.TextBox.Text = string.Empty;
+                ItemNameTextBox.Text = string.Empty;
             };
 
             #endregion
@@ -318,7 +321,7 @@ namespace Client.Scenes.Views
                 cell.MouseWheel += PartsScrollBar.DoMouseWheel;
         }
 
-        private void SortButton_MouseClick(object sender, MouseEventArgs e)
+        private void SortButton_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -367,7 +370,7 @@ namespace Client.Scenes.Views
                 return;
             }
 
-            if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text)))
+            if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.Text)))
             {
                 cell.Enabled = false;
                 return;
@@ -379,7 +382,7 @@ namespace Client.Scenes.Views
                 return;
             }
 
-            if (!string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text) && cell.Item != null && cell.Item.Info.ItemName.IndexOf(ItemNameTextBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
+            if (!string.IsNullOrEmpty(ItemNameTextBox.Text) && cell.Item != null && cell.Item.Info.ItemName.IndexOf(ItemNameTextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 cell.Enabled = false;
                 return;
@@ -390,7 +393,7 @@ namespace Client.Scenes.Views
 
         public void FilterPartsCell(DXItemCell cell)
         {
-            if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text)))
+            if (cell.Item == null && (ItemTypeComboBox.SelectedItem != null || !string.IsNullOrEmpty(ItemNameTextBox.Text)))
             {
                 cell.Enabled = false;
                 return;
@@ -406,7 +409,7 @@ namespace Client.Scenes.Views
             {
                 ItemInfo info = Globals.ItemInfoList.Binding.First(x => x.Index == cell.Item.AddedStats[Stat.ItemIndex]);
 
-                if (!string.IsNullOrEmpty(ItemNameTextBox.TextBox.Text) && info.ItemName.IndexOf(ItemNameTextBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
+                if (!string.IsNullOrEmpty(ItemNameTextBox.Text) && info.ItemName.IndexOf(ItemNameTextBox.Text, StringComparison.OrdinalIgnoreCase) < 0)
                 {
                     cell.Enabled = false;
                     return;

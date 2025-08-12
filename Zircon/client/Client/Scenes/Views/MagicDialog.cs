@@ -4,6 +4,8 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +14,8 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Scenes.Views
 {
@@ -48,13 +52,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -141,7 +145,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.MagicDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -324,6 +328,7 @@ namespace Client.Scenes.Views
     public sealed class MagicTab : DXTab
     {
         #region Properties
+
         public DXVScrollBar ScrollBar;
 
         public override void OnSizeChanged(Size oValue, Size nValue)
@@ -472,6 +477,7 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
+
         public void UpdateLocations()
         {
             int y = -ScrollBar.Value + 7;
@@ -485,7 +491,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        public override void OnMouseWheel(MouseEventArgs e)
+        public override void OnMouseWheel(MouseEvent e)
         {
             base.OnMouseWheel(e);
 
@@ -520,6 +526,7 @@ namespace Client.Scenes.Views
         #region Properties
 
         #region Info
+
         public MagicInfo Info
         {
             get => _Info;
@@ -533,8 +540,11 @@ namespace Client.Scenes.Views
                 OnInfoChanged(oldValue, value);
             }
         }
+
         private MagicInfo _Info;
+
         public event EventHandler<EventArgs> InfoChanged;
+
         public void OnInfoChanged(MagicInfo oValue, MagicInfo nValue)
         {
             Image.Index = Info.Icon;
@@ -542,6 +552,7 @@ namespace Client.Scenes.Views
             Refresh();
             InfoChanged?.Invoke(this, EventArgs.Empty);
         }
+
         #endregion
 
         public DXImageControl Background, Image, Level4Border;
@@ -606,7 +617,7 @@ namespace Client.Scenes.Views
             KeyLabel = new DXLabel
             {
                 Parent = Image,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 IsControl = false,
                 ForeColour = Color.Aquamarine,
                 AutoSize = false,
@@ -633,7 +644,8 @@ namespace Client.Scenes.Views
         }
 
         #region Methods
-        private void Image_MouseClick(object sender, MouseEventArgs e)
+
+        private void Image_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -665,7 +677,7 @@ namespace Client.Scenes.Views
             GameScene.Game.MagicBarBox.UpdateIcons();
         }
 
-        private void Image_KeyDown(object sender, KeyEventArgs e)
+        private void Image_KeyDown(object sender, KeyEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -852,6 +864,7 @@ namespace Client.Scenes.Views
         {
             GameScene.Game.MouseMagic = Info;
         }
+
         public override void OnMouseLeave()
         {
             GameScene.Game.MouseMagic = null;

@@ -12,7 +12,7 @@ namespace Client.Controls
     {
         #region Static
 
-        public static Size GetSize(string text, Font font, bool outline, int paddingBottom = 0)
+        public static Size GetSize(string text, bool outline, int paddingBottom = 0)
         {
             if (string.IsNullOrEmpty(text))
                 return Size.Empty;
@@ -35,15 +35,17 @@ namespace Client.Controls
 
         public static Size GetHeight(DXLabel label, int width)
         {
-            Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, label.Text, label.Font, new Size(width, 2000), label.DrawFormat);
+            return new Size(150, 22);
 
-            if (label.Outline && tempSize.Width > 0 && tempSize.Height > 0)
-            {
-                tempSize.Width += 2;
-                tempSize.Height += 2;
-            }
+            //Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, label.Text, label.Font, new Size(width, 2000), label.DrawFormat);
 
-            return tempSize;
+            //if (label.Outline && tempSize.Width > 0 && tempSize.Height > 0)
+            //{
+            //    tempSize.Width += 2;
+            //    tempSize.Height += 2;
+            //}
+
+            //return tempSize;
         }
 
         #endregion
@@ -105,36 +107,6 @@ namespace Client.Controls
             TextureValid = false;
 
             DrawFormatChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
-
-        #region Font
-
-        public Font Font
-        {
-            get => _Font;
-            set
-            {
-                if (_Font == value) return;
-
-                Font oldValue = _Font;
-                _Font = value;
-
-                OnFontChanged(oldValue, value);
-            }
-        }
-
-        private Font _Font;
-
-        public event EventHandler<EventArgs> FontChanged;
-
-        public virtual void OnFontChanged(Font oValue, Font nValue)
-        {
-            FontChanged?.Invoke(this, EventArgs.Empty);
-
-            TextureValid = false;
-            CreateSize();
         }
 
         #endregion
@@ -280,7 +252,7 @@ namespace Client.Controls
             BackColour = Color.Empty;
             DrawTexture = true;
             AutoSize = true;
-            Font = new Font(Config.FontName, CEnvir.FontSize(8F));
+            // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F));
             DrawFormat = TextFormatFlags.WordBreak;
 
             Outline = true;
@@ -294,7 +266,7 @@ namespace Client.Controls
         {
             if (!AutoSize) return;
 
-            Size = GetSize(Text, Font, Outline, PaddingBottom);
+            Size = GetSize(Text, Outline, PaddingBottom);
         }
 
         protected override void CreateTexture()
@@ -373,14 +345,14 @@ namespace Client.Controls
             {
                 _AutoSize = false;
                 _DrawFormat = TextFormatFlags.Default;
-                _Font?.Dispose();
-                _Font = null;
+                //_Font?.Dispose();
+                //_Font = null;
                 _Outline = false;
                 _OutlineColour = Color.Empty;
 
                 AutoSizeChanged = null;
                 DrawFormatChanged = null;
-                FontChanged = null;
+                //FontChanged = null;
                 OutlineChanged = null;
                 OutlineColourChanged = null;
             }

@@ -1,6 +1,6 @@
 ﻿using MirDB;
+using Raylib_cs;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace Client.UserModels
 {
@@ -87,7 +87,7 @@ namespace Client.UserModels
 
         private bool _Shift1;
 
-        public Keys Key1
+        public KeyboardKey Key1
         {
             get { return _Key1; }
             set
@@ -101,7 +101,7 @@ namespace Client.UserModels
             }
         }
 
-        private Keys _Key1;
+        private KeyboardKey _Key1;
 
         public bool Control2
         {
@@ -151,7 +151,7 @@ namespace Client.UserModels
 
         private bool _Alt2;
 
-        public Keys Key2
+        public KeyboardKey Key2
         {
             get { return _Key2; }
             set
@@ -165,7 +165,7 @@ namespace Client.UserModels
             }
         }
 
-        private Keys _Key2;
+        private KeyboardKey _Key2;
     }
 
     public enum KeyBindAction

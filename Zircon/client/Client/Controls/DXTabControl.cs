@@ -370,7 +370,7 @@ namespace Client.Controls
 
             if (TabButton != null)
             {
-                TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Font, TabButton.Label.Outline).Width), TabHeight);
+                TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Outline).Width), TabHeight);
             }
         }
 
@@ -470,7 +470,7 @@ namespace Client.Controls
             };
             TabButton.Label.TextChanged += (o, e) =>
             {
-                TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Font, TabButton.Label.Outline).Width), TabHeight);
+                TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Outline).Width), TabHeight);
             };
             TabButton.MouseClick += (o, e) =>
             {

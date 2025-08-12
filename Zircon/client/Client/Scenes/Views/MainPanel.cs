@@ -360,7 +360,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(300, 20),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -371,7 +371,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(300, 40),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -383,7 +383,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(385, 20),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -394,7 +394,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
 
                 Location = new Point(385, 40),
                 Size = new Size(60, 16),
@@ -406,7 +406,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(470, 20),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -417,7 +417,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(470, 40),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -428,7 +428,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(567, 20),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -439,7 +439,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(567, 40),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,
@@ -451,7 +451,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F)),
                 Location = new Point(567, 40),
                 Size = new Size(60, 16),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter,

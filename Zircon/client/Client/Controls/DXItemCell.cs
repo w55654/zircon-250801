@@ -5,11 +5,15 @@ using Client.Scenes.Views;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Controls
 {
@@ -1823,7 +1827,7 @@ namespace Client.Controls
 
                             GameScene.Game.EditCharacterBox.Change = ChangeType.NameChange;
 
-                            GameScene.Game.EditCharacterBox.CharacterNameTextBox.TextBox.Text = GameScene.Game.User.Name;
+                            GameScene.Game.EditCharacterBox.CharacterNameTextBox.Text = GameScene.Game.User.Name;
                             break;
 
                         case ItemEffect.FortuneChecker:
@@ -1908,12 +1912,12 @@ namespace Client.Controls
             UpdateBorder();
         }
 
-        public override void OnMouseUp(MouseEventArgs e)
+        public override void OnMouseUp(MouseEvent e)
         {
             //This needs to be here to stop chat box losing focus after you link an item
         }
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             if (Locked || GameScene.Game.CurrencyPickedUp != null || (!Linked && Link != null) || GameScene.Game.Observer || GridType == GridType.Inspect) return;
 
@@ -1931,7 +1935,7 @@ namespace Client.Controls
 
             switch (e.Button)
             {
-                case MouseButtons.Left:
+                case MouseButton.Left:
                     if (CEnvir.Alt)
                     {
                         //Link Item
@@ -1958,7 +1962,7 @@ namespace Client.Controls
                     MoveItem();
                     break;
 
-                case MouseButtons.Middle:
+                case MouseButton.Middle:
                     if (Item != null)
                     {
                         if (CEnvir.Ctrl)
@@ -1970,7 +1974,7 @@ namespace Client.Controls
                     }
                     break;
 
-                case MouseButtons.Right:
+                case MouseButton.Right:
                     switch (GridType)
                     {
                         case GridType.Belt:
@@ -2564,7 +2568,7 @@ namespace Client.Controls
 
                             if (Item != null && (Item.Flags & UserItemFlags.Marriage) == UserItemFlags.Marriage)
                             {
-                                if (e.Button == MouseButtons.Right)
+                                if (e.Button == MouseButton.Right)
                                     CEnvir.Enqueue(new C.MarriageTeleport());
                                 return;
                             }
@@ -2600,13 +2604,13 @@ namespace Client.Controls
             }
         }
 
-        public override void OnMouseDoubleClick(MouseEventArgs e)
+        public override void OnMouseDClick(MouseEvent e)
         {
             if (Locked || GameScene.Game.CurrencyPickedUp != null || (!Linked && Link != null) || GameScene.Game.Observer) return;
 
-            base.OnMouseDoubleClick(e);
+            base.OnMouseDClick(e);
 
-            if (ReadOnly || e.Button != MouseButtons.Left) return;
+            if (ReadOnly || e.Button != MouseButton.Left) return;
 
             switch (GridType)
             {
@@ -2638,7 +2642,7 @@ namespace Client.Controls
             }
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 

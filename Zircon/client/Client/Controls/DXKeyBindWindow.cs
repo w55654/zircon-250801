@@ -1,12 +1,15 @@
 ﻿using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
 
 namespace Client.Controls
 {
@@ -93,7 +96,7 @@ namespace Client.Controls
             };
         }
 
-        private void SaveButton_MouseClick(object sender, MouseEventArgs e)
+        private void SaveButton_MouseClick(object sender, MouseEvent e)
         {
             foreach (KeyValuePair<string, List<TempBindInfo>> pair in BindTree.TreeList)
             {
@@ -102,7 +105,7 @@ namespace Client.Controls
             }
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             e.Handled = true;
             base.OnKeyDown(e);
@@ -113,226 +116,226 @@ namespace Client.Controls
 
             switch (e.KeyCode)
             {
-                case Keys.ControlKey:
-                case Keys.Shift:
-                case Keys.Alt:
-                case Keys.LShiftKey:
-                case Keys.RShiftKey:
-                case Keys.LControlKey:
-                case Keys.RControlKey:
-                case Keys.LMenu:
-                case Keys.RMenu:
-                case Keys.ShiftKey:
-                case Keys.Menu:
+                //case KeyboardKey.ControlKey:
+                //case KeyboardKey.Shift:
+                //case KeyboardKey.Alt:
+                //case KeyboardKey.LShiftKey:
+                //case KeyboardKey.RShiftKey:
+                //case KeyboardKey.LControlKey:
+                //case KeyboardKey.RControlKey:
+                //case KeyboardKey.LMenu:
+                //case KeyboardKey.RMenu:
+                //case KeyboardKey.ShiftKey:
+                case KeyboardKey.Menu:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.None;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Null;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.None;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Null;
                             break;
                     }
 
                     break;
 
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     BindTree.SelectedEntry.KeyBindInfo.Load();
 
                     modifiers = false;
                     break;
 
-                case Keys.Control:
-                case Keys.KeyCode:
-                case Keys.Modifiers:
-                case Keys.None:
-                case Keys.LButton:
-                case Keys.RButton:
-                case Keys.Cancel:
-                case Keys.MButton:
-                case Keys.XButton1:
-                case Keys.XButton2:
-                case Keys.LineFeed:
-                case Keys.Clear:
-                case Keys.Return:
-                case Keys.KanaMode:
-                case Keys.JunjaMode:
-                case Keys.FinalMode:
-                case Keys.HanjaMode:
-                case Keys.IMEConvert:
-                case Keys.IMENonconvert:
-                case Keys.IMEAccept:
-                case Keys.IMEModeChange:
-                case Keys.Select:
-                case Keys.Print:
-                case Keys.Execute:
-                case Keys.Snapshot:
-                case Keys.Help:
-                case Keys.LWin:
-                case Keys.RWin:
-                case Keys.Apps:
-                case Keys.Sleep:
-                case Keys.BrowserBack:
-                case Keys.BrowserForward:
-                case Keys.BrowserRefresh:
-                case Keys.BrowserStop:
-                case Keys.BrowserSearch:
-                case Keys.BrowserFavorites:
-                case Keys.BrowserHome:
-                case Keys.VolumeMute:
-                case Keys.VolumeDown:
-                case Keys.VolumeUp:
-                case Keys.MediaNextTrack:
-                case Keys.MediaPreviousTrack:
-                case Keys.MediaStop:
-                case Keys.MediaPlayPause:
-                case Keys.LaunchMail:
-                case Keys.SelectMedia:
-                case Keys.LaunchApplication1:
-                case Keys.LaunchApplication2:
-                case Keys.OemPipe:
-                case Keys.ProcessKey:
-                case Keys.Packet:
-                case Keys.Attn:
-                case Keys.Crsel:
-                case Keys.Exsel:
-                case Keys.EraseEof:
-                case Keys.Play:
-                case Keys.Zoom:
-                case Keys.NoName:
-                case Keys.Pa1:
-                case Keys.OemClear:
-                    modifiers = false;
-                    break;
+                //case KeyboardKey.Control:
+                //case KeyboardKey.KeyCode:
+                //case KeyboardKey.Modifiers:
+                //case KeyboardKey.None:
+                //case KeyboardKey.LButton:
+                //case KeyboardKey.RButton:
+                //case KeyboardKey.Cancel:
+                //case KeyboardKey.MButton:
+                //case KeyboardKey.XButton1:
+                //case KeyboardKey.XButton2:
+                //case KeyboardKey.LineFeed:
+                //case KeyboardKey.Clear:
+                //case KeyboardKey.Return:
+                //case KeyboardKey.KanaMode:
+                //case KeyboardKey.JunjaMode:
+                //case KeyboardKey.FinalMode:
+                //case KeyboardKey.HanjaMode:
+                //case KeyboardKey.IMEConvert:
+                //case KeyboardKey.IMENonconvert:
+                //case KeyboardKey.IMEAccept:
+                //case KeyboardKey.IMEModeChange:
+                //case KeyboardKey.Select:
+                //case KeyboardKey.Print:
+                //case KeyboardKey.Execute:
+                //case KeyboardKey.Snapshot:
+                //case KeyboardKey.Help:
+                //case KeyboardKey.LWin:
+                //case KeyboardKey.RWin:
+                //case KeyboardKey.Apps:
+                //case KeyboardKey.Sleep:
+                //case KeyboardKey.BrowserBack:
+                //case KeyboardKey.BrowserForward:
+                //case KeyboardKey.BrowserRefresh:
+                //case KeyboardKey.BrowserStop:
+                //case KeyboardKey.BrowserSearch:
+                //case KeyboardKey.BrowserFavorites:
+                //case KeyboardKey.BrowserHome:
+                //case KeyboardKey.VolumeMute:
+                //case KeyboardKey.VolumeDown:
+                //case KeyboardKey.VolumeUp:
+                //case KeyboardKey.MediaNextTrack:
+                //case KeyboardKey.MediaPreviousTrack:
+                //case KeyboardKey.MediaStop:
+                //case KeyboardKey.MediaPlayPause:
+                //case KeyboardKey.LaunchMail:
+                //case KeyboardKey.SelectMedia:
+                //case KeyboardKey.LaunchApplication1:
+                //case KeyboardKey.LaunchApplication2:
+                //case KeyboardKey.OemPipe:
+                //case KeyboardKey.ProcessKey:
+                //case KeyboardKey.Packet:
+                //case KeyboardKey.Attn:
+                //case KeyboardKey.Crsel:
+                //case KeyboardKey.Exsel:
+                //case KeyboardKey.EraseEof:
+                //case KeyboardKey.Play:
+                //case KeyboardKey.Zoom:
+                //case KeyboardKey.NoName:
+                //case KeyboardKey.Pa1:
+                //case KeyboardKey.OemClear:
+                //    modifiers = false;
+                //    break;
 
-                case Keys.NumPad0:
+                case KeyboardKey.Kp0:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D0;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp0;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D0;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp0;
                             break;
                     }
 
                     break;
 
-                case Keys.NumPad1:
+                case KeyboardKey.Kp1:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D1;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp1;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D1;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp1;
                             break;
                     }
                     break;
 
-                case Keys.NumPad2:
+                case KeyboardKey.Kp2:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D2;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp2;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D2;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp2;
                             break;
                     }
                     break;
 
-                case Keys.NumPad3:
+                case KeyboardKey.Kp3:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D3;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp3;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D3;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp3;
                             break;
                     }
                     break;
 
-                case Keys.NumPad4:
+                case KeyboardKey.Kp4:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D4;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp4;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D4;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp4;
                             break;
                     }
                     break;
 
-                case Keys.NumPad5:
+                case KeyboardKey.Kp5:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D5;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp5;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D5;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp5;
                             break;
                     }
                     break;
 
-                case Keys.NumPad6:
+                case KeyboardKey.Kp6:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D6;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp6;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D6;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp6;
                             break;
                     }
                     break;
 
-                case Keys.NumPad7:
+                case KeyboardKey.Kp7:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D7;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp7;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D7;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp7;
                             break;
                     }
                     break;
 
-                case Keys.NumPad8:
+                case KeyboardKey.Kp8:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D8;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp8;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D8;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp8;
                             break;
                     }
                     break;
 
-                case Keys.NumPad9:
+                case KeyboardKey.Kp9:
                     switch (BindTree.KeyMode)
                     {
                         case 1:
-                            BindTree.SelectedEntry.KeyBindInfo.Key1 = Keys.D9;
+                            BindTree.SelectedEntry.KeyBindInfo.Key1 = KeyboardKey.Kp9;
                             break;
 
                         case 2:
-                            BindTree.SelectedEntry.KeyBindInfo.Key2 = Keys.D9;
+                            BindTree.SelectedEntry.KeyBindInfo.Key2 = KeyboardKey.Kp9;
                             break;
                     }
                     break;
@@ -761,14 +764,14 @@ namespace Client.Controls
 
             if (!Selected)
             {
-                if (KeyBindInfo.Key1 == Keys.None)
+                if (KeyBindInfo.Key1 == KeyboardKey.Null)
                 {
                     KeyBindInfo.Alt1 = false;
                     KeyBindInfo.Control1 = false;
                     KeyBindInfo.Shift1 = false;
                 }
 
-                if (KeyBindInfo.Key2 == Keys.None)
+                if (KeyBindInfo.Key2 == KeyboardKey.Null)
                 {
                     KeyBindInfo.Alt2 = false;
                     KeyBindInfo.Control2 = false;
@@ -855,7 +858,7 @@ namespace Client.Controls
                 KeyBindInfo.Control1 = false;
                 KeyBindInfo.Alt1 = false;
                 KeyBindInfo.Shift1 = false;
-                KeyBindInfo.Key1 = Keys.None;
+                KeyBindInfo.Key1 = KeyboardKey.Null;
                 RefreshKeyLabel();
                 InvokeMouseClick();
             };
@@ -877,7 +880,7 @@ namespace Client.Controls
                 KeyBindInfo.Control2 = false;
                 KeyBindInfo.Alt2 = false;
                 KeyBindInfo.Shift2 = false;
-                KeyBindInfo.Key2 = Keys.None;
+                KeyBindInfo.Key2 = KeyboardKey.Null;
                 RefreshKeyLabel();
                 InvokeMouseClick();
             };
@@ -968,12 +971,12 @@ namespace Client.Controls
         public bool Control1;
         public bool Alt1;
         public bool Shift1;
-        public Keys Key1;
+        public KeyboardKey Key1;
 
         public bool Control2;
         public bool Alt2;
         public bool Shift2;
-        public Keys Key2;
+        public KeyboardKey Key2;
 
         public TempBindInfo(KeyBindInfo bind)
         {

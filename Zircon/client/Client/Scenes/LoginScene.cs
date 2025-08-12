@@ -3,12 +3,15 @@ using Client.Envir;
 using Client.Scenes.Views;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Threading;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 using Font = System.Drawing.Font;
 
 //Cleaned
@@ -211,7 +214,6 @@ namespace Client.Scenes
                 LibraryFile = LibraryFile.Interface1c,
                 Parent = LogoBackground,
                 Blend = true,
-                BlendMode = BlendMode.HIGHLIGHT,
                 FixedSize = true,
                 Size = new Size(564, 300)
             };
@@ -351,7 +353,7 @@ namespace Client.Scenes
             ConnectionAttempt++;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
@@ -680,32 +682,32 @@ namespace Client.Scenes
                 EMailTextBox = new DXTextBox
                 {
                     Parent = this,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                     Location = new Point(70, 65),
                     Size = new Size(170, 14),
                     Border = false,
                     BackColour = Color.FromArgb(16, 8, 8),
                 };
                 EMailTextBox.SetFocus();
-                EMailTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                EMailTextBox.TextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
-                EMailTextBox.TextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
-                EMailTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                EMailTextBox.TextChanged += EMailTextBox_TextChanged;
+                EMailTextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
+                EMailTextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
+                EMailTextBox.KeyPress += TextBox_KeyPress;
 
                 PasswordTextBox = new DXTextBox
                 {
                     Parent = this,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                     Location = new Point(357, 65),
                     Size = new Size(170, 14),
                     Border = false,
                     BackColour = Color.FromArgb(16, 8, 8),
                     Password = true,
                 };
-                PasswordTextBox.TextBox.TextChanged += PasswordTextBox_TextChanged;
-                PasswordTextBox.TextBox.GotFocus += (o, e) => PasswordHelpLabel.Visible = true;
-                PasswordTextBox.TextBox.LostFocus += (o, e) => PasswordHelpLabel.Visible = false;
-                PasswordTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                PasswordTextBox.TextChanged += PasswordTextBox_TextChanged;
+                PasswordTextBox.GotFocus += (o, e) => PasswordHelpLabel.Visible = true;
+                PasswordTextBox.LostFocus += (o, e) => PasswordHelpLabel.Visible = false;
+                PasswordTextBox.KeyPress += TextBox_KeyPress;
 
                 EMailHelpLabel = new DXLabel
                 {
@@ -814,12 +816,12 @@ namespace Client.Scenes
 
                 if (Config.RememberDetails)
                 {
-                    EMailTextBox.TextBox.Text = Config.RememberedEMail;
-                    PasswordTextBox.TextBox.Text = Config.RememberedPassword;
+                    EMailTextBox.Text = Config.RememberedEMail;
+                    PasswordTextBox.Text = Config.RememberedPassword;
                 }
             }
 
-            private void RankingButton_MouseClick(object sender, MouseEventArgs e)
+            private void RankingButton_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -828,7 +830,7 @@ namespace Client.Scenes
                 scene.RankingBox.Visible = !scene.RankingBox.Visible;
             }
 
-            private void OptionButton_MouseClick(object sender, MouseEventArgs e)
+            private void OptionButton_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -845,17 +847,17 @@ namespace Client.Scenes
 
                 C.Login packet = new C.Login
                 {
-                    EMailAddress = EMailTextBox.TextBox.Text,
-                    Password = PasswordTextBox.TextBox.Text,
+                    EMailAddress = EMailTextBox.Text,
+                    Password = PasswordTextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
                 CEnvir.Enqueue(packet);
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.Char != (char)KeyboardKey.Enter) return;
 
                 e.Handled = true;
 
@@ -876,9 +878,9 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                EMailValid = !string.IsNullOrEmpty(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length >= 3;
+                EMailValid = !string.IsNullOrEmpty(EMailTextBox.Text) && EMailTextBox.Text.Length >= 3;
 
-                if (string.IsNullOrEmpty(EMailTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(EMailTextBox.Text))
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
@@ -886,15 +888,15 @@ namespace Client.Scenes
 
             private void PasswordTextBox_TextChanged(object sender, EventArgs e)
             {
-                PasswordValid = !string.IsNullOrEmpty(PasswordTextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(PasswordTextBox.TextBox.Text);
+                PasswordValid = !string.IsNullOrEmpty(PasswordTextBox.Text) && Globals.PasswordRegex.IsMatch(PasswordTextBox.Text);
 
-                if (string.IsNullOrEmpty(PasswordTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(PasswordTextBox.Text))
                     PasswordTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     PasswordTextBox.BorderColour = PasswordValid ? Color.Green : Color.Red;
             }
 
-            private void ChangePasswordButton_MouseClick(object sender, MouseEventArgs e)
+            private void ChangePasswordButton_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -905,7 +907,7 @@ namespace Client.Scenes
                 scene.ChangeBox.EMailTextBox.SetFocus();
             }
 
-            private void ForgotPasswordLabel_MouseClick(object sender, MouseEventArgs e)
+            private void ForgotPasswordLabel_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -916,7 +918,7 @@ namespace Client.Scenes
                 scene.RequestPasswordBox.EMailTextBox.SetFocus();
             }
 
-            private void NewAccountButton_MouseClick(object sender, MouseEventArgs e)
+            private void NewAccountButton_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -1291,10 +1293,10 @@ namespace Client.Scenes
                     Size = new Size(180, 20),
                 };
                 EMailTextBox.SetFocus();
-                EMailTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                EMailTextBox.TextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
-                EMailTextBox.TextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
-                EMailTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                EMailTextBox.TextChanged += EMailTextBox_TextChanged;
+                EMailTextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
+                EMailTextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
+                EMailTextBox.KeyPress += TextBox_KeyPress;
 
                 Password1TextBox = new DXTextBox
                 {
@@ -1304,10 +1306,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                Password1TextBox.TextBox.TextChanged += Password1TextBox_TextChanged;
-                Password1TextBox.TextBox.GotFocus += (o, e) => Password1HelpLabel.Visible = true;
-                Password1TextBox.TextBox.LostFocus += (o, e) => Password1HelpLabel.Visible = false;
-                Password1TextBox.TextBox.KeyPress += TextBox_KeyPress;
+                Password1TextBox.TextChanged += Password1TextBox_TextChanged;
+                Password1TextBox.GotFocus += (o, e) => Password1HelpLabel.Visible = true;
+                Password1TextBox.LostFocus += (o, e) => Password1HelpLabel.Visible = false;
+                Password1TextBox.KeyPress += TextBox_KeyPress;
 
                 Password2TextBox = new DXTextBox
                 {
@@ -1317,10 +1319,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                Password2TextBox.TextBox.TextChanged += Password2TextBox_TextChanged;
-                Password2TextBox.TextBox.GotFocus += (o, e) => Password2HelpLabel.Visible = true;
-                Password2TextBox.TextBox.LostFocus += (o, e) => Password2HelpLabel.Visible = false;
-                Password2TextBox.TextBox.KeyPress += TextBox_KeyPress;
+                Password2TextBox.TextChanged += Password2TextBox_TextChanged;
+                Password2TextBox.GotFocus += (o, e) => Password2HelpLabel.Visible = true;
+                Password2TextBox.LostFocus += (o, e) => Password2HelpLabel.Visible = false;
+                Password2TextBox.KeyPress += TextBox_KeyPress;
 
                 RealNameTextBox = new DXTextBox
                 {
@@ -1329,10 +1331,10 @@ namespace Client.Scenes
                     Parent = this,
                     Size = new Size(136, 20),
                 };
-                RealNameTextBox.TextBox.TextChanged += RealNameTextBox_TextChanged;
-                RealNameTextBox.TextBox.GotFocus += (o, e) => RealNameHelpLabel.Visible = true;
-                RealNameTextBox.TextBox.LostFocus += (o, e) => RealNameHelpLabel.Visible = false;
-                RealNameTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                RealNameTextBox.TextChanged += RealNameTextBox_TextChanged;
+                RealNameTextBox.GotFocus += (o, e) => RealNameHelpLabel.Visible = true;
+                RealNameTextBox.LostFocus += (o, e) => RealNameHelpLabel.Visible = false;
+                RealNameTextBox.KeyPress += TextBox_KeyPress;
 
                 BirthDateTextBox = new DXTextBox
                 {
@@ -1341,10 +1343,10 @@ namespace Client.Scenes
                     Parent = this,
                     Size = new Size(136, 20),
                 };
-                BirthDateTextBox.TextBox.TextChanged += BirthDateTextBox_TextChanged;
-                BirthDateTextBox.TextBox.GotFocus += (o, e) => BirthDateHelpLabel.Visible = true;
-                BirthDateTextBox.TextBox.LostFocus += (o, e) => BirthDateHelpLabel.Visible = false;
-                BirthDateTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                BirthDateTextBox.TextChanged += BirthDateTextBox_TextChanged;
+                BirthDateTextBox.GotFocus += (o, e) => BirthDateHelpLabel.Visible = true;
+                BirthDateTextBox.LostFocus += (o, e) => BirthDateHelpLabel.Visible = false;
+                BirthDateTextBox.KeyPress += TextBox_KeyPress;
 
                 ReferralTextBox = new DXTextBox
                 {
@@ -1353,10 +1355,10 @@ namespace Client.Scenes
                     Parent = this,
                     Size = new Size(180, 20),
                 };
-                ReferralTextBox.TextBox.TextChanged += ReferralTextBox_TextChanged;
-                ReferralTextBox.TextBox.GotFocus += (o, e) => ReferralHelpLabel.Visible = true;
-                ReferralTextBox.TextBox.LostFocus += (o, e) => ReferralHelpLabel.Visible = false;
-                ReferralTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                ReferralTextBox.TextChanged += ReferralTextBox_TextChanged;
+                ReferralTextBox.GotFocus += (o, e) => ReferralHelpLabel.Visible = true;
+                ReferralTextBox.LostFocus += (o, e) => ReferralHelpLabel.Visible = false;
+                ReferralTextBox.KeyPress += TextBox_KeyPress;
 
                 DXLabel label = new DXLabel
                 {
@@ -1466,15 +1468,15 @@ namespace Client.Scenes
                 CreateAttempted = true;
 
                 DateTime birthDate;
-                DateTime.TryParse(BirthDateTextBox.TextBox.Text, out birthDate);
+                DateTime.TryParse(BirthDateTextBox.Text, out birthDate);
 
                 C.NewAccount packet = new C.NewAccount
                 {
-                    EMailAddress = EMailTextBox.TextBox.Text,
-                    Password = Password1TextBox.TextBox.Text,
-                    RealName = RealNameTextBox.TextBox.Text,
+                    EMailAddress = EMailTextBox.Text,
+                    Password = Password1TextBox.Text,
+                    RealName = RealNameTextBox.Text,
                     BirthDate = birthDate,
-                    Referral = ReferralTextBox.TextBox.Text,
+                    Referral = ReferralTextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
@@ -1483,11 +1485,11 @@ namespace Client.Scenes
 
             public void Clear()
             {
-                EMailTextBox.TextBox.Text = string.Empty;
-                Password1TextBox.TextBox.Text = string.Empty;
-                Password2TextBox.TextBox.Text = string.Empty;
-                RealNameTextBox.TextBox.Text = string.Empty;
-                BirthDateTextBox.TextBox.Text = string.Empty;
+                EMailTextBox.Text = string.Empty;
+                Password1TextBox.Text = string.Empty;
+                Password2TextBox.Text = string.Empty;
+                RealNameTextBox.Text = string.Empty;
+                BirthDateTextBox.Text = string.Empty;
 
                 Close();
             }
@@ -1503,9 +1505,10 @@ namespace Client.Scenes
                 scene.LoginBox.EMailTextBox.SetFocus();
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.KeyCode != KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -1542,9 +1545,9 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
+                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.Text) && EMailTextBox.Text.Length <= Globals.MaxEMailLength;
 
-                if (string.IsNullOrEmpty(EMailTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(EMailTextBox.Text))
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
@@ -1552,15 +1555,15 @@ namespace Client.Scenes
 
             private void Password1TextBox_TextChanged(object sender, EventArgs e)
             {
-                Password1Valid = !string.IsNullOrEmpty(Password1TextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(Password1TextBox.TextBox.Text);
-                Password2Valid = Password1Valid && Password1TextBox.TextBox.Text == Password2TextBox.TextBox.Text;
+                Password1Valid = !string.IsNullOrEmpty(Password1TextBox.Text) && Globals.PasswordRegex.IsMatch(Password1TextBox.Text);
+                Password2Valid = Password1Valid && Password1TextBox.Text == Password2TextBox.Text;
 
-                if (string.IsNullOrEmpty(Password1TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(Password1TextBox.Text))
                     Password1TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     Password1TextBox.BorderColour = Password1Valid ? Color.Green : Color.Red;
 
-                if (string.IsNullOrEmpty(Password2TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(Password2TextBox.Text))
                     Password2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     Password2TextBox.BorderColour = Password2Valid ? Color.Green : Color.Red;
@@ -1568,9 +1571,9 @@ namespace Client.Scenes
 
             private void Password2TextBox_TextChanged(object sender, EventArgs e)
             {
-                Password2Valid = Password1Valid && Password1TextBox.TextBox.Text == Password2TextBox.TextBox.Text;
+                Password2Valid = Password1Valid && Password1TextBox.Text == Password2TextBox.Text;
 
-                if (string.IsNullOrEmpty(Password2TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(Password2TextBox.Text))
                     Password2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     Password2TextBox.BorderColour = Password2Valid ? Color.Green : Color.Red;
@@ -1578,10 +1581,10 @@ namespace Client.Scenes
 
             private void RealNameTextBox_TextChanged(object sender, EventArgs e)
             {
-                RealNameValid = (!Globals.RealNameRequired && string.IsNullOrEmpty(RealNameTextBox.TextBox.Text)) ||
-                                (RealNameTextBox.TextBox.Text.Length >= Globals.MinRealNameLength && RealNameTextBox.TextBox.Text.Length <= Globals.MaxRealNameLength);
+                RealNameValid = (!Globals.RealNameRequired && string.IsNullOrEmpty(RealNameTextBox.Text)) ||
+                                (RealNameTextBox.Text.Length >= Globals.MinRealNameLength && RealNameTextBox.Text.Length <= Globals.MaxRealNameLength);
 
-                if (string.IsNullOrEmpty(RealNameTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(RealNameTextBox.Text))
                     RealNameTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     RealNameTextBox.BorderColour = RealNameValid ? Color.Green : Color.Red;
@@ -1590,9 +1593,9 @@ namespace Client.Scenes
             private void BirthDateTextBox_TextChanged(object sender, EventArgs e)
             {
                 DateTime temp;
-                BirthDateValid = (!Globals.BirthDateRequired && string.IsNullOrEmpty(BirthDateTextBox.TextBox.Text)) || DateTime.TryParse(BirthDateTextBox.TextBox.Text, out temp);
+                BirthDateValid = (!Globals.BirthDateRequired && string.IsNullOrEmpty(BirthDateTextBox.Text)) || DateTime.TryParse(BirthDateTextBox.Text, out temp);
 
-                if (!Globals.BirthDateRequired && string.IsNullOrEmpty(BirthDateTextBox.TextBox.Text))
+                if (!Globals.BirthDateRequired && string.IsNullOrEmpty(BirthDateTextBox.Text))
                     BirthDateTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     BirthDateTextBox.BorderColour = BirthDateValid ? Color.Green : Color.Red;
@@ -1600,9 +1603,9 @@ namespace Client.Scenes
 
             private void ReferralTextBox_TextChanged(object sender, EventArgs e)
             {
-                ReferralValid = string.IsNullOrEmpty(ReferralTextBox.TextBox.Text) || (Globals.EMailRegex.IsMatch(ReferralTextBox.TextBox.Text) && ReferralTextBox.TextBox.Text.Length <= Globals.MaxEMailLength);
+                ReferralValid = string.IsNullOrEmpty(ReferralTextBox.Text) || (Globals.EMailRegex.IsMatch(ReferralTextBox.Text) && ReferralTextBox.Text.Length <= Globals.MaxEMailLength);
 
-                if (string.IsNullOrEmpty(ReferralTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(ReferralTextBox.Text))
                     ReferralTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     ReferralTextBox.BorderColour = ReferralValid ? Color.Green : Color.Red;
@@ -1944,10 +1947,10 @@ namespace Client.Scenes
                     Size = new Size(190, 20),
                 };
                 EMailTextBox.SetFocus();
-                EMailTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                EMailTextBox.TextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
-                EMailTextBox.TextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
-                EMailTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                EMailTextBox.TextChanged += EMailTextBox_TextChanged;
+                EMailTextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
+                EMailTextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
+                EMailTextBox.KeyPress += TextBox_KeyPress;
 
                 CurrentPasswordTextBox = new DXTextBox
                 {
@@ -1957,10 +1960,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                CurrentPasswordTextBox.TextBox.TextChanged += CurrentPasswordTextBox_TextChanged;
-                CurrentPasswordTextBox.TextBox.GotFocus += (o, e) => CurrentPasswordHelpLabel.Visible = true;
-                CurrentPasswordTextBox.TextBox.LostFocus += (o, e) => CurrentPasswordHelpLabel.Visible = false;
-                CurrentPasswordTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                CurrentPasswordTextBox.TextChanged += CurrentPasswordTextBox_TextChanged;
+                CurrentPasswordTextBox.GotFocus += (o, e) => CurrentPasswordHelpLabel.Visible = true;
+                CurrentPasswordTextBox.LostFocus += (o, e) => CurrentPasswordHelpLabel.Visible = false;
+                CurrentPasswordTextBox.KeyPress += TextBox_KeyPress;
 
                 NewPassword1TextBox = new DXTextBox
                 {
@@ -1970,10 +1973,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                NewPassword1TextBox.TextBox.TextChanged += NewPassword1TextBox_TextChanged;
-                NewPassword1TextBox.TextBox.GotFocus += (o, e) => NewPassword1HelpLabel.Visible = true;
-                NewPassword1TextBox.TextBox.LostFocus += (o, e) => NewPassword1HelpLabel.Visible = false;
-                NewPassword1TextBox.TextBox.KeyPress += TextBox_KeyPress;
+                NewPassword1TextBox.TextChanged += NewPassword1TextBox_TextChanged;
+                NewPassword1TextBox.GotFocus += (o, e) => NewPassword1HelpLabel.Visible = true;
+                NewPassword1TextBox.LostFocus += (o, e) => NewPassword1HelpLabel.Visible = false;
+                NewPassword1TextBox.KeyPress += TextBox_KeyPress;
 
                 NewPassword2TextBox = new DXTextBox
                 {
@@ -1983,10 +1986,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                NewPassword2TextBox.TextBox.TextChanged += NewPassword2TextBox_TextChanged;
-                NewPassword2TextBox.TextBox.GotFocus += (o, e) => NewPassword2HelpLabel.Visible = true;
-                NewPassword2TextBox.TextBox.LostFocus += (o, e) => NewPassword2HelpLabel.Visible = false;
-                NewPassword2TextBox.TextBox.KeyPress += TextBox_KeyPress;
+                NewPassword2TextBox.TextChanged += NewPassword2TextBox_TextChanged;
+                NewPassword2TextBox.GotFocus += (o, e) => NewPassword2HelpLabel.Visible = true;
+                NewPassword2TextBox.LostFocus += (o, e) => NewPassword2HelpLabel.Visible = false;
+                NewPassword2TextBox.KeyPress += TextBox_KeyPress;
 
                 DXLabel label = new DXLabel
                 {
@@ -2061,9 +2064,9 @@ namespace Client.Scenes
 
                 C.ChangePassword packet = new C.ChangePassword
                 {
-                    EMailAddress = EMailTextBox.TextBox.Text,
-                    CurrentPassword = CurrentPasswordTextBox.TextBox.Text,
-                    NewPassword = NewPassword1TextBox.TextBox.Text,
+                    EMailAddress = EMailTextBox.Text,
+                    CurrentPassword = CurrentPasswordTextBox.Text,
+                    NewPassword = NewPassword1TextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
@@ -2072,10 +2075,10 @@ namespace Client.Scenes
 
             public void Clear()
             {
-                EMailTextBox.TextBox.Text = string.Empty;
-                CurrentPasswordTextBox.TextBox.Text = string.Empty;
-                NewPassword1TextBox.TextBox.Text = string.Empty;
-                NewPassword2TextBox.TextBox.Text = string.Empty;
+                EMailTextBox.Text = string.Empty;
+                CurrentPasswordTextBox.Text = string.Empty;
+                NewPassword1TextBox.Text = string.Empty;
+                NewPassword2TextBox.Text = string.Empty;
 
                 Close();
             }
@@ -2091,9 +2094,10 @@ namespace Client.Scenes
                 scene.LoginBox.EMailTextBox.SetFocus();
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.KeyCode != KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -2125,9 +2129,9 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
+                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.Text) && EMailTextBox.Text.Length <= Globals.MaxEMailLength;
 
-                if (string.IsNullOrEmpty(EMailTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(EMailTextBox.Text))
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
@@ -2135,9 +2139,9 @@ namespace Client.Scenes
 
             private void CurrentPasswordTextBox_TextChanged(object sender, EventArgs e)
             {
-                CurrentPasswordValid = Globals.PasswordRegex.IsMatch(CurrentPasswordTextBox.TextBox.Text);
+                CurrentPasswordValid = Globals.PasswordRegex.IsMatch(CurrentPasswordTextBox.Text);
 
-                if (string.IsNullOrEmpty(CurrentPasswordTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(CurrentPasswordTextBox.Text))
                     CurrentPasswordTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     CurrentPasswordTextBox.BorderColour = CurrentPasswordValid ? Color.Green : Color.Red;
@@ -2145,15 +2149,15 @@ namespace Client.Scenes
 
             private void NewPassword1TextBox_TextChanged(object sender, EventArgs e)
             {
-                NewPassword1Valid = !string.IsNullOrEmpty(NewPassword1TextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(NewPassword1TextBox.TextBox.Text);
-                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.TextBox.Text == NewPassword2TextBox.TextBox.Text;
+                NewPassword1Valid = !string.IsNullOrEmpty(NewPassword1TextBox.Text) && Globals.PasswordRegex.IsMatch(NewPassword1TextBox.Text);
+                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.Text == NewPassword2TextBox.Text;
 
-                if (string.IsNullOrEmpty(NewPassword1TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(NewPassword1TextBox.Text))
                     NewPassword1TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword1TextBox.BorderColour = NewPassword1Valid ? Color.Green : Color.Red;
 
-                if (string.IsNullOrEmpty(NewPassword2TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(NewPassword2TextBox.Text))
                     NewPassword2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword2TextBox.BorderColour = NewPassword2Valid ? Color.Green : Color.Red;
@@ -2161,9 +2165,9 @@ namespace Client.Scenes
 
             private void NewPassword2TextBox_TextChanged(object sender, EventArgs e)
             {
-                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.TextBox.Text == NewPassword2TextBox.TextBox.Text;
+                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.Text == NewPassword2TextBox.Text;
 
-                if (string.IsNullOrEmpty(NewPassword2TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(NewPassword2TextBox.Text))
                     NewPassword2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword2TextBox.BorderColour = NewPassword2Valid ? Color.Green : Color.Red;
@@ -2387,10 +2391,10 @@ namespace Client.Scenes
                     Size = new Size(190, 20),
                 };
                 EMailTextBox.SetFocus();
-                EMailTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                EMailTextBox.TextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
-                EMailTextBox.TextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
-                EMailTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                EMailTextBox.TextChanged += EMailTextBox_TextChanged;
+                EMailTextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
+                EMailTextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
+                EMailTextBox.KeyPress += TextBox_KeyPress;
 
                 DXLabel label = new DXLabel
                 {
@@ -2427,7 +2431,7 @@ namespace Client.Scenes
 
                 C.RequestPasswordReset packet = new C.RequestPasswordReset
                 {
-                    EMailAddress = EMailTextBox.TextBox.Text,
+                    EMailAddress = EMailTextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
@@ -2436,7 +2440,7 @@ namespace Client.Scenes
 
             public void Clear()
             {
-                EMailTextBox.TextBox.Text = string.Empty;
+                EMailTextBox.Text = string.Empty;
 
                 Close();
             }
@@ -2452,9 +2456,10 @@ namespace Client.Scenes
                 scene.LoginBox.EMailTextBox.SetFocus();
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.KeyCode != KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -2470,15 +2475,15 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
+                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.Text) && EMailTextBox.Text.Length <= Globals.MaxEMailLength;
 
-                if (string.IsNullOrEmpty(EMailTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(EMailTextBox.Text))
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;
             }
 
-            private void HaveKeyLabel_MouseClick(object sender, MouseEventArgs e)
+            private void HaveKeyLabel_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -2720,10 +2725,10 @@ namespace Client.Scenes
                     Size = new Size(190, 20),
                 };
                 ResetKeyTextBox.SetFocus();
-                ResetKeyTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                ResetKeyTextBox.TextBox.GotFocus += (o, e) => ResetHelpLabel.Visible = true;
-                ResetKeyTextBox.TextBox.LostFocus += (o, e) => ResetHelpLabel.Visible = false;
-                ResetKeyTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                ResetKeyTextBox.TextChanged += EMailTextBox_TextChanged;
+                ResetKeyTextBox.GotFocus += (o, e) => ResetHelpLabel.Visible = true;
+                ResetKeyTextBox.LostFocus += (o, e) => ResetHelpLabel.Visible = false;
+                ResetKeyTextBox.KeyPress += TextBox_KeyPress;
 
                 NewPassword1TextBox = new DXTextBox
                 {
@@ -2733,10 +2738,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                NewPassword1TextBox.TextBox.TextChanged += NewPassword1TextBox_TextChanged;
-                NewPassword1TextBox.TextBox.GotFocus += (o, e) => NewPassword1HelpLabel.Visible = true;
-                NewPassword1TextBox.TextBox.LostFocus += (o, e) => NewPassword1HelpLabel.Visible = false;
-                NewPassword1TextBox.TextBox.KeyPress += TextBox_KeyPress;
+                NewPassword1TextBox.TextChanged += NewPassword1TextBox_TextChanged;
+                NewPassword1TextBox.GotFocus += (o, e) => NewPassword1HelpLabel.Visible = true;
+                NewPassword1TextBox.LostFocus += (o, e) => NewPassword1HelpLabel.Visible = false;
+                NewPassword1TextBox.KeyPress += TextBox_KeyPress;
 
                 NewPassword2TextBox = new DXTextBox
                 {
@@ -2746,10 +2751,10 @@ namespace Client.Scenes
                     Password = true,
                     Size = new Size(136, 20),
                 };
-                NewPassword2TextBox.TextBox.TextChanged += NewPassword2TextBox_TextChanged;
-                NewPassword2TextBox.TextBox.GotFocus += (o, e) => NewPassword2HelpLabel.Visible = true;
-                NewPassword2TextBox.TextBox.LostFocus += (o, e) => NewPassword2HelpLabel.Visible = false;
-                NewPassword2TextBox.TextBox.KeyPress += TextBox_KeyPress;
+                NewPassword2TextBox.TextChanged += NewPassword2TextBox_TextChanged;
+                NewPassword2TextBox.GotFocus += (o, e) => NewPassword2HelpLabel.Visible = true;
+                NewPassword2TextBox.LostFocus += (o, e) => NewPassword2HelpLabel.Visible = false;
+                NewPassword2TextBox.KeyPress += TextBox_KeyPress;
 
                 DXLabel label = new DXLabel
                 {
@@ -2808,8 +2813,8 @@ namespace Client.Scenes
 
                 C.ResetPassword packet = new C.ResetPassword
                 {
-                    ResetKey = ResetKeyTextBox.TextBox.Text,
-                    NewPassword = NewPassword1TextBox.TextBox.Text,
+                    ResetKey = ResetKeyTextBox.Text,
+                    NewPassword = NewPassword1TextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
@@ -2818,9 +2823,9 @@ namespace Client.Scenes
 
             public void Clear()
             {
-                ResetKeyTextBox.TextBox.Text = string.Empty;
-                NewPassword1TextBox.TextBox.Text = string.Empty;
-                NewPassword2TextBox.TextBox.Text = string.Empty;
+                ResetKeyTextBox.Text = string.Empty;
+                NewPassword1TextBox.Text = string.Empty;
+                NewPassword2TextBox.Text = string.Empty;
 
                 Close();
             }
@@ -2835,9 +2840,10 @@ namespace Client.Scenes
                 scene.RequestPasswordBox.Visible = true;
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.KeyCode != KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -2864,9 +2870,9 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                ResetKeyValid = !string.IsNullOrEmpty(ResetKeyTextBox.TextBox.Text);
+                ResetKeyValid = !string.IsNullOrEmpty(ResetKeyTextBox.Text);
 
-                if (string.IsNullOrEmpty(ResetKeyTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(ResetKeyTextBox.Text))
                     ResetKeyTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     ResetKeyTextBox.BorderColour = ResetKeyValid ? Color.Green : Color.Red;
@@ -2874,10 +2880,10 @@ namespace Client.Scenes
 
             private void NewPassword1TextBox_TextChanged(object sender, EventArgs e)
             {
-                NewPassword1Valid = !string.IsNullOrEmpty(NewPassword1TextBox.TextBox.Text) && Globals.PasswordRegex.IsMatch(NewPassword1TextBox.TextBox.Text);
-                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.TextBox.Text == NewPassword2TextBox.TextBox.Text;
+                NewPassword1Valid = !string.IsNullOrEmpty(NewPassword1TextBox.Text) && Globals.PasswordRegex.IsMatch(NewPassword1TextBox.Text);
+                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.Text == NewPassword2TextBox.Text;
 
-                if (string.IsNullOrEmpty(NewPassword1TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(NewPassword1TextBox.Text))
                     NewPassword1TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword1TextBox.BorderColour = NewPassword1Valid ? Color.Green : Color.Red;
@@ -2885,9 +2891,9 @@ namespace Client.Scenes
 
             private void NewPassword2TextBox_TextChanged(object sender, EventArgs e)
             {
-                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.TextBox.Text == NewPassword2TextBox.TextBox.Text;
+                NewPassword2Valid = NewPassword1Valid && NewPassword1TextBox.Text == NewPassword2TextBox.Text;
 
-                if (string.IsNullOrEmpty(NewPassword2TextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(NewPassword2TextBox.Text))
                     NewPassword2TextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     NewPassword2TextBox.BorderColour = NewPassword2Valid ? Color.Green : Color.Red;
@@ -3095,10 +3101,10 @@ namespace Client.Scenes
                     Size = new Size(190, 20),
                 };
                 ActivationKeyTextBox.SetFocus();
-                ActivationKeyTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                ActivationKeyTextBox.TextBox.GotFocus += (o, e) => ActivationHelpLabel.Visible = true;
-                ActivationKeyTextBox.TextBox.LostFocus += (o, e) => ActivationHelpLabel.Visible = false;
-                ActivationKeyTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                ActivationKeyTextBox.TextChanged += EMailTextBox_TextChanged;
+                ActivationKeyTextBox.GotFocus += (o, e) => ActivationHelpLabel.Visible = true;
+                ActivationKeyTextBox.LostFocus += (o, e) => ActivationHelpLabel.Visible = false;
+                ActivationKeyTextBox.KeyPress += TextBox_KeyPress;
 
                 DXLabel label = new DXLabel
                 {
@@ -3135,7 +3141,7 @@ namespace Client.Scenes
 
                 C.Activation packet = new C.Activation
                 {
-                    ActivationKey = ActivationKeyTextBox.TextBox.Text,
+                    ActivationKey = ActivationKeyTextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
@@ -3144,7 +3150,7 @@ namespace Client.Scenes
 
             public void Clear()
             {
-                ActivationKeyTextBox.TextBox.Text = string.Empty;
+                ActivationKeyTextBox.Text = string.Empty;
                 Close();
             }
 
@@ -3158,9 +3164,10 @@ namespace Client.Scenes
                 PreviousWindow.Visible = true;
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.KeyCode != KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -3176,15 +3183,15 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                ActivationKeyValid = !string.IsNullOrEmpty(ActivationKeyTextBox.TextBox.Text);
+                ActivationKeyValid = !string.IsNullOrEmpty(ActivationKeyTextBox.Text);
 
-                if (string.IsNullOrEmpty(ActivationKeyTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(ActivationKeyTextBox.Text))
                     ActivationKeyTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     ActivationKeyTextBox.BorderColour = ActivationKeyValid ? Color.Green : Color.Red;
             }
 
-            private void ResendLabel_MouseClick(object sender, MouseEventArgs e)
+            private void ResendLabel_MouseClick(object sender, MouseEvent e)
             {
                 LoginScene scene = ActiveScene as LoginScene;
 
@@ -3374,10 +3381,10 @@ namespace Client.Scenes
                     Size = new Size(190, 20),
                 };
                 EMailTextBox.SetFocus();
-                EMailTextBox.TextBox.TextChanged += EMailTextBox_TextChanged;
-                EMailTextBox.TextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
-                EMailTextBox.TextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
-                EMailTextBox.TextBox.KeyPress += TextBox_KeyPress;
+                EMailTextBox.TextChanged += EMailTextBox_TextChanged;
+                EMailTextBox.GotFocus += (o, e) => EMailHelpLabel.Visible = true;
+                EMailTextBox.LostFocus += (o, e) => EMailHelpLabel.Visible = false;
+                EMailTextBox.KeyPress += TextBox_KeyPress;
 
                 DXLabel label = new DXLabel
                 {
@@ -3404,7 +3411,7 @@ namespace Client.Scenes
 
                 C.RequestActivationKey packet = new C.RequestActivationKey
                 {
-                    EMailAddress = EMailTextBox.TextBox.Text,
+                    EMailAddress = EMailTextBox.Text,
                     CheckSum = CEnvir.C,
                 };
 
@@ -3413,7 +3420,7 @@ namespace Client.Scenes
 
             public void Clear()
             {
-                EMailTextBox.TextBox.Text = string.Empty;
+                EMailTextBox.Text = string.Empty;
 
                 Close();
             }
@@ -3428,9 +3435,10 @@ namespace Client.Scenes
                 scene.ActivationBox.Visible = true;
             }
 
-            private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+            private void TextBox_KeyPress(object sender, KeyEvent e)
             {
-                if (e.KeyChar != (char)Keys.Enter) return;
+                if (e.KeyCode != KeyboardKey.Enter)
+                    return;
 
                 e.Handled = true;
 
@@ -3446,9 +3454,9 @@ namespace Client.Scenes
 
             private void EMailTextBox_TextChanged(object sender, EventArgs e)
             {
-                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.TextBox.Text) && EMailTextBox.TextBox.Text.Length <= Globals.MaxEMailLength;
+                EMailValid = Globals.EMailRegex.IsMatch(EMailTextBox.Text) && EMailTextBox.Text.Length <= Globals.MaxEMailLength;
 
-                if (string.IsNullOrEmpty(EMailTextBox.TextBox.Text))
+                if (string.IsNullOrEmpty(EMailTextBox.Text))
                     EMailTextBox.BorderColour = Color.FromArgb(198, 166, 99);
                 else
                     EMailTextBox.BorderColour = EMailValid ? Color.Green : Color.Red;

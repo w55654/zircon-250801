@@ -3,6 +3,8 @@ using Client.Envir;
 using Client.Models;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,6 +12,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -139,9 +142,9 @@ namespace Client.Scenes.Views
 
             if (ReadMail == null) return;
 
-            ReadSenderBox.TextBox.Text = ReadMail.Sender;
-            ReadSubjectBox.TextBox.Text = ReadMail.Subject;
-            ReadDateBox.TextBox.Text = ReadMail.Date.ToLongDateString() + " " + ReadMail.Date.ToLongTimeString();
+            ReadSenderBox.Text = ReadMail.Sender;
+            ReadSubjectBox.Text = ReadMail.Subject;
+            ReadDateBox.Text = ReadMail.Date.ToLongDateString() + " " + ReadMail.Date.ToLongTimeString();
             ReadMessageLabel.Text = ReadMail.Message;
 
             int height = DXLabel.GetHeight(ReadMessageLabel, ReadMessageLabel.Size.Width).Height;
@@ -257,13 +260,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -336,7 +339,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.CommunicationDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -433,9 +436,9 @@ namespace Client.Scenes.Views
                 FriendAddButton.Visible = false;
                 FriendRemoveButton.Visible = false;
 
-                SendRecipientBox.TextBox.Text = string.Empty;
-                SendMessageBox.TextBox.Text = string.Empty;
-                SendSubjectBox.TextBox.Text = string.Empty;
+                SendRecipientBox.Text = string.Empty;
+                SendMessageBox.Text = string.Empty;
+                SendSubjectBox.Text = string.Empty;
                 SendGoldBox.Value = 0;
 
                 SendButton.Visible = true;
@@ -596,9 +599,9 @@ namespace Client.Scenes.Views
                     ConfirmButton = { Enabled = false },
                     Modal = true
                 };
-                window.ValueTextBox.TextBox.TextChanged += (o1, e1) =>
+                window.ValueTextBox.TextChanged += (o1, e1) =>
                 {
-                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.TextBox.Text);
+                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.Text);
                 };
                 window.ConfirmButton.MouseClick += (o1, e1) =>
                 {
@@ -803,12 +806,12 @@ namespace Client.Scenes.Views
             {
                 Border = false,
                 Parent = SendTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(86, label.Location.Y + 1),
                 Size = new Size(115, 16),
                 MaxLength = Globals.MaxCharacterNameLength
             };
-            SendRecipientBox.TextBox.TextChanged += RecipientBox_TextChanged;
+            SendRecipientBox.TextChanged += RecipientBox_TextChanged;
 
             label = new DXLabel
             {
@@ -821,7 +824,7 @@ namespace Client.Scenes.Views
             {
                 Border = false,
                 Parent = SendTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(86, label.Location.Y),
                 Size = new Size(155, 16),
                 MaxLength = 30
@@ -832,23 +835,23 @@ namespace Client.Scenes.Views
                 Border = false,
                 BackColour = Color.Black,
                 Parent = SendTab,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
-                TextBox = { Multiline = true, AcceptsReturn = true, },
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                //TextBox = { Multiline = true, AcceptsReturn = true, },
                 Location = new Point(15, label.Location.Y + 24),
                 Size = new Size(SendTab.Size.Width - 55, 185),
                 MaxLength = 300
             };
-            SendMessageBox.TextBox.TextChanged += (o, e) => UpdateSendMessagePosition();
-            SendMessageBox.TextBox.MouseMove += (o, e) => UpdateSendMessagePosition();
-            SendMessageBox.TextBox.MouseDown += (o, e) => UpdateSendMessagePosition();
-            SendMessageBox.TextBox.MouseUp += (o, e) => UpdateSendMessagePosition();
-            SendMessageBox.TextBox.KeyDown += (o, e) => UpdateSendMessagePosition();
-            SendMessageBox.TextBox.KeyUp += (o, e) => UpdateSendMessagePosition();
-            SendMessageBox.TextBox.KeyPress += (o, e) =>
+            SendMessageBox.TextChanged += (o, e) => UpdateSendMessagePosition();
+            SendMessageBox.MouseMove += (o, e) => UpdateSendMessagePosition();
+            SendMessageBox.MouseDown += (o, e) => UpdateSendMessagePosition();
+            SendMessageBox.MouseUp += (o, e) => UpdateSendMessagePosition();
+            SendMessageBox.KeyDown += (o, e) => UpdateSendMessagePosition();
+            SendMessageBox.KeyUp += (o, e) => UpdateSendMessagePosition();
+            SendMessageBox.KeyPress += (o, e) =>
             {
-                if (e.KeyChar == (char)1)
+                if (e.KeyCode == KeyboardKey.One)
                 {
-                    SendMessageBox.TextBox.SelectAll();
+                    SendMessageBox.SelectAll();
                     e.Handled = true;
                 }
 
@@ -894,7 +897,7 @@ namespace Client.Scenes.Views
             {
                 Parent = SendTab,
                 Text = CEnvir.Language.CommunicationDialogSendTabGoldLabel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
             };
             label.Location = new Point(82 - label.Size.Width, SendGrid.Location.Y + 3 + SendGrid.Size.Height);
 
@@ -906,7 +909,12 @@ namespace Client.Scenes.Views
                 DownButton = { Visible = false },
                 Border = false,
                 Size = new Size(122, 16),
-                ValueTextBox = { Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular), Border = false, Location = new Point(1, 1), Size = new Size(100, 16) },
+                ValueTextBox = {
+                    // wh // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                    Border = false,
+                    Location = new Point(1, 1),
+                    Size = new Size(100, 16)
+                },
                 MaxValue = 2000000000
             };
             SendGoldBox.ValueTextBox.ValueChanged += GoldBox_ValueChanged;
@@ -963,9 +971,9 @@ namespace Client.Scenes.Views
                     ConfirmButton = { Enabled = false },
                     Modal = true
                 };
-                window.ValueTextBox.TextBox.TextChanged += (o1, e1) =>
+                window.ValueTextBox.TextChanged += (o1, e1) =>
                 {
-                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.TextBox.Text);
+                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.Text);
                 };
                 window.ConfirmButton.MouseClick += (o1, e1) =>
                 {
@@ -1020,11 +1028,11 @@ namespace Client.Scenes.Views
                 Parent = ReadTab,
                 ReadOnly = true,
                 Editable = false,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(86, label.Location.Y + 1),
                 Size = new Size(115, 16)
             };
-            SendRecipientBox.TextBox.TextChanged += RecipientBox_TextChanged;
+            SendRecipientBox.TextChanged += RecipientBox_TextChanged;
 
             label = new DXLabel
             {
@@ -1039,7 +1047,7 @@ namespace Client.Scenes.Views
                 Parent = ReadTab,
                 ReadOnly = true,
                 Editable = false,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(86, label.Location.Y + 1),
                 Size = new Size(155, 16)
             };
@@ -1057,7 +1065,7 @@ namespace Client.Scenes.Views
                 Parent = ReadTab,
                 ReadOnly = true,
                 Editable = false,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(86, label.Location.Y + 1),
                 Size = new Size(155, 16)
             };
@@ -1074,7 +1082,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 BackColour = Color.Black,
                 Parent = ReadMessageContainer,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(0, 0),
                 Size = new Size(ReadMessageContainer.Size.Width, ReadMessageContainer.Size.Height),
                 ForeColour = Color.White,
@@ -1140,13 +1148,13 @@ namespace Client.Scenes.Views
                 var sender = ReadMail.Sender;
                 var subject = "RE: " + ReadMail.Subject;
 
-                if (subject.Length > SendSubjectBox.TextBox.MaxLength)
+                if (subject.Length > SendSubjectBox.MaxLength)
                     subject = "";
 
                 SendTab.TabButton.InvokeMouseClick();
 
-                SendRecipientBox.TextBox.Text = sender;
-                SendSubjectBox.TextBox.Text = subject;
+                SendRecipientBox.Text = sender;
+                SendSubjectBox.Text = subject;
                 SendMessageBox.SetFocus();
             };
 
@@ -1178,13 +1186,15 @@ namespace Client.Scenes.Views
 
         public void UpdateSendMessagePosition()
         {
-            SendMessageScrollBar.MaxValue = SendMessageBox.TextBox.GetLineFromCharIndex(SendMessageBox.TextBox.TextLength) + 1;
+            SendMessageScrollBar.MaxValue = SendMessageBox.GetLineFromCharIndex(SendMessageBox.TextLength) + 1;
             SendMessageScrollBar.Value = GetSendMessageCurrentLine();
         }
 
         private int GetSendMessageCurrentLine()
         {
-            return SendMessage(SendMessageBox.TextBox.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
+            return 1;
+            // todo w
+            //return SendMessage(SendMessageBox.Handle, EM_GETFIRSTVISIBLELINE, 0, 0);
         }
 
         private const int EM_GETFIRSTVISIBLELINE = 0x00CE;
@@ -1198,7 +1208,7 @@ namespace Client.Scenes.Views
             int line = GetSendMessageCurrentLine();
             if (line == lineIndex) return;
 
-            SendMessage(SendMessageBox.TextBox.Handle, EM_LINESCROLL, 0, lineIndex - GetSendMessageCurrentLine());
+            //SendMessage(SendMessageBox.Handle, EM_LINESCROLL, 0, lineIndex - GetSendMessageCurrentLine());
             SendMessageBox.DisposeTexture();
         }
 
@@ -1258,9 +1268,9 @@ namespace Client.Scenes.Views
 
         private void RecipientBox_TextChanged(object sender, EventArgs e)
         {
-            RecipientValid = Globals.CharacterReg.IsMatch(SendRecipientBox.TextBox.Text);
+            RecipientValid = Globals.CharacterReg.IsMatch(SendRecipientBox.Text);
 
-            if (string.IsNullOrEmpty(SendRecipientBox.TextBox.Text))
+            if (string.IsNullOrEmpty(SendRecipientBox.Text))
                 SendRecipientBox.BorderColour = Color.FromArgb(198, 166, 99);
             else
                 SendRecipientBox.BorderColour = RecipientValid ? Color.Green : Color.Red;
@@ -1282,11 +1292,11 @@ namespace Client.Scenes.Views
                 cell.Link = null;
             }
 
-            CEnvir.Enqueue(new C.MailSend { Links = links, Recipient = SendRecipientBox.TextBox.Text, Subject = SendSubjectBox.TextBox.Text, Message = SendMessageBox.TextBox.Text, Gold = SendGoldBox.Value });
+            CEnvir.Enqueue(new C.MailSend { Links = links, Recipient = SendRecipientBox.Text, Subject = SendSubjectBox.Text, Message = SendMessageBox.Text, Gold = SendGoldBox.Value });
 
-            SendRecipientBox.TextBox.Text = string.Empty;
-            SendMessageBox.TextBox.Text = string.Empty;
-            SendSubjectBox.TextBox.Text = string.Empty;
+            SendRecipientBox.Text = string.Empty;
+            SendMessageBox.Text = string.Empty;
+            SendSubjectBox.Text = string.Empty;
 
             SendGoldBox.Value = 0;
         }

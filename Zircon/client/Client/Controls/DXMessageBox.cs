@@ -1,5 +1,7 @@
 ﻿using Client.Envir;
 using Client.UserModels;
+using Ray2D;
+using Raylib_cs;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -83,7 +85,7 @@ namespace Client.Controls
                 Text = message,
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter
             };
-            Label.Size = new Size(380, DXLabel.GetSize(message, Label.Font, Label.Outline).Height);
+            Label.Size = new Size(380, DXLabel.GetSize(message, Label.Outline).Height);
             SetClientSize(Label.Size);
             Label.Location = ClientArea.Location;
 
@@ -161,11 +163,11 @@ namespace Client.Controls
             return box;
         }
 
-        public override void OnKeyPress(KeyPressEventArgs e)
+        public override void OnKeyPress(KeyEvent e)
         {
             base.OnKeyPress(e);
 
-            if (e.KeyChar == (char)Keys.Escape)
+            if (e.KeyCode == KeyboardKey.Escape)
             {
                 switch (Buttons)
                 {
@@ -179,7 +181,7 @@ namespace Client.Controls
                 }
                 e.Handled = true;
             }
-            else if (e.KeyChar == (char)Keys.Enter)
+            else if (e.KeyCode == KeyboardKey.Enter)
             {
                 switch (Buttons)
                 {

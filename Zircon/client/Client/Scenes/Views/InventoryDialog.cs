@@ -4,12 +4,16 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Scenes.Views
 {
@@ -120,13 +124,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -197,7 +201,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.InventoryDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -267,7 +271,7 @@ namespace Client.Scenes.Views
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 Parent = this,
                 Location = new Point(55, 381),
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
                 Text = CEnvir.Language.InventoryDialogPrimaryCurrencyTitle,
                 Size = new Size(97, 20)
             };
@@ -291,7 +295,7 @@ namespace Client.Scenes.Views
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 Parent = this,
                 Location = new Point(55, 400),
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
                 Text = CEnvir.Language.InventoryDialogSecondaryCurrencyTitle,
                 Size = new Size(97, 20)
             };
@@ -351,7 +355,7 @@ namespace Client.Scenes.Views
             WalletLabel.MouseClick += WalletLabel_MouseClick;
         }
 
-        private void SortButton_MouseClick(object sender, MouseEventArgs e)
+        private void SortButton_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -359,7 +363,7 @@ namespace Client.Scenes.Views
             CEnvir.Enqueue(packet);
         }
 
-        private void TrashButton_MouseClick(object sender, MouseEventArgs e)
+        private void TrashButton_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -417,7 +421,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        private void SellButton_MouseClick(object sender, MouseEventArgs e)
+        private void SellButton_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 
@@ -456,7 +460,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        private void PrimaryCurrencyLabel_MouseClick(object sender, MouseEventArgs e)
+        private void PrimaryCurrencyLabel_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.SelectedCell == null)
             {
@@ -472,7 +476,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        private void SecondaryCurrencyLabel_MouseClick(object sender, MouseEventArgs e)
+        private void SecondaryCurrencyLabel_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.SelectedCell == null)
             {
@@ -488,7 +492,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        private void WalletLabel_MouseClick(object sender, MouseEventArgs e)
+        private void WalletLabel_MouseClick(object sender, MouseEvent e)
         {
             GameScene.Game.CurrencyBox.Visible = !GameScene.Game.CurrencyBox.Visible;
         }

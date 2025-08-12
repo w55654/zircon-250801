@@ -2,9 +2,12 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -54,13 +57,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -101,7 +104,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.MenuDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,

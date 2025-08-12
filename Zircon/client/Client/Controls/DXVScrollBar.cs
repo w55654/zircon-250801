@@ -1,4 +1,5 @@
 ﻿using Library;
+using Ray2D;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -243,12 +244,12 @@ namespace Client.Controls
                 Visible = UpButton.Enabled || DownButton.Enabled;
         }
 
-        public void DoMouseWheel(object sender, MouseEventArgs e)
+        public void DoMouseWheel(object sender, MouseEvent e)
         {
             Value -= e.Delta / SystemInformation.MouseWheelScrollDelta * Change;
         }
 
-        private void PositionBar_Moving(object sender, MouseEventArgs e)
+        private void PositionBar_Moving(object sender, MouseEvent e)
         {
             Value = (int)Math.Round((PositionBar.Location.Y - 16) * (MaxValue - MinValue - VisibleSize) / (float)ScrollHeight);
 
@@ -257,14 +258,14 @@ namespace Client.Controls
             PositionBar.Location = new Point(UpButton.Location.X, 16 + (int)(ScrollHeight * (Value / (float)(MaxValue - MinValue - VisibleSize))));
         }
 
-        public override void OnMouseDown(MouseEventArgs e)
+        public override void OnMouseDown(MouseEvent e)
         {
             base.OnMouseDown(e);
 
             Value = (int)Math.Round((e.Location.Y - DisplayArea.Top - 32) * (MaxValue - MinValue - VisibleSize) / (float)ScrollHeight);
         }
 
-        public override void OnMouseWheel(MouseEventArgs e)
+        public override void OnMouseWheel(MouseEvent e)
         {
             base.OnMouseWheel(e);
 

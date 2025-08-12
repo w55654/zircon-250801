@@ -2,10 +2,13 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Scenes.Views
 {
@@ -71,8 +74,8 @@ namespace Client.Scenes.Views
                 Size = new Size(180, 20),
                 MaxLength = 40,
             };
-            CaptionText.TextBox.TextChanged += CaptionText_TextChanged;
-            CaptionText.TextBox.KeyPress += TextBox_KeyPress;
+            CaptionText.TextChanged += CaptionText_TextChanged;
+            CaptionText.KeyPress += TextBox_KeyPress;
 
             CaptionHelp = new DXLabel
             {
@@ -90,9 +93,9 @@ namespace Client.Scenes.Views
             };
             ChangeButton.MouseClick += (o, e) =>
             {
-                if (CaptionValid && !String.IsNullOrWhiteSpace(CaptionText.TextBox.Text))
+                if (CaptionValid && !String.IsNullOrWhiteSpace(CaptionText.Text))
                 {
-                    CEnvir.Enqueue(new C.CaptionChange { Caption = CaptionText.TextBox.Text });
+                    CEnvir.Enqueue(new C.CaptionChange { Caption = CaptionText.Text });
                     Visible = false;
                 }
             };
@@ -105,17 +108,18 @@ namespace Client.Scenes.Views
 
         private void CaptionText_TextChanged(object sender, EventArgs e)
         {
-            CaptionValid = Globals.CharacterReg.IsMatch(CaptionText.TextBox.Text);
+            CaptionValid = Globals.CharacterReg.IsMatch(CaptionText.Text);
 
-            if (string.IsNullOrEmpty(CaptionText.TextBox.Text))
+            if (string.IsNullOrEmpty(CaptionText.Text))
                 CaptionText.BorderColour = Color.FromArgb(198, 166, 99);
             else
                 CaptionText.BorderColour = CaptionValid ? Color.Green : Color.Red;
         }
 
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (e.KeyChar != (char)Keys.Enter) return;
+            if (e.KeyCode != KeyboardKey.Enter)
+                return;
 
             e.Handled = true;
         }

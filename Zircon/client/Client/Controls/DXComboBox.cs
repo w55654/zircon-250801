@@ -1,4 +1,5 @@
 ﻿using Library;
+using Ray2D;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -201,7 +202,7 @@ namespace Client.Controls
 
         #region Methods
 
-        private void DownArrow_MouseClick(object sender, MouseEventArgs e)
+        private void DownArrow_MouseClick(object sender, MouseEvent e)
         {
             Showing = !Showing;
         }

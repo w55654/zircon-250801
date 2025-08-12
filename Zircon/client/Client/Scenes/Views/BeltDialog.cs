@@ -43,7 +43,7 @@ namespace Client.Scenes.Views
                 {
                     Parent = Grid.Grid[i],
                     Text = ((i + 1) % 10).ToString(),
-                    Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Italic),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Italic),
                     IsControl = false,
                     Location = new Point(-2, -1)
                 };

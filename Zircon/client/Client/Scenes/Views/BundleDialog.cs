@@ -3,6 +3,7 @@ using Client.Envir;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -80,7 +81,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.BundleTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -197,7 +198,7 @@ namespace Client.Scenes.Views
             Visible = false;
         }
 
-        private void Cell_MouseClick(object sender, MouseEventArgs e)
+        private void Cell_MouseClick(object sender, MouseEvent e)
         {
             var cell = (DXItemCell)sender;
 

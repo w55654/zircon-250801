@@ -4,12 +4,16 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Scenes.Views
 {
@@ -94,13 +98,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -175,7 +179,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.CompanionDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -338,7 +342,7 @@ namespace Client.Scenes.Views
             {
                 Parent = CompanionTab,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
@@ -366,7 +370,7 @@ namespace Client.Scenes.Views
             {
                 Parent = CompanionTab,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
@@ -417,7 +421,7 @@ namespace Client.Scenes.Views
             {
                 Parent = CompanionTab,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
@@ -468,7 +472,7 @@ namespace Client.Scenes.Views
             {
                 Parent = CompanionTab,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
@@ -597,7 +601,7 @@ namespace Client.Scenes.Views
             {
                 Parent = FilterControl,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
                 IsControl = false,
@@ -611,7 +615,7 @@ namespace Client.Scenes.Views
             {
                 Parent = FilterControl,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
                 IsControl = false,
@@ -625,7 +629,7 @@ namespace Client.Scenes.Views
             {
                 Parent = FilterControl,
                 Outline = true,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 OutlineColour = Color.Black,
                 IsControl = false,

@@ -4,6 +4,8 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -111,16 +114,16 @@ namespace Client.Scenes.Views
                 BuyPanel.Enabled = false;
 
                 BuyCountBox.MinValue = 0;
-                BuyCountBox.ValueTextBox.TextBox.Text = "";
+                BuyCountBox.ValueTextBox.Text = "";
 
                 BuyPriceBox.MinValue = 0;
-                BuyPriceBox.ValueTextBox.TextBox.Text = "";
+                BuyPriceBox.ValueTextBox.Text = "";
 
                 HistoryPanel.Enabled = false;
 
-                SearchNumberSoldBox.TextBox.Text = "";
-                SearchLastPriceBox.TextBox.Text = "";
-                SearchAveragePriceBox.TextBox.Text = "";
+                SearchNumberSoldBox.Text = "";
+                SearchLastPriceBox.Text = "";
+                SearchAveragePriceBox.Text = "";
             }
             else
             {
@@ -139,9 +142,9 @@ namespace Client.Scenes.Views
 
                 HistoryPanel.Enabled = true;
 
-                SearchNumberSoldBox.TextBox.Text = "Searching...";
-                SearchLastPriceBox.TextBox.Text = "Searching...";
-                SearchAveragePriceBox.TextBox.Text = "Searching...";
+                SearchNumberSoldBox.Text = "Searching...";
+                SearchLastPriceBox.Text = "Searching...";
+                SearchAveragePriceBox.Text = "Searching...";
 
                 CEnvir.Enqueue(new C.MarketPlaceHistory { Index = nValue.MarketInfo.Item.Info.Index, PartIndex = nValue.MarketInfo.Item.AddedStats[Stat.ItemIndex], Display = 1 });
             }
@@ -184,10 +187,10 @@ namespace Client.Scenes.Views
                 StoreBuyPanel.Enabled = false;
 
                 StoreBuyCountBox.MinValue = 0;
-                StoreBuyCountBox.ValueTextBox.TextBox.Text = "";
+                StoreBuyCountBox.ValueTextBox.Text = "";
 
                 StoreBuyPriceBox.MinValue = 0;
-                StoreBuyPriceBox.ValueTextBox.TextBox.Text = "";
+                StoreBuyPriceBox.ValueTextBox.Text = "";
             }
             else
             {
@@ -229,7 +232,7 @@ namespace Client.Scenes.Views
 
         public void OnPriceChanged(int oValue, int nValue)
         {
-            ConsignCostBox.TextBox.Text = Cost.ToString("#,##0");
+            ConsignCostBox.Text = Cost.ToString("#,##0");
 
             PriceChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -311,7 +314,7 @@ namespace Client.Scenes.Views
                 Size = new Size(180, 20),
                 Location = new Point(label.Location.X + label.Size.Width + 5, label.Location.Y),
             };
-            ItemNameBox.TextBox.KeyPress += TextBox_KeyPress;
+            ItemNameBox.KeyPress += TextBox_KeyPress;
 
             label = new DXLabel
             {
@@ -404,7 +407,7 @@ namespace Client.Scenes.Views
             };
             ClearButton.MouseClick += (o, e) =>
             {
-                ItemNameBox.TextBox.Text = "";
+                ItemNameBox.Text = "";
                 ItemTypeBox.ListBox.SelectItem(null);
                 Search();
             };
@@ -519,7 +522,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             MessageLabel = new DXLabel
             {
@@ -548,7 +551,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -665,7 +668,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -689,20 +692,20 @@ namespace Client.Scenes.Views
             {
                 if (ConsignGrid.Grid[0].Item == null)
                 {
-                    NumberSoldBox.TextBox.Text = "";
-                    LastPriceBox.TextBox.Text = "";
-                    AveragePriceBox.TextBox.Text = "";
+                    NumberSoldBox.Text = "";
+                    LastPriceBox.Text = "";
+                    AveragePriceBox.Text = "";
                     ConsignGrid.Grid[0].LinkedCount = 0;
                 }
                 else
                 {
-                    NumberSoldBox.TextBox.Text = CEnvir.Language.MarketPlaceDialogConsignTabSearchingLabel;
-                    LastPriceBox.TextBox.Text = CEnvir.Language.MarketPlaceDialogConsignTabSearchingLabel;
-                    AveragePriceBox.TextBox.Text = CEnvir.Language.MarketPlaceDialogConsignTabSearchingLabel;
+                    NumberSoldBox.Text = CEnvir.Language.MarketPlaceDialogConsignTabSearchingLabel;
+                    LastPriceBox.Text = CEnvir.Language.MarketPlaceDialogConsignTabSearchingLabel;
+                    AveragePriceBox.Text = CEnvir.Language.MarketPlaceDialogConsignTabSearchingLabel;
 
                     CEnvir.Enqueue(new C.MarketPlaceHistory { Index = ConsignGrid.Grid[0].Item.Info.Index, PartIndex = ConsignGrid.Grid[0].Item.AddedStats[Stat.ItemIndex], Display = 2 });
                 }
-                ConsignCostBox.TextBox.Text = Cost.ToString("#,##0");
+                ConsignCostBox.Text = Cost.ToString("#,##0");
             };
 
             new DXLabel
@@ -714,7 +717,7 @@ namespace Client.Scenes.Views
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15),
                 Location = new Point(0, 60)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -782,7 +785,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             ConsignPriceLabel = new DXLabel
@@ -798,10 +801,10 @@ namespace Client.Scenes.Views
                 Size = new Size(85, 18),
                 Parent = ConsignBuyPanel,
             };
-            ConsignPriceBox.TextBox.TextChanged += (o, e) =>
+            ConsignPriceBox.TextChanged += (o, e) =>
             {
                 int price;
-                int.TryParse(ConsignPriceBox.TextBox.Text, out price);
+                int.TryParse(ConsignPriceBox.Text, out price);
 
                 Price = price;
             };
@@ -823,14 +826,13 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             ConsignMessageBox = new DXTextBox
             {
                 Location = new Point(10, 25),
                 Parent = ConsignMesagePanel,
-                TextBox = { Multiline = true, AcceptsReturn = true, },
                 Size = new Size(ConsignMesagePanel.Size.Width - 20, 80),
                 MaxLength = 150,
             };
@@ -852,7 +854,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -957,7 +959,7 @@ namespace Client.Scenes.Views
                 Size = new Size(180, 20),
                 Location = new Point(label.Location.X + label.Size.Width + 5, label.Location.Y),
             };
-            StoreItemNameBox.TextBox.KeyPress += StoreTextBox_KeyPress;
+            StoreItemNameBox.KeyPress += StoreTextBox_KeyPress;
 
             label = new DXLabel
             {
@@ -1058,7 +1060,7 @@ namespace Client.Scenes.Views
             };
             ClearButton.MouseClick += (o, e) =>
             {
-                StoreItemNameBox.TextBox.Text = "";
+                StoreItemNameBox.Text = "";
                 StoreItemTypeBox.ListBox.SelectItem(null);
                 StoreSearch();
             };
@@ -1103,7 +1105,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -1143,7 +1145,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -1210,7 +1212,7 @@ namespace Client.Scenes.Views
                 AutoSize = false,
                 DrawFormat = TextFormatFlags.HorizontalCenter,
                 Size = new Size(175, 15)
-                //   Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                //   // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             label = new DXLabel
@@ -1319,7 +1321,7 @@ namespace Client.Scenes.Views
 
             CEnvir.Enqueue(new C.MarketPlaceSearch
             {
-                Name = ItemNameBox.TextBox.Text,
+                Name = ItemNameBox.Text,
 
                 ItemTypeFilter = ItemTypeBox.SelectedItem != null,
                 ItemType = (ItemType?)ItemTypeBox.SelectedItem ?? 0,
@@ -1347,7 +1349,7 @@ namespace Client.Scenes.Views
 
                 if (filter != null && !info.Filter.Contains(filter)) continue;
 
-                if (!string.IsNullOrEmpty(StoreItemNameBox.TextBox.Text) && info.Item.ItemName.IndexOf(StoreItemNameBox.TextBox.Text, StringComparison.OrdinalIgnoreCase) < 0) continue;
+                if (!string.IsNullOrEmpty(StoreItemNameBox.Text) && info.Item.ItemName.IndexOf(StoreItemNameBox.Text, StringComparison.OrdinalIgnoreCase) < 0) continue;
 
                 StoreSearchResults.Add(info);
             }
@@ -1444,7 +1446,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        private void BuyButton_MouseClick(object sender, MouseEventArgs e)
+        private void BuyButton_MouseClick(object sender, MouseEvent e)
         {
             if (SelectedRow?.MarketInfo?.Item == null) return;
 
@@ -1472,7 +1474,7 @@ namespace Client.Scenes.Views
 
             message.Append("\n\n");
 
-            message.Append($"Total Cost: {BuyTotalBox.TextBox.Text}");
+            message.Append($"Total Cost: {BuyTotalBox.Text}");
 
             if (BuyGuildBox.Checked)
                 message.Append(" (Using Guild Funds)");
@@ -1488,7 +1490,7 @@ namespace Client.Scenes.Views
             };
         }
 
-        private void StoreBuyButton_MouseClick(object sender, MouseEventArgs e)
+        private void StoreBuyButton_MouseClick(object sender, MouseEvent e)
         {
             if (SelectedStoreRow?.StoreInfo?.Item == null) return;
 
@@ -1508,7 +1510,7 @@ namespace Client.Scenes.Views
 
             message.Append("\n\n");
 
-            message.Append($"Total Cost: {StoreBuyTotalBox.TextBox.Text} ({(UseHuntGoldBox.Checked ? "Hunt" : "Game")} Gold)");
+            message.Append($"Total Cost: {StoreBuyTotalBox.Text} ({(UseHuntGoldBox.Checked ? "Hunt" : "Game")} Gold)");
 
             DXMessageBox box = new DXMessageBox(message.ToString(), "Buy Confirmation", DXMessageBoxButtons.YesNo);
 
@@ -1522,7 +1524,7 @@ namespace Client.Scenes.Views
 
         private void UpdateBuyTotal(object sender, EventArgs e)
         {
-            BuyTotalBox.TextBox.Text = (BuyCountBox.Value * BuyPriceBox.Value).ToString("#,##0");
+            BuyTotalBox.Text = (BuyCountBox.Value * BuyPriceBox.Value).ToString("#,##0");
         }
 
         private void UpdateStoreBuyTotal(object sender, EventArgs e)
@@ -1544,7 +1546,7 @@ namespace Client.Scenes.Views
                 StoreBuyPriceLabel.Text = "G. Gold:";
             }
 
-            StoreBuyTotalBox.TextBox.Text = (StoreBuyCountBox.Value * StoreBuyPriceBox.Value).ToString("#,##0");
+            StoreBuyTotalBox.Text = (StoreBuyCountBox.Value * StoreBuyPriceBox.Value).ToString("#,##0");
         }
 
         private void ConsignScrollBar_ValueChanged(object sender, EventArgs e)
@@ -1557,7 +1559,7 @@ namespace Client.Scenes.Views
             RefreshList();
         }
 
-        private void ConsignButton_MouseClick(object sender, MouseEventArgs e)
+        private void ConsignButton_MouseClick(object sender, MouseEvent e)
         {
             DXItemCell cell = ConsignGrid.Grid[0];
 
@@ -1610,13 +1612,13 @@ namespace Client.Scenes.Views
                 {
                     Link = new CellLinkInfo { GridType = cell.Link.GridType, Count = cell.LinkedCount, Slot = cell.Link.Slot },
                     Price = Price,
-                    Message = ConsignMessageBox.TextBox.Text,
+                    Message = ConsignMessageBox.Text,
                     GuildFunds = ConsignGuildBox.Checked
                 });
 
                 cell.Link.Locked = true;
                 cell.Link = null;
-                ConsignPriceBox.TextBox.Text = "";
+                ConsignPriceBox.Text = "";
                 ConsignGuildBox.Checked = false;
             };
         }
@@ -1626,9 +1628,9 @@ namespace Client.Scenes.Views
             RefreshStoreList();
         }
 
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (e.KeyChar != (char)Keys.Enter) return;
+            if (e.KeyCode != KeyboardKey.Enter) return;
 
             e.Handled = true;
 
@@ -1636,9 +1638,9 @@ namespace Client.Scenes.Views
                 Search();
         }
 
-        private void StoreTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void StoreTextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (e.KeyChar != (char)Keys.Enter) return;
+            if (e.KeyCode != KeyboardKey.Enter) return;
 
             e.Handled = true;
 

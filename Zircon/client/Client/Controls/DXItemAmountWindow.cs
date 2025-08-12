@@ -1,9 +1,12 @@
 ﻿using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
 
 //Cleaned
 namespace Client.Controls
@@ -91,22 +94,22 @@ namespace Client.Controls
             AmountBox.Value = 1;
             AmountBox.ValueTextBox.KeepFocus = true;
             AmountBox.ValueTextBox.SetFocus();
-            AmountBox.ValueTextBox.TextBox.KeyPress += AmountBox_KeyPress;
+            AmountBox.ValueTextBox.KeyPress += AmountBox_KeyPress;
         }
 
         #region Methods
 
-        private void AmountBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void AmountBox_KeyPress(object sender, KeyEvent e)
         {
-            switch (e.KeyChar)
+            switch (e.KeyCode)
             {
-                case (char)Keys.Enter:
+                case KeyboardKey.Enter:
                     e.Handled = true;
                     ConfirmButton.InvokeMouseClick();
                     DXTextBox.ActiveTextBox = null;
                     break;
 
-                case (char)Keys.Escape:
+                case KeyboardKey.Escape:
                     e.Handled = true;
                     CloseButton.InvokeMouseClick();
                     DXTextBox.ActiveTextBox = null;

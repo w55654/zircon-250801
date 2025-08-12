@@ -2,6 +2,8 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -119,9 +121,9 @@ namespace Client.Scenes.Views
                 MaxLength = Globals.MaxChatLength,
                 Opacity = 0.35f,
             };
-            TextBox.TextBox.KeyPress += TextBox_KeyPress;
-            //TextBox.TextBox.KeyDown += TextBox_KeyDown;
-            //TextBox.TextBox.KeyUp += TextBox_KeyUp;
+            TextBox.KeyPress += TextBox_KeyPress;
+            //TextBox.KeyDown += TextBox_KeyDown;
+            //TextBox.KeyUp += TextBox_KeyUp;
 
             SetDefaultSize();
 
@@ -142,70 +144,70 @@ namespace Client.Scenes.Views
 
         #region Methods
 
-        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            switch (e.KeyChar)
+            switch (e.KeyCode)
             {
-                case (char)Keys.Enter:
+                case KeyboardKey.Enter:
                     e.Handled = true;
-                    if (!string.IsNullOrEmpty(TextBox.TextBox.Text))
+                    if (!string.IsNullOrEmpty(TextBox.Text))
                     {
                         CEnvir.Enqueue(new C.Chat
                         {
-                            Text = TextBox.TextBox.Text,
+                            Text = TextBox.Text,
                         });
 
-                        if (TextBox.TextBox.Text[0] == '/')
+                        if (TextBox.Text[0] == '/')
                         {
-                            string[] parts = TextBox.TextBox.Text.Split(' ');
+                            string[] parts = TextBox.Text.Split(' ');
 
                             if (parts.Length > 0) LastPM = parts[0];
                         }
                     }
 
                     DXTextBox.ActiveTextBox = null;
-                    TextBox.TextBox.Text = string.Empty;
+                    TextBox.Text = string.Empty;
 
                     ToggleVisibility(e, true);
                     break;
 
-                case (char)Keys.Escape:
+                case KeyboardKey.Escape:
                     e.Handled = true;
                     DXTextBox.ActiveTextBox = null;
-                    TextBox.TextBox.Text = string.Empty;
+                    TextBox.Text = string.Empty;
 
                     ToggleVisibility(e, false);
                     break;
             }
         }
 
-        public override void OnKeyPress(KeyPressEventArgs e)
+        public override void OnKeyPress(KeyEvent e)
         {
             base.OnKeyPress(e);
 
-            switch (e.KeyChar)
+            switch (e.Char)
             {
                 case '@':
                     TextBox.SetFocus();
-                    TextBox.TextBox.Text = @"@";
+                    TextBox.Text = @"@";
                     TextBox.Visible = true;
-                    TextBox.TextBox.SelectionLength = 0;
-                    TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
+                    TextBox.SelectionLength = 0;
+                    TextBox.SelectionStart = TextBox.Text.Length;
                     e.Handled = true;
                     break;
 
                 case '!':
                     if (!Config.ShiftOpenChat) return;
                     TextBox.SetFocus();
-                    TextBox.TextBox.Text = @"!";
+                    TextBox.Text = @"!";
                     TextBox.Visible = true;
-                    TextBox.TextBox.SelectionLength = 0;
-                    TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
+                    TextBox.SelectionLength = 0;
+                    TextBox.SelectionStart = TextBox.Text.Length;
                     e.Handled = true;
                     break;
 
                 case ' ':
-                case (char)Keys.Enter:
+                case (char)KeyboardKey.Enter:
                     OpenChat();
                     e.Handled = true;
                     break;
@@ -213,18 +215,18 @@ namespace Client.Scenes.Views
                 case '/':
                     TextBox.SetFocus();
                     if (string.IsNullOrEmpty(LastPM))
-                        TextBox.TextBox.Text = "/";
+                        TextBox.Text = "/";
                     else
-                        TextBox.TextBox.Text = LastPM + " ";
+                        TextBox.Text = LastPM + " ";
                     TextBox.Visible = true;
-                    TextBox.TextBox.SelectionLength = 0;
-                    TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
+                    TextBox.SelectionLength = 0;
+                    TextBox.SelectionStart = TextBox.Text.Length;
                     e.Handled = true;
                     break;
             }
         }
 
-        public void ToggleVisibility(KeyPressEventArgs e, bool hide)
+        public void ToggleVisibility(KeyEvent e, bool hide)
         {
             if (Visible)
             {
@@ -249,56 +251,56 @@ namespace Client.Scenes.Views
 
         public void OpenChat()
         {
-            if (string.IsNullOrEmpty(TextBox.TextBox.Text))
+            if (string.IsNullOrEmpty(TextBox.Text))
                 switch (Mode)
                 {
                     case ChatMode.Shout:
-                        TextBox.TextBox.Text = @"!";
+                        TextBox.Text = @"!";
                         break;
 
                     case ChatMode.Whisper:
                         if (!string.IsNullOrWhiteSpace(LastPM))
-                            TextBox.TextBox.Text = LastPM + " ";
+                            TextBox.Text = LastPM + " ";
                         break;
 
                     case ChatMode.Group:
-                        TextBox.TextBox.Text = @"!!";
+                        TextBox.Text = @"!!";
                         break;
 
                     case ChatMode.Guild:
-                        TextBox.TextBox.Text = @"!~";
+                        TextBox.Text = @"!~";
                         break;
 
                     case ChatMode.Global:
-                        TextBox.TextBox.Text = @"!@";
+                        TextBox.Text = @"!@";
                         break;
 
                     case ChatMode.Observer:
-                        TextBox.TextBox.Text = @"#";
+                        TextBox.Text = @"#";
                         break;
                 }
 
             TextBox.SetFocus();
-            TextBox.TextBox.SelectionLength = 0;
-            TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
+            TextBox.SelectionLength = 0;
+            TextBox.SelectionStart = TextBox.Text.Length;
         }
 
         public void StartPM(string name)
         {
-            TextBox.TextBox.Text = $"/{name} ";
+            TextBox.Text = $"/{name} ";
             TextBox.SetFocus();
-            TextBox.TextBox.SelectionLength = 0;
-            TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
+            TextBox.SelectionLength = 0;
+            TextBox.SelectionStart = TextBox.Text.Length;
         }
 
         public void LinkItem(ClientUserItem item)
         {
             if (item == null) return;
 
-            TextBox.TextBox.Text += $"[{item.Info.ItemName}:{item.Index}]";
+            TextBox.Text += $"[{item.Info.ItemName}:{item.Index}]";
             TextBox.SetFocus();
-            TextBox.TextBox.SelectionLength = 0;
-            TextBox.TextBox.SelectionStart = TextBox.TextBox.Text.Length;
+            TextBox.SelectionLength = 0;
+            TextBox.SelectionStart = TextBox.Text.Length;
         }
 
         #endregion

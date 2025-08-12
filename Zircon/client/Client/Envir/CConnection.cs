@@ -202,7 +202,7 @@ namespace Client.Envir
                     break;
 
                 case NewAccountResult.AlreadyExists:
-                    login.AccountBox.EMailTextBox.TextBox.Text = string.Empty;
+                    login.AccountBox.EMailTextBox.Text = string.Empty;
                     login.AccountBox.EMailTextBox.SetFocus();
                     DXMessageBox.Show("E-Mail address already in use.", "Account Creation");
                     break;
@@ -223,8 +223,8 @@ namespace Client.Envir
                     break;
 
                 case NewAccountResult.Success:
-                    login.LoginBox.EMailTextBox.TextBox.Text = login.AccountBox.EMailTextBox.TextBox.Text;
-                    login.LoginBox.PasswordTextBox.TextBox.Text = login.AccountBox.Password1TextBox.TextBox.Text;
+                    login.LoginBox.EMailTextBox.Text = login.AccountBox.EMailTextBox.Text;
+                    login.LoginBox.PasswordTextBox.Text = login.AccountBox.Password1TextBox.Text;
                     login.AccountBox.Clear();
                     DXMessageBox.Show("Your account was created successfully.\n" +
                                       "Please follow the instructions sent to your E-Mail to activate.", "Account Creation");
@@ -608,8 +608,8 @@ namespace Client.Envir
 
                     if (Config.RememberDetails)
                     {
-                        Config.RememberedEMail = login.LoginBox.EMailTextBox.TextBox.Text;
-                        Config.RememberedPassword = login.LoginBox.PasswordTextBox.TextBox.Text;
+                        Config.RememberedEMail = login.LoginBox.EMailTextBox.Text;
+                        Config.RememberedPassword = login.LoginBox.PasswordTextBox.Text;
                     }
 
                     login.Dispose();
@@ -3662,15 +3662,15 @@ namespace Client.Envir
             switch (p.Display)
             {
                 case 1:
-                    GameScene.Game.MarketPlaceBox.SearchNumberSoldBox.TextBox.Text = p.SaleCount > 0 ? p.SaleCount.ToString("#,##0") : "No Records";
-                    GameScene.Game.MarketPlaceBox.SearchAveragePriceBox.TextBox.Text = p.SaleCount > 0 ? p.AveragePrice.ToString("#,##0") : "No Records";
-                    GameScene.Game.MarketPlaceBox.SearchLastPriceBox.TextBox.Text = p.SaleCount > 0 ? p.LastPrice.ToString("#,##0") : "No Records";
+                    GameScene.Game.MarketPlaceBox.SearchNumberSoldBox.Text = p.SaleCount > 0 ? p.SaleCount.ToString("#,##0") : "No Records";
+                    GameScene.Game.MarketPlaceBox.SearchAveragePriceBox.Text = p.SaleCount > 0 ? p.AveragePrice.ToString("#,##0") : "No Records";
+                    GameScene.Game.MarketPlaceBox.SearchLastPriceBox.Text = p.SaleCount > 0 ? p.LastPrice.ToString("#,##0") : "No Records";
                     break;
 
                 case 2:
-                    GameScene.Game.MarketPlaceBox.NumberSoldBox.TextBox.Text = p.SaleCount > 0 ? p.SaleCount.ToString("#,##0") : "No Records";
-                    GameScene.Game.MarketPlaceBox.AveragePriceBox.TextBox.Text = p.SaleCount > 0 ? p.AveragePrice.ToString("#,##0") : "No Records";
-                    GameScene.Game.MarketPlaceBox.LastPriceBox.TextBox.Text = p.SaleCount > 0 ? p.LastPrice.ToString("#,##0") : "No Records";
+                    GameScene.Game.MarketPlaceBox.NumberSoldBox.Text = p.SaleCount > 0 ? p.SaleCount.ToString("#,##0") : "No Records";
+                    GameScene.Game.MarketPlaceBox.AveragePriceBox.Text = p.SaleCount > 0 ? p.AveragePrice.ToString("#,##0") : "No Records";
+                    GameScene.Game.MarketPlaceBox.LastPriceBox.Text = p.SaleCount > 0 ? p.LastPrice.ToString("#,##0") : "No Records";
                     break;
             }
         }
@@ -3975,7 +3975,7 @@ namespace Client.Envir
             GameScene.Game.GuildBox.GuildInfo.Notice = p.Notice;
 
             if (!GameScene.Game.GuildBox.NoticeTextBox.Editable)
-                GameScene.Game.GuildBox.NoticeTextBox.TextBox.Text = p.Notice;
+                GameScene.Game.GuildBox.NoticeTextBox.Text = p.Notice;
         }
 
         public void Process(S.GuildGetItem p)
@@ -4325,7 +4325,7 @@ namespace Client.Envir
 
             GameScene.Game.NPCCompanionStorageBox.Companions.Add(p.UserCompanion);
             GameScene.Game.NPCCompanionStorageBox.UpdateScrollBar();
-            GameScene.Game.NPCAdoptCompanionBox.CompanionNameTextBox.TextBox.Text = string.Empty;
+            GameScene.Game.NPCAdoptCompanionBox.CompanionNameTextBox.Text = string.Empty;
         }
 
         public void Process(S.CompanionStore p)

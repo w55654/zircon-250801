@@ -3,11 +3,15 @@ using Client.Envir;
 using Client.Scenes.Views.Character;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 using S = Library.Network.ServerPackets;
 
 //Add that config refresh time
@@ -328,13 +332,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -372,7 +376,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.RankingDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -429,7 +433,7 @@ namespace Client.Scenes.Views
                     ForeColour = Color.FromArgb(222, 255, 222),
                     Outline = false,
                     Parent = namePanel,
-                    Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
+                    // wh Font = new Font(Config.FontName, CEnvir.FontSize(9F), FontStyle.Bold),
                     DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter
                 };
                 GuildNameLabel = new DXLabel
@@ -731,16 +735,16 @@ namespace Client.Scenes.Views
             {
                 Border = false,
                 Parent = RankPanel,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Regular),
                 Location = new Point(13, 68),
                 Size = new Size(147, 16),
                 MaxLength = Globals.MaxCharacterNameLength
             };
-            SearchText.TextBox.KeyPress += (o, e) =>
+            SearchText.KeyPress += (o, e) =>
             {
-                switch (e.KeyChar)
+                switch (e.KeyCode)
                 {
-                    case (char)Keys.Enter:
+                    case KeyboardKey.Enter:
                         if (SearchButton != null && !SearchButton.IsDisposed)
                             SearchButton.InvokeMouseClick();
                         break;
@@ -749,9 +753,9 @@ namespace Client.Scenes.Views
                 }
                 e.Handled = true;
             };
-            SearchText.TextBox.TextChanged += (o, e) =>
+            SearchText.TextChanged += (o, e) =>
             {
-                SearchButton.Enabled = !string.IsNullOrEmpty(SearchText.TextBox.Text);
+                SearchButton.Enabled = !string.IsNullOrEmpty(SearchText.Text);
             };
 
             SearchButton = new DXButton
@@ -766,7 +770,7 @@ namespace Client.Scenes.Views
             };
             SearchButton.MouseClick += (o, e) =>
             {
-                CEnvir.Enqueue(new C.RankSearch { Name = SearchText.TextBox.Text });
+                CEnvir.Enqueue(new C.RankSearch { Name = SearchText.Text });
             };
 
             ObserveButton = new DXButton
@@ -1641,7 +1645,7 @@ namespace Client.Scenes.Views
 
         #region Methods
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             base.OnMouseClick(e);
 

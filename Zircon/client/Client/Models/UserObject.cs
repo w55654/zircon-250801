@@ -2,12 +2,14 @@
 using Client.Scenes;
 using Library;
 using Library.SystemModels;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 namespace Client.Models
 {
@@ -449,7 +451,7 @@ namespace Client.Models
                     break;
 
                 case MirAction.Standing:
-                    if ((GameScene.Game.MapControl.MapButtons & MouseButtons.Right) != MouseButtons.Right)
+                    if ((GameScene.Game.MapControl.MapButtons & MouseButton.Right) != MouseButton.Right)
                         GameScene.Game.CanRun = false;
                     break;
             }
@@ -634,7 +636,7 @@ namespace Client.Models
                 case MirAction.Standing:
                     NextActionTime = CEnvir.Now + Globals.TurnTime;
                     CEnvir.Enqueue(new C.Turn { Direction = action.Direction });
-                    if ((GameScene.Game.MapControl.MapButtons & MouseButtons.Right) != MouseButtons.Right)
+                    if ((GameScene.Game.MapControl.MapButtons & MouseButton.Right) != MouseButton.Right)
                         GameScene.Game.CanRun = false;
                     break;
 

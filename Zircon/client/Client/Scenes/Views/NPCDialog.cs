@@ -4,6 +4,8 @@ using Client.Models;
 using Client.UserModels;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,7 +13,9 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 using Font = System.Drawing.Font;
+using Rectangle = System.Drawing.Rectangle;
 using S = Library.Network.ServerPackets;
 
 namespace Client.Scenes.Views
@@ -470,7 +474,7 @@ namespace Client.Scenes.Views
             {
                 var buttonIndex = buttonRanges[i];
 
-                List<ButtonInfo> buttons = GetWordRegionsNew(DXManager.Graphics, PageText.Text, PageText.Font, PageText.DrawFormat, PageText.Size.Width, buttonIndex.Range.First, buttonIndex.Range.Length);
+                List<ButtonInfo> buttons = GetWordRegionsNew(DXManager.Graphics, PageText.Text, PageText.DrawFormat, PageText.Size.Width, buttonIndex.Range.First, buttonIndex.Range.Length);
 
                 List<DXLabel> labels = new();
 
@@ -483,7 +487,7 @@ namespace Client.Scenes.Views
                         Location = info.Region.Location,
                         DrawFormat = PageText.DrawFormat,
                         Text = PageText.Text.Substring(info.Index, info.Length),
-                        Font = PageText.Font,
+                        //Font = PageText.Font,
                         Size = info.Region.Size,
                         Outline = false
                     });
@@ -545,13 +549,14 @@ namespace Client.Scenes.Views
             }
         }
 
-        public static List<ButtonInfo> GetWordRegionsNew(Graphics graphics, string text, Font font, TextFormatFlags flags, int width, int index, int length)
+        public static List<ButtonInfo> GetWordRegionsNew(Graphics graphics, string text, TextFormatFlags flags, int width, int index, int length)
         {
             List<ButtonInfo> regions = new List<ButtonInfo>();
 
-            Size tSize = TextRenderer.MeasureText(graphics, "A", font, new Size(width, 2000), flags);
+            // todo w
+            Size tSize = new Size(120, 22);// TextRenderer.MeasureText(graphics, "A", new Size(width, 2000), flags);
             int h = tSize.Height;
-            int leading = tSize.Width - (TextRenderer.MeasureText(graphics, "AA", font, new Size(width, 2000), flags).Width - tSize.Width);
+            int leading = 120;//tSize.Width - (TextRenderer.MeasureText(graphics, "AA", new Size(width, 2000), flags).Width - tSize.Width);
 
             int lineStart = 0;
             int lastHeight = h;
@@ -570,7 +575,8 @@ namespace Client.Scenes.Views
             //If Word Wrap enabled.
             foreach (CharacterRange range in ranges)
             {
-                int height = TextRenderer.MeasureText(graphics, text.Substring(0, range.First + range.Length), font, new Size(width, 9999), flags).Height;
+                // todo w
+                int height = 22; // TextRenderer.MeasureText(graphics, text.Substring(0, range.First + range.Length), new Size(width, 9999), flags).Height;
 
                 if (range.First >= index + length) break;
 
@@ -590,7 +596,8 @@ namespace Client.Scenes.Views
                         {
                             X = 0,
                             Y = height - h,
-                            Width = TextRenderer.MeasureText(graphics, text.Substring(range.First, range.Length), font, new Size(width, 9999), flags).Width,
+                            // todo w
+                            Width = 120,//TextRenderer.MeasureText(graphics, text.Substring(range.First, range.Length), font, new Size(width, 9999), flags).Width,
                             Height = h,
                         };
                         currentInfo = new ButtonInfo { Region = region, Index = range.First, Length = range.Length };
@@ -608,9 +615,11 @@ namespace Client.Scenes.Views
                         {
                             Rectangle region = new Rectangle
                             {
-                                X = TextRenderer.MeasureText(graphics, text.Substring(lineStart, range.First - lineStart), font, new Size(width, 9999), flags).Width,
+                                // todo w
+                                X = 20, //TextRenderer.MeasureText(graphics, text.Substring(lineStart, range.First - lineStart), font, new Size(width, 9999), flags).Width,
                                 Y = height - h,
-                                Width = TextRenderer.MeasureText(graphics, text.Substring(range.First, range.Length), font, new Size(width, 9999), flags).Width,
+                                // todo w
+                                Width = 120, // TextRenderer.MeasureText(graphics, text.Substring(range.First, range.Length), font, new Size(width, 9999), flags).Width,
                                 Height = h,
                             };
 
@@ -623,7 +632,8 @@ namespace Client.Scenes.Views
                         {
                             //Measure Current.Index to range.First + Length
                             currentInfo.Length = range.First + range.Length - currentInfo.Index;
-                            currentInfo.Region.Width = TextRenderer.MeasureText(graphics, text.Substring(currentInfo.Index, currentInfo.Length), font, new Size(width, 9999), flags).Width;
+                            // todo w
+                            currentInfo.Region.Width = 100;// TextRenderer.MeasureText(graphics, text.Substring(currentInfo.Index, currentInfo.Length), font, new Size(width, 9999), flags).Width;
                         }
                         //We need to capture this word.
                         //ADD to any previous rects otherwise create new ?
@@ -634,13 +644,13 @@ namespace Client.Scenes.Views
             return regions;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     Visible = false;
                     break;
             }
@@ -1914,7 +1924,7 @@ namespace Client.Scenes.Views
                 Text = "Black Iron Ore",
                 Location = ClientArea.Location,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             BlackIronGrid = new DXItemGrid
@@ -1931,7 +1941,7 @@ namespace Client.Scenes.Views
                 Text = "Accessories",
                 Location = new Point(label.Location.X, BlackIronGrid.Location.Y + BlackIronGrid.Size.Height + 10),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             AccessoryGrid = new DXItemGrid
@@ -1948,7 +1958,7 @@ namespace Client.Scenes.Views
                 Text = "Special",
                 Location = new Point(AccessoryGrid.Location.X + AccessoryGrid.Size.Width + DXItemCell.CellWidth - 7, label.Location.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             SpecialGrid = new DXItemGrid
@@ -2922,7 +2932,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Quest List",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -3378,7 +3388,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Quest",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -3411,7 +3421,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.QuestTabDetailsLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 //ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -3457,7 +3467,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.QuestTabTasksLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 Outline = true,
                 OutlineColour = Color.Black,
                 IsControl = false,
@@ -3477,7 +3487,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.QuestTabRewardsLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 Outline = true,
                 OutlineColour = Color.Black,
                 IsControl = false,
@@ -3498,7 +3508,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.QuestTabChoiceLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 //ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -3524,7 +3534,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.QuestTabStartLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 //ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -3551,7 +3561,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.QuestTabEndLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 //ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -4131,7 +4141,7 @@ namespace Client.Scenes.Views
             NameLabel = new DXLabel
             {
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 //ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -4189,7 +4199,7 @@ namespace Client.Scenes.Views
                 Location = new Point(160, CompanionDisplayPoint.Y + 25),
                 Size = new Size(120, 20)
             };
-            CompanionNameTextBox.TextBox.TextChanged += TextBox_TextChanged;
+            CompanionNameTextBox.TextChanged += TextBox_TextChanged;
 
             label = new DXLabel
             {
@@ -4226,22 +4236,22 @@ namespace Client.Scenes.Views
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            CompanionNameValid = Globals.CharacterReg.IsMatch(CompanionNameTextBox.TextBox.Text);
+            CompanionNameValid = Globals.CharacterReg.IsMatch(CompanionNameTextBox.Text);
 
-            if (string.IsNullOrEmpty(CompanionNameTextBox.TextBox.Text))
+            if (string.IsNullOrEmpty(CompanionNameTextBox.Text))
                 CompanionNameTextBox.BorderColour = Color.FromArgb(198, 166, 99);
             else
                 CompanionNameTextBox.BorderColour = CompanionNameValid ? Color.Green : Color.Red;
         }
 
-        private void AdoptButton_MouseClick(object sender, MouseEventArgs e)
+        private void AdoptButton_MouseClick(object sender, MouseEvent e)
         {
             AdoptAttempted = true;
 
-            CEnvir.Enqueue(new C.CompanionAdopt { Index = SelectedCompanionInfo.Index, Name = CompanionNameTextBox.TextBox.Text });
+            CEnvir.Enqueue(new C.CompanionAdopt { Index = SelectedCompanionInfo.Index, Name = CompanionNameTextBox.Text });
         }
 
-        private void UnlockButton_MouseClick(object sender, MouseEventArgs e)
+        private void UnlockButton_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Inventory.All(x => x == null || x.Info.ItemEffect != ItemEffect.CompanionTicket))
             {
@@ -4636,12 +4646,12 @@ namespace Client.Scenes.Views
 
         #region Methods
 
-        private void StoreButton_MouseClick(object sender, MouseEventArgs e)
+        private void StoreButton_MouseClick(object sender, MouseEvent e)
         {
             CEnvir.Enqueue(new C.CompanionStore { Index = UserCompanion.Index });
         }
 
-        private void RetrieveButton_MouseClick(object sender, MouseEventArgs e)
+        private void RetrieveButton_MouseClick(object sender, MouseEvent e)
         {
             CEnvir.Enqueue(new C.CompanionRetrieve { Index = UserCompanion.Index });
         }
@@ -4751,7 +4761,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Ring",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -4885,7 +4895,7 @@ namespace Client.Scenes.Views
                 Text = "Iron Ore",
                 Location = new Point(ClientArea.X + 21, ClientArea.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             IronOreGrid = new DXItemGrid
@@ -4902,7 +4912,7 @@ namespace Client.Scenes.Views
                 Text = "Silver Ore",
                 Location = new Point(IronOreGrid.Size.Width + 5 + IronOreGrid.Location.X, label.Location.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             SilverOreGrid = new DXItemGrid
@@ -4919,7 +4929,7 @@ namespace Client.Scenes.Views
                 Text = "Diamond",
                 Location = new Point(SilverOreGrid.Size.Width + 5 + SilverOreGrid.Location.X, label.Location.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             DiamondGrid = new DXItemGrid
@@ -4936,7 +4946,7 @@ namespace Client.Scenes.Views
                 Text = "Gold Ore",
                 Location = new Point(ClientArea.X + 21, IronOreGrid.Location.Y + IronOreGrid.Size.Height + 10),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             GoldOreGrid = new DXItemGrid
@@ -4953,7 +4963,7 @@ namespace Client.Scenes.Views
                 Text = "Crystal",
                 Location = new Point(IronOreGrid.Size.Width + 5 + IronOreGrid.Location.X, IronOreGrid.Location.Y + IronOreGrid.Size.Height + 10),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             CrystalGrid = new DXItemGrid
@@ -4970,7 +4980,7 @@ namespace Client.Scenes.Views
                 Text = "Gold",
                 Location = new Point(SilverOreGrid.Size.Width + 5 + SilverOreGrid.Location.X, SilverOreGrid.Location.Y + SilverOreGrid.Size.Height + 10),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             GoldBox = new DXNumberTextBox
             {
@@ -5558,7 +5568,7 @@ namespace Client.Scenes.Views
                 Text = "Fragement I",
                 Location = ClientArea.Location,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             Fragment1Grid = new DXItemGrid
@@ -5575,7 +5585,7 @@ namespace Client.Scenes.Views
                 Text = "Fragement II",
                 Location = new Point(label.Size.Width + 5 + label.Location.X, label.Location.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             Fragment2Grid = new DXItemGrid
@@ -5592,7 +5602,7 @@ namespace Client.Scenes.Views
                 Text = "Fragement III",
                 Location = new Point(label.Size.Width + 5 + label.Location.X, label.Location.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             Fragment3Grid = new DXItemGrid
@@ -5609,7 +5619,7 @@ namespace Client.Scenes.Views
                 Text = "Refinement Stone",
                 Location = new Point(ClientArea.Location.X, Fragment3Grid.Location.Y + Fragment3Grid.Size.Height + 10),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             RefinementStoneGrid = new DXItemGrid
@@ -5626,7 +5636,7 @@ namespace Client.Scenes.Views
                 Text = "Special",
                 Location = new Point(Fragment3Grid.Location.X - 5, label.Location.Y),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             SpecialGrid = new DXItemGrid
@@ -5805,7 +5815,7 @@ namespace Client.Scenes.Views
             {
                 Text = $"Cost: {Globals.MasterRefineEvaluateCost:#,##0}",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.Right - label.Size.Width, EvaluateButton.Location.Y + EvaluateButton.Size.Height + 5);
 
@@ -6275,7 +6285,7 @@ namespace Client.Scenes.Views
                 Text = "Item",
                 Location = new Point(ClientArea.X + 65, ClientArea.Y + 15),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             TargetCell = new DXItemGrid
@@ -6459,7 +6469,7 @@ namespace Client.Scenes.Views
                 Text = "Attack Element",
                 Location = new Point(ClientArea.Right - HealthCheckBox.Size.Width - 150, ClientArea.Y + 73),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             FireCheckBox.Location = new Point(ClientArea.Right - FireCheckBox.Size.Width - 280, ClientArea.Y + 90);
@@ -6702,7 +6712,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Accessory",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2, ClientArea.Y);
 
@@ -6880,7 +6890,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Accessory",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -7114,7 +7124,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Template / Weapon",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2 + 50, ClientArea.Y);
 
@@ -7169,7 +7179,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Yellow",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2, ClientArea.Y + 60);
             YellowCell = new DXItemGrid
@@ -7185,7 +7195,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Blue",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2 + 50, ClientArea.Y + 60);
             BlueCell = new DXItemGrid
@@ -7201,7 +7211,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Red",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2 + 100, ClientArea.Y + 60);
             RedCell = new DXItemGrid
@@ -7217,7 +7227,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Purple",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2, ClientArea.Y + 120);
 
@@ -7234,7 +7244,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Green",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2 + 50, ClientArea.Y + 120);
 
@@ -7251,7 +7261,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Grey",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + (ClientArea.Width - label.Size.Width) / 2 + 100, ClientArea.Y + 120);
 
@@ -7268,7 +7278,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Class:",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             ClassLabel.Location = new Point(ClientArea.X + (ClientArea.Width - ClassLabel.Size.Width) / 2, ClientArea.Y + 185);
 
@@ -7618,7 +7628,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Accessory",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             label.Location = new Point(ClientArea.X + 10, ClientArea.Y + 18);
 
@@ -7635,7 +7645,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Ore",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             Orelabel.Location = new Point(TargetCell.Location.X + TargetCell.Size.Width * 2, label.Location.Y);
 
@@ -7652,7 +7662,7 @@ namespace Client.Scenes.Views
             {
                 Text = "Copies Of Accessory",
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             Materialslabel.Location = new Point(TargetCell.Location.X, TargetCell.Location.Y + TargetCell.Size.Height + 5);
 
@@ -7815,14 +7825,14 @@ namespace Client.Scenes.Views
                 Text = "Attack Element",
                 Location = new Point(ClientArea.Right - HealthCheckBox.Size.Width - 150, ClientArea.Y + 73),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
             new DXLabel
             {
                 Text = "Refine Options",
                 Location = new Point(ClientArea.Right - HealthCheckBox.Size.Width - 150, ClientArea.Y + 5),
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Underline)
             };
 
             FireCheckBox.Location = new Point(ClientArea.Right - FireCheckBox.Size.Width - 280, ClientArea.Y + 90);
@@ -8194,7 +8204,7 @@ namespace Client.Scenes.Views
             }
         }
 
-        private void _image_Click(object sender, EventArgs e)
+        private void _image_Click(object sender, MouseEvent e)
         {
             if (_rolling) return;
 

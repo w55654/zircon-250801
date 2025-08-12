@@ -5,12 +5,13 @@ using System.Numerics;
 namespace Ray2D
 {
     //
-    public readonly struct MouseEvent
+    public struct MouseEvent
     {
         public MouseButton Button { get; }
         public Point Location { get; }
         public Point WorldLocation { get; }
         public int Delta { get; }  // ¹öÂÖÔöÁ¿
+        public int Clicks = 1;
 
         public MouseEvent(MouseButton button, Vector2 pos, Vector2 worldpos, int delta = 0)
         {
@@ -25,6 +26,7 @@ namespace Ray2D
     {
         public KeyboardKey KeyCode { get; }
         public bool Handled;
+        public int Char;
 
         public KeyEvent(KeyboardKey keyCode)
         {

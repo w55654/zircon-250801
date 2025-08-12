@@ -2,12 +2,16 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
+using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Scenes.Views
 {
@@ -124,13 +128,13 @@ namespace Client.Scenes.Views
                 Settings.Location = nValue;
         }
 
-        public override void OnKeyDown(KeyEventArgs e)
+        public override void OnKeyDown(KeyEvent e)
         {
             base.OnKeyDown(e);
 
             switch (e.KeyCode)
             {
-                case Keys.Escape:
+                case KeyboardKey.Escape:
                     if (CloseButton.Visible)
                     {
                         CloseButton.InvokeMouseClick();
@@ -190,7 +194,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.GroupDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -275,9 +279,9 @@ namespace Client.Scenes.Views
                     ConfirmButton = { Enabled = false },
                     Modal = true
                 };
-                window.ValueTextBox.TextBox.TextChanged += (o1, e1) =>
+                window.ValueTextBox.TextChanged += (o1, e1) =>
                 {
-                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.TextBox.Text);
+                    window.ConfirmButton.Enabled = Globals.CharacterReg.IsMatch(window.ValueTextBox.Text);
                 };
                 window.ConfirmButton.MouseClick += (o1, e1) =>
                 {
@@ -332,9 +336,9 @@ namespace Client.Scenes.Views
                 };
                 label.MouseClick += (o, e) =>
                 {
-                    if (e.Button == MouseButtons.Left)
+                    if (e.Button == MouseButton.Left)
                         SelectedLabel = label;
-                    else if (e.Button == MouseButtons.Right)
+                    else if (e.Button == MouseButton.Right)
                     {
                         GameScene.Game.BigMapBox.Visible = true;
                         GameScene.Game.BigMapBox.Opacity = 1F;

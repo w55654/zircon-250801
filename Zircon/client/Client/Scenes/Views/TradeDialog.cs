@@ -2,6 +2,7 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -91,7 +92,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.TradeDialogTitle,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -145,7 +146,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.TradeDialogUserLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -158,7 +159,7 @@ namespace Client.Scenes.Views
             {
                 Text = CEnvir.Language.TradeDialogPlayerLabel,
                 Parent = this,
-                Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(10F), FontStyle.Bold),
                 ForeColour = Color.FromArgb(198, 166, 99),
                 Outline = true,
                 OutlineColour = Color.Black,
@@ -185,7 +186,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Border = false,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
                 ForeColour = Color.Goldenrod,
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 Parent = this,
@@ -212,7 +213,7 @@ namespace Client.Scenes.Views
             {
                 AutoSize = false,
                 Border = false,
-                Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
+                // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F), FontStyle.Bold),
                 ForeColour = Color.Goldenrod,
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.Left,
                 Parent = this,
@@ -242,7 +243,7 @@ namespace Client.Scenes.Views
 
         #region Methods
 
-        private void UserGoldLabel_MouseClick(object sender, MouseEventArgs e)
+        private void UserGoldLabel_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.Observer) return;
 

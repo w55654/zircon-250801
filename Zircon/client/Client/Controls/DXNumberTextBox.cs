@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ray2D;
+using System;
 using System.Globalization;
 using System.Threading;
 
@@ -33,8 +34,8 @@ namespace Client.Controls
         {
             ValueChanged?.Invoke(this, EventArgs.Empty);
 
-            TextBox.Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
-            TextBox.SelectionStart = TextBox.Text.Length;
+            Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
+            SelectionStart = Text.Length;
             ValueChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -65,7 +66,7 @@ namespace Client.Controls
             MaxValueChanged?.Invoke(this, EventArgs.Empty);
 
             if (Value >= MaxValue)
-                TextBox.Text = MaxValue.ToString();
+                Text = MaxValue.ToString();
         }
 
         #endregion
@@ -95,7 +96,7 @@ namespace Client.Controls
             MinValueChanged?.Invoke(this, EventArgs.Empty);
 
             if (Value < MinValue)
-                TextBox.Text = MinValue.ToString();
+                Text = MinValue.ToString();
         }
 
         #endregion
@@ -104,16 +105,16 @@ namespace Client.Controls
 
         public DXNumberTextBox()
         {
-            TextBox.TextChanged += TextBox_TextChanged;
-            TextBox.KeyPress += TextBox_KeyPress;
-            TextBox.Text = "0";
+            TextChanged += TextBox_TextChanged;
+            KeyPress += TextBox_KeyPress;
+            Text = "0";
         }
 
         #region Methods
 
-        private void TextBox_KeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyEvent e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            if (!char.IsControl((char)e.Char) && !char.IsDigit((char)e.Char))
                 e.Handled = true;
         }
 
@@ -121,7 +122,7 @@ namespace Client.Controls
         {
             long vol;
 
-            if (long.TryParse(TextBox.Text, NumberStyles.Integer | NumberStyles.AllowThousands, Thread.CurrentThread.CurrentCulture.NumberFormat, out vol))
+            if (long.TryParse(Text, NumberStyles.Integer | NumberStyles.AllowThousands, Thread.CurrentThread.CurrentCulture.NumberFormat, out vol))
             {
                 if (vol < MinValue)
                     vol = MinValue;
@@ -131,12 +132,12 @@ namespace Client.Controls
 
                 Value = (long)vol;
 
-                TextBox.Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
+                Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
             }
             else
             {
                 Value = MinValue;
-                TextBox.Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
+                Text = Value.ToString("#,##0", Thread.CurrentThread.CurrentCulture.NumberFormat);
             }
         }
 

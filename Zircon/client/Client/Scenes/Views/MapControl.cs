@@ -4,6 +4,8 @@ using Client.Models;
 using Client.Models.Particles;
 using Library;
 using Library.SystemModels;
+using Ray2D;
+using Raylib_cs;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -11,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
+using Color = System.Drawing.Color;
 
 //Cleaned
 namespace Client.Scenes.Views
@@ -148,7 +151,7 @@ namespace Client.Scenes.Views
             OffSetY = Size.Height / 2 / CellHeight;
         }
 
-        public MouseButtons MapButtons;
+        public MouseButton MapButtons;
         public Point MapLocation;
 
         public bool Mining;
@@ -534,14 +537,14 @@ namespace Client.Scenes.Views
             }
         }
 
-        public override void OnMouseMove(MouseEventArgs e)
+        public override void OnMouseMove(MouseEvent e)
         {
             base.OnMouseMove(e);
 
             MouseLocation = e.Location;
         }
 
-        public override void OnMouseDown(MouseEventArgs e)
+        public override void OnMouseDown(MouseEvent e)
         {
             base.OnMouseDown(e);
 
@@ -549,13 +552,13 @@ namespace Client.Scenes.Views
 
             MapButtons |= e.Button;
 
-            if (e.Button == MouseButtons.Right)
+            if (e.Button == MouseButton.Right)
             {
                 if (Config.RightClickDeTarget && MapObject.TargetObject?.Race == ObjectType.Monster)
                     MapObject.TargetObject = null;
             }
 
-            if (e.Button != MouseButtons.Left) return;
+            if (e.Button != MouseButton.Left) return;
 
             DXItemCell cell = DXItemCell.SelectedCell;
             if (cell != null)
@@ -716,12 +719,12 @@ namespace Client.Scenes.Views
             MapObject.TargetObject = null;
         }
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public override void OnMouseClick(MouseEvent e)
         {
             base.OnMouseClick(e);
             switch (e.Button)
             {
-                case MouseButtons.Left:
+                case MouseButton.Left:
                     if (GameScene.Game.Observer) return;
 
                     GameScene.Game.AutoRun = false;
@@ -737,7 +740,7 @@ namespace Client.Scenes.Views
                     }
                     break;
 
-                case MouseButtons.Right:
+                case MouseButton.Right:
                     GameScene.Game.AutoRun = false;
 
                     if (User.CurrentAction == MirAction.Standing)
@@ -875,7 +878,7 @@ namespace Client.Scenes.Views
             {
                 switch (MapButtons)
                 {
-                    case MouseButtons.Left:
+                    case MouseButton.Left:
                         Mining = false;
 
                         if (CEnvir.Shift && MapObject.TargetObject == null)
@@ -964,7 +967,7 @@ namespace Client.Scenes.Views
                             MapObject.User.AttemptAction(new ObjectAction(MirAction.Moving, direction, Functions.Move(MapObject.User.CurrentLocation, direction), 1, MagicType.None));
                         return;
 
-                    case MouseButtons.Right:
+                    case MouseButton.Right:
                         Mining = false;
 
                         if (FishingState != FishingState.None)

@@ -65,7 +65,7 @@ namespace Client.Models
                     Outline = true,
                     OutlineColour = OutlineColour,
                     IsVisible = true,
-                    Font = new Font(Config.FontName, 10),
+                    // wh Font = new Font(Config.FontName, 10),
                 };
 
                 Labels.Add(Label);

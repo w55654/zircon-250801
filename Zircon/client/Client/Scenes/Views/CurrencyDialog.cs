@@ -2,6 +2,7 @@
 using Client.Envir;
 using Client.UserModels;
 using Library;
+using Ray2D;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -263,7 +264,7 @@ namespace Client.Scenes.Views
             UpdateScrollBar();
         }
 
-        private void Currency_MouseClick(object sender, MouseEventArgs e)
+        private void Currency_MouseClick(object sender, MouseEvent e)
         {
             if (GameScene.Game.SelectedCell == null)
             {
