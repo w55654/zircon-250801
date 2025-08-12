@@ -4,21 +4,18 @@
 
 using Library;
 using Ray2D;
-using Raylib_cs;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
 using System.Threading;
-using UtilsShared;
 using static Raylib_cs.Raylib;
-using static System.Windows.Forms.DataFormats;
 using Color = System.Drawing.Color;
 using Rectangle = System.Drawing.Rectangle;
 
 namespace Client.Envir
 {
-    public sealed class MirLibrary : HDisposable
+    public sealed class MirLibrary : UtilsShared.HDisposable
     {
         public readonly object LoadLocker = new object();
 
@@ -485,10 +482,10 @@ namespace Client.Envir
         {
             if (Position == 0) return;
 
-            // DXT 数据按 4x4 block 对齐，文件里存的是 padded 尺寸
-            int pw = Width + (4 - (Width & 3)) % 4;
-            int ph = Height + (4 - (Height & 3)) % 4;
-            if (pw == 0 || ph == 0) return;
+            // DXT 4x4 padding
+            int pw = (Width + 3) & ~3;
+            int ph = (Height + 3) & ~3;
+            if (pw <= 0 || ph <= 0) return;
 
             byte[] blockData;
             lock (reader)
@@ -497,24 +494,26 @@ namespace Client.Envir
                 blockData = reader.ReadBytes(ImageDataSize);
             }
 
-            // 你的规则：Version==0 用 DXT1，否则 DXT5
             bool useDXT1 = (Version == 0);
 
-            // 先软解到 RGBA8（输出尺寸=真实 Width/Height）
+            // 软件解码到 RGBA8（真实尺寸）
             _imgPixels = useDXT1
                 ? DecodeDXT1(blockData, Width, Height, pw, ph)
                 : DecodeDXT5(blockData, Width, Height, pw, ph);
 
-            // 反复创建时，先卸掉旧纹理，别堆垃圾
+            // ① 自己做黑色 colorkey + 预乘，别调用 ImageAlpha* 系列
+            ColorKeyAndPremultiply(_imgPixels, tol: 30); // tol=0..255，按资源调
+
+            // 旧纹理卸载
             if (Image != null && Image.Texture.Id != 0)
                 Raylib_cs.Raylib.UnloadTexture(Image.Texture);
 
-            // 7.0.1 正确用法：自己构造 Image（指向 pinned 像素），再 LoadTextureFromImage
+            // ② 构造 Image 指向 pinned 像素，只做“上传”，不再调用任何会改 data 的 Image 函数
             fixed (Raylib_cs.Color* p = _imgPixels)
             {
                 Raylib_cs.Image img = new Raylib_cs.Image
                 {
-                    Data = p,                                        // 指向 RGBA 像素
+                    Data = p,
                     Width = Width,
                     Height = Height,
                     Mipmaps = 1,
@@ -522,6 +521,11 @@ namespace Client.Envir
                 };
 
                 Raylib_cs.Texture2D tex = Raylib_cs.Raylib.LoadTextureFromImage(img);
+
+                // ③ 采样设置，避免边缘吸黑
+                Raylib_cs.Raylib.SetTextureWrap(tex, Raylib_cs.TextureWrap.Clamp);
+                Raylib_cs.Raylib.SetTextureFilter(tex, Raylib_cs.TextureFilter.Bilinear);
+
                 Image = new RayTexture(tex);
             }
 
@@ -530,8 +534,28 @@ namespace Client.Envir
             if (!DXManager.TextureList.Contains(this))
                 DXManager.TextureList.Add(this);
 
-            // 旧时代的显存指针已经没用了，留空避免误用
-            ImageData = null;
+            unsafe { ImageData = null; } // 别再用旧指针
+        }
+
+        // —— 黑抠 + 预乘（托管端处理，安全不崩）——
+        private static void ColorKeyAndPremultiply(Raylib_cs.Color[] px, byte tol)
+        {
+            for (int i = 0; i < px.Length; i++)
+            {
+                var c = px[i];
+
+                // 黑色容差：tol=4 会把很暗的灰也当透明
+                if (c.R <= tol && c.G <= tol && c.B <= tol)
+                    c.A = 0;
+
+                // 预乘 alpha，去黑边
+                byte a = c.A;
+                px[i] = new Raylib_cs.Color(
+                    (byte)(c.R * a / 255),
+                    (byte)(c.G * a / 255),
+                    (byte)(c.B * a / 255),
+                    a);
+            }
         }
 
         public void CreateShadow(BinaryReader reader)
