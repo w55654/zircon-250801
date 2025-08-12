@@ -1,6 +1,7 @@
 ﻿using Client.Controls;
 using Client.Envir;
 using Client.Scenes;
+using Client1000.RayDraw;
 using Library;
 using Raylib_cs;
 using Sentry;
@@ -54,21 +55,15 @@ namespace Client
             //RayFont.LoadFont($"{Config.AppPath}/Data123/Fonts/SourceHanSansSC-Bold.ttf");
             //RayFont.LoadCommChars($"{Config.AppPath}/Data123/Chars/chars3500.txt");
 
-            //var form = new Client.TargetForm();   // 为了保持外部引用不改
+            // 创建窗口
+            RayApp app = new RayApp("mir3z", Config.GameSize);
 
             DXManager.Create();
             DXSoundManager.Create();
 
-            DXControl.ActiveScene = new LoginScene(Config.IntroSceneSize);
+            DXControl.ActiveScene = new LoginScene(Config.GameSize);
 
-            while (!Raylib.WindowShouldClose())
-            {
-                //form.PumpInput();                 // 轮询输入并转发到 DXControl.ActiveScene
-                CEnvir.GameLoop();                // 你的更新
-                DXManager.BeginFrame(System.Drawing.Color.Black);
-                // 你的渲染逻辑（场景里还是调用 DXManager.SpriteXXX）
-                DXManager.PresentToScreen();
-            }
+            app.Run();
 
             //MessagePump.Run(CEnvir.Target, CEnvir.GameLoop);
 

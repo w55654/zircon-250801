@@ -42,14 +42,14 @@ namespace Client1000.RayDraw
             Raylib.SetTargetFPS(60);
             Raylib.SetExitKey(KeyboardKey.Null);
 
-            RayFont.LoadFont($"{Config.AppPath}/Data/Fonts/SourceHanSansSC-Bold.ttf");
-            RayFont.LoadCommChars($"{Config.AppPath}/Data/Chars/chars3500.txt");
+            RayFont.LoadFont($"{Config.AppPath}/Data11/Fonts/SourceHanSansSC-Bold.ttf");
+            RayFont.LoadCommChars($"{Config.AppPath}/Data11/Chars/chars3500.txt");
 
             Camera = new Camera2D
             {
-                Offset = new Vector2(size.Width / 2f, size.Height / 2f),
+                //Offset = new Vector2(size.Width / 2f, size.Height / 2f),
                 Rotation = 0f,
-                Zoom = 1.5f,
+                Zoom = 1.0f,
                 Target = Vector2.Zero
             };
         }
@@ -62,8 +62,10 @@ namespace Client1000.RayDraw
 
         public static void SetCameraZoom(float scale, bool abs = false)
         {
-            if (abs) Camera.Zoom = scale;
-            else Camera.Zoom = Math.Clamp(Camera.Zoom + scale, 0.5f, 5f);
+            if (abs)
+                Camera.Zoom = scale;
+            else
+                Camera.Zoom = Math.Clamp(Camera.Zoom + scale, 0.5f, 5f);
         }
 
         public void Run()

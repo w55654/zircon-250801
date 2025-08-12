@@ -140,14 +140,14 @@ namespace Client.Envir
             }
         }
 
-        public static void GameLoop()
-        {
-            UpdateGame();
-            RenderGame();
+        //public static void GameLoop()
+        //{
+        //    UpdateGame();
+        //    RenderGame();
 
-            if (Config.LimitFPS)
-                Thread.Sleep(1);
-        }
+        //    if (Config.LimitFPS)
+        //        Thread.Sleep(1);
+        //}
 
         public static void UpdateGame()
         {
@@ -299,16 +299,8 @@ namespace Client.Envir
         {
             try
             {
-                Raylib.BeginDrawing();
-                Raylib.ClearBackground(Raylib_cs.Color.Gray);
-
-                // 兼容旧调用，内部是 no-op/确保在 RenderTexture 里作画
-                DXManager.SpriteBegin();
-
                 // 你的实际绘制
                 DXControl.ActiveScene?.Draw();
-
-                Raylib.EndDrawing();
 
                 FPSCounter++;
             }

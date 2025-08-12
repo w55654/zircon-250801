@@ -58,11 +58,6 @@ namespace Client.Envir
 
             var size = DXControl.ActiveScene?.Size ?? new Size(1024, 768);
 
-            Raylib.SetConfigFlags(ConfigFlags.Msaa4xHint | ConfigFlags.ResizableWindow);
-            Raylib.InitWindow(size.Width, size.Height, "Game");
-            Raylib.SetTargetFPS(60);
-            Raylib.InitAudioDevice();
-
             _mainTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
             _scratchTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
             _currentTarget = _mainTarget;
@@ -90,7 +85,6 @@ namespace Client.Envir
         {
             if (_mainTarget.Id != 0) Raylib.UnloadRenderTexture(_mainTarget);
             if (_scratchTarget.Id != 0) Raylib.UnloadRenderTexture(_scratchTarget);
-            Raylib.CloseAudioDevice();
             if (_windowInited) Raylib.CloseWindow();
             _windowInited = false;
         }
