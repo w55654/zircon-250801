@@ -1,6 +1,7 @@
 ﻿using Client.Envir;
 using Client.Scenes.Views;
 using Library;
+using Ray2D;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -56,7 +57,7 @@ namespace Client.Controls
 
         #region Methods
 
-        public override void OnMouseDown(MouseEventArgs e)
+        public void HandleMouseDown(MouseEventArgs e)
         {
             if (!IsEnabled) return;
 
@@ -81,7 +82,7 @@ namespace Client.Controls
             }
         }
 
-        public override void OnMouseUp(MouseEventArgs e)
+        public void HandleMouseUp(MouseEventArgs e)
         {
             if (!IsEnabled) return;
 
@@ -91,7 +92,7 @@ namespace Client.Controls
                 base.OnMouseUp(e);
         }
 
-        public override void OnMouseMove(MouseEventArgs e)
+        public void HandleMouseMove(MouseEventArgs e)
         {
             if (!IsEnabled) return;
 
@@ -103,7 +104,7 @@ namespace Client.Controls
                 base.OnMouseMove(e);
         }
 
-        public override void OnMouseClick(MouseEventArgs e)
+        public void HandleMouseClick(MouseEventArgs e)
         {
             if (!IsEnabled) return;
 
@@ -131,7 +132,7 @@ namespace Client.Controls
             Buttons = e.Button;
         }
 
-        public override void OnMouseDoubleClick(MouseEventArgs e)
+        public void HandleMouseDoubleClick(MouseEventArgs e)
         {
             if (!IsEnabled) return;
 
@@ -152,7 +153,7 @@ namespace Client.Controls
             ClickControl = MouseControl;
         }
 
-        public override void OnMouseWheel(MouseEventArgs e)
+        public void HandleMouseWheel(MouseEventArgs e)
         {
             if (!IsEnabled) return;
 
@@ -160,6 +161,21 @@ namespace Client.Controls
                 MouseControl.OnMouseWheel(e);
             else
                 base.OnMouseWheel(e);
+        }
+
+        public void HandleKeyDown(KeyEventArgs e)
+        {
+            OnKeyDown(e);
+        }
+
+        public void HandleKeyUp(KeyEventArgs e)
+        {
+            OnKeyUp(e);
+        }
+
+        public void HandleKeyPress(KeyPressEventArgs e)
+        {
+            OnKeyPress(e);
         }
 
         protected override void OnAfterDraw()

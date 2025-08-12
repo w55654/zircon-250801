@@ -8,6 +8,7 @@ using Library;
 using Library.Network;
 using Library.SystemModels;
 using MirDB;
+using Raylib_cs;
 using Sentry;
 using System;
 using System.Collections.Concurrent;
@@ -149,7 +150,7 @@ namespace Client.Envir
                 Thread.Sleep(1);
         }
 
-        private static void UpdateGame()
+        public static void UpdateGame()
         {
             Now = Time.Now;
             DXControl.ActiveScene?.OnMouseMove(new MouseEventArgs(MouseButtons.None, 0, MouseLocation.X, MouseLocation.Y, 0));
@@ -291,14 +292,16 @@ namespace Client.Envir
             }
         }
 
-        private static void RenderGame()
+        public static void RenderUI()
+        {
+        }
+
+        public static void RenderGame()
         {
             try
             {
-                // raylib 不存在设备丢失，删掉整段 AttemptReset/AttemptRecovery/DeviceLost
-
-                // 等价于 Clear + BeginScene
-                DXManager.BeginFrame(System.Drawing.Color.Black);
+                Raylib.BeginDrawing();
+                Raylib.ClearBackground(Raylib_cs.Color.Gray);
 
                 // 兼容旧调用，内部是 no-op/确保在 RenderTexture 里作画
                 DXManager.SpriteBegin();
@@ -306,11 +309,7 @@ namespace Client.Envir
                 // 你的实际绘制
                 DXControl.ActiveScene?.Draw();
 
-                // 兼容旧调用
-                DXManager.SpriteEnd();
-
-                // 等价于 EndScene + Present，把离屏目标贴回屏幕
-                DXManager.PresentToScreen();
+                Raylib.EndDrawing();
 
                 FPSCounter++;
             }

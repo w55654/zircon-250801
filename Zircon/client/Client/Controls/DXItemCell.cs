@@ -578,11 +578,6 @@ namespace Client.Controls
 
         public DXLabel CountLabel;
 
-        public override void OnMouseWheel(MouseEventArgs e)
-        {
-            HandleMouseWheel(e);
-        }
-
         public override void OnIsVisibleChanged(bool oValue, bool nValue)
         {
             base.OnIsVisibleChanged(oValue, nValue);

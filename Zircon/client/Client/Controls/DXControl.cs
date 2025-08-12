@@ -1634,11 +1634,6 @@ namespace Client.Controls
         {
             if (!IsEnabled) return;
 
-            HandleMouseWheel(e);
-        }
-
-        protected void HandleMouseWheel(MouseEventArgs e)
-        {
             MouseWheel?.Invoke(this, e);
         }
 
