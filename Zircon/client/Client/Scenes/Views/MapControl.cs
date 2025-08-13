@@ -1464,14 +1464,6 @@ namespace Client.Scenes.Views
                 }
             }
 
-            public override void Draw()
-            {
-            }
-
-            protected override void DrawControl()
-            {
-            }
-
             #endregion
         }
     }

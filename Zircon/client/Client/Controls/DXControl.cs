@@ -1772,17 +1772,17 @@ namespace Client.Controls
                 if (!TextureValid) return;
             }
 
-            PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
+            PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this, true);
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int offX = 0, int offY = 0)
         {
-            PresentTexture(texture.Texture, parent, displayArea, colour, alpha, control, offX, offY);
+            PresentTexture(texture.Texture, parent, displayArea, colour, alpha, control, false, offX, offY);
         }
 
-        public static void PresentTexture(Texture2D texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int offX = 0, int offY = 0)
+        public static void PresentTexture(Texture2D texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, bool flipY, int offX = 0, int offY = 0)
         {
             Rectangle bounds = ActiveScene.DisplayArea;
             Rectangle textureArea = Rectangle.Intersect(bounds, displayArea);
@@ -1816,13 +1816,17 @@ namespace Client.Controls
             float fX = displayArea.X + textureArea.Location.X + offX;
             float fY = displayArea.Y + textureArea.Location.Y + offY;
 
+            if (flipY)
+            {
+                textureArea.Height = -textureArea.Height;
+            }
             // dstRect
             Raylib_cs.Rectangle destRect = new Raylib_cs.Rectangle
             {
                 X = fX,
                 Y = fY,
-                Width = displayArea.Width,
-                Height = displayArea.Height,
+                Width = textureArea.Width,
+                Height = textureArea.Height,
             };
 
             Raylib_cs.Rectangle clipRect = textureArea.ToRayRect();
