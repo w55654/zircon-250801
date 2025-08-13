@@ -12,7 +12,6 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Numerics;
-using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 using Color = System.Drawing.Color;
 
@@ -197,18 +196,23 @@ namespace Client.Scenes.Views
         protected override void OnClearTexture()
         {
             base.OnClearTexture();
+        }
 
+        public void DrawMap()
+        {
             if (!Visible) return;
 
             DrawBackground();
 
-            if (FLayer.TextureValid)
-            {
-                //DXManager.SpriteDraw(FLayer.ControlTexture, Color.White);
-                //FLayer.ControlTexture.Draw(0, 0, Color.White);
+            //if (FLayer.TextureValid)
+            //{
+            //    //DXManager.SpriteDraw(FLayer.ControlTexture, Color.White);
+            //    //FLayer.ControlTexture.Draw(0, 0, Color.White);
 
-                Raylib.DrawTexture(FLayer.ControlTexture.Texture, 0, 0, Raylib_cs.Color.White);
-            }
+            //    Raylib.DrawTexture(FLayer.ControlTexture.Texture, 0, 0, Raylib_cs.Color.White);
+            //}
+
+            FLayer.DrawTiles();
 
             if (Config.DrawEffects)
             {
@@ -295,12 +299,13 @@ namespace Client.Scenes.Views
         {
             if (!IsVisible || Size.Width == 0 || Size.Height == 0) return;
 
-            FLayer.CheckTexture();
+            //FLayer.CheckTexture();
 
             //CreateTexture();
             OnBeforeDraw();
 
-            DrawControl();
+            //DrawControl();
+            DrawMap();
 
             DrawBorder();
             OnAfterDraw();
@@ -1388,7 +1393,10 @@ namespace Client.Scenes.Views
             protected override void OnClearTexture()
             {
                 base.OnClearTexture();
+            }
 
+            public void DrawTiles()
+            {
                 int minX = Math.Max(0, User.CurrentLocation.X - OffSetX - 4), maxX = Math.Min(GameScene.Game.MapControl.Width - 1, User.CurrentLocation.X + OffSetX + 4);
                 int minY = Math.Max(0, User.CurrentLocation.Y - OffSetY - 4), maxY = Math.Min(GameScene.Game.MapControl.Height - 1, User.CurrentLocation.Y + OffSetY + 4);
 

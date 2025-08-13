@@ -335,9 +335,17 @@ namespace Client.Controls
                 }
             }
 
-            if (texture == null) return;
+            if (texture == null)
+                return;
 
             PresentTexture(texture, Parent, DisplayArea, ForeColour, Opacity, this, 0, Pressed ? 1 : 0);
+        }
+
+        protected override void DrawBorder()
+        {
+            base.DrawBorder();
+
+            RayDraw.DrawRectLines(DisplayArea, 2F, Color.Yellow);
         }
 
         public override void OnFocus()
