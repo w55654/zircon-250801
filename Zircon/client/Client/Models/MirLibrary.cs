@@ -4,6 +4,7 @@
 
 using Library;
 using Ray2D;
+using Raylib_cs;
 using System;
 using System.Drawing;
 using System.IO;
@@ -468,11 +469,7 @@ namespace Client.Envir
         {
             if (Position == 0) return;
 
-            // DXT 4x4 padding
-            int pw = (Width + 3) & ~3;
-            int ph = (Height + 3) & ~3;
-            if (pw <= 0 || ph <= 0) return;
-
+            // 读裸 DXT 块
             byte[] blockData;
             lock (reader)
             {
@@ -480,47 +477,58 @@ namespace Client.Envir
                 blockData = reader.ReadBytes(ImageDataSize);
             }
 
-            bool useDXT1 = (Version == 0);
-
-            // 软件解码到 RGBA8（真实尺寸）
-            _imgPixels = useDXT1
-                ? DecodeDXT1(blockData, Width, Height, pw, ph)
-                : DecodeDXT5(blockData, Width, Height, pw, ph);
-
-            // ① 自己做黑色 colorkey + 预乘，别调用 ImageAlpha* 系列
-            //SoftKeyFromBlackAndPremultiply(_imgPixels, cutoff: 2, feather: 96, mode: 0); // tol=0..255，按资源调
-
-            // 旧纹理卸载
+            // 卸旧
             if (Image != null && Image.Texture.Id != 0)
-                Raylib_cs.Raylib.UnloadTexture(Image.Texture);
+                Raylib.UnloadTexture(Image.Texture);
 
-            // ② 构造 Image 指向 pinned 像素，只做“上传”，不再调用任何会改 data 的 Image 函数
-            fixed (Raylib_cs.Color* p = _imgPixels)
+            bool isDXT1 = (Version == 0);
+            // 注意：DXT1 有 RGB 和 RGBA(1-bit alpha) 两个变体，你自己知道资源有没有 1-bit alpha。
+            var fmt = isDXT1
+                ? PixelFormat.CompressedDxt1Rgb   // 或者 COMPRESSED_DXT1_RGBA，如果你确实用了 1-bit alpha
+                : PixelFormat.CompressedDxt5Rgba;
+
+            // --- 抠掉黑色 ---
+            //BlackToTransparent(pixels, tolerance: 2);
+
+            fixed (byte* p = blockData)
             {
                 Raylib_cs.Image img = new Raylib_cs.Image
                 {
                     Data = p,
                     Width = Width,
                     Height = Height,
-                    Mipmaps = 1,
-                    Format = Raylib_cs.PixelFormat.UncompressedR8G8B8A8,
+                    Mipmaps = 1,              // 有多级就填真实 mip 数，数据要按 DDS 的顺序拼在 FBytes 里
+                    Format = fmt
                 };
 
-                Raylib_cs.Texture2D tex = Raylib_cs.Raylib.LoadTextureFromImage(img);
+                BlackToTransparent(ref img);
 
-                // ③ 采样设置，避免边缘吸黑
-                Raylib_cs.Raylib.SetTextureWrap(tex, Raylib_cs.TextureWrap.Clamp);
-                Raylib_cs.Raylib.SetTextureFilter(tex, Raylib_cs.TextureFilter.Bilinear);
+                Texture2D tex = Raylib.LoadTextureFromImage(img);
+
+                Raylib.SetTextureWrap(tex, TextureWrap.Clamp);
+                Raylib.SetTextureFilter(tex, TextureFilter.Bilinear);
 
                 Image = new RayTexture(tex);
             }
 
             ImageValid = true;
-            ExpireTime = CEnvir.Now + Config.CacheDuration;
-            if (!DXManager.TextureList.Contains(this))
-                DXManager.TextureList.Add(this);
+        }
 
-            unsafe { ImageData = null; } // 别再用旧指针
+        public static unsafe void BlackToTransparent(ref Raylib_cs.Image img, byte tol = 2)
+        {
+            unsafe
+            {
+                Raylib_cs.Color* px = Raylib.LoadImageColors(img);
+                for (int i = 0; i < img.Width * img.Height; i++)
+                {
+                    var c = px[i];
+                    if (c.R <= tol && c.G <= tol && c.B <= tol)
+                        c.A = 0;
+
+                    px[i] = c;
+                }
+                Raylib.UnloadImageColors(px);
+            }
         }
 
         // 纯托管处理：按“黑度”软键控 + 预乘
