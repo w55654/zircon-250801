@@ -998,10 +998,6 @@ namespace Client.Models
 
         public void DrawBody(bool shadow)
         {
-            // todo w
-            //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0);
-            DXManager.SpriteFlush();
-
             int l = int.MaxValue, t = int.MaxValue, r = int.MinValue, b = int.MinValue;
 
             MirImage image = null;
@@ -1243,8 +1239,6 @@ namespace Client.Models
                 }
             }
 
-            if (oldOpacity != Opacity && !DXManager.Blending) DXManager.SetOpacity(Opacity);
-
             switch (CurrentAnimation)
             {
                 case MirAnimation.HorseStanding:
@@ -1271,8 +1265,6 @@ namespace Client.Models
 
             DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector2.Zero, new Vector2(l, t), DrawColour);
             CEnvir.DPSCounter++;
-
-            if (oldOpacity != Opacity && !DXManager.Blending) DXManager.SetOpacity(oldOpacity);
         }
 
         public void DrawShadow2(int l, int t, int r, int b)

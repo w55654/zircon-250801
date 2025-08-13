@@ -229,18 +229,6 @@ namespace Client.Scenes.Views
                 }
             }
 
-            DXManager.SpriteFlush();
-
-            // todo w
-            //DXManager.Device.SetRenderState(RenderState.SourceBlend, Blend.Zero);
-            //DXManager.Device.SetRenderState(RenderState.DestinationBlend, Blend.SourceColor);
-
-            //DXManager.SpriteDraw(LLayer.ControlTexture, Color.White);
-
-            DXManager.SpriteEnd();
-
-            DXManager.SpriteBegin();
-
             foreach (MapObject ob in Objects)
             {
                 if (ob.Dead) continue;

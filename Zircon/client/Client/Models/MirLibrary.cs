@@ -259,16 +259,10 @@ namespace Client.Envir
             }
             if (texture == null) return;
 
-            bool oldBlend = DXManager.Blending;
-            float oldRate = DXManager.BlendRate;
-
-            DXManager.SetBlend(true, opacity);
-
             // 注意：size/angle 原来靠 SpriteTransform，这里暂未生效。
             DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
 
             CEnvir.DPSCounter++;
-            DXManager.SetBlend(oldBlend, oldRate);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
@@ -318,13 +312,8 @@ namespace Client.Envir
             }
             if (texture == null) return;
 
-            bool oldBlend = DXManager.Blending;
-            float oldRate = DXManager.BlendRate;
-
-            DXManager.SetBlend(true, rate);
             DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
             CEnvir.DPSCounter++;
-            DXManager.SetBlend(oldBlend, oldRate);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }

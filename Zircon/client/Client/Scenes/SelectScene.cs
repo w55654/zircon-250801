@@ -293,8 +293,6 @@ namespace Client.Scenes
 
             if (!CharacterAnimation.Loop)
             {
-                DXManager.SetBlend(true);
-
                 MirImage image = CharacterAnimation.Library?.GetImage(CharacterAnimation.Index);
 
                 if (image == null) return;
@@ -310,8 +308,6 @@ namespace Client.Scenes
                 image = CharacterAnimation.Library?.CreateImage(CharacterAnimation.Index + 130, ImageType.Image);
                 if (image != null)
                     PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.White, this);
-
-                DXManager.SetBlend(false);
             }
         }
 

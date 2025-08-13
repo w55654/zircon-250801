@@ -337,20 +337,7 @@ namespace Client.Controls
 
             if (texture == null) return;
 
-            bool oldBlend = DXManager.Blending;
-            float oldRate = DXManager.BlendRate;
-
-            if (Blend)
-                DXManager.SetBlend(true, ImageOpacity, BlendMode);
-            else
-                DXManager.SetOpacity(Opacity);
-
             PresentTexture(texture, Parent, DisplayArea, ForeColour, this, 0, Pressed ? 1 : 0);
-
-            if (Blend)
-                DXManager.SetBlend(oldBlend, oldRate, BlendMode);
-            else
-                DXManager.SetOpacity(1F);
         }
 
         public override void OnFocus()

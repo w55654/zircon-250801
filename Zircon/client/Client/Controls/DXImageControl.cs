@@ -37,33 +37,6 @@ namespace Client.Controls
 
         #endregion
 
-        #region BlendMode
-
-        public BlendMode BlendMode
-        {
-            get => _BlendMode;
-            set
-            {
-                if (_BlendMode == value) return;
-
-                BlendMode oldValue = _BlendMode;
-                _BlendMode = value;
-
-                OnBlendModeChanged(oldValue, value);
-            }
-        }
-
-        private BlendMode _BlendMode = BlendMode.NORMAL;
-
-        public event EventHandler<EventArgs> BlendModeChanged;
-
-        public virtual void OnBlendModeChanged(BlendMode oValue, BlendMode nValue)
-        {
-            BlendModeChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
-
         #region DrawImage
 
         public bool DrawImage
@@ -300,24 +273,13 @@ namespace Client.Controls
 
         protected virtual void DrawMirTexture()
         {
-            bool oldBlend = DXManager.Blending;
-            float oldRate = DXManager.BlendRate;
-
             MirImage image = Library.CreateImage(Index, ImageType.Image);
 
             if (image?.Image == null) return;
 
-            if (Blend)
-                DXManager.SetBlend(true, ImageOpacity, BlendMode);
-            else
-                DXManager.SetOpacity(ImageOpacity);
+            DXManager.SetOpacity(ImageOpacity);
 
             PresentTexture(image.Image, FixedSize ? null : Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), this, 0, 0);
-
-            if (Blend)
-                DXManager.SetBlend(oldBlend, oldRate, BlendMode);
-            else
-                DXManager.SetOpacity(1F);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }

@@ -175,9 +175,7 @@ namespace Client.Models
         {
             if (BodyLibrary == null) return;
 
-            DXManager.SetBlend(true, 0.20F, BlendMode.HIGHLIGHT);//0.60F
             DrawBody();
-            DXManager.SetBlend(false);
         }
 
         public override bool MouseOver(Point p)

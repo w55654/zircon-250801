@@ -13,6 +13,7 @@ using System.Drawing;
 using System.IO;
 using System.Numerics;
 using UtilsShared;
+using static System.Net.Mime.MediaTypeNames;
 using Color = Raylib_cs.Color;
 using Image = Raylib_cs.Image;
 using Rectangle = Raylib_cs.Rectangle;
@@ -28,11 +29,6 @@ namespace Client.Envir
         private static Size MinimumResolution = new Size(1024, 768);
 
         public static float Opacity { get; private set; } = 1f;
-        public static bool Blending { get; private set; }
-        public static float BlendRate { get; private set; } = 1f;
-        public static BlendMode BlendMode { get; private set; } = BlendMode.NORMAL;
-
-        public static bool DeviceLost { get; private set; } // raylib 不会丢设备
 
         public static List<DXControl> ControlList { get; } = new List<DXControl>();
         public static List<MirImage> TextureList { get; } = new List<MirImage>();
@@ -89,40 +85,6 @@ namespace Client.Envir
             _windowInited = false;
         }
 
-        // ============== 一帧流程 ==============
-        public static void BeginFrame(System.Drawing.Color clear)
-        {
-            BeginTextureIfNeeded(); // 在 RenderTexture 内绘制
-            Raylib.ClearBackground(clear.ToRay());
-        }
-
-        public static void PresentToScreen()
-        {
-            EndTextureIfNeeded();
-
-            Raylib.BeginDrawing();
-            Raylib.ClearBackground(Raylib_cs.Color.Gray);
-
-            // 注意：RenderTexture 在 raylib 需要 Y 翻转：源矩形高度用负数
-            Raylib_cs.Rectangle src = new Raylib_cs.Rectangle(0, 0, _mainTarget.Texture.Width, -_mainTarget.Texture.Height);
-            Raylib_cs.Rectangle dst = new Raylib_cs.Rectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight());
-            Raylib.DrawTexturePro(_mainTarget.Texture, src, dst, Vector2.Zero, 0, Raylib_cs.Color.White);
-
-            Raylib.EndDrawing();
-        }
-
-        // ============== Sprite 兼容层 ==============
-        public static void SpriteBegin()
-        {
-            BeginTextureIfNeeded(); // raylib 默认批处理，这里只保证在 RTT 中
-        }
-
-        public static void SpriteEnd()
-        { /* 留空，提交由 PresentToScreen 统一处理 */ }
-
-        public static void SpriteFlush()
-        { /* 不需要 */ }
-
         // ============== 三个 SpriteDraw 重载：DrawTexturePro 实现 ==============
         public static void SpriteDraw(RayTexture texture, Vector2? center, Vector2? position, System.Drawing.Color color)
         {
@@ -135,7 +97,7 @@ namespace Client.Envir
             var src = new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
             var dst = new Rectangle((int)pos.X, (int)pos.Y, texture.Texture.Width, texture.Texture.Height);
 
-            DrawOne(texture.Texture, src, dst, org, 0f, color);
+            Raylib.DrawTexturePro(texture.Texture, src, dst, org, 0f, color.ToRayColor(Opacity));
         }
 
         public static void SpriteDraw(RayTexture texture, System.Drawing.Rectangle? sourceRect, Vector2? center, Vector2? position, System.Drawing.Color color)
@@ -152,7 +114,7 @@ namespace Client.Envir
 
             Rectangle dst = new Rectangle((int)pos.X, (int)pos.Y, src.Width, src.Height);
 
-            DrawOne(texture.Texture, src, dst, org, 0f, color);
+            Raylib.DrawTexturePro(texture.Texture, src, dst, org, 0f, color.ToRayColor(Opacity));
         }
 
         public static void SpriteDraw(RayTexture texture, System.Drawing.Color color)
@@ -161,21 +123,14 @@ namespace Client.Envir
                 return;
             var src = new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
             var dst = new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
-            DrawOne(texture.Texture, src, dst, Vector2.Zero, 0f, color);
+
+            Raylib.DrawTexturePro(texture.Texture, src, dst, Vector2.Zero, 0f, color.ToRayColor(Opacity));
         }
 
         // ============== 状态：Opacity / Blend / Colour ==============
         public static void SetOpacity(float opacity)
         {
             Opacity = Math.Max(0, Math.Min(1, opacity));
-        }
-
-        public static void SetBlend(bool value, float rate = 1F, BlendMode mode = BlendMode.NORMAL)
-        {
-            Blending = value;
-            BlendRate = rate;
-            BlendMode = mode;
-            // 具体混合在 DrawOne 里映射。INV/遮罩类请改 shader。
         }
 
         public static void SetColour(int colour)
@@ -232,17 +187,7 @@ namespace Client.Envir
         // ============== 内部绘制实现 ==============
         private static void DrawOne(Texture2D tex, Rectangle src, Rectangle dst, Vector2 origin, float rotationDeg, System.Drawing.Color c)
         {
-            BeginTextureIfNeeded();
-
-            bool useBlend = Blending;
-            if (useBlend) Raylib.BeginBlendMode(MapBlendMode(BlendMode));
-
-            var tint = c.ToRay();
-            tint.A = (byte)(tint.A * Opacity); // 透明度叠乘
-
-            Raylib.DrawTexturePro(tex, src, dst, origin, rotationDeg, tint);
-
-            if (useBlend) Raylib.EndBlendMode();
+            Raylib.DrawTexturePro(tex, src, dst, origin, rotationDeg, c.ToRayColor(Opacity));
         }
 
         private static void BeginTextureIfNeeded()
@@ -272,42 +217,5 @@ namespace Client.Envir
             Raylib.UnloadImage(img);
             return new RayTexture(tex);
         }
-
-        private static Raylib_cs.BlendMode MapBlendMode(BlendMode mode)
-        {
-            // 7.0.1 可用：BLEND_ALPHA / BLEND_ADDITIVE / BLEND_MULTIPLIED / BLEND_ADD_COLORS / BLEND_SUBTRACT_COLORS / BLEND_CUSTOM
-            return mode switch
-            {
-                BlendMode.NORMAL => Raylib_cs.BlendMode.Alpha,
-                BlendMode.LIGHT => Raylib_cs.BlendMode.Additive,
-                BlendMode.HIGHLIGHT => Raylib_cs.BlendMode.Additive,
-                BlendMode.COLORFY => Raylib_cs.BlendMode.AddColors,
-                BlendMode.MASK => Raylib_cs.BlendMode.Alpha,
-                _ => Raylib_cs.BlendMode.Alpha
-            };
-        }
-    }
-
-    // 保留原枚举
-    public enum BlendMode : sbyte
-    {
-        NONE = -1,
-        NORMAL = 0,
-        LIGHT = 1,
-        LIGHTINV = 2,
-        INVNORMAL = 3,
-        INVLIGHT = 4,
-        INVLIGHTINV = 5,
-        INVCOLOR = 6,
-        INVBACKGROUND = 7,
-        COLORFY = 8,
-        MASK = 9,
-        HIGHLIGHT = 10,
-        EFFECTMASK = 11
-    }
-
-    internal static class ColorExt
-    {
-        public static Raylib_cs.Color ToRay(this System.Drawing.Color c) => new Raylib_cs.Color(c.R, c.G, c.B, c.A);
     }
 }

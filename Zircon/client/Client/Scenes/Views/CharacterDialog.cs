@@ -2529,15 +2529,10 @@ namespace Client.Scenes.Views
                 MirImage image = FameEffectDecider.GetFameEffectImageOrNull(Fame, out int offSetX, out int offSetY);
                 if (image != null)
                 {
-                    bool oldBlend = DXManager.Blending;
-                    float oldRate = DXManager.BlendRate;
-
                     int x1 = 257 + offSetX;
                     int y1 = 76 + offSetY;
 
-                    DXManager.SetBlend(true, 0.8F);
                     PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x1 + image.OffSetX, DisplayArea.Y + y1 + image.OffSetY, image.Width, image.Height), ForeColour, this);
-                    DXManager.SetBlend(oldBlend, oldRate);
                 }
             }
 
@@ -2546,12 +2541,7 @@ namespace Client.Scenes.Views
                 MirImage image = EquipEffectDecider.GetEffectImageOrNull(armour, Gender);
                 if (image != null)
                 {
-                    bool oldBlend = DXManager.Blending;
-                    float oldRate = DXManager.BlendRate;
-
-                    DXManager.SetBlend(true, 0.8F);
                     PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, this);
-                    DXManager.SetBlend(oldBlend, oldRate);
                 }
             }
 
@@ -2599,12 +2589,7 @@ namespace Client.Scenes.Views
                         MirImage image = EquipEffectDecider.GetEffectImageOrNull(weapon, Gender);
                         if (image != null)
                         {
-                            bool oldBlend = DXManager.Blending;
-                            float oldRate = DXManager.BlendRate;
-
-                            DXManager.SetBlend(true, 0.8F);
                             PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, this);
-                            DXManager.SetBlend(oldBlend, oldRate);
                         }
                     }
 
@@ -2617,12 +2602,7 @@ namespace Client.Scenes.Views
                         MirImage image = EquipEffectDecider.GetEffectImageOrNull(shield, Gender);
                         if (image != null)
                         {
-                            bool oldBlend = DXManager.Blending;
-                            float oldRate = DXManager.BlendRate;
-
-                            DXManager.SetBlend(true, 0.8F);
                             PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, this);
-                            DXManager.SetBlend(oldBlend, oldRate);
                         }
                     }
                 }
@@ -2730,12 +2710,7 @@ namespace Client.Scenes.Views
 
             if (image != null)
             {
-                bool oldBlend = DXManager.Blending;
-                float oldRate = DXManager.BlendRate;
-
-                DXManager.SetBlend(true, 0.8F);
                 PresentTexture(image.Image, CharacterTab, new Rectangle(cell.DisplayArea.X + image.OffSetX + x, cell.DisplayArea.Y + image.OffSetY + y, image.Width, image.Height), ForeColour, this);
-                DXManager.SetBlend(oldBlend, oldRate);
             }
         }
 
