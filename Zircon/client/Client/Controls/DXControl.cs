@@ -1784,18 +1784,12 @@ namespace Client.Controls
                 if (!TextureValid) return;
             }
 
-            float oldOpacity = DXManager.Opacity;
-
-            DXManager.SetOpacity(Opacity);
-
-            PresentTexture(ControlTexture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), this);
-
-            DXManager.SetOpacity(oldOpacity);
+            PresentTexture(ControlTexture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
-        public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, DXControl control, int offX = 0, int offY = 0)
+        public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int offX = 0, int offY = 0)
         {
             Rectangle bounds = ActiveScene.DisplayArea;
             Rectangle textureArea = Rectangle.Intersect(bounds, displayArea);
@@ -1829,7 +1823,7 @@ namespace Client.Controls
             float fX = displayArea.X + textureArea.Location.X + offX;
             float fY = displayArea.Y + textureArea.Location.Y + offY;
 
-            DXManager.SpriteDraw(texture, textureArea, Vector2.Zero, new Vector2(fX, fY), colour);
+            texture?.DrawPro(fX, fY, colour, alpha, textureArea);
         }
 
         #endregion

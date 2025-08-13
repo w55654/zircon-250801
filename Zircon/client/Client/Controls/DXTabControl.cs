@@ -623,13 +623,7 @@ namespace Client.Controls
 
             DrawEdges();
 
-            float oldOpacity = DXManager.Opacity;
-
-            DXManager.SetOpacity(Opacity);
-
-            PresentTexture(DXManager.ScratchTexture, Parent, DisplayArea, ForeColour, this);
-
-            DXManager.SetOpacity(oldOpacity);
+            PresentTexture(DXManager.ScratchTexture, Parent, DisplayArea, ForeColour, Opacity, this);
         }
 
         public void DrawEdges()

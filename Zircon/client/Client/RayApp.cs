@@ -36,7 +36,7 @@ namespace Client1000.RayDraw
         public RayApp(string title, Size size)
         {
             Raylib.SetWindowTitle(title);
-            Raylib.SetConfigFlags(ConfigFlags.Msaa4xHint);
+            //Raylib.SetConfigFlags(ConfigFlags.Msaa4xHint);
             Raylib.InitWindow(size.Width, size.Height, title);
             Raylib.InitAudioDevice();
             Raylib.SetTargetFPS(60);

@@ -337,7 +337,7 @@ namespace Client.Controls
 
             if (texture == null) return;
 
-            PresentTexture(texture, Parent, DisplayArea, ForeColour, this, 0, Pressed ? 1 : 0);
+            PresentTexture(texture, Parent, DisplayArea, ForeColour, Opacity, this, 0, Pressed ? 1 : 0);
         }
 
         public override void OnFocus()

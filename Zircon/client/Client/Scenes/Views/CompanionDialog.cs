@@ -308,7 +308,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(HealthBar.DisplayArea.X, HealthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, HealthBar);
+                PresentTexture(image.Image, this, new Rectangle(HealthBar.DisplayArea.X, HealthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, HealthBar);
             };
 
             HealthLabel = new DXLabel
@@ -401,7 +401,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X, ExperienceBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, ExperienceBar);
+                PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X, ExperienceBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, ExperienceBar);
             };
 
             ExperienceLabel = new DXLabel
@@ -452,7 +452,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(HungerBar.DisplayArea.X, HungerBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, HungerBar);
+                PresentTexture(image.Image, this, new Rectangle(HungerBar.DisplayArea.X, HungerBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, HungerBar);
             };
 
             HungerLabel = new DXLabel
@@ -704,7 +704,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(WeightBar.DisplayArea.X, WeightBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, WeightBar);
+                PresentTexture(image.Image, this, new Rectangle(WeightBar.DisplayArea.X, WeightBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, WeightBar);
             };
 
             WeightLabel = new DXLabel

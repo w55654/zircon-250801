@@ -277,9 +277,7 @@ namespace Client.Controls
 
             if (image?.Image == null) return;
 
-            DXManager.SetOpacity(ImageOpacity);
-
-            PresentTexture(image.Image, FixedSize ? null : Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), this, 0, 0);
+            PresentTexture(image.Image, FixedSize ? null : Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), ImageOpacity, this, 0, 0);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }

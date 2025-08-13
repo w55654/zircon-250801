@@ -1210,8 +1210,6 @@ namespace Client.Models
                 }
             }
 
-            float oldOpacity = DXManager.Opacity;
-
             if (shadow)
             {
                 switch (CurrentAnimation)
@@ -1263,7 +1261,8 @@ namespace Client.Models
                     break;
             }
 
-            DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector2.Zero, new Vector2(l, t), DrawColour);
+            //DXManager.SpriteDraw(DXManager.ScratchTexture, Rectangle.FromLTRB(l, t, r, b), Vector2.Zero, new Vector2(l, t), DrawColour);
+            DXManager.ScratchTexture?.DrawPro(l, t, DrawColour, 1F, Rectangle.FromLTRB(l, t, r, b));
             CEnvir.DPSCounter++;
         }
 

@@ -202,7 +202,10 @@ namespace Client.Scenes.Views
             DrawBackground();
 
             if (FLayer.TextureValid)
-                DXManager.SpriteDraw(FLayer.ControlTexture, Color.White);
+            {
+                //DXManager.SpriteDraw(FLayer.ControlTexture, Color.White);
+                FLayer.ControlTexture.Draw(0, 0, Color.White);
+            }
 
             if (Config.DrawEffects)
             {
@@ -310,7 +313,7 @@ namespace Client.Scenes.Views
 
             if (image?.Image == null) return;
 
-            PresentTexture(image.Image, Parent, DisplayArea, Color.White, this, 0, 0);
+            PresentTexture(image.Image, Parent, DisplayArea, Color.White, Opacity, this, 0, 0);
         }
 
         private void DrawObjects()

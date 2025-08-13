@@ -322,13 +322,7 @@ namespace Client.Controls
 
             if (!TextureValid) CreateTexture();
 
-            float oldOpacity = DXManager.Opacity;
-
-            DXManager.SetOpacity(Opacity);
-
-            PresentTexture(ControlTexture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), this);
-
-            DXManager.SetOpacity(oldOpacity);
+            PresentTexture(ControlTexture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }

@@ -58,7 +58,7 @@ namespace Client.Scenes.Views
 
                 if (percent == 0) return;
 
-                PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y - 1, (int)(image.Width * percent), image.Height), Color.White, ExperienceBar);
+                PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y - 1, (int)(image.Width * percent), image.Height), Color.White, Opacity, ExperienceBar);
             };
 
             HealthBar = new DXControl
@@ -81,7 +81,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(HealthBar.DisplayArea.X, HealthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, HealthBar);
+                PresentTexture(image.Image, this, new Rectangle(HealthBar.DisplayArea.X, HealthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, HealthBar);
             };
             ManaBar = new DXControl
             {
@@ -103,7 +103,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(ManaBar.DisplayArea.X, ManaBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, ManaBar);
+                PresentTexture(image.Image, this, new Rectangle(ManaBar.DisplayArea.X, ManaBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, ManaBar);
             };
 
             FocusBar = new DXImageControl
@@ -129,7 +129,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(FocusBar.DisplayArea.X, FocusBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, FocusBar);
+                PresentTexture(image.Image, this, new Rectangle(FocusBar.DisplayArea.X, FocusBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, FocusBar);
             };
 
             CharacterButton = new DXButton

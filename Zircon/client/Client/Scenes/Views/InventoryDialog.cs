@@ -248,7 +248,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(WeightBar.DisplayArea.X, WeightBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, WeightBar);
+                PresentTexture(image.Image, this, new Rectangle(WeightBar.DisplayArea.X, WeightBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, WeightBar);
             };
 
             WeightLabel = new DXLabel

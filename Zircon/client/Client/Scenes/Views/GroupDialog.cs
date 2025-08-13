@@ -534,7 +534,7 @@ namespace Client.Scenes.Views
 
                     MirImage backImage = barLibrary.CreateImage(316, ImageType.Image);
 
-                    PresentTexture(backImage.Image, this, new Rectangle(healthBar.DisplayArea.X, healthBar.DisplayArea.Y, (int)backImage.Width, backImage.Height), Color.White, healthBar);
+                    PresentTexture(backImage.Image, this, new Rectangle(healthBar.DisplayArea.X, healthBar.DisplayArea.Y, (int)backImage.Width, backImage.Height), Color.White, Opacity, healthBar);
 
                     if (data.Health <= 0)
                     {
@@ -552,7 +552,7 @@ namespace Client.Scenes.Views
 
                     if (image == null) return;
 
-                    PresentTexture(image.Image, this, new Rectangle(healthBar.DisplayArea.X, healthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, healthBar);
+                    PresentTexture(image.Image, this, new Rectangle(healthBar.DisplayArea.X, healthBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, healthBar);
                 };
 
                 HealthBars.Add(healthBar);

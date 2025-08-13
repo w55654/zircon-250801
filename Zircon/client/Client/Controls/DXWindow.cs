@@ -375,13 +375,7 @@ namespace Client.Controls
                 WindowValid = true;
             }
 
-            float oldOpacity = DXManager.Opacity;
-
-            DXManager.SetOpacity(Opacity);
-
-            PresentTexture(WindowTexture, Parent, DisplayArea, ForeColour, this);
-
-            DXManager.SetOpacity(oldOpacity);
+            PresentTexture(WindowTexture, Parent, DisplayArea, ForeColour, Opacity, this);
         }
 
         private void DrawEdges()

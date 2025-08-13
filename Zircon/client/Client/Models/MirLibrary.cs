@@ -144,11 +144,12 @@ namespace Client.Envir
         // 如果你确实需要矩阵效果，请把变换下放到 DXManager.SpriteDraw 或直接把 angle/scale 传进去算 dst 矩形。
         public void Draw(int index, float x, float y, Color colour, Rectangle area, float opacity, ImageType type, byte shadow = 0)
         {
-            if (!CheckImage(index)) return;
+            if (!CheckImage(index))
+                return;
+
             MirImage image = Images[index];
 
             RayTexture texture;
-            float oldOpacity = DXManager.Opacity;
 
             switch (type)
             {
@@ -180,10 +181,9 @@ namespace Client.Envir
 
             if (texture == null) return;
 
-            DXManager.SetOpacity(opacity);
-            DXManager.SpriteDraw(texture, area, Vector2.Zero, new Vector2(x, y), colour);
+            texture.DrawPro(x, y, colour, opacity, area);
+
             CEnvir.DPSCounter++;
-            DXManager.SetOpacity(oldOpacity);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
@@ -194,7 +194,6 @@ namespace Client.Envir
             MirImage image = Images[index];
 
             RayTexture texture;
-            float oldOpacity = DXManager.Opacity;
 
             switch (type)
             {
@@ -221,13 +220,9 @@ namespace Client.Envir
 
             if (texture == null) return;
 
-            DXManager.SetOpacity(opacity);
-
-            // 注意：scale 目前未生效（原来靠矩阵缩放）。如需要缩放，请把 SpriteDraw 改成支持缩放/旋转。
-            DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
+            texture.DrawEx(x, y, colour, opacity, 0, scale);
 
             CEnvir.DPSCounter++;
-            DXManager.SetOpacity(oldOpacity);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
@@ -259,8 +254,7 @@ namespace Client.Envir
             }
             if (texture == null) return;
 
-            // 注意：size/angle 原来靠 SpriteTransform，这里暂未生效。
-            DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
+            texture.DrawPro(x, y, colour, opacity, null, new Size((int)size, (int)size));
 
             CEnvir.DPSCounter++;
 
@@ -302,7 +296,8 @@ namespace Client.Envir
                     return;
 
                 case ImageType.Overlay:
-                    if (!image.OverlayValid) image.CreateOverlay(_BReader);
+                    if (!image.OverlayValid)
+                        image.CreateOverlay(_BReader);
                     texture = image.Overlay;
                     if (useOffSet) { x += image.OffSetX; y += image.OffSetY; }
                     break;
@@ -310,9 +305,11 @@ namespace Client.Envir
                 default:
                     return;
             }
-            if (texture == null) return;
+            if (texture == null)
+                return;
 
-            DXManager.SpriteDraw(texture, Vector2.Zero, new Vector2(x, y), colour);
+            texture.Draw(x, y, colour);
+
             CEnvir.DPSCounter++;
 
             image.ExpireTime = Time.Now + Config.CacheDuration;

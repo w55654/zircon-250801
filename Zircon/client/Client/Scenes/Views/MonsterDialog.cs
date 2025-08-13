@@ -204,7 +204,7 @@ namespace Client.Scenes.Views
 
                 if (image == null) return;
 
-                PresentTexture(image.Image, this, new Rectangle(panel.DisplayArea.X, panel.DisplayArea.Y + 2, (int)(image.Width * percent), image.Height), Color.White, panel);
+                PresentTexture(image.Image, this, new Rectangle(panel.DisplayArea.X, panel.DisplayArea.Y + 2, (int)(image.Width * percent), image.Height), Color.White, Opacity, panel);
             };
 
             DXControl panel2 = new DXControl

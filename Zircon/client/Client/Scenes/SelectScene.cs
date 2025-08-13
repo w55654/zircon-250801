@@ -303,11 +303,11 @@ namespace Client.Scenes
                 image = CharacterAnimation.Library?.CreateImage(CharacterAnimation.Index + 100, ImageType.Image);
 
                 if (image != null)
-                    PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.White, this);
+                    PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.White, Opacity, this);
 
                 image = CharacterAnimation.Library?.CreateImage(CharacterAnimation.Index + 130, ImageType.Image);
                 if (image != null)
-                    PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.White, this);
+                    PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.White, Opacity, this);
             }
         }
 
@@ -329,7 +329,7 @@ namespace Client.Scenes
 
             image = CharacterAnimation.Library?.CreateImage(CharacterAnimation.Index + (CharacterAnimation.Loop ? 20 : 30), ImageType.Image);
             if (image?.Image != null)
-                PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.FromArgb(180, 255, 255, 255), this);
+                PresentTexture(image.Image, CharacterAnimation.Parent, new Rectangle(x + image.OffSetX, y + image.OffSetY, image.Width, image.Height), Color.FromArgb(180, 255, 255, 255), Opacity, this);
 
             /*   if ()
                { CharacterAnimation.BodyLibrary.Draw(CharacterAnimation.Index + 20, x, y, ScaleMatrix, Color.FromArgb(180, 255, 255, 255), true, 1f, ImageType.Image);}

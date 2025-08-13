@@ -28,8 +28,6 @@ namespace Client.Envir
         public static List<Size> ValidResolutions = new List<Size>();
         private static Size MinimumResolution = new Size(1024, 768);
 
-        public static float Opacity { get; private set; } = 1f;
-
         public static List<DXControl> ControlList { get; } = new List<DXControl>();
         public static List<MirImage> TextureList { get; } = new List<MirImage>();
         public static List<DXSound> SoundList { get; } = new List<DXSound>();
@@ -85,65 +83,6 @@ namespace Client.Envir
             _windowInited = false;
         }
 
-        // ============== 三个 SpriteDraw 重载：DrawTexturePro 实现 ==============
-        public static void SpriteDraw(RayTexture texture, Vector2? center, Vector2? position, System.Drawing.Color color)
-        {
-            if (texture == null || texture.Texture.Id == 0)
-                return;
-
-            var pos = position.HasValue ? position.Value : Vector2.Zero;
-            var org = center.HasValue ? center.Value : Vector2.Zero;
-
-            var src = new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
-            var dst = new Rectangle((int)pos.X, (int)pos.Y, texture.Texture.Width, texture.Texture.Height);
-
-            Raylib.DrawTexturePro(texture.Texture, src, dst, org, 0f, color.ToRayColor(Opacity));
-        }
-
-        public static void SpriteDraw(RayTexture texture, System.Drawing.Rectangle? sourceRect, Vector2? center, Vector2? position, System.Drawing.Color color)
-        {
-            if (texture == null || texture.Texture.Id == 0)
-                return;
-
-            var pos = position.HasValue ? (Vector2)position.Value : Vector2.Zero;
-            var org = center.HasValue ? (Vector2)center.Value : Vector2.Zero;
-
-            Rectangle src = sourceRect.HasValue
-                ? new Rectangle(sourceRect.Value.X, sourceRect.Value.Y, sourceRect.Value.Width, sourceRect.Value.Height)
-                : new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
-
-            Rectangle dst = new Rectangle((int)pos.X, (int)pos.Y, src.Width, src.Height);
-
-            Raylib.DrawTexturePro(texture.Texture, src, dst, org, 0f, color.ToRayColor(Opacity));
-        }
-
-        public static void SpriteDraw(RayTexture texture, System.Drawing.Color color)
-        {
-            if (texture == null || texture.Texture.Id == 0)
-                return;
-            var src = new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
-            var dst = new Rectangle(0, 0, texture.Texture.Width, texture.Texture.Height);
-
-            Raylib.DrawTexturePro(texture.Texture, src, dst, Vector2.Zero, 0f, color.ToRayColor(Opacity));
-        }
-
-        // ============== 状态：Opacity / Blend / Colour ==============
-        public static void SetOpacity(float opacity)
-        {
-            Opacity = Math.Max(0, Math.Min(1, opacity));
-        }
-
-        public static void SetColour(int colour)
-        {
-            // 旧的 TextureStage 调色接口保留但不做事。请使用 shader。
-        }
-
-        // ============== Surface/设备/重置（保留接口，最小实现） ==============
-        public static void SetSurface()
-        {
-            _currentTarget = _mainTarget; // 注意：如需多 RTT，请扩展映射表
-        }
-
         public static void ToggleFullScreen() => Raylib.ToggleFullscreen();
 
         public static void SetResolution(Size size)
@@ -182,30 +121,6 @@ namespace Client.Envir
             Texture2D tex = Raylib.LoadTextureFromImage(img);
             Raylib.UnloadImage(img);
             return new RayTexture(tex);
-        }
-
-        // ============== 内部绘制实现 ==============
-        private static void DrawOne(Texture2D tex, Rectangle src, Rectangle dst, Vector2 origin, float rotationDeg, System.Drawing.Color c)
-        {
-            Raylib.DrawTexturePro(tex, src, dst, origin, rotationDeg, c.ToRayColor(Opacity));
-        }
-
-        private static void BeginTextureIfNeeded()
-        {
-            if (!_textureModeBegun)
-            {
-                Raylib.BeginTextureMode(_currentTarget);
-                _textureModeBegun = true;
-            }
-        }
-
-        private static void EndTextureIfNeeded()
-        {
-            if (_textureModeBegun)
-            {
-                Raylib.EndTextureMode();
-                _textureModeBegun = false;
-            }
         }
 
         private static RayTexture CreatePoisonTexture()

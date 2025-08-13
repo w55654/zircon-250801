@@ -2532,7 +2532,7 @@ namespace Client.Scenes.Views
                     int x1 = 257 + offSetX;
                     int y1 = 76 + offSetY;
 
-                    PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x1 + image.OffSetX, DisplayArea.Y + y1 + image.OffSetY, image.Width, image.Height), ForeColour, this);
+                    PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x1 + image.OffSetX, DisplayArea.Y + y1 + image.OffSetY, image.Width, image.Height), ForeColour, Opacity, this);
                 }
             }
 
@@ -2541,7 +2541,7 @@ namespace Client.Scenes.Views
                 MirImage image = EquipEffectDecider.GetEffectImageOrNull(armour, Gender);
                 if (image != null)
                 {
-                    PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, this);
+                    PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, Opacity, this);
                 }
             }
 
@@ -2589,7 +2589,7 @@ namespace Client.Scenes.Views
                         MirImage image = EquipEffectDecider.GetEffectImageOrNull(weapon, Gender);
                         if (image != null)
                         {
-                            PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, this);
+                            PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, Opacity, this);
                         }
                     }
 
@@ -2602,7 +2602,7 @@ namespace Client.Scenes.Views
                         MirImage image = EquipEffectDecider.GetEffectImageOrNull(shield, Gender);
                         if (image != null)
                         {
-                            PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, this);
+                            PresentTexture(image.Image, CharacterTab, new Rectangle(DisplayArea.X + x + image.OffSetX, DisplayArea.Y + y + image.OffSetY, image.Width, image.Height), ForeColour, Opacity, this);
                         }
                     }
                 }
@@ -2621,12 +2621,12 @@ namespace Client.Scenes.Views
 
                     if (flagImage != null)
                     {
-                        PresentTexture(flagImage.Image, CharacterTab, new Rectangle(DisplayArea.X + flagX + flagImage.OffSetX, DisplayArea.Y + flagY + flagImage.OffSetY, flagImage.Width, flagImage.Height), ForeColour, this);
+                        PresentTexture(flagImage.Image, CharacterTab, new Rectangle(DisplayArea.X + flagX + flagImage.OffSetX, DisplayArea.Y + flagY + flagImage.OffSetY, flagImage.Width, flagImage.Height), ForeColour, Opacity, this);
                     }
 
                     if (flagOverlay != null)
                     {
-                        PresentTexture(flagOverlay.Overlay, CharacterTab, new Rectangle(DisplayArea.X + flagX + flagOverlay.OffSetX, DisplayArea.Y + flagY + flagOverlay.OffSetY, flagOverlay.Width, flagOverlay.Height), GuildColour, this);
+                        PresentTexture(flagOverlay.Overlay, CharacterTab, new Rectangle(DisplayArea.X + flagX + flagOverlay.OffSetX, DisplayArea.Y + flagY + flagOverlay.OffSetY, flagOverlay.Width, flagOverlay.Height), GuildColour, Opacity, this);
                     }
                 }
             }
@@ -2710,7 +2710,7 @@ namespace Client.Scenes.Views
 
             if (image != null)
             {
-                PresentTexture(image.Image, CharacterTab, new Rectangle(cell.DisplayArea.X + image.OffSetX + x, cell.DisplayArea.Y + image.OffSetY + y, image.Width, image.Height), ForeColour, this);
+                PresentTexture(image.Image, CharacterTab, new Rectangle(cell.DisplayArea.X + image.OffSetX + x, cell.DisplayArea.Y + image.OffSetY + y, image.Width, image.Height), ForeColour, Opacity, this);
             }
         }
 

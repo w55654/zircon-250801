@@ -914,7 +914,7 @@ namespace Client.Scenes.Views
 
             if (percent == 0) return;
 
-            PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y, (int)(image.Width * percent), image.Height), Color.White, ExperienceBar);
+            PresentTexture(image.Image, this, new Rectangle(ExperienceBar.DisplayArea.X + x, ExperienceBar.DisplayArea.Y + y, (int)(image.Width * percent), image.Height), Color.White, Opacity, ExperienceBar);
         }
 
         public void Refresh()

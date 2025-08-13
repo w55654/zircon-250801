@@ -119,7 +119,7 @@ namespace Ray2D
         }
 
         // DrawTexture .
-        public void Draw(int x, int y, System.Drawing.Color color = default, float alpha = 1F, System.Drawing.Rectangle? clip = null, System.Drawing.Rectangle? dest = null)
+        public void Draw(float x, float y, System.Drawing.Color color = default, float alpha = 1F, System.Drawing.Rectangle? clip = null, System.Drawing.Rectangle? dest = null)
         {
             // 判断纹理
             if (!IsValid())
@@ -167,7 +167,7 @@ namespace Ray2D
             Raylib.DrawTexturePro(Texture, clipRect, destRect, def_origin, 0, color.ToRayColor(alpha));
         }
 
-        public void DrawPro(int x, int y, System.Drawing.Color color, float alpha, System.Drawing.Rectangle? clip = null, Size? dest = null)
+        public void DrawPro(float x, float y, System.Drawing.Color color, float alpha, System.Drawing.Rectangle? clip = null, Size? dest = null)
         {
             // 判断纹理
             if (!IsValid())
@@ -218,7 +218,7 @@ namespace Ray2D
             Raylib.DrawTexturePro(Texture, clipRect, destRect, Vector2.Zero, 0, color.ToRayColor(alpha));
         }
 
-        public void DrawEx(int x, int y, System.Drawing.Color color, float alpha, float rotation, float scale)
+        public void DrawEx(float x, float y, System.Drawing.Color color, float alpha, float rotation, float scale)
         {
             // 屏幕坐标
             Raylib.DrawTextureEx(Texture, new Vector2(x, y), rotation, scale, color.ToRayColor(alpha));

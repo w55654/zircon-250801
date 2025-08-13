@@ -365,7 +365,6 @@ namespace Client.Envir
 
                     CheckKeyBinds();
 
-
                     Loaded = true;
                 }
                 finally
