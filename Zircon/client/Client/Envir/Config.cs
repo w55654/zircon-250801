@@ -44,11 +44,6 @@ namespace Client.Envir
         public static int Port { get; set; } = DefaultPort;
         public static TimeSpan TimeOutDuration { get; set; } = TimeSpan.FromSeconds(15);
 
-        [ConfigSection("Audit")]
-        public static bool SentryEnabled { get; set; } = false;
-
-        public static string SentryDSN { get; set; } = "";
-
         [ConfigSection("Graphics")]
         public static bool VSync { get; set; }
 

@@ -491,7 +491,7 @@ namespace Client.Envir
                 : DecodeDXT5(blockData, Width, Height, pw, ph);
 
             // ① 自己做黑色 colorkey + 预乘，别调用 ImageAlpha* 系列
-            SoftKeyFromBlackAndPremultiply(_imgPixels, cutoff: 2, feather: 96, mode: 0); // tol=0..255，按资源调
+            //SoftKeyFromBlackAndPremultiply(_imgPixels, cutoff: 2, feather: 96, mode: 0); // tol=0..255，按资源调
 
             // 旧纹理卸载
             if (Image != null && Image.Texture.Id != 0)

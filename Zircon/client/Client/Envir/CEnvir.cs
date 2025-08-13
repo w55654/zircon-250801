@@ -318,7 +318,7 @@ namespace Client.Envir
 
             DXControl.ActiveScene.Dispose();
             DXSoundManager.StopAllSounds();
-            DXControl.ActiveScene = new LoginScene(Config.IntroSceneSize);
+            DXControl.ActiveScene = new LoginScene(Config.GameSize);
 
             BlockList = new List<ClientBlockInfo>();
         }
@@ -365,8 +365,6 @@ namespace Client.Envir
 
                     CheckKeyBinds();
 
-                    if (!DXManager.ValidResolutions.Contains(Config.GameSize))
-                        Config.GameSize = DXManager.ValidResolutions[0];
 
                     Loaded = true;
                 }
@@ -957,7 +955,6 @@ namespace Client.Envir
         public static void SaveException(Exception ex)
         {
             SaveError(ex.ToString());
-            if (Config.SentryEnabled) SentrySdk.CaptureException(ex);
         }
 
         public static void Unload()
