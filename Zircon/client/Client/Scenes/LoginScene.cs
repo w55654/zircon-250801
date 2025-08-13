@@ -9,10 +9,8 @@ using System;
 using System.Drawing;
 using System.Net.Sockets;
 using System.Threading;
-using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 using Color = System.Drawing.Color;
-using Font = System.Drawing.Font;
 
 //Cleaned
 namespace Client.Scenes
@@ -137,69 +135,69 @@ namespace Client.Scenes
             background.Location = new Point((size.Width - background.Size.Width) / 2, (size.Height - background.Size.Height) / 2);
 
             // Birds
-            DXAnimatedControl control = new DXAnimatedControl
-            {
-                BaseIndex = 2200,
-                LibraryFile = LibraryFile.Interface1c,
-                Animated = true,
-                AnimationDelay = TimeSpan.FromSeconds(10),
-                FrameCount = 100,
-                Parent = background,
-                Loop = true,
-                UseOffSet = true
-            };
-            control.BeforeDraw += (o, e) =>
-            {
-                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
-            };
-            control.AfterDraw += (o, e) =>
-            {
-                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
-            };
+            //DXAnimatedControl control = new DXAnimatedControl
+            //{
+            //    BaseIndex = 2200,
+            //    LibraryFile = LibraryFile.Interface1c,
+            //    Animated = true,
+            //    AnimationDelay = TimeSpan.FromSeconds(10),
+            //    FrameCount = 100,
+            //    Parent = background,
+            //    Loop = true,
+            //    UseOffSet = true
+            //};
+            //control.BeforeDraw += (o, e) =>
+            //{
+            //    //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
+            //};
+            //control.AfterDraw += (o, e) =>
+            //{
+            //    //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
+            //};
 
             // Flags
-            control = new DXAnimatedControl
-            {
-                BaseIndex = 2400,
-                LibraryFile = LibraryFile.Interface1c,
-                Animated = true,
-                AnimationDelay = TimeSpan.FromSeconds(5),
-                FrameCount = 30,
-                Parent = background,
-                UseOffSet = true
-            };
-            control.BeforeDraw += (o, e) =>
-            {
-                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
-            };
-            control.AfterDraw += (o, e) =>
-            {
-                //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
-            };
+            //control = new DXAnimatedControl
+            //{
+            //    BaseIndex = 2400,
+            //    LibraryFile = LibraryFile.Interface1c,
+            //    Animated = true,
+            //    AnimationDelay = TimeSpan.FromSeconds(5),
+            //    FrameCount = 30,
+            //    Parent = background,
+            //    UseOffSet = true
+            //};
+            //control.BeforeDraw += (o, e) =>
+            //{
+            //    //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.None);
+            //};
+            //control.AfterDraw += (o, e) =>
+            //{
+            //    //DXManager.Device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
+            //};
 
             // Ray of light
-            new DXAnimatedControl
-            {
-                BaseIndex = 2300,
-                LibraryFile = LibraryFile.Interface1c,
-                Animated = true,
-                AnimationDelay = TimeSpan.FromSeconds(10),
-                FrameCount = 30,
-                Parent = background,
-                Blend = true
-            };
+            //new DXAnimatedControl
+            //{
+            //    BaseIndex = 2300,
+            //    LibraryFile = LibraryFile.Interface1c,
+            //    Animated = true,
+            //    AnimationDelay = TimeSpan.FromSeconds(10),
+            //    FrameCount = 30,
+            //    Parent = background,
+            //    Blend = true
+            //};
 
             // Water
-            new DXAnimatedControl
-            {
-                BaseIndex = 2500,
-                LibraryFile = LibraryFile.Interface1c,
-                Animated = true,
-                AnimationDelay = TimeSpan.FromSeconds(8),
-                FrameCount = 30,
-                Parent = background,
-                UseOffSet = true
-            };
+            //new DXAnimatedControl
+            //{
+            //    BaseIndex = 2500,
+            //    LibraryFile = LibraryFile.Interface1c,
+            //    Animated = true,
+            //    AnimationDelay = TimeSpan.FromSeconds(8),
+            //    FrameCount = 30,
+            //    Parent = background,
+            //    UseOffSet = true
+            //};
 
             LogoBackground = new DXImageControl
             {

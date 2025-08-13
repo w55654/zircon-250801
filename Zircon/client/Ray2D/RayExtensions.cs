@@ -1,5 +1,6 @@
-using System.Numerics;
+using Raylib_cs;
 using System.Drawing;
+using System.Numerics;
 
 namespace Ray2D
 {
@@ -73,6 +74,11 @@ namespace Ray2D
                 (int)rect.Width,
                 (int)rect.Height
             );
+        }
+
+        public static bool IsValid(this RenderTexture2D rt)
+        {
+            return rt.Texture.Id != 0;
         }
     }
 }

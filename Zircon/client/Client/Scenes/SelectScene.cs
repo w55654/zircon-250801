@@ -51,29 +51,29 @@ namespace Client.Scenes
 
             background.Location = new Point((size.Width - background.Size.Width) / 2, (size.Height - background.Size.Height) / 2);
 
-            new DXAnimatedControl
-            {
-                BaseIndex = 2800,
-                LibraryFile = LibraryFile.Interface1c,
-                Animated = true,
-                AnimationDelay = TimeSpan.FromSeconds(3),
-                FrameCount = 17,
-                Parent = background,
-                Blend = true,
-            };
+            //new DXAnimatedControl
+            //{
+            //    BaseIndex = 2800,
+            //    LibraryFile = LibraryFile.Interface1c,
+            //    Animated = true,
+            //    AnimationDelay = TimeSpan.FromSeconds(3),
+            //    FrameCount = 17,
+            //    Parent = background,
+            //    Blend = true,
+            //};
 
-            new DXAnimatedControl
-            {
-                BaseIndex = 2900,
-                LibraryFile = LibraryFile.Interface1c,
-                Animated = true,
-                AnimationDelay = TimeSpan.FromSeconds(3),
-                FrameCount = 17,
-                Parent = background,
-                UseOffSet = true,
-                Blend = true,
-                Location = new Point(20, 25)
-            };
+            //new DXAnimatedControl
+            //{
+            //    BaseIndex = 2900,
+            //    LibraryFile = LibraryFile.Interface1c,
+            //    Animated = true,
+            //    AnimationDelay = TimeSpan.FromSeconds(3),
+            //    FrameCount = 17,
+            //    Parent = background,
+            //    UseOffSet = true,
+            //    Blend = true,
+            //    Location = new Point(20, 25)
+            //};
 
             CharacterAnimation = new DXAnimatedControl
             {

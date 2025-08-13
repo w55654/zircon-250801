@@ -1104,40 +1104,35 @@ namespace Client.Controls
         #region Texture
 
         public bool TextureValid { get; set; }
-        public RayTexture ControlTexture { get; set; }
+        public RenderTexture2D ControlTexture { get; set; }
         public Size TextureSize { get; set; }
         public DateTime ExpireTime { get; protected set; }
-
-        private Raylib_cs.RenderTexture2D _controlRT;
 
         protected virtual void CreateTexture()
         {
             // 尺寸变了就重建离屏目标
-            if (ControlTexture == null || DisplayArea.Size != TextureSize)
+            if (!ControlTexture.IsValid() || DisplayArea.Size != TextureSize)
             {
                 DisposeTexture();                            // 你原有的回收逻辑，记得里头要卸载 _controlRT
 
                 TextureSize = DisplayArea.Size;
 
                 // 1) 建离屏渲染目标
-                _controlRT = Raylib_cs.Raylib.LoadRenderTexture(TextureSize.Width, TextureSize.Height);
+                ControlTexture = Raylib.LoadRenderTexture(TextureSize.Width, TextureSize.Height);
 
-                // 2) 给外部留的“贴图”句柄：用 render target 的 color texture
-                ControlTexture = new RayTexture(_controlRT.Texture);
-
-                DXManager.ControlList.Add(this);
+                //DXManager.ControlList.Add(this);
             }
 
             // 在控件自己的 RTT 上作画
-            Raylib_cs.Raylib.BeginTextureMode(_controlRT);
+            Raylib.BeginTextureMode(ControlTexture);
 
             // 清背景（注意 BackColour 是 System.Drawing.Color）
-            Raylib_cs.Raylib.ClearBackground(new Raylib_cs.Color(BackColour.R, BackColour.G, BackColour.B, BackColour.A));
+            Raylib.ClearBackground(Raylib_cs.Color.Green);
 
             // 你原来的钩子，通常在这里把控件自身的静态内容画进去
             OnClearTexture();
 
-            Raylib_cs.Raylib.EndTextureMode();
+            Raylib.EndTextureMode();
 
             TextureValid = true;
             ExpireTime = CEnvir.Now + Config.CacheDuration;
@@ -1149,25 +1144,18 @@ namespace Client.Controls
 
         public virtual void DisposeTexture()
         {
-            if (ControlTexture != null)
+            if (ControlTexture.IsValid())
             {
-                ControlTexture.Dispose();
-                ControlTexture = null;
+                Raylib.UnloadRenderTexture(ControlTexture);
+                ControlTexture = default;
             }
 
             TextureSize = Size.Empty;
             ExpireTime = DateTime.MinValue;
 
-            try
-            {
-                if (_controlRT.Id != 0) Raylib.UnloadRenderTexture(_controlRT);
-            }
-            catch { }
-            _controlRT = default;
-
             TextureValid = false;
 
-            DXManager.ControlList.Remove(this);
+            //DXManager.ControlList.Remove(this);
         }
 
         #endregion
@@ -1784,12 +1772,17 @@ namespace Client.Controls
                 if (!TextureValid) return;
             }
 
-            PresentTexture(ControlTexture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
+            PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int offX = 0, int offY = 0)
+        {
+            PresentTexture(texture.Texture, parent, displayArea, colour, alpha, control, offX, offY);
+        }
+
+        public static void PresentTexture(Texture2D texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int offX = 0, int offY = 0)
         {
             Rectangle bounds = ActiveScene.DisplayArea;
             Rectangle textureArea = Rectangle.Intersect(bounds, displayArea);
@@ -1823,7 +1816,20 @@ namespace Client.Controls
             float fX = displayArea.X + textureArea.Location.X + offX;
             float fY = displayArea.Y + textureArea.Location.Y + offY;
 
-            texture?.DrawPro(fX, fY, colour, alpha, textureArea);
+            // dstRect
+            Raylib_cs.Rectangle destRect = new Raylib_cs.Rectangle
+            {
+                X = fX,
+                Y = fY,
+                Width = displayArea.Width,
+                Height = displayArea.Height,
+            };
+
+            Raylib_cs.Rectangle clipRect = textureArea.ToRayRect();
+
+            Raylib.DrawTexturePro(texture, clipRect, destRect, Vector2.Zero, 0, colour.ToRayColor(alpha));
+
+            //texture?.DrawPro(fX, fY, colour, alpha, textureArea);
         }
 
         #endregion
@@ -1864,6 +1870,8 @@ namespace Client.Controls
 
                     Controls = null;
                 }
+
+                DisposeTexture();
 
                 _AllowDragOut = false;
                 _AllowResize = false;

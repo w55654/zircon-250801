@@ -501,7 +501,7 @@ namespace Client.Envir
                     Format = fmt
                 };
 
-                BlackToTransparent(ref img);
+                //BlackToTransparentInPlace(ref img);
 
                 Texture2D tex = Raylib.LoadTextureFromImage(img);
 
@@ -512,70 +512,6 @@ namespace Client.Envir
             }
 
             ImageValid = true;
-        }
-
-        public static unsafe void BlackToTransparent(ref Raylib_cs.Image img, byte tol = 2)
-        {
-            unsafe
-            {
-                Raylib_cs.Color* px = Raylib.LoadImageColors(img);
-                for (int i = 0; i < img.Width * img.Height; i++)
-                {
-                    var c = px[i];
-                    if (c.R <= tol && c.G <= tol && c.B <= tol)
-                        c.A = 0;
-
-                    px[i] = c;
-                }
-                Raylib.UnloadImageColors(px);
-            }
-        }
-
-        // 纯托管处理：按“黑度”软键控 + 预乘
-        // cutoff: 低于这个亮度直接透明（0..255）
-        // feather: 从 cutoff 到完全不透明的过渡宽度（0..255），越大过渡越柔
-        // mode: 0=亮度Y(更接近人眼)，1=HSV的V=max(R,G,B)（更保留高饱和边缘）
-        private static void SoftKeyFromBlackAndPremultiply(Raylib_cs.Color[] px, byte cutoff = 4, byte feather = 32, int mode = 0)
-        {
-            float t = cutoff / 255f;
-            float fw = Math.Max(1e-6f, feather / 255f);
-            float invFw = 1f / fw;
-
-            for (int i = 0; i < px.Length; i++)
-            {
-                var c = px[i];
-
-                // 归一化到 0..1
-                float r = c.R / 255f, g = c.G / 255f, b = c.B / 255f;
-
-                // “黑度反向”权重：越亮 -> 值越大
-                float w;
-                if (mode == 0)
-                {
-                    // BT.709 亮度，更符合视觉
-                    w = 0.2126f * r + 0.7152f * g + 0.0722f * b;
-                }
-                else
-                {
-                    // HSV 的 V = max(R,G,B)，更保留高饱和色边缘
-                    w = MathF.Max(r, MathF.Max(g, b));
-                }
-
-                // 软阈值：<=t 全透明；>=t+fw 保留原 alpha；中间线性渐变
-                float k = (w - t) * invFw;
-                if (k < 0) k = 0;
-                if (k > 1) k = 1;
-
-                // 新 alpha：原 alpha * k
-                byte a = (byte)MathF.Round(c.A * k);
-
-                // 预乘 alpha，去黑边
-                px[i] = new Raylib_cs.Color(
-                    (byte)MathF.Round(c.R * a / 255f),
-                    (byte)MathF.Round(c.G * a / 255f),
-                    (byte)MathF.Round(c.B * a / 255f),
-                    a);
-            }
         }
 
         public void CreateShadow(BinaryReader reader)

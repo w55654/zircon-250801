@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Windows.Forms;
 using C = Library.Network.ClientPackets;
 using Color = System.Drawing.Color;
@@ -204,7 +205,9 @@ namespace Client.Scenes.Views
             if (FLayer.TextureValid)
             {
                 //DXManager.SpriteDraw(FLayer.ControlTexture, Color.White);
-                FLayer.ControlTexture.Draw(0, 0, Color.White);
+                //FLayer.ControlTexture.Draw(0, 0, Color.White);
+
+                Raylib.DrawTexture(FLayer.ControlTexture.Texture, 0, 0, Raylib_cs.Color.White);
             }
 
             if (Config.DrawEffects)

@@ -322,7 +322,7 @@ namespace Client.Controls
 
             if (!TextureValid) CreateTexture();
 
-            PresentTexture(ControlTexture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
+            PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this);
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
