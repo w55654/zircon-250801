@@ -925,7 +925,7 @@ namespace Client.Controls
             }
         }
 
-        private string _Text;
+        private string _Text = string.Empty;
 
         public event EventHandler<EventArgs> TextChanged;
 

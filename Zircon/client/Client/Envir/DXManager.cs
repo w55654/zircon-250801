@@ -81,7 +81,7 @@ namespace Client.Envir
         {
             if (_mainTarget.Id != 0) Raylib.UnloadRenderTexture(_mainTarget);
             if (_scratchTarget.Id != 0) Raylib.UnloadRenderTexture(_scratchTarget);
-            if (_windowInited) Raylib.CloseWindow();
+
             _windowInited = false;
         }
 
