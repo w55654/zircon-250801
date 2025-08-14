@@ -1777,68 +1777,93 @@ namespace Client.Controls
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
-        public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int offX = 0, int offY = 0)
+        public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control)
         {
-            PresentTexture(texture.Texture, parent, displayArea, colour, alpha, control, false, offX, offY);
+            PresentTexture(texture.Texture, parent, displayArea, colour, alpha, control, false);
         }
 
-        public static void PresentTexture(Texture2D texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, bool flipY, int offX = 0, int offY = 0)
+        public static void PresentTexture(Texture2D texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, bool flipY)
         {
-            Rectangle bounds = ActiveScene.DisplayArea;
-            Rectangle textureArea = Rectangle.Intersect(bounds, displayArea);
+            // 初始裁剪区域 = 场景可见范围 ∩ 控件显示区域
+            Rectangle clipArea = Rectangle.Intersect(ActiveScene.DisplayArea, displayArea);
+            if (clipArea.IsEmpty) return;
 
+            // 沿父控件链逐层裁剪（除非遇到“允许拖出”的正在移动控件）
             if (!control.IsMoving || !control.AllowDragOut)
+            {
                 while (parent != null)
                 {
+                    // 遇到“正在移动且允许拖出”的控件 → 只用场景范围裁剪
                     if (parent.IsMoving && parent.AllowDragOut)
                     {
-                        bounds = ActiveScene.DisplayArea;
-                        textureArea = Rectangle.Intersect(bounds, displayArea);
+                        clipArea = Rectangle.Intersect(ActiveScene.DisplayArea, displayArea);
                         break;
                     }
 
-                    bounds = parent.DisplayArea;
-                    textureArea = Rectangle.Intersect(bounds, textureArea);
+                    // 普通父控件继续裁剪
+                    clipArea = Rectangle.Intersect(clipArea, parent.DisplayArea);
+                    if (clipArea.IsEmpty) return;
 
-                    if (bounds.IntersectsWith(displayArea))
+                    if (parent.DisplayArea.IntersectsWith(displayArea))
                     {
                         parent = parent.Parent;
                         continue;
                     }
 
+                    // 完全不相交直接退出
                     return;
                 }
-
-            if (textureArea.IsEmpty) return;
-
-            textureArea.Location = new Point(textureArea.X - displayArea.X, textureArea.Y - displayArea.Y);
-
-            float fX = displayArea.X + textureArea.Location.X + offX;
-            float fY = displayArea.Y + textureArea.Location.Y + offY;
-
-            if (flipY)
-            {
-                textureArea.Height = -textureArea.Height;
             }
-            // dstRect
-            Raylib_cs.Rectangle destRect = new Raylib_cs.Rectangle
+
+            // 将裁剪区域转换到贴图局部坐标
+            clipArea.Offset(-displayArea.X, -displayArea.Y);
+
+            // 最终绘制位置
+            float dstX = displayArea.X + clipArea.X;
+            float dstY = displayArea.Y + clipArea.Y;
+
+            // 源矩形（贴图中截取的部分）
+            var srcRect = clipArea.ToRayRect();
+
+            // 目标矩形，高度翻转则取负值
+            var dstRect = new Raylib_cs.Rectangle
             {
-                X = fX,
-                Y = fY,
-                Width = textureArea.Width,
-                Height = textureArea.Height,
+                X = dstX,
+                Y = dstY,
+                Width = clipArea.Width,
+                Height = flipY ? -clipArea.Height : clipArea.Height
             };
 
-            Raylib_cs.Rectangle clipRect = textureArea.ToRayRect();
-
-            Raylib.DrawTexturePro(texture, clipRect, destRect, Vector2.Zero, 0, colour.ToRayColor(alpha));
-
-            //texture?.DrawPro(fX, fY, colour, alpha, textureArea);
+            Raylib.DrawTexturePro(texture, srcRect, dstRect, Vector2.Zero, 0f, colour.ToRayColor(alpha));
         }
 
         #endregion
 
         #endregion
+
+#if DEBUG
+
+        public override string ToString()
+        {
+            var names = new List<string>();
+
+            // 从自己开始，往上收集所有类型名
+            var current = this;
+            while (current != null)
+            {
+                names.Add(current.GetType().Name);
+                current = current.Parent;
+            }
+
+            // 反转顺序，从最顶层父开始到自己
+            names.Reverse();
+
+            string fullName = string.Join(" -> ", names);
+
+            return $"{fullName} {DisplayArea}";
+        }
+
+#endif
 
         #region IDisposable
 
