@@ -464,54 +464,80 @@ namespace Client.Envir
             DXManager.TextureList.Remove(this);
         }
 
-        // 需要在项目里启用 unsafe（csproj <AllowUnsafeBlocks>true</AllowUnsafeBlocks>）
         public unsafe void CreateImage(BinaryReader reader)
         {
-            if (Position == 0) return;
+            if (Position == 0 || Width <= 0 || Height <= 0) return;
 
-            // 读裸 DXT 块
+            bool isDxt1 = (Version == 0);
+            int blockSize = isDxt1 ? 8 : 16;
+
+            // DXT 以 4x4 块计，数据长度按向上取整计算
+            int bw = (Width + 3) / 4;
+            int bh = (Height + 3) / 4;
+            int expectedSize = bw * bh * blockSize;
+
+            if (bw != Width || bh != Height)
+            {
+                // 注意：DXT1/5 纹理的实际宽高是向上取整到 4 的倍数
+            }
+
             byte[] blockData;
             lock (reader)
             {
                 reader.BaseStream.Seek(Position, SeekOrigin.Begin);
-                blockData = reader.ReadBytes(ImageDataSize);
+                blockData = reader.ReadBytes(expectedSize);
+                if (blockData.Length != expectedSize)
+                {
+                    throw new InvalidDataException($"DXT data too small: {blockData.Length} < {expectedSize}");
+                }
             }
-
-            // 卸旧
-            if (Image != null && Image.Texture.Id != 0)
-                Raylib.UnloadTexture(Image.Texture);
-
-            bool isDXT1 = (Version == 0);
-            // 注意：DXT1 有 RGB 和 RGBA(1-bit alpha) 两个变体，你自己知道资源有没有 1-bit alpha。
-            var fmt = isDXT1
-                ? PixelFormat.CompressedDxt1Rgb   // 或者 COMPRESSED_DXT1_RGBA，如果你确实用了 1-bit alpha
-                : PixelFormat.CompressedDxt5Rgba;
-
-            // --- 抠掉黑色 ---
-            //BlackToTransparent(pixels, tolerance: 2);
 
             fixed (byte* p = blockData)
             {
+                // 直接告诉 raylib：这是压缩纹理。宽高填“真实尺寸”，
+                // glCompressedTexImage2D 会按 ceil(w/4)*ceil(h/4)*blockSize 校验大小。
                 Raylib_cs.Image img = new Raylib_cs.Image
                 {
                     Data = p,
                     Width = Width,
                     Height = Height,
-                    Mipmaps = 1,              // 有多级就填真实 mip 数，数据要按 DDS 的顺序拼在 FBytes 里
-                    Format = fmt
+                    Mipmaps = 1,
+                    Format = isDxt1
+                        ? PixelFormat.CompressedDxt1Rgba  // BC1
+                        : PixelFormat.CompressedDxt5Rgba  // BC3
                 };
-
-                //BlackToTransparentInPlace(ref img);
 
                 Texture2D tex = Raylib.LoadTextureFromImage(img);
 
-                Raylib.SetTextureWrap(tex, TextureWrap.Clamp);
-                Raylib.SetTextureFilter(tex, TextureFilter.Bilinear);
-
                 Image = new RayTexture(tex);
+
+                //SaveTextureAsPng(tex, "1.png");
             }
 
             ImageValid = true;
+            ExpireTime = CEnvir.Now + Config.CacheDuration;
+            // 你的 DXManager.TextureList 就不要加了，换你自己的容器
+        }
+
+        private static void SaveTextureAsPng(Texture2D tex, string path)
+        {
+            // 1) 从纹理读回 CPU（压缩/未压缩都行）
+            Raylib_cs.Image img = Raylib.LoadImageFromTexture(tex);
+
+            // 2) 某些后端读回会是倒着的，稳妥起见翻一下（你也可以先试试不翻）
+            Raylib.ImageFlipVertical(ref img);
+
+            // 3) 确保是可写的非压缩格式（Export 会自动转，但手动更可控）
+            if (img.Format != PixelFormat.UncompressedR8G8B8A8)
+                Raylib.ImageFormat(ref img, PixelFormat.UncompressedR8G8B8A8);
+
+            // 导出：看扩展名决定格式，这里是 .png
+            if (!Raylib.ExportImage(img, path))
+            {
+            }
+
+            // 回收 CPU 侧内存
+            Raylib.UnloadImage(img);
         }
 
         public void CreateShadow(BinaryReader reader)
