@@ -321,7 +321,7 @@ namespace Client.Scenes.Views
 
             if (image?.Image == null) return;
 
-            PresentTexture(image.Image, Parent, DisplayArea, Color.White, Opacity, this, 0, 0);
+            PresentTexture(image.Image, Parent, DisplayArea, Color.White, Opacity, this);
         }
 
         private void DrawObjects()
