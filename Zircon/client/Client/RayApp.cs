@@ -161,8 +161,6 @@ namespace Client1000.RayDraw
 
                 if (Raylib.IsMouseButtonReleased(mb))
                 {
-                    HandleMouseUp(new MouseEvent(mb, mousePos, mouseWorldPos));
-
                     // 点击：同键按下抬起且位移未超阈值
                     if (mb == _downBtn && Vector2.Distance(_downPos, mousePos) <= ClickMoveTol)
                     {
@@ -175,6 +173,8 @@ namespace Client1000.RayDraw
                         _lastClickBtn = mb;
                         _lastClickTime = now;
                     }
+
+                    HandleMouseUp(new MouseEvent(mb, mousePos, mouseWorldPos));
                 }
             }
 

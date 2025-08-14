@@ -1,5 +1,6 @@
 ﻿using Client.Envir;
 using Library;
+using Ray2D;
 using System;
 using System.Drawing;
 
@@ -277,9 +278,16 @@ namespace Client.Controls
 
             if (image?.Image == null) return;
 
-            PresentTexture(image.Image, FixedSize ? null : Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), ImageOpacity, this, 0, 0);
+            PresentTexture(image.Image, FixedSize ? null : Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), ImageOpacity, this);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
+        }
+
+        protected override void DrawBorder()
+        {
+            base.DrawBorder();
+
+            RayDraw.DrawRectLines(DisplayArea, 2F, Color.Blue);
         }
 
         protected internal override void UpdateDisplayArea()

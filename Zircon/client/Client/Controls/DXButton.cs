@@ -338,7 +338,14 @@ namespace Client.Controls
             if (texture == null)
                 return;
 
-            PresentTexture(texture, Parent, DisplayArea, ForeColour, Opacity, this, 0, Pressed ? 1 : 0);
+            var color = ForeColour;
+
+            if (Pressed)
+            {
+                color = DefGoldColor;
+            }
+
+            PresentTexture(texture, Parent, DisplayArea, color, Opacity, this);
         }
 
         protected override void DrawBorder()

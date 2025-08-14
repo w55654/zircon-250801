@@ -1,4 +1,5 @@
 ﻿using Client.Envir;
+using Ray2D;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -325,6 +326,12 @@ namespace Client.Controls
             PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this, true);
 
             ExpireTime = CEnvir.Now + Config.CacheDuration;
+        }
+
+        protected override void DrawBorder()
+        {
+            base.DrawBorder();
+            RayDraw.DrawRectLines(DisplayArea, 2F, Color.Gray);
         }
 
         #endregion
