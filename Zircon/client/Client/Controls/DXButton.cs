@@ -254,7 +254,6 @@ namespace Client.Controls
             ForeColour = Color.White;
             Sound = SoundIndex.ButtonA;
             CanBePressed = true;
-            ForeColour = Color.FromArgb(1, 200, 200, 200);
 
             Label = new DXLabel
             {
@@ -388,9 +387,9 @@ namespace Client.Controls
         public void UpdateForeColour()
         {
             if (!IsEnabled)
-                ForeColour = Color.FromArgb(1, 50, 50, 50);
+                ForeColour = Color.FromArgb(255, 50, 50, 50);
             else
-                ForeColour = MouseControl == this || Pressed ? Color.White : Color.FromArgb(1, 200, 200, 200);
+                ForeColour = MouseControl == this || Pressed ? Color.White : Color.FromArgb(255, 200, 200, 200);
         }
 
         private void DrawDefault()

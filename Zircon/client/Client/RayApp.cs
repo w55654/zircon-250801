@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Numerics;
 using System.Threading;
+using UtilsShared;
 using Color = Raylib_cs.Color;
 
 namespace Client1000.RayDraw
@@ -70,10 +71,21 @@ namespace Client1000.RayDraw
 
         public void Run()
         {
+            // 每秒更新标题
+            var titleUpdater = new IntervalAction(0.2f, () =>
+            {
+                Raylib.SetWindowTitle($"mir3z 【MouseControl = {DXControl.MouseControl?.ToString() ?? "null"}】 【FocusControl = {DXControl.FocusControl?.ToString() ?? "null"}】");
+            });
+
             while (!Raylib.WindowShouldClose())
             {
                 try
                 {
+                    float dt = Raylib.GetFrameTime();
+
+                    // 每帧更新窗口标题
+                    titleUpdater.Update(dt);
+
                     Update();
                     Render();
                 }

@@ -73,25 +73,32 @@ namespace Client.Envir
 
         public Size GetSize(int index)
         {
-            if (!CheckImage(index)) return Size.Empty;
+            if (!CheckImage(index))
+                return Size.Empty;
+
             return new Size(Images[index].Width, Images[index].Height);
         }
 
         public Point GetOffSet(int index)
         {
-            if (!CheckImage(index)) return Point.Empty;
+            if (!CheckImage(index))
+                return Point.Empty;
+
             return new Point(Images[index].OffSetX, Images[index].OffSetY);
         }
 
         public MirImage GetImage(int index)
         {
-            if (!CheckImage(index)) return null;
+            if (!CheckImage(index))
+                return null;
+
             return Images[index];
         }
 
         public MirImage CreateImage(int index, ImageType type)
         {
-            if (!CheckImage(index)) return null;
+            if (!CheckImage(index))
+                return null;
 
             MirImage image = Images[index];
             RayTexture texture;
@@ -99,17 +106,20 @@ namespace Client.Envir
             switch (type)
             {
                 case ImageType.Image:
-                    if (!image.ImageValid) image.CreateImage(_BReader);
+                    if (!image.ImageValid)
+                        image.CreateImage(_BReader);
                     texture = image.Image;
                     break;
 
                 case ImageType.Shadow:
-                    if (!image.ShadowValid) image.CreateShadow(_BReader);
+                    if (!image.ShadowValid)
+                        image.CreateShadow(_BReader);
                     texture = image.Shadow;
                     break;
 
                 case ImageType.Overlay:
-                    if (!image.OverlayValid) image.CreateOverlay(_BReader);
+                    if (!image.OverlayValid)
+                        image.CreateOverlay(_BReader);
                     texture = image.Overlay;
                     break;
 
@@ -123,8 +133,12 @@ namespace Client.Envir
 
         private bool CheckImage(int index)
         {
-            if (!Loaded) ReadLibrary();
-            while (!Loaded) Thread.Sleep(1);
+            if (!Loaded)
+                ReadLibrary();
+
+            while (!Loaded)
+                Thread.Sleep(1);
+
             return index >= 0 && index < Images.Length && Images[index] != null;
         }
 
@@ -268,6 +282,9 @@ namespace Client.Envir
 
             if (image == null)
                 return;
+
+            if (!image.ImageValid)
+                image.CreateImage(_BReader);
 
             image.DrawPro(x, y, color, alpha, clip, dest);
         }
@@ -466,7 +483,8 @@ namespace Client.Envir
 
         public unsafe void CreateImage(BinaryReader reader)
         {
-            if (Position == 0 || Width <= 0 || Height <= 0) return;
+            if (Position == 0 || Width <= 0 || Height <= 0)
+                return;
 
             bool isDxt1 = (Version == 0);
             int blockSize = isDxt1 ? 8 : 16;
@@ -510,34 +528,11 @@ namespace Client.Envir
                 Texture2D tex = Raylib.LoadTextureFromImage(img);
 
                 Image = new RayTexture(tex);
-
-                //SaveTextureAsPng(tex, "1.png");
             }
 
             ImageValid = true;
             ExpireTime = CEnvir.Now + Config.CacheDuration;
             // 你的 DXManager.TextureList 就不要加了，换你自己的容器
-        }
-
-        private static void SaveTextureAsPng(Texture2D tex, string path)
-        {
-            // 1) 从纹理读回 CPU（压缩/未压缩都行）
-            Raylib_cs.Image img = Raylib.LoadImageFromTexture(tex);
-
-            // 2) 某些后端读回会是倒着的，稳妥起见翻一下（你也可以先试试不翻）
-            Raylib.ImageFlipVertical(ref img);
-
-            // 3) 确保是可写的非压缩格式（Export 会自动转，但手动更可控）
-            if (img.Format != PixelFormat.UncompressedR8G8B8A8)
-                Raylib.ImageFormat(ref img, PixelFormat.UncompressedR8G8B8A8);
-
-            // 导出：看扩展名决定格式，这里是 .png
-            if (!Raylib.ExportImage(img, path))
-            {
-            }
-
-            // 回收 CPU 侧内存
-            Raylib.UnloadImage(img);
         }
 
         public void CreateShadow(BinaryReader reader)

@@ -1,6 +1,8 @@
 ﻿using Client.Envir;
 using Library;
+using Ray2D;
 using Raylib_cs;
+using System;
 using System.Drawing;
 using System.Numerics;
 using Color = System.Drawing.Color;
@@ -141,11 +143,23 @@ namespace Client.Controls
             SprLib.DrawPro(Index, rect.X + b + cw, rect.Y + b + ch, color, 1F, SrcRects[8], new Size(b, b));
         }
 
+        protected override void OnBeforeDraw()
+        {
+            base.OnBeforeDraw();
+
+            if (BackColour != Color.Empty)
+            {
+                RayDraw.DrawRect(DisplayArea, BackColour);
+            }
+        }
+
         protected override void DrawControl()
         {
             base.DrawControl();
 
             RealDraw(DisplayArea, ForeColour);
+
+            //RayDraw.DrawRectLines(DisplayArea, 10F, Color.Red);
         }
     }
 }

@@ -237,7 +237,6 @@ namespace Client.Scenes.Views
             DrawControl();
             OnBeforeChildrenDraw();
             DrawChildControls();
-            DrawWindow();
             TitleLabel.Draw();
             DrawBorder();
             OnAfterDraw();

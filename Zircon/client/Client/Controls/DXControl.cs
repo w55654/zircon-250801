@@ -1709,7 +1709,8 @@ namespace Client.Controls
 
         public virtual void Draw()
         {
-            if (!IsVisible || DisplayArea.Width <= 0 || DisplayArea.Height <= 0) return;
+            if (!IsVisible || DisplayArea.Width <= 0 || DisplayArea.Height <= 0)
+                return;
 
             OnBeforeDraw();
             DrawControl();

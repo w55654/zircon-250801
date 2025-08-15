@@ -357,11 +357,11 @@ namespace Client.Controls
             //ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
-        protected override void DrawBorder()
-        {
-            base.DrawBorder();
-            RayDraw.DrawRectLines(DisplayArea, 2F, Color.Gray);
-        }
+        //protected override void DrawBorder()
+        //{
+        //    base.DrawBorder();
+        //    RayDraw.DrawRectLines(DisplayArea, 2F, Color.Gray);
+        //}
 
         private Size CalcWrappedText()
         {

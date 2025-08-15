@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Forms;
 using Color = System.Drawing.Color;
 using Font = System.Drawing.Font;
 using Rectangle = System.Drawing.Rectangle;
@@ -144,12 +143,11 @@ namespace Client.Controls
         public DXButton CloseButton { get; protected set; }
         public DXLabel TitleLabel { get; protected set; }
 
-        public RayTexture WindowTexture;
-        public bool WindowValid;
-
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
             base.OnSizeChanged(oValue, nValue);
+
+            _BackImage.Size = Size;
 
             UpdateClientArea();
             UpdateLocations();
@@ -195,6 +193,8 @@ namespace Client.Controls
 
         #endregion
 
+        private DXNineImage _BackImage;
+
         protected DXWindow()
         {
             Windows.Add(this);
@@ -206,13 +206,22 @@ namespace Client.Controls
             HasTopBorder = true;
             Sort = true;
 
+            _BackImage = new DXNineImage()
+            {
+                Parent = this,
+                LibraryFile = LibraryFile.Interface,
+                Index = 126,
+                IsControl = false,
+            };
+
             CloseButton = new DXButton
             {
                 Parent = this,
                 Index = 15,
                 LibraryFile = LibraryFile.Interface,
                 Hint = CEnvir.Language.CommonControlClose,
-                HintPosition = HintPosition.TopLeft
+                HintPosition = HintPosition.TopLeft,
+                Visible = true,
             };
             CloseButton.MouseClick += (o, e) => Visible = false;
 
@@ -241,28 +250,6 @@ namespace Client.Controls
             DisposeTexture();
         }
 
-        protected override void CreateTexture()
-        {
-            base.CreateTexture();
-
-            if (WindowTexture == null || DisplayArea.Size != TextureSize)
-            {
-                WindowTexture = new RayTexture(Config.GameSize.Width, Config.GameSize.Height);
-                WindowValid = false;
-            }
-        }
-
-        public override void DisposeTexture()
-        {
-            base.DisposeTexture();
-
-            if (WindowTexture != null)
-            {
-                WindowTexture.Dispose();
-                WindowTexture = null;
-            }
-        }
-
         private void UpdateLocations()
         {
             if (CloseButton != null)
@@ -270,13 +257,6 @@ namespace Client.Controls
 
             if (TitleLabel != null)
                 TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
-        }
-
-        protected internal override void UpdateDisplayArea()
-        {
-            base.UpdateDisplayArea();
-
-            WindowValid = false;
         }
 
         public override void OnKeyDown(KeyEvent e)
@@ -351,126 +331,19 @@ namespace Client.Controls
 
         public override void Draw()
         {
-            if (!IsVisible || Size.Width == 0 || Size.Height == 0) return;
+            if (!IsVisible || Size.Width == 0 || Size.Height == 0)
+                return;
 
             OnBeforeDraw();
             DrawControl();
-            DrawWindow();
             OnBeforeChildrenDraw();
             DrawChildControls();
             DrawBorder();
             OnAfterDraw();
         }
 
-        protected void DrawWindow()
-        {
-            if (InterfaceLibrary == null) return;
-
-            if (!WindowValid)
-            {
-                //DXManager.Device.Clear(ClearFlags.Target, 0, 0, 0); // todo w
-
-                DrawEdges();
-
-                WindowValid = true;
-            }
-
-            PresentTexture(WindowTexture, Parent, DisplayArea, ForeColour, Opacity, this);
-        }
-
-        private void DrawEdges()
-        {
-            Size s;
-
-            if (HasTopBorder)
-            {
-                s = InterfaceLibrary.GetSize(0);
-                InterfaceLibrary.Draw(0, 0, 0, Color.White, new Rectangle(0, 0, Size.Width, s.Height), 1f, ImageType.Image);
-            }
-            else
-            {
-                s = InterfaceLibrary.GetSize(2);
-                InterfaceLibrary.Draw(2, 0, 0, Color.White, new Rectangle(0, 0, Size.Width, s.Height), 1f, ImageType.Image);
-            }
-
-            int y = s.Height;
-
-            s = InterfaceLibrary.GetSize(1);
-            int x = s.Width;
-            InterfaceLibrary.Draw(1, 0, y, Color.White, new Rectangle(0, 0, s.Width, Size.Height - y), 1f, ImageType.Image);
-            InterfaceLibrary.Draw(1, Size.Width - s.Width, y, Color.White, new Rectangle(0, 0, s.Width, Size.Height - y), 1F, ImageType.Image);
-
-            if (HasTitle)
-            {
-                s = InterfaceLibrary.GetSize(3);
-                InterfaceLibrary.Draw(3, x, y, Color.White, new Rectangle(0, 0, Size.Width - x * 2, Size.Height), 1f, ImageType.Image);
-
-                y += s.Height;
-
-                InterfaceLibrary.Draw(4, 0, y - 3, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(5);
-                InterfaceLibrary.Draw(5, Size.Width - s.Width, y - 3, Color.White, false, 1F, ImageType.Image);
-            }
-
-            if (HasTopBorder)
-            {
-                //2X Corner
-                InterfaceLibrary.Draw(11, 0, 0, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(12);
-                InterfaceLibrary.Draw(12, Size.Width - s.Width, 0, Color.White, false, 1F, ImageType.Image);
-            }
-            else
-            {
-                //2X Corner
-                InterfaceLibrary.Draw(25, 0, 0, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(26);
-                InterfaceLibrary.Draw(26, Size.Width - s.Width, 0, Color.White, false, 1F, ImageType.Image);
-            }
-
-            if (!HasFooter)
-            {
-                s = InterfaceLibrary.GetSize(2);
-                InterfaceLibrary.Draw(2, 0, Size.Height - s.Height, Color.White, new Rectangle(0, 0, Size.Width, s.Height), 1f, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(8);
-                InterfaceLibrary.Draw(8, 0, Size.Height - s.Height, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(9);
-                InterfaceLibrary.Draw(9, Size.Width - s.Width, Size.Height - s.Height, Color.White, false, 1F, ImageType.Image);
-            }
-            else
-            {
-                s = InterfaceLibrary.GetSize(0);
-                InterfaceLibrary.Draw(0, 0, Size.Height - s.Height, Color.White, new Rectangle(0, 0, Size.Width, s.Height), 1f, ImageType.Image);
-
-                y = s.Height;
-
-                s = InterfaceLibrary.GetSize(10);
-                InterfaceLibrary.Draw(10, x, Size.Height - s.Height - y, Color.White, new Rectangle(0, 0, Size.Width - x * 2, s.Height), 1f, ImageType.Image);
-
-                y += s.Height;
-
-                s = InterfaceLibrary.GetSize(2);
-                InterfaceLibrary.Draw(2, 0, Size.Height - y - s.Height, Color.White, new Rectangle(0, 0, Size.Width, s.Height), 1f, ImageType.Image);
-
-                y += s.Height;
-
-                s = InterfaceLibrary.GetSize(6);
-                InterfaceLibrary.Draw(6, 0, Size.Height - y - s.Height + 3, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(7);
-                InterfaceLibrary.Draw(7, Size.Width - s.Width, Size.Height - y - s.Height + 3, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(13);
-                InterfaceLibrary.Draw(13, 0, Size.Height - s.Height, Color.White, false, 1F, ImageType.Image);
-
-                s = InterfaceLibrary.GetSize(14);
-                InterfaceLibrary.Draw(14, Size.Width - s.Width, Size.Height - s.Height, Color.White, false, 1F, ImageType.Image);
-            }
-        }
+        protected override void DrawControl()
+        { }
 
         public void LoadSettings()
         {
@@ -545,13 +418,6 @@ namespace Client.Controls
                 HasFooterChanged = null;
                 ClientAreaChanged = null;
 
-                if (WindowTexture != null)
-                {
-                    WindowTexture.Dispose();
-                    WindowTexture = null;
-                }
-
-                WindowValid = false;
                 Settings = null;
                 Windows.Remove(this);
             }
