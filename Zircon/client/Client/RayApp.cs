@@ -42,7 +42,7 @@ namespace Client1000.RayDraw
             Raylib.SetTargetFPS(60);
             Raylib.SetExitKey(KeyboardKey.Null);
 
-            RayFont.LoadFont($"{Config.AppPath}/Data/Fonts/SourceHanSansSC-Bold.ttf");
+            RayFont.LoadFont($"{Config.AppPath}/Data/Fonts/SourceHanSansSC-Regular.ttf");
             RayFont.LoadCommChars($"{Config.AppPath}/Data/Chars/chars3500.txt");
 
             Camera = new Camera2D
