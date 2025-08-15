@@ -81,6 +81,11 @@ namespace Client.Controls
             AutoSizeChanged?.Invoke(this, EventArgs.Empty);
         }
 
+        public bool WordWrap { get; set; } = false;
+        public Size TextSize { get; private set; }// 文本绘制尺寸（测量出来的）
+
+        public int FontSize { get; set; } = 20;
+
         #endregion
 
         #region DrawFormat
@@ -265,9 +270,28 @@ namespace Client.Controls
 
         private void CreateSize()
         {
-            if (!AutoSize) return;
+            //if (!AutoSize) return;
 
-            Size = GetSize(Text, Outline, PaddingBottom);
+            //Size = GetSize(Text, Outline, PaddingBottom);
+
+            TextSize = MeasureTextSize();
+
+            if (AutoSize)
+            {
+                Size = TextSize;
+            }
+        }
+
+        private Size MeasureTextSize()
+        {
+            if (WordWrap)
+            {
+                return CalcWrappedText();
+            }
+            else
+            {
+                return RayFont.GetTextSize(FontSize, Text);
+            }
         }
 
         protected override void CreateTexture()
@@ -319,19 +343,56 @@ namespace Client.Controls
 
         protected override void DrawControl()
         {
-            if (!DrawTexture) return;
+            if (string.IsNullOrEmpty(Text))
+                return;
 
-            if (!TextureValid) CreateTexture();
+            //RayFont.DrawText(FontSize, Text, new Point(Location.X, Location.Y), ForeColour);
 
-            PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this, true);
+            //if (!DrawTexture) return;
 
-            ExpireTime = CEnvir.Now + Config.CacheDuration;
+            //if (!TextureValid) CreateTexture();
+
+            PresentString(Text, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this, FontSize);
+
+            //ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         protected override void DrawBorder()
         {
             base.DrawBorder();
             RayDraw.DrawRectLines(DisplayArea, 2F, Color.Gray);
+        }
+
+        private Size CalcWrappedText()
+        {
+            int lineWidth = 0;
+            int maxLineWidth = 0;
+            int lines = 1;
+
+            foreach (char c in Text)
+            {
+                if (c == '\n') // 手动换行
+                {
+                    lines++;
+                    lineWidth = 0;
+                    continue;
+                }
+
+                Size charSize = RayFont.GetTextSize(FontSize, c.ToString());
+                lineWidth += charSize.Width;
+
+                if (lineWidth > Size.Width)
+                {
+                    lines++;
+                    lineWidth = charSize.Width; // 新行开始
+                }
+
+                if (lineWidth > maxLineWidth)
+                    maxLineWidth = lineWidth;
+            }
+
+            int lineHeight = RayFont.GetTextSize(FontSize, "中").Height;
+            return new Size(maxLineWidth, lines * lineHeight);
         }
 
         #endregion

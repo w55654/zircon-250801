@@ -1837,6 +1837,51 @@ namespace Client.Controls
             Raylib.DrawTexturePro(texture, srcRect, dstRect, Vector2.Zero, 0f, colour.ToRayColor(alpha));
         }
 
+        public static void PresentString(string text, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control, int fontSize)
+        {
+            // 初始裁剪区域 = 场景可见范围 ∩ 控件显示区域
+            Rectangle clipArea = Rectangle.Intersect(ActiveScene.DisplayArea, displayArea);
+            if (clipArea.IsEmpty) return;
+
+            // 沿父控件链逐层裁剪（除非遇到“允许拖出”的正在移动控件）
+            if (!control.IsMoving || !control.AllowDragOut)
+            {
+                while (parent != null)
+                {
+                    // 遇到“正在移动且允许拖出”的控件 → 只用场景范围裁剪
+                    if (parent.IsMoving && parent.AllowDragOut)
+                    {
+                        clipArea = Rectangle.Intersect(ActiveScene.DisplayArea, displayArea);
+                        break;
+                    }
+
+                    // 普通父控件继续裁剪
+                    clipArea = Rectangle.Intersect(clipArea, parent.DisplayArea);
+                    if (clipArea.IsEmpty) return;
+
+                    if (parent.DisplayArea.IntersectsWith(displayArea))
+                    {
+                        parent = parent.Parent;
+                        continue;
+                    }
+
+                    // 完全不相交直接退出
+                    return;
+                }
+            }
+
+            // 将裁剪区域转换到贴图局部坐标
+            clipArea.Offset(-displayArea.X, -displayArea.Y);
+
+            // 最终绘制位置
+            int dstX = displayArea.X + clipArea.X;
+            int dstY = displayArea.Y + clipArea.Y;
+
+            RayFont.DrawText(fontSize, text, new Point(dstX, dstY), colour);
+
+            //Raylib.DrawTexturePro(texture, srcRect, dstRect, Vector2.Zero, 0f, colour.ToRayColor(alpha));
+        }
+
         #endregion
 
         #endregion
