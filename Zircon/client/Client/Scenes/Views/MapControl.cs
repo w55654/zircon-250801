@@ -151,7 +151,7 @@ namespace Client.Scenes.Views
             OffSetY = Size.Height / 2 / CellHeight;
         }
 
-        public MouseButton MapButtons;
+        public MouseButton MapButtons = MouseButton.Back;
         public Point MapLocation;
 
         public bool Mining;
@@ -441,7 +441,7 @@ namespace Client.Scenes.Views
         {
             try
             {
-                var path = AppInfo.GetFullPath($"Map/", MapInfo.FileName + ".map");
+                var path = AppInfo.GetFullPath($"z-res/map/", MapInfo.FileName + ".map");
 
                 if (!File.Exists(path)) return;
 
@@ -549,7 +549,7 @@ namespace Client.Scenes.Views
 
             if (GameScene.Game.Observer) return;
 
-            MapButtons |= e.Button;
+            MapButtons = e.Button;
 
             if (e.Button == MouseButton.Right)
             {
@@ -562,7 +562,7 @@ namespace Client.Scenes.Views
             DXItemCell cell = DXItemCell.SelectedCell;
             if (cell != null)
             {
-                MapButtons &= ~e.Button;
+                MapButtons = MouseButton.Back;
 
                 if (cell.GridType == GridType.Belt)
                 {
@@ -611,7 +611,7 @@ namespace Client.Scenes.Views
 
             if (GameScene.Game.CurrencyPickedUp != null)
             {
-                MapButtons &= ~e.Button;
+                MapButtons = MouseButton.Back;
 
                 int index = GameScene.Game.CurrencyPickedUp.Info.Index;
 
@@ -1323,7 +1323,7 @@ namespace Client.Scenes.Views
                 _Animation = 0;
                 AnimationChanged = null;
 
-                MapButtons = 0;
+                MapButtons = MouseButton.Back;
                 MapLocation = Point.Empty;
                 Mining = false;
                 MiningPoint = Point.Empty;

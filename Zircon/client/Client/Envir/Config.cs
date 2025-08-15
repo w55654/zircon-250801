@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Client.Envir
 {
-    [ConfigPath(@".\Zircon.ini")]
+    [ConfigPath(@".\Config\Zircon.ini")]
     public static class Config
     {
         public static readonly string AppPath;

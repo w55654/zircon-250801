@@ -451,7 +451,7 @@ namespace Client.Models
                     break;
 
                 case MirAction.Standing:
-                    if ((GameScene.Game.MapControl.MapButtons & MouseButton.Right) != MouseButton.Right)
+                    if (GameScene.Game.MapControl.MapButtons != MouseButton.Right)
                         GameScene.Game.CanRun = false;
                     break;
             }
@@ -636,7 +636,7 @@ namespace Client.Models
                 case MirAction.Standing:
                     NextActionTime = CEnvir.Now + Globals.TurnTime;
                     CEnvir.Enqueue(new C.Turn { Direction = action.Direction });
-                    if ((GameScene.Game.MapControl.MapButtons & MouseButton.Right) != MouseButton.Right)
+                    if (GameScene.Game.MapControl.MapButtons != MouseButton.Right)
                         GameScene.Game.CanRun = false;
                     break;
 

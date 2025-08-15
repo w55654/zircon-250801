@@ -128,7 +128,7 @@ namespace Client.Scenes.Views
 
         private Size GetMapSize(string fileName)
         {
-            var path = AppInfo.GetFullPath($"Map/", fileName + ".map");
+            var path = AppInfo.GetFullPath($"z-res/map/", fileName + ".map");
 
             if (!File.Exists(path)) return Size.Empty;
 

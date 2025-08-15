@@ -1,4 +1,5 @@
 ﻿using Client.Envir;
+using Client.Scenes;
 using Client.Scenes.Views;
 using Library;
 using Ray2D;
@@ -82,7 +83,11 @@ namespace Client.Controls
 
         public void HandleMouseUp(MouseEvent e)
         {
-            if (!IsEnabled) return;
+            if (GameScene.Game != null)
+                GameScene.Game.MapControl.MapButtons = MouseButton.Back;
+
+            if (!IsEnabled)
+                return;
 
             if (MouseControl != null && MouseControl != this)
                 MouseControl.OnMouseUp(e);
