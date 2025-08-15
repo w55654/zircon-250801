@@ -1778,6 +1778,60 @@ namespace Client.Controls
             ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
+        public void DrawClippedTexture(Texture2D texture, Color color, bool FlipY = false)
+        {
+            // 初始裁剪区域 = 场景可见范围 ∩ 控件显示区域
+            Rectangle clipArea = Rectangle.Intersect(ActiveScene.DisplayArea, DisplayArea);
+            if (clipArea.IsEmpty)
+                return;
+
+            // 沿父控件链逐层裁剪
+            if (!IsMoving || !AllowDragOut)
+            {
+                DXControl p = Parent;
+                while (p != null)
+                {
+                    if (p.IsMoving && p.AllowDragOut)
+                    {
+                        clipArea = Rectangle.Intersect(ActiveScene.DisplayArea, DisplayArea);
+                        break;
+                    }
+
+                    clipArea = Rectangle.Intersect(clipArea, p.DisplayArea);
+                    if (clipArea.IsEmpty) return;
+
+                    if (p.DisplayArea.IntersectsWith(DisplayArea))
+                    {
+                        p = p.Parent;
+                        continue;
+                    }
+
+                    return;
+                }
+            }
+
+            // 将裁剪区域转换到贴图局部坐标
+            clipArea.Offset(-DisplayArea.X, -DisplayArea.Y);
+
+            // 最终绘制位置
+            float dstX = DisplayArea.X + clipArea.X;
+            float dstY = DisplayArea.Y + clipArea.Y;
+
+            // 源矩形
+            var srcRect = clipArea.ToRayRect();
+
+            // 目标矩形
+            var dstRect = new Raylib_cs.Rectangle
+            {
+                X = dstX,
+                Y = dstY,
+                Width = clipArea.Width,
+                Height = FlipY ? -clipArea.Height : clipArea.Height
+            };
+
+            Raylib.DrawTexturePro(texture, srcRect, dstRect, Vector2.Zero, 0f, color.ToRayColor(Opacity));
+        }
+
         public static void PresentTexture(RayTexture texture, DXControl parent, Rectangle displayArea, Color colour, float alpha, DXControl control)
         {
             PresentTexture(texture.Texture, parent, displayArea, colour, alpha, control, false);

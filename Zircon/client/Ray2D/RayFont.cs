@@ -18,7 +18,7 @@ namespace Ray2D
         private static string _fontPath = string.Empty;
         private static string comm_chars = string.Empty;
 
-        private static int LoadFontSize = 48;
+        private static int LoadFontSize = 36;
 
         static RayFont()
         {
