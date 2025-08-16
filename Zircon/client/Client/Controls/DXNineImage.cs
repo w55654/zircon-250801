@@ -160,6 +160,7 @@ namespace Client.Controls
             RealDraw(DisplayArea, ForeColour);
 
             //RayDraw.DrawRectLines(DisplayArea, 10F, Color.Red);
+            //RayFont.DrawText(20, this.ToString(), new Point(DisplayArea.X + 2, DisplayArea.Y), Color.Red);
         }
     }
 }

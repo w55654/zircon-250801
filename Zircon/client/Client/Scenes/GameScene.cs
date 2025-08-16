@@ -524,7 +524,7 @@ namespace Client.Scenes
             GroupHealthBox = new GroupHealthDialog()
             {
                 Parent = this,
-                Visible = true,
+                Visible = false,
             };
 
             BigMapBox = new BigMapDialog

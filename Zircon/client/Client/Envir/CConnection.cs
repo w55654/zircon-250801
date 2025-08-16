@@ -3480,7 +3480,11 @@ namespace Client.Envir
 
         public void Process(S.GroupMember p)
         {
-            GameScene.Game.GroupBox.Members.Add(new ClientPlayerInfo { ObjectID = p.ObjectID, Name = p.Name });
+            GameScene.Game.GroupBox.Members.Add(new ClientPlayerInfo
+            {
+                ObjectID = p.ObjectID,
+                Name = p.Name
+            });
 
             GameScene.Game.ReceiveChat(string.Format(CEnvir.Language.GroupJoin, p.Name), MessageType.Group);
 

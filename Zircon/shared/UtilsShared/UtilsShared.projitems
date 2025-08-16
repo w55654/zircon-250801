@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)HDisposable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IntervalAction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Logger.cs" />
   </ItemGroup>
 </Project>

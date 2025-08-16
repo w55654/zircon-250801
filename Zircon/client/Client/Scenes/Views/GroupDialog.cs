@@ -361,6 +361,15 @@ namespace Client.Scenes.Views
 
             AddButton.Enabled = Members.Count == 0 || Members[0].ObjectID == GameScene.Game.User.ObjectID;
 
+            if (Members.Count > 0)
+            {
+                GameScene.Game.GroupHealthBox.Visible = true;
+            }
+            else
+            {
+                GameScene.Game.GroupHealthBox.Visible = false;
+            }
+
             GameScene.Game.GroupHealthBox.UpdateMembers();
         }
 
@@ -470,7 +479,7 @@ namespace Client.Scenes.Views
             CloseButton.Visible = false;
             Opacity = 0.0F;
             AllowResize = false;
-            Movable = false;
+            Movable = true;
             Border = true;
             IsControl = false;
 
