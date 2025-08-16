@@ -115,7 +115,6 @@ namespace Client.Scenes.Views
                 BackColour = Color.Black,
                 Parent = this,
                 Opacity = 0.6F,
-                DrawTexture = true,
                 IsControl = false
             };
 
@@ -140,7 +139,6 @@ namespace Client.Scenes.Views
                 BackColour = Color.Black,
                 Parent = this,
                 Opacity = 0.6F,
-                DrawTexture = true,
                 IsControl = false
             };
 
@@ -165,7 +163,6 @@ namespace Client.Scenes.Views
                 BackColour = Color.Black,
                 Parent = this,
                 Opacity = 0.6F,
-                DrawTexture = true,
                 IsControl = false
             };
 
@@ -216,7 +213,6 @@ namespace Client.Scenes.Views
                 BackColour = Color.Black,
                 Parent = this,
                 Opacity = 0.6F,
-                DrawTexture = true,
                 PassThrough = true,
             };
 
@@ -247,7 +243,6 @@ namespace Client.Scenes.Views
                 BackColour = Color.Black,
                 Parent = this,
                 Opacity = 0.6F,
-                DrawTexture = true,
                 PassThrough = true,
             };
 

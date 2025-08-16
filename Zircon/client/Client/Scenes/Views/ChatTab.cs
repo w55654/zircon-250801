@@ -592,7 +592,6 @@ namespace Client.Scenes.Views
             if (Panel.TransparentCheckBox.Checked)
             {
                 ScrollBar.Visible = false;
-                DrawTexture = false;
                 DrawOtherBorder = false;
                 AllowResize = false;
 
@@ -606,7 +605,6 @@ namespace Client.Scenes.Views
             else
             {
                 ScrollBar.Visible = true;
-                DrawTexture = true;
                 AllowResize = true;
                 DrawOtherBorder = true;
 

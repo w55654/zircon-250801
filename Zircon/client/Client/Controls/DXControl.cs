@@ -226,7 +226,6 @@ namespace Client.Controls
 
         public virtual void OnBackColourChanged(Color oValue, Color nValue)
         {
-            TextureValid = false;
             BackColourChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -363,34 +362,6 @@ namespace Client.Controls
         public virtual void OnCanResizeWidthChanged(bool oValue, bool nValue)
         {
             CanResizeWidthChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
-
-        #region DrawTexture
-
-        public bool DrawTexture
-        {
-            get => _DrawTexture;
-            set
-            {
-                if (_DrawTexture == value) return;
-
-                bool oldValue = _DrawTexture;
-                _DrawTexture = value;
-
-                OnDrawTextureChanged(oldValue, value);
-            }
-        }
-
-        private bool _DrawTexture;
-
-        public event EventHandler<EventArgs> DrawTextureChanged;
-
-        public virtual void OnDrawTextureChanged(bool oValue, bool nValue)
-        {
-            TextureValid = false;
-            DrawTextureChanged?.Invoke(this, EventArgs.Empty);
         }
 
         #endregion
@@ -818,7 +789,6 @@ namespace Client.Controls
         public virtual void OnSizeChanged(Size oValue, Size nValue)
         {
             UpdateDisplayArea();
-            TextureValid = false;
 
             SizeChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -1098,65 +1068,6 @@ namespace Client.Controls
         protected internal Point MovePoint;
         private Point ResizePoint;
         public bool ResizeLeft, ResizeRight, ResizeUp, ResizeDown;
-
-        #region Texture
-
-        public bool TextureValid { get; set; }
-        public RenderTexture2D ControlTexture { get; set; }
-        public Size TextureSize { get; set; }
-        public DateTime ExpireTime { get; protected set; }
-
-        protected virtual void CreateTexture()
-        {
-            // 尺寸变了就重建离屏目标
-            if (!ControlTexture.IsValid() || DisplayArea.Size != TextureSize)
-            {
-                DisposeTexture();                            // 你原有的回收逻辑，记得里头要卸载 _controlRT
-
-                TextureSize = DisplayArea.Size;
-
-                // 1) 建离屏渲染目标
-                ControlTexture = Raylib.LoadRenderTexture(TextureSize.Width, TextureSize.Height);
-
-                //DXManager.ControlList.Add(this);
-            }
-
-            // 在控件自己的 RTT 上作画
-            Raylib.BeginTextureMode(ControlTexture);
-
-            // 清背景（注意 BackColour 是 System.Drawing.Color）
-            Raylib.ClearBackground(Raylib_cs.Color.Gray);
-
-            // 你原来的钩子，通常在这里把控件自身的静态内容画进去
-            OnClearTexture();
-
-            Raylib.EndTextureMode();
-
-            TextureValid = true;
-            ExpireTime = CEnvir.Now + Config.CacheDuration;
-        }
-
-        protected virtual void OnClearTexture()
-        {
-        }
-
-        public virtual void DisposeTexture()
-        {
-            if (ControlTexture.IsValid())
-            {
-                Raylib.UnloadRenderTexture(ControlTexture);
-                ControlTexture = default;
-            }
-
-            TextureSize = Size.Empty;
-            ExpireTime = DateTime.MinValue;
-
-            TextureValid = false;
-
-            //DXManager.ControlList.Remove(this);
-        }
-
-        #endregion
 
         public event EventHandler<EventArgs> MouseEnter, MouseLeave, Focus, LostFocus;
 
@@ -1762,18 +1673,6 @@ namespace Client.Controls
 
         protected virtual void DrawControl()
         {
-            if (!DrawTexture) return;
-
-            if (!TextureValid)
-            {
-                CreateTexture();
-
-                if (!TextureValid) return;
-            }
-
-            PresentTexture(ControlTexture.Texture, Parent, DisplayArea, IsEnabled ? Color.White : Color.FromArgb(75, 75, 75), Opacity, this, true);
-
-            ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         public void DrawClippedTexture(Texture2D texture, Color color, bool FlipY = false)
@@ -1998,8 +1897,6 @@ namespace Client.Controls
                     Controls = null;
                 }
 
-                DisposeTexture();
-
                 _AllowDragOut = false;
                 _AllowResize = false;
                 _BackColour = Color.Empty;
@@ -2008,7 +1905,6 @@ namespace Client.Controls
                 _BorderSize = 0;
                 _CanResizeHeight = false;
                 _CanResizeWidth = false;
-                _DrawTexture = false;
                 _DisplayArea = Rectangle.Empty;
                 _Enabled = false;
                 _ForeColour = Color.Empty;
@@ -2049,7 +1945,6 @@ namespace Client.Controls
                 BorderSizeChanged = null;
                 CanResizeHeightChanged = null;
                 CanResizeWidthChanged = null;
-                DrawTextureChanged = null;
                 DisplayAreaChanged = null;
                 EnabledChanged = null;
                 ForeColourChanged = null;
@@ -2097,8 +1992,6 @@ namespace Client.Controls
             if (_MouseControl == this) _MouseControl = null;
             if (_FocusControl == this) _FocusControl = null;
             if (_ActiveScene == this) _ActiveScene = null;
-
-            DisposeTexture();
         }
 
         #endregion

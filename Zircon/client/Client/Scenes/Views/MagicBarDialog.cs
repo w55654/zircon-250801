@@ -28,8 +28,11 @@ namespace Client.Scenes.Views
                 OnSpellSetChanged(oldValue, value);
             }
         }
+
         private int _SpellSet;
+
         public event EventHandler<EventArgs> SpellSetChanged;
+
         public void OnSpellSetChanged(int oValue, int nValue)
         {
             SpellSetChanged?.Invoke(this, EventArgs.Empty);
@@ -47,8 +50,8 @@ namespace Client.Scenes.Views
         public DXButton UpButton, DownButton;
         public DXLabel SetLabel;
 
-        Dictionary<SpellKey, DXImageControl> Icons = new Dictionary<SpellKey, DXImageControl>();
-        Dictionary<SpellKey, DXLabel> Cooldowns = new Dictionary<SpellKey, DXLabel>();
+        private Dictionary<SpellKey, DXImageControl> Icons = new Dictionary<SpellKey, DXImageControl>();
+        private Dictionary<SpellKey, DXLabel> Cooldowns = new Dictionary<SpellKey, DXLabel>();
 
         public override WindowType Type => WindowType.MagicBarBox;
         public override bool CustomSize => false;
@@ -73,7 +76,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -85,7 +87,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 37, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -97,7 +98,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 74, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -109,7 +109,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 111, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -123,7 +122,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 148, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -135,7 +133,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 185, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -147,7 +144,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 222, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -159,7 +155,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 259, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -173,7 +168,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 296, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -185,7 +179,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 333, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -197,7 +190,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 370, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -209,7 +201,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 407, ClientArea.Y),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -223,7 +214,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -236,7 +226,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 37, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -249,7 +238,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 74, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -262,7 +250,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 111, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -277,7 +264,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 148, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -290,7 +276,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 185, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -303,7 +288,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 222, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -316,7 +300,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 259, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -331,7 +314,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 296, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -344,7 +326,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 333, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
@@ -357,8 +338,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 370, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
-                BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
                 Size = new Size(36, 36),
@@ -370,7 +349,6 @@ namespace Client.Scenes.Views
                 Parent = this,
                 LibraryFile = LibraryFile.MagicIcon,
                 Location = new Point(x + 407, ClientArea.Y + 37 + 5),
-                DrawTexture = true,
                 BackColour = Color.FromArgb(20, 20, 20),
                 Border = true,
                 BorderColour = Color.FromArgb(198, 166, 99),

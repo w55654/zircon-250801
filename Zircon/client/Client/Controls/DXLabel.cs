@@ -35,7 +35,6 @@ namespace Client.Controls
 
         public virtual void OnAutoSizeChanged(bool oValue, bool nValue)
         {
-            TextureValid = false;
             CreateSize();
 
             AutoSizeChanged?.Invoke(this, EventArgs.Empty);
@@ -70,8 +69,6 @@ namespace Client.Controls
 
         public virtual void OnDrawFormatChanged(TextFormatFlags oValue, TextFormatFlags nValue)
         {
-            TextureValid = false;
-
             DrawFormatChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -99,7 +96,6 @@ namespace Client.Controls
 
         public virtual void OnOutlineChanged(bool oValue, bool nValue)
         {
-            TextureValid = false;
             CreateSize();
 
             OutlineChanged?.Invoke(this, EventArgs.Empty);
@@ -129,7 +125,6 @@ namespace Client.Controls
 
         public virtual void OnDropShadowChanged(bool oValue, bool nValue)
         {
-            TextureValid = false;
             CreateSize();
 
             DropShadowChanged?.Invoke(this, EventArgs.Empty);
@@ -159,8 +154,6 @@ namespace Client.Controls
 
         public virtual void OnOutlineColourChanged(Color oValue, Color nValue)
         {
-            TextureValid = false;
-
             OutlineColourChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -188,7 +181,6 @@ namespace Client.Controls
 
         public virtual void OnPaddingBottomChanged(int oValue, int nValue)
         {
-            TextureValid = false;
             CreateSize();
 
             PaddingBottomChanged?.Invoke(this, EventArgs.Empty);
@@ -200,15 +192,7 @@ namespace Client.Controls
         {
             base.OnTextChanged(oValue, nValue);
 
-            TextureValid = false;
             CreateSize();
-        }
-
-        public override void OnForeColourChanged(Color oValue, Color nValue)
-        {
-            base.OnForeColourChanged(oValue, nValue);
-
-            TextureValid = false;
         }
 
         #endregion
@@ -216,11 +200,9 @@ namespace Client.Controls
         public DXLabel()
         {
             BackColour = Color.Empty;
-            DrawTexture = true;
             AutoSize = true;
             // wh Font = new Font(Config.FontName, CEnvir.FontSize(8F));
             DrawFormat = TextFormatFlags.WordBreak;
-
             Outline = true;
             ForeColour = Color.FromArgb(198, 166, 99);
             OutlineColour = Color.Black;
@@ -252,53 +234,6 @@ namespace Client.Controls
             {
                 return RayFont.GetTextSize(FontSize, Text);
             }
-        }
-
-        protected override void CreateTexture()
-        {
-            // todo w 很重要 记得实现
-            //int width = DisplayArea.Width;
-            //int height = DisplayArea.Height;
-
-            //if (ControlTexture == null || DisplayArea.Size != TextureSize)
-            //{
-            //    DisposeTexture();
-            //    TextureSize = DisplayArea.Size;
-            //    ControlTexture = new Texture(DXManager.Device, TextureSize.Width, TextureSize.Height, 1, Usage.None, Format.A8R8G8B8, Pool.Managed);
-            //    DXManager.ControlList.Add(this);
-            //}
-
-            //DataRectangle rect = ControlTexture.LockRectangle(0, LockFlags.Discard);
-
-            //using (Bitmap image = new Bitmap(width, height, width * 4, PixelFormat.Format32bppArgb, rect.Data.DataPointer))
-            //using (Graphics graphics = Graphics.FromImage(image))
-            //{
-            //    DXManager.ConfigureGraphics(graphics);
-            //    graphics.Clear(BackColour);
-
-            //    if (Outline)
-            //    {
-            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 0, width, height), OutlineColour, DrawFormat);
-            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(0, 1, width, height), OutlineColour, DrawFormat);
-            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(2, 1, width, height), OutlineColour, DrawFormat);
-            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 2, width, height), OutlineColour, DrawFormat);
-            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 1, width, height), ForeColour, DrawFormat);
-            //    }
-            //    else
-            //    {
-            //        if (DropShadow)
-            //        {
-            //            TextRenderer.DrawText(graphics, Text, Font, new Rectangle(2, 1, width, height), Color.Black, DrawFormat);
-            //        }
-
-            //        TextRenderer.DrawText(graphics, Text, Font, new Rectangle(1, 0, width, height), ForeColour, DrawFormat);
-            //    }
-            //}
-            //ControlTexture.UnlockRectangle(0);
-            //rect.Data.Dispose();
-
-            //TextureValid = true;
-            //ExpireTime = CEnvir.Now + Config.CacheDuration;
         }
 
         protected override void DrawControl()

@@ -299,7 +299,6 @@ namespace Client.Controls
 
         public DXItemGrid()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(24, 12, 12);
             Border = true;
             BorderColour = Color.FromArgb(99, 83, 50);
@@ -356,11 +355,6 @@ namespace Client.Controls
 
                     cell.Location = new Point((int)((x * (DXItemCell.CellWidth - 1 + (GridPadding * 2))) + GridPadding), (int)(((y - ScrollValue) * (DXItemCell.CellHeight - 1 + (GridPadding * 2))) + GridPadding));
                 }
-        }
-
-        protected override void OnClearTexture()
-        {
-            base.OnClearTexture();
         }
 
         protected override void DrawBorder()

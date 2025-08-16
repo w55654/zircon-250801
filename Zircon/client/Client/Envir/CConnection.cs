@@ -2043,8 +2043,6 @@ namespace Client.Envir
                         Target = ob
                     });
 
-                GameScene.Game.MapControl.FLayer.TextureValid = false;
-
                 return;
             }
         }

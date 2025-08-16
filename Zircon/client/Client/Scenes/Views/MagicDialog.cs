@@ -564,7 +564,6 @@ namespace Client.Scenes.Views
         public MagicCell()
         {
             Size = new Size(369, 54);
-            DrawTexture = true;
 
             Background = new DXImageControl
             {

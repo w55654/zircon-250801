@@ -3308,7 +3308,6 @@ namespace Client.Scenes.Views
         public DisciplineMagicCell()
         {
             Size = new Size(36, 36);
-            DrawTexture = true;
 
             Image = new DXImageControl
             {

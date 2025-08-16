@@ -31,8 +31,6 @@ namespace Client.Models
                 if (GameScene.Game.MouseObject == value) return;
 
                 GameScene.Game.MouseObject = value;
-
-                GameScene.Game.MapControl.TextureValid = false;
             }
         }
 
@@ -44,8 +42,6 @@ namespace Client.Models
                 if (GameScene.Game.TargetObject == value) return;
 
                 GameScene.Game.TargetObject = value;
-
-                GameScene.Game.MapControl.TextureValid = false;
             }
         }
 
@@ -57,8 +53,6 @@ namespace Client.Models
                 if (GameScene.Game.MagicObject == value) return;
 
                 GameScene.Game.MagicObject = value;
-
-                GameScene.Game.MapControl.TextureValid = false;
             }
         }
 
@@ -4756,7 +4750,6 @@ namespace Client.Models
 
         public virtual void DrawFrameChanged()
         {
-            GameScene.Game.MapControl.TextureValid = false;
         }
 
         public virtual void FrameIndexChanged()
@@ -4795,7 +4788,6 @@ namespace Client.Models
 
         public virtual void MovingOffSetChanged()
         {
-            GameScene.Game.MapControl.TextureValid = false;
         }
 
         public virtual void LocationChanged()

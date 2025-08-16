@@ -47,8 +47,6 @@ namespace Client.Controls
 
         protected DXScene(Size size)
         {
-            DrawTexture = false;
-
             Size = size;
 
             DXManager.SetResolution(size);

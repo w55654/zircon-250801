@@ -189,7 +189,6 @@ namespace Client.Controls
         {
             Border = true;
             BorderColour = Color.FromArgb(198, 166, 99);
-            DrawTexture = true;
             BackColour = Color.Black;
 
             UpButton = new DXImageButton

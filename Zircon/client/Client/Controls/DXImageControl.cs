@@ -114,7 +114,6 @@ namespace Client.Controls
 
         public virtual void OnIndexChanged(int oValue, int nValue)
         {
-            TextureValid = false;
             UpdateSize();
             IndexChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -147,7 +146,6 @@ namespace Client.Controls
         {
             CEnvir.LibraryList.TryGetValue(LibraryFile, out Library);
 
-            TextureValid = false;
             UpdateSize();
 
             LibraryFileChanged?.Invoke(this, EventArgs.Empty);

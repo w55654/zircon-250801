@@ -505,7 +505,6 @@ namespace Client.Scenes.Views
 
         public CurrencyItem()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(25, 20, 0);
 
             BorderColour = Color.FromArgb(198, 166, 99);

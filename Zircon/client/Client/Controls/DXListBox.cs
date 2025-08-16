@@ -66,7 +66,6 @@ namespace Client.Controls
         public DXListBox()
         {
             Border = true;
-            DrawTexture = true;
             BorderColour = Color.FromArgb(198, 166, 99);
 
             ScrollBar = new DXVScrollBar
@@ -253,8 +252,6 @@ namespace Client.Controls
 
         public DXListBoxItem()
         {
-            DrawTexture = true;
-
             Label = new DXLabel
             {
                 Parent = this,

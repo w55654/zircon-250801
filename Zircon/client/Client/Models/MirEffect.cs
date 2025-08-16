@@ -51,7 +51,6 @@ namespace Client.Models
                 if (_DrawX == value) return;
 
                 _DrawX = value;
-                GameScene.Game.MapControl.TextureValid = false;
             }
         }
 
@@ -65,7 +64,6 @@ namespace Client.Models
                 if (_DrawY == value) return;
 
                 _DrawY = value;
-                GameScene.Game.MapControl.TextureValid = false;
             }
         }
 
@@ -79,7 +77,6 @@ namespace Client.Models
                 if (_DrawFrame == value) return;
 
                 _DrawFrame = value;
-                GameScene.Game.MapControl.TextureValid = false;
                 FrameAction?.Invoke();
             }
         }

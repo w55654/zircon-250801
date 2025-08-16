@@ -1566,7 +1566,6 @@ namespace Client.Scenes.Views
         public RankingLine()
         {
             Size = new Size(288, 22);
-            DrawTexture = true;
             BackColour = Color.Empty;
 
             OnlineImage = new DXImageControl

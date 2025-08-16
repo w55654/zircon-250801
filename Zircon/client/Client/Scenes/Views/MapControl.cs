@@ -66,7 +66,6 @@ namespace Client.Scenes.Views
 
         public void OnMapInfoChanged(MapInfo oValue, MapInfo nValue)
         {
-            TextureValid = false;
             LoadMap();
 
             if (oValue != null)
@@ -107,7 +106,6 @@ namespace Client.Scenes.Views
         public void OnAnimationChanged(int oValue, int nValue)
         {
             AnimationChanged?.Invoke(this, EventArgs.Empty);
-            TextureValid = false;
         }
 
         #endregion
@@ -184,19 +182,12 @@ namespace Client.Scenes.Views
 
         public MapControl()
         {
-            DrawTexture = true;
-
             BackColour = Color.Empty;
 
             FLayer = new Floor { Parent = this, Size = Size };
         }
 
         #region Methods
-
-        protected override void OnClearTexture()
-        {
-            base.OnClearTexture();
-        }
 
         public void DrawMap()
         {
@@ -1383,17 +1374,6 @@ namespace Client.Scenes.Views
             }
 
             #region Methods
-
-            public void CheckTexture()
-            {
-                if (!TextureValid)
-                    CreateTexture();
-            }
-
-            protected override void OnClearTexture()
-            {
-                base.OnClearTexture();
-            }
 
             public void DrawTiles()
             {

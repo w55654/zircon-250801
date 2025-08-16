@@ -367,7 +367,6 @@ namespace Client.Scenes.Views
 
                 MapInfoObjects[ob] = control = new DXControl
                 {
-                    DrawTexture = true,
                     Parent = Image,
                     Opacity = Opacity,
                 };
@@ -414,7 +413,6 @@ namespace Client.Scenes.Views
                             Parent = control,
                             Location = new Point(1, 1),
                             BackColour = colour,
-                            DrawTexture = true,
                             Size = new Size(3, 3)
                         };
                     }
@@ -427,7 +425,6 @@ namespace Client.Scenes.Views
                 if (!string.IsNullOrEmpty(ob.PetOwner))
                 {
                     name += $" ({ob.PetOwner})";
-                    control.DrawTexture = false;
                 }
             }
             else if (ob.ItemInfo != null)

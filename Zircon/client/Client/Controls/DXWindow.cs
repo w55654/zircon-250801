@@ -199,7 +199,6 @@ namespace Client.Controls
         {
             Windows.Add(this);
 
-            DrawTexture = true;
             BackColour = Color.FromArgb(16, 8, 8);
             HasTitle = true;
             Movable = true;
@@ -246,8 +245,6 @@ namespace Client.Controls
             Settings = null;
 
             base.ResolutionChanged();
-
-            DisposeTexture();
         }
 
         private void UpdateLocations()

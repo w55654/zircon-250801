@@ -456,7 +456,6 @@ namespace Client.Controls
         {
             Location = new Point(0, TabHeight - 1);
             BackColour = BackColour = Color.FromArgb(16, 8, 8);
-            DrawTexture = true;
             BorderColour = Color.FromArgb(198, 166, 99);
             PassThrough = true;
             Visible = false;

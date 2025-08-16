@@ -1465,7 +1465,6 @@ namespace Client.Scenes.Views
 
         public QuestTreeEntry()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(25, 20, 0);
 
             BorderColour = Color.FromArgb(198, 166, 99);

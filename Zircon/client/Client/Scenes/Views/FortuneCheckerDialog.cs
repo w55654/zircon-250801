@@ -315,7 +315,6 @@ namespace Client.Scenes.Views
         {
             Size = new Size(465, 55);
 
-            DrawTexture = true;
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
 
             Visible = false;

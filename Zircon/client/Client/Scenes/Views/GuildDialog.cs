@@ -1224,7 +1224,6 @@ namespace Client.Scenes.Views
             if (line == lineIndex) return;
 
             //SendMessage(NoticeTextBox.Handle, EM_LINESCROLL, 0, lineIndex - GetCurrentLine());
-            NoticeTextBox.DisposeTexture();
         }
 
         #endregion
@@ -2472,8 +2471,6 @@ namespace Client.Scenes.Views
             OnlineLabel.Text = CEnvir.Language.GuildMemberRowOnlineLabel;
             OnlineLabel.ForeColour = Color.FromArgb(198, 166, 99);
 
-            DrawTexture = false;
-
             IsHeaderChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -2521,7 +2518,6 @@ namespace Client.Scenes.Views
         {
             Size = new Size(402, 20);
 
-            DrawTexture = true;
             BackColour = /*Selected ? Color.FromArgb(80, 80, 125) :*/ Color.FromArgb(25, 20, 0);
 
             NameLabel = new DXLabel

@@ -267,9 +267,6 @@ namespace Client.Models
 
             if (previous != null && previous.Visible)
                 DrawY = Math.Min(DrawY, previous.Bottom);
-
-            if (oldY != DrawY)
-                GameScene.Game.MapControl.TextureValid = false;
         }
 
         public void Draw(int drawX, int drawY)

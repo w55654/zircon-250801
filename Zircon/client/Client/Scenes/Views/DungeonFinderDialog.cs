@@ -547,7 +547,6 @@ namespace Client.Scenes.Views
         {
             Size = new Size(515, 40);
 
-            DrawTexture = true;
             BackColour = Selected ? Color.FromArgb(80, 80, 125) : Color.FromArgb(25, 20, 0);
 
             NameLabel = new DXLabel

@@ -1206,7 +1206,6 @@ namespace Client.Scenes.Views
             if (line == lineIndex) return;
 
             //SendMessage(SendMessageBox.Handle, EM_LINESCROLL, 0, lineIndex - GetSendMessageCurrentLine());
-            SendMessageBox.DisposeTexture();
         }
 
         private void ReceivedScrollBar_ValueChanged(object sender, EventArgs e)
@@ -1902,7 +1901,6 @@ namespace Client.Scenes.Views
         public CommunicationReceivedRow()
         {
             Size = new Size(236, 49);
-            DrawTexture = true;
             BackColour = Color.Empty;
 
             Icon = new DXImageControl

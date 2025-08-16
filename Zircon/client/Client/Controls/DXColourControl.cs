@@ -48,7 +48,6 @@ namespace Client.Controls
 
         public DXColourControl()
         {
-            DrawTexture = true;
             Border = true;
             BorderColour = Color.FromArgb(198, 166, 99);
             Size = new Size(40, 15);
@@ -308,7 +307,6 @@ namespace Client.Controls
                 Location = new Point(BlueBox.Location.X + BlueBox.ValueTextBox.Location.X, 172),
                 BackColour = SelectedColour,
                 Border = true,
-                DrawTexture = true,
                 BorderColour = Color.FromArgb(198, 166, 99),
                 Parent = this,
                 Visible = SelectedColour != Color.Empty

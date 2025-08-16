@@ -384,7 +384,6 @@ namespace Client.Scenes
 
         public GameScene(Size size) : base(size)
         {
-            DrawTexture = false;
             Game = this;
 
             foreach (NPCInfo info in Globals.NPCInfoList.Binding)
@@ -1630,7 +1629,6 @@ namespace Client.Scenes
                 BackColour = Color.FromArgb(200, 0, 24, 48),
                 Border = true,
                 BorderColour = Color.Yellow, // Color.FromArgb(144, 148, 48),
-                DrawTexture = true,
                 IsControl = false,
                 IsVisible = true,
             };
@@ -2673,7 +2671,6 @@ namespace Client.Scenes
                 BackColour = Color.FromArgb(200, 0, 24, 48),
                 Border = true,
                 BorderColour = Color.Yellow, // Color.FromArgb(144, 148, 48),
-                DrawTexture = true,
                 IsControl = false,
                 IsVisible = true,
             };
@@ -4501,7 +4498,6 @@ namespace Client.Scenes
             return new DXControl
             {
                 Size = new Size(3, 3),
-                DrawTexture = true,
                 Hint = npc.NPCName,
                 BackColour = Color.Lime
             };

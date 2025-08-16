@@ -1241,7 +1241,6 @@ namespace Client.Scenes.Views
 
         public NPCGoodsCell()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(25, 20, 0);
             BorderColour = Color.FromArgb(198, 166, 99);
             Size = new Size(219, 40);
@@ -2637,7 +2636,6 @@ namespace Client.Scenes.Views
 
         public NPCRefineCell()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(25, 20, 0);
 
             BorderColour = Color.FromArgb(198, 166, 99);
@@ -2969,7 +2967,6 @@ namespace Client.Scenes.Views
                 Size = new Size(365, 2 + Rows.Length * 22),
                 Location = new Point(8, 37),
                 Parent = this,
-                DrawTexture = true
             };
 
             ScrollBar = new DXVScrollBar
@@ -3913,7 +3910,6 @@ namespace Client.Scenes.Views
 
         public NPCQuestRow()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(25, 20, 0);
 
             BorderColour = Color.FromArgb(198, 166, 99);
@@ -4603,7 +4599,6 @@ namespace Client.Scenes.Views
 
         public NPCCompanionStorageRow()
         {
-            DrawTexture = true;
             BackColour = Color.FromArgb(25, 20, 0);
 
             BorderColour = Color.FromArgb(198, 166, 99);

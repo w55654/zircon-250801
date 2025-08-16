@@ -40,21 +40,12 @@ namespace Client.Envir
         // ============== raylib 内部资源 ==============
         private static bool _windowInited;
 
-        private static RenderTexture2D _mainTarget;    // 等价 MainSurface
-        private static RenderTexture2D _scratchTarget; // 等价 Scratch
-        private static RenderTexture2D _currentTarget; // 等价 CurrentSurface
-        private static bool _textureModeBegun;
-
         // ============== 初始化/销毁 ==============
         public static void Create()
         {
             if (_windowInited) return;
 
             var size = DXControl.ActiveScene?.Size ?? new Size(1024, 768);
-
-            _mainTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
-            _scratchTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
-            _currentTarget = _mainTarget;
 
             _windowInited = true;
 
@@ -77,9 +68,6 @@ namespace Client.Envir
 
         public static void Unload()
         {
-            if (_mainTarget.Id != 0) Raylib.UnloadRenderTexture(_mainTarget);
-            if (_scratchTarget.Id != 0) Raylib.UnloadRenderTexture(_scratchTarget);
-
             _windowInited = false;
         }
 
@@ -90,13 +78,6 @@ namespace Client.Envir
             if (!_windowInited) return;
 
             Raylib.SetWindowSize(size.Width, size.Height);
-
-            if (_mainTarget.Id != 0) Raylib.UnloadRenderTexture(_mainTarget);
-            if (_scratchTarget.Id != 0) Raylib.UnloadRenderTexture(_scratchTarget);
-
-            _mainTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
-            _scratchTarget = Raylib.LoadRenderTexture(size.Width, size.Height);
-            _currentTarget = _mainTarget;
         }
 
         public static void ConfigureGraphics(Graphics graphics)

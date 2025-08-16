@@ -1006,7 +1006,6 @@ namespace Client.Scenes
                     Parent = this,
                     BackColour = Color.FromArgb(72, 36, 36),
                     Border = true,
-                    DrawTexture = true,
                     Size = new Size(200, 85),
                     Location = new Point(30, 40),
                     BorderColour = Color.FromArgb(198, 166, 99),
@@ -1083,7 +1082,6 @@ namespace Client.Scenes
                     Parent = this,
                     BackColour = Color.FromArgb(72, 36, 36),
                     Border = true,
-                    DrawTexture = true,
                     Size = new Size(200, 85),
                     Location = new Point(30, 135),
                     BorderColour = Color.FromArgb(198, 166, 99),
@@ -1138,7 +1136,6 @@ namespace Client.Scenes
                     Parent = this,
                     BackColour = Color.FromArgb(72, 36, 36),
                     Border = true,
-                    DrawTexture = true,
                     Size = new Size(200, 330),
                     Location = new Point(30, 230),
                     BorderColour = Color.FromArgb(198, 166, 99),
@@ -1204,7 +1201,6 @@ namespace Client.Scenes
                     Parent = panel,
                     BackColour = Color.FromArgb(49, 40, 24),
                     Border = true,
-                    DrawTexture = true,
                     Size = new Size(190, panel.Size.Height - 5 - 100),
                     Location = new Point(5, 100),
                     BorderColour = Color.FromArgb(198, 166, 99),
@@ -1673,7 +1669,6 @@ namespace Client.Scenes
             {
                 Border = true;
                 BackColour = Color.FromArgb(24, 12, 12);
-                DrawTexture = true;
                 BorderColour = Color.FromArgb(198, 166, 99);
 
                 Size = new Size(280, 75);

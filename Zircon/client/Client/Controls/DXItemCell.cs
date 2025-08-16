@@ -594,16 +594,12 @@ namespace Client.Controls
         {
             base.OnBorderChanged(oValue, nValue);
 
-            TextureValid = false;
-
             UpdateBorder();
         }
 
         public override void OnBorderColourChanged(Color oValue, Color nValue)
         {
             base.OnBorderColourChanged(oValue, nValue);
-
-            TextureValid = false;
 
             UpdateBorder();
         }
@@ -649,7 +645,6 @@ namespace Client.Controls
         public DXItemCell()
         {
             BackColour = Color.Empty;
-            DrawTexture = true;
             ShowCountLabel = true;
             AllowLink = true;
 
@@ -670,15 +665,6 @@ namespace Client.Controls
         private void CountLabel_SizeChanged(object sender, EventArgs e)
         {
             CountLabel.Location = new Point(Size.Width - CountLabel.Size.Width, Size.Height - CountLabel.Size.Height);
-        }
-
-        protected override void OnClearTexture()
-        {
-            base.OnClearTexture();
-
-            //if (!Border || BorderInformation == null) return;
-
-            //DXManager.Line.Draw(BorderInformation, BorderColour);
         }
 
         protected override void DrawBorder()
@@ -783,8 +769,6 @@ namespace Client.Controls
                 BackColour = Color.FromArgb(125, 0, 125, 125);
             else if (Locked || Selected || (!Linked && Link != null))
                 BackColour = Color.FromArgb(125, 255, 125, 125);
-
-            DrawTexture = MouseControl == this || !Enabled || Locked || Selected || FixedBorder || (!Linked && Link != null);
 
             if (MouseControl == this || Locked || Selected || (!Linked && Link != null))
             {
