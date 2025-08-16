@@ -50,7 +50,7 @@ namespace Client.Controls
                 if (!char.IsControl((char)e.Char) && !char.IsDigit((char)e.Char))
                     e.Handled = true;
             };
-            DownButton = new DXButton
+            DownButton = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 1011,
@@ -59,7 +59,7 @@ namespace Client.Controls
             };
             DownButton.MouseClick += (o, e) => ValueTextBox.Text = (Value - Change).ToString();
 
-            UpButton = new DXButton
+            UpButton = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 1010,

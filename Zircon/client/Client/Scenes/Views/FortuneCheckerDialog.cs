@@ -103,12 +103,12 @@ namespace Client.Scenes.Views
 
             ItemTypeBox.ListBox.SelectItem(null);
 
-            SearchButton = new DXButton
+            SearchButton = new DXTextButton
             {
                 Size = new Size(80, SmallButtonHeight),
                 Location = new Point(ItemTypeBox.Location.X + ItemTypeBox.Size.Width + 15, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = "Search" }
             };
             SearchButton.MouseClick += (o, e) => Search();
@@ -387,11 +387,11 @@ namespace Client.Scenes.Views
                 IsControl = false,
             };
 
-            CheckButton = new DXButton
+            CheckButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.FortuneCheckerRowCheckButtonLabel },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(50, SmallButtonHeight),
                 Location = new Point(Size.Width - 55, 34)
             };

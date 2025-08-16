@@ -20,7 +20,7 @@ namespace Client.Scenes.Views
         public DXImageControl ClassImage, LevelImage, ACImage, MACImage, DCImage, MCImage, SCImage, FPImage, CPImage;
         public DXLabel ClassLabel, LevelLabel, FPLabel, CPLabel, ACLabel, DCLabel, SCLabel, MACLabel, MCLabel, HealthLabel, ManaLabel, FocusLabel, AttackModeLabel, PetModeLabel;
 
-        private DXButton CharacterButton, InventoryButton, SpellButton, QuestButton, MailButton, BeltButton, GroupButton, MenuButton, CashShopButton;
+        private DXImageControl CharacterButton, InventoryButton, SpellButton, QuestButton, MailButton, BeltButton, GroupButton, MenuButton, CashShopButton;
 
         #endregion
 
@@ -132,7 +132,7 @@ namespace Client.Scenes.Views
                 PresentTexture(image.Image, this, new Rectangle(FocusBar.DisplayArea.X, FocusBar.DisplayArea.Y, (int)(image.Width * percent), image.Height), Color.White, Opacity, FocusBar);
             };
 
-            CharacterButton = new DXButton
+            CharacterButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 82,
@@ -146,7 +146,7 @@ namespace Client.Scenes.Views
                 GameScene.Game.CharacterBox.Visible = !GameScene.Game.CharacterBox.Visible;
             };
 
-            InventoryButton = new DXButton
+            InventoryButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 87,
@@ -157,7 +157,7 @@ namespace Client.Scenes.Views
             };
             InventoryButton.MouseClick += (o, e) => GameScene.Game.InventoryBox.Visible = !GameScene.Game.InventoryBox.Visible;
 
-            SpellButton = new DXButton
+            SpellButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 92,
@@ -168,7 +168,7 @@ namespace Client.Scenes.Views
             };
             SpellButton.MouseClick += (o, e) => GameScene.Game.MagicBox.Visible = !GameScene.Game.MagicBox.Visible;
 
-            QuestButton = new DXButton
+            QuestButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 112,
@@ -179,7 +179,7 @@ namespace Client.Scenes.Views
             };
             QuestButton.MouseClick += (o, e) => GameScene.Game.QuestBox.Visible = !GameScene.Game.QuestBox.Visible;
 
-            MailButton = new DXButton
+            MailButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 97,
@@ -230,7 +230,7 @@ namespace Client.Scenes.Views
                 Visible = false,
             };
 
-            BeltButton = new DXButton
+            BeltButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 107,
@@ -241,7 +241,7 @@ namespace Client.Scenes.Views
             };
             BeltButton.MouseClick += (o, e) => GameScene.Game.BeltBox.Visible = !GameScene.Game.BeltBox.Visible;
 
-            GroupButton = new DXButton
+            GroupButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 102,
@@ -252,7 +252,7 @@ namespace Client.Scenes.Views
             };
             GroupButton.MouseClick += (o, e) => GameScene.Game.GroupBox.Visible = !GameScene.Game.GroupBox.Visible;
 
-            MenuButton = new DXButton
+            MenuButton = new DXImageControl
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 117,
@@ -263,7 +263,7 @@ namespace Client.Scenes.Views
             };
             MenuButton.MouseClick += (o, e) => GameScene.Game.MenuBox.Visible = !GameScene.Game.MenuBox.Visible;
 
-            DXButton CashShopButton = new DXButton
+            DXButton CashShopButton = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 122,

@@ -26,7 +26,7 @@ namespace Client.Scenes.Views
         private DXImageControl HeaderImage, BackgroundImage;
 
         private DXLabel TitleLabel;
-        private DXButton CloseButton;
+        private DXImageButton CloseButton;
 
         private DXTabControl TabControl;
         public SortedDictionary<MagicSchool, MagicTab> SchoolTabs = new SortedDictionary<MagicSchool, MagicTab>();
@@ -130,7 +130,7 @@ namespace Client.Scenes.Views
                 IsControl = false
             };
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -369,98 +369,98 @@ namespace Client.Scenes.Views
             {
                 case MagicSchool.Active:
                     TabButton.Index = 166;
-                    TabButton.HoverIndex = 167;
-                    TabButton.PressedIndex = 167;
+                    //TabButton.HoverIndex = 167;
+                    //TabButton.PressedIndex = 167;
                     break;
 
                 case MagicSchool.Passive:
                     TabButton.Index = 168;
-                    TabButton.HoverIndex = 169;
-                    TabButton.PressedIndex = 169;
+                    //TabButton.HoverIndex = 169;
+                    //TabButton.PressedIndex = 169;
                     break;
 
                 case MagicSchool.Toggle:
                     TabButton.Index = 170;
-                    TabButton.HoverIndex = 171;
-                    TabButton.PressedIndex = 171;
+                    //TabButton.HoverIndex = 171;
+                    //TabButton.PressedIndex = 171;
                     break;
 
                 case MagicSchool.Horse:
                     TabButton.Index = 172;
-                    TabButton.HoverIndex = 173;
-                    TabButton.PressedIndex = 173;
+                    //TabButton.HoverIndex = 173;
+                    //TabButton.PressedIndex = 173;
                     break;
 
                 case MagicSchool.Fire:
                     TabButton.Index = 174;
-                    TabButton.HoverIndex = 175;
-                    TabButton.PressedIndex = 175;
+                    //TabButton.HoverIndex = 175;
+                    //TabButton.PressedIndex = 175;
                     break;
 
                 case MagicSchool.Ice:
                     TabButton.Index = 176;
-                    TabButton.HoverIndex = 177;
-                    TabButton.PressedIndex = 177;
+                    //TabButton.HoverIndex = 177;
+                    //TabButton.PressedIndex = 177;
                     break;
 
                 case MagicSchool.Lightning:
                     TabButton.Index = 178;
-                    TabButton.HoverIndex = 179;
-                    TabButton.PressedIndex = 179;
+                    //TabButton.HoverIndex = 179;
+                    //TabButton.PressedIndex = 179;
                     break;
 
                 case MagicSchool.Wind:
                     TabButton.Index = 180;
-                    TabButton.HoverIndex = 181;
-                    TabButton.PressedIndex = 181;
+                    //TabButton.HoverIndex = 181;
+                    //TabButton.PressedIndex = 181;
                     break;
 
                 case MagicSchool.Phantom:
                     TabButton.Index = 182;
-                    TabButton.HoverIndex = 183;
-                    TabButton.PressedIndex = 183;
+                    //TabButton.HoverIndex = 183;
+                    //TabButton.PressedIndex = 183;
                     break;
 
                 case MagicSchool.Holy:
                     TabButton.Index = 184;
-                    TabButton.HoverIndex = 185;
-                    TabButton.PressedIndex = 185;
+                    //TabButton.HoverIndex = 185;
+                    //TabButton.PressedIndex = 185;
                     break;
 
                 case MagicSchool.Dark:
                     TabButton.Index = 186;
-                    TabButton.HoverIndex = 187;
-                    TabButton.PressedIndex = 187;
+                    //TabButton.HoverIndex = 187;
+                    //TabButton.PressedIndex = 187;
                     break;
 
                 case MagicSchool.Physical:
                     TabButton.Index = 188;
-                    TabButton.HoverIndex = 189;
-                    TabButton.PressedIndex = 189;
+                    //TabButton.HoverIndex = 189;
+                    //TabButton.PressedIndex = 189;
                     break;
 
                 case MagicSchool.Atrocity:
                     TabButton.Index = 190;
-                    TabButton.HoverIndex = 191;
-                    TabButton.PressedIndex = 191;
+                    //TabButton.HoverIndex = 191;
+                    //TabButton.PressedIndex = 191;
                     break;
 
                 case MagicSchool.Kill:
                     TabButton.Index = 192;
-                    TabButton.HoverIndex = 193;
-                    TabButton.PressedIndex = 193;
+                    //TabButton.HoverIndex = 193;
+                    //TabButton.PressedIndex = 193;
                     break;
 
                 case MagicSchool.Assassination:
                     TabButton.Index = 194;
-                    TabButton.HoverIndex = 195;
-                    TabButton.PressedIndex = 195;
+                    //TabButton.HoverIndex = 195;
+                    //TabButton.PressedIndex = 195;
                     break;
 
                 case MagicSchool.None:
                     TabButton.Index = 170;
-                    TabButton.HoverIndex = 171;
-                    TabButton.PressedIndex = 171;
+                    //TabButton.HoverIndex = 171;
+                    //TabButton.PressedIndex = 171;
                     break;
             }
 

@@ -49,8 +49,8 @@ namespace Client.Scenes.Views
         public string LastPM;
 
         public DXTextBox TextBox;
-        public DXButton OptionsButton;
-        public DXButton ChatModeButton;
+        public DXTextButton OptionsButton;
+        public DXTextButton ChatModeButton;
 
         public override void OnParentChanged(DXControl oValue, DXControl nValue)
         {
@@ -93,18 +93,18 @@ namespace Client.Scenes.Views
             AllowResize = true;
             CanResizeHeight = false;
 
-            ChatModeButton = new DXButton
+            ChatModeButton = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(60, SmallButtonHeight),
                 Label = { Text = Mode.ToString() },
                 Parent = this,
             };
             ChatModeButton.MouseClick += (o, e) => Mode = (ChatMode)(((int)(Mode) + 1) % 7);
 
-            OptionsButton = new DXButton
+            OptionsButton = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(50, SmallButtonHeight),
                 Label = { Text = CEnvir.Language.ChatTextBoxOptionsButtonLabel },
                 Parent = this,

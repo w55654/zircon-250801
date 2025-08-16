@@ -59,6 +59,8 @@ namespace Client.Envir
         public static bool SmoothMove { get; set; } = false;
 
         [ConfigSection("Sound")]
+        public static bool OpenSound { get; set; } = true;
+
         public static bool SoundInBackground { get; set; } = true;
 
         public static int SoundOverLap { get; set; } = 5;

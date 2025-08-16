@@ -41,11 +41,11 @@ namespace Client.Scenes.Views
                 };
             }
 
-            DXButton filterButton = new DXButton
+            DXButton filterButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.FilterDialogSaveButtonLabel, },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(80, SmallButtonHeight)
             };
             filterButton.Location = new Point(100, Size.Height - 30);

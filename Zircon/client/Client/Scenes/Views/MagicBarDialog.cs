@@ -411,7 +411,7 @@ namespace Client.Scenes.Views
                 count++;
             }
 
-            UpButton = new DXButton
+            UpButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(ClientArea.X + 461, ClientArea.Y),
@@ -429,7 +429,7 @@ namespace Client.Scenes.Views
                 ForeColour = Color.White,
             };
 
-            DownButton = new DXButton
+            DownButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(ClientArea.X + 461, ClientArea.X + 37 - UpButton.Size.Height),

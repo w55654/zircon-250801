@@ -278,7 +278,7 @@ namespace Client.Scenes.Views
         public DateTime SabukWarDate;
 
         public DXLabel TitleLabel;
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
 
         public DXImageControl BackgroundImage;
 
@@ -360,7 +360,7 @@ namespace Client.Scenes.Views
             Sort = true;
             Size = new Size(456, 556);
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -636,11 +636,11 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            StarterGuildButton = new DXButton
+            StarterGuildButton = new DXTextButton
             {
                 Parent = CreatePanel,
                 Location = new Point(10, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(120, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildDialogCreateTabStarterGuildButtonLabel }
             };
@@ -837,10 +837,10 @@ namespace Client.Scenes.Views
             };
             TotalCostBox.ValueChanged += TotalCostBox_ValueChanged;
 
-            CreateButton = new DXButton
+            CreateButton = new DXTextButton
             {
                 Parent = CreateTab,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(110, SmallButtonHeight),
                 Label = { Text = CEnvir.Language.GuildDialogCreateTabCreateButtonLabel },
                 Location = new Point(TotalCostBox.Location.X, TotalCostBox.Location.Y + 30)
@@ -978,13 +978,13 @@ namespace Client.Scenes.Views
             NoticeTextBox.MouseWheel += (o, e) => NoticeScrollBar.Value -= e.Delta / SystemInformation.MouseWheelScrollDelta;
             NoticeTextBox.MouseWheel += (o, e) => NoticeScrollBar.Value -= e.Delta / SystemInformation.MouseWheelScrollDelta;
 
-            EditNoticeButton = new DXButton
+            EditNoticeButton = new DXTextButton
             {
                 Parent = HomeTab,
                 Size = new Size(60, SmallButtonHeight),
                 Location = new Point(HomeTab.Size.Width - 75, 9),
                 Label = { Text = CEnvir.Language.GuildDialogHomeTabNoticeEditButtonLabel },
-                ButtonType = ButtonType.SmallButton
+                Index = 118
             };
             EditNoticeButton.MouseClick += (o, e) =>
             {
@@ -995,13 +995,13 @@ namespace Client.Scenes.Views
                 NoticeTextBox.SetFocus();
             };
 
-            SaveNoticeButton = new DXButton
+            SaveNoticeButton = new DXTextButton
             {
                 Parent = HomeTab,
                 Size = new Size(60, SmallButtonHeight),
                 Location = new Point(HomeTab.Size.Width - 145, 9),
                 Label = { Text = CEnvir.Language.GuildDialogHomeTabNoticeSaveButtonLabel },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Visible = false,
             };
             SaveNoticeButton.MouseClick += (o, e) =>
@@ -1014,13 +1014,13 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.GuildEditNotice { Notice = NoticeTextBox.Text });
             };
 
-            CancelNoticeButton = new DXButton
+            CancelNoticeButton = new DXTextButton
             {
                 Parent = HomeTab,
                 Size = new Size(60, SmallButtonHeight),
                 Location = new Point(HomeTab.Size.Width - 75, 9),
                 Label = { Text = CEnvir.Language.CommonControlCancel },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Visible = false,
             };
             CancelNoticeButton.MouseClick += (o, e) =>
@@ -1173,11 +1173,11 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            SetTaxButton = new DXButton
+            SetTaxButton = new DXTextButton
             {
                 Parent = TreasuryPanel,
                 Location = new Point(10, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(120, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildDialogManageTabTreasuryChangeButtonLabel },
             };
@@ -1296,11 +1296,11 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            AddMemberButton = new DXButton
+            AddMemberButton = new DXTextButton
             {
                 Parent = AddMemberPanel,
                 Location = new Point(10, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(110, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildDialogManageTabMembershipAddButtonLabel },
             };
@@ -1321,11 +1321,11 @@ namespace Client.Scenes.Views
                 };
             };
 
-            EditDefaultMemberButton = new DXButton
+            EditDefaultMemberButton = new DXTextButton
             {
                 Parent = AddMemberPanel,
                 Location = new Point(AddMemberButton.DisplayArea.Right + 5, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(110, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildDialogManageTabMembershipEditDefaultButtonLabel },
             };
@@ -1340,11 +1340,11 @@ namespace Client.Scenes.Views
                 GameScene.Game.GuildMemberBox.BringToFront();
             };
 
-            IncreaseMemberButton = new DXButton
+            IncreaseMemberButton = new DXTextButton
             {
                 Parent = AddMemberPanel,
                 Location = new Point(EditDefaultMemberButton.DisplayArea.Right + 5, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(110, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildDialogManageTabMembershipMembersIncreaseButtonLabel },
             };
@@ -1463,12 +1463,12 @@ namespace Client.Scenes.Views
 
             ItemTypeComboBox.ListBox.SelectItem(null);
 
-            ClearButton = new DXButton
+            ClearButton = new DXTextButton
             {
                 Size = new Size(40, SmallButtonHeight),
                 Location = new Point(ItemTypeComboBox.Location.X + ItemTypeComboBox.Size.Width + 30, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = CEnvir.Language.GuildDialogStorageTabClearButtonLabel }
             };
             ClearButton.MouseClick += (o, e) =>
@@ -1511,11 +1511,11 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            IncreaseStorageButton = new DXButton
+            IncreaseStorageButton = new DXTextButton
             {
                 Parent = StoragePanel,
                 Location = new Point(10, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(110, DefaultHeight),
                 Label = { Text = string.Format(CEnvir.Language.GuildDialogManageTabUpgradeStorageIncreaseButtonLabel, Globals.GuildStorageCost) },
             };
@@ -1614,11 +1614,11 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            StartWarButton = new DXButton
+            StartWarButton = new DXTextButton
             {
                 Parent = WarPanel,
                 Location = new Point(10, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(110, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildDialogWarTabGuildWarStartWarButtonLabel }
             };
@@ -1722,11 +1722,11 @@ namespace Client.Scenes.Views
                 Location = new Point(9, 34),
                 BackColour = Color.FromArgb(CEnvir.Random.Next(256), CEnvir.Random.Next(256), CEnvir.Random.Next(256))
             };
-            StyleColourButton = new DXButton
+            StyleColourButton = new DXTextButton
             {
                 Parent = StyleColourPanel,
                 Location = new Point(125, 34),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(80, SmallButtonHeight),
                 Label = { Text = "Save" },
             };
@@ -1756,11 +1756,11 @@ namespace Client.Scenes.Views
                 DrawFormat = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter,
             };
 
-            StyleFlagPreviousButton = new DXButton
+            StyleFlagPreviousButton = new DXTextButton
             {
                 Parent = StyleFlagPanel,
                 Location = new Point(5, StyleFlagPanel.Size.Height - 23),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Size = new Size(60, SmallButtonHeight),
                 Label = { Text = "Previous" },
             };
@@ -1773,11 +1773,11 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.GuildFlag { Flag = newFlag });
             };
 
-            StyleFlagNextButton = new DXButton
+            StyleFlagNextButton = new DXTextButton
             {
                 Parent = StyleFlagPanel,
                 Location = new Point(StyleFlagPanel.Size.Width - 65, StyleFlagPanel.Size.Height - 23),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(60, SmallButtonHeight),
                 Label = { Text = "Next" },
             };
@@ -1837,11 +1837,11 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            ToggleGates = new DXButton
+            ToggleGates = new DXTextButton
             {
                 Parent = CastlePanel,
                 Location = new Point(10, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(120, DefaultHeight),
                 Label = { Text = "Open/Close Gates" },
                 Enabled = false,
@@ -1852,11 +1852,11 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.GuildToggleCastleGates());
             };
 
-            RepairGates = new DXButton
+            RepairGates = new DXTextButton
             {
                 Parent = CastlePanel,
                 Location = new Point(220, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(100, DefaultHeight),
                 Label = { Text = "Repair Gates" },
                 Enabled = false,
@@ -1875,11 +1875,11 @@ namespace Client.Scenes.Views
                 };
             };
 
-            RepairGuards = new DXButton
+            RepairGuards = new DXTextButton
             {
                 Parent = CastlePanel,
                 Location = new Point(330, 10),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(100, DefaultHeight),
                 Label = { Text = "Repair Guards" },
                 Enabled = false,
@@ -2881,11 +2881,11 @@ namespace Client.Scenes.Views
             MarketBox.CheckedChanged += (o, e) => UpdatePermission();
             MarketBox.Location = new Point(0200 - MarketBox.Size.Width, MerchantBox.Location.Y + 20);
 
-            ConfirmButton = new DXButton
+            ConfirmButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(0120, StorageBox.Location.Y + 40),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Size = new Size(80, SmallButtonHeight),
                 Label = { Text = CEnvir.Language.CommonControlConfirm },
             };
@@ -2896,11 +2896,11 @@ namespace Client.Scenes.Views
 
                 Visible = false;
             };
-            KickButton = new DXButton
+            KickButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(ClientArea.X, StorageBox.Location.Y + 40),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(40, SmallButtonHeight),
                 Label = { Text = CEnvir.Language.GuildMemberDialogKickButtonLabel },
             };
@@ -3149,11 +3149,11 @@ namespace Client.Scenes.Views
                 ForeColour = Color.White
             };
 
-            RequestButton = new DXButton
+            RequestButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(359, 85),
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(60, DefaultHeight),
                 Label = { Text = CEnvir.Language.GuildCastlePanelRequestButtonLabel },
                 Enabled = false,

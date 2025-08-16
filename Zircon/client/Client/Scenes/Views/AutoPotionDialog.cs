@@ -214,7 +214,7 @@ namespace Client.Scenes.Views
             Border = true;
             BorderColour = Color.FromArgb(198, 166, 99);
 
-            UpButton = new DXButton
+            UpButton = new DXTextButton
             {
                 Index = 44,
                 LibraryFile = LibraryFile.Interface,
@@ -247,7 +247,7 @@ namespace Client.Scenes.Views
                 GameScene.Game.AutoPotionBox.Rows[Index - 1].SendUpdate();
             };
 
-            DownButton = new DXButton
+            DownButton = new DXTextButton
             {
                 Index = 46,
                 LibraryFile = LibraryFile.Interface,

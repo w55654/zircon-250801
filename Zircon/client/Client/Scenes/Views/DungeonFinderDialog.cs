@@ -186,22 +186,22 @@ namespace Client.Scenes.Views
 
             SortBox.ListBox.SelectItem(DungeonFinderSort.Name);
 
-            SearchButton = new DXButton
+            SearchButton = new DXTextButton
             {
                 Size = new Size(80, SmallButtonHeight),
                 Location = new Point(SortBox.Location.X + SortBox.Size.Width + 25, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = "Search" }
             };
             SearchButton.MouseClick += (o, e) => DungeonSearch();
 
-            //DXButton ClearButton = new DXButton
+            //DXButton ClearButton = new DXTextButton
             //{
             //    Size = new Size(50, SmallButtonHeight),
             //    Location = new Point(SearchButton.Location.X + SearchButton.Size.Width + 40, label.Location.Y - 1),
             //    Parent = filterPanel,
-            //    ButtonType = ButtonType.SmallButton,
+            //    Index = 118,
             //    Label = { Text = "Clear" }
             //};
             //ClearButton.MouseClick += (o, e) =>
@@ -237,12 +237,12 @@ namespace Client.Scenes.Views
 
             #region Instance Details
 
-            JoinButton = new DXButton
+            JoinButton = new DXTextButton
             {
                 Size = new Size(80, SmallButtonHeight),
                 Location = new Point(490, 35),
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = "Join Instance" },
                 Visible = false
             };
@@ -585,7 +585,7 @@ namespace Client.Scenes.Views
             //    IsControl = false,
             //};
 
-            FavouriteImage = new DXButton
+            FavouriteImage = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 6570,

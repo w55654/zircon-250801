@@ -45,7 +45,7 @@ namespace Client.Scenes.Views
         private string CurrentPageSay;
         private bool Rolling = true;
 
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
         private DXImageControl HeaderImage, FooterImage;
         private DXImageControl[] RowImages = new DXImageControl[6];
         private DXVScrollBar ScrollBar;
@@ -215,7 +215,7 @@ namespace Client.Scenes.Views
 
             SetSize(0);
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -283,7 +283,7 @@ namespace Client.Scenes.Views
             text = C.Replace(text, @"${Text}");
             PageText.Text = text;
 
-            int height = DXLabel.GetHeight(PageText, PageText.Size.Width).Height;
+            int height = PageText.TextSize.Height;
             SetSize(height);
             ProcessText(CurrentPageSay);
 
@@ -857,7 +857,7 @@ namespace Client.Scenes.Views
 
             MouseWheel += ScrollBar.DoMouseWheel;
 
-            BuyButton = new DXButton
+            BuyButton = new DXTextButton
             {
                 Location = new Point(40, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -1489,11 +1489,11 @@ namespace Client.Scenes.Views
                 IsControl = false,
             };
 
-            DXButton inventory = new DXButton
+            DXButton inventory = new DXTextButton
             {
                 Label = { Text = "Inventory" },
                 Location = new Point(ClientArea.X, GoldLabel.Location.Y + GoldLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight)
             };
@@ -1507,11 +1507,11 @@ namespace Client.Scenes.Views
                 }
             };
 
-            DXButton equipment = new DXButton
+            DXButton equipment = new DXTextButton
             {
                 Label = { Text = "Equipment" },
                 Location = new Point(ClientArea.X + 5 + inventory.Size.Width, GoldLabel.Location.Y + GoldLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight)
             };
@@ -1525,11 +1525,11 @@ namespace Client.Scenes.Views
                 }
             };
 
-            DXButton storage = new DXButton
+            DXButton storage = new DXTextButton
             {
                 Label = { Text = "Storage" },
                 Location = new Point(ClientArea.X, GoldLabel.Location.Y + GoldLabel.Size.Height + inventory.Size.Height + 5 + 5),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight),
             };
@@ -1543,11 +1543,11 @@ namespace Client.Scenes.Views
                 }
             };
 
-            GuildStorageButton = new DXButton
+            GuildStorageButton = new DXTextButton
             {
                 Label = { Text = "Guild Storage" },
                 Location = new Point(ClientArea.X + inventory.Size.Width + 5, GoldLabel.Location.Y + GoldLabel.Size.Height + inventory.Size.Height + 5 + 5),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight),
                 Enabled = false,
@@ -1596,11 +1596,11 @@ namespace Client.Scenes.Views
             GuildCheckBox.Location = new Point(ClientArea.Right - 80 - GuildCheckBox.Size.Width - 5, GoldLabel.Location.Y + GoldLabel.Size.Height + SpecialCheckBox.Size.Height + 5 + 7);
             GuildCheckBox.CheckedChanged += (o, e) => CalculateCost();
 
-            RepairButton = new DXButton
+            RepairButton = new DXTextButton
             {
                 Label = { Text = "Repair" },
                 Location = new Point(ClientArea.Right - 80, GoldLabel.Location.Y + GoldLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight),
                 Enabled = false,
@@ -2054,12 +2054,12 @@ namespace Client.Scenes.Views
             DarkCheckBox.Location = new Point(ClientArea.Right - DarkCheckBox.Size.Width - 156, ClientArea.Y + 90);
             PhantomCheckBox.Location = new Point(ClientArea.Right - PhantomCheckBox.Size.Width - 240, ClientArea.Y + 107);
 
-            SubmitButton = new DXButton
+            SubmitButton = new DXTextButton
             {
                 Label = { Text = "Submit" },
                 Size = new Size(80, SmallButtonHeight),
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Enabled = false,
             };
             SubmitButton.Location = new Point(ClientArea.Right - SubmitButton.Size.Width, ClientArea.Bottom - SubmitButton.Size.Height);
@@ -2367,7 +2367,7 @@ namespace Client.Scenes.Views
 
             MouseWheel += ScrollBar.DoMouseWheel;
 
-            RetrieveButton = new DXButton
+            RetrieveButton = new DXTextButton
             {
                 Location = new Point((Size.Width - 80) / 2, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -3288,7 +3288,7 @@ namespace Client.Scenes.Views
             DescriptionLabel.Text = GameScene.Game.GetQuestText(SelectedQuest.QuestInfo, SelectedQuest.UserQuest, false);
             TasksLabel.Text = GameScene.Game.GetTaskText(SelectedQuest.QuestInfo, SelectedQuest.UserQuest);
 
-            int height = DXLabel.GetHeight(DescriptionLabel, DescriptionLabel.Size.Width).Height;
+            int height = DescriptionLabel.TextSize.Height;
 
             DescriptionLabel.Size = new Size(DescriptionContainer.Size.Width, height);
             DescriptionScrollBar.MaxValue = DescriptionLabel.Size.Height - DescriptionContainer.Size.Height + 14;
@@ -3359,7 +3359,7 @@ namespace Client.Scenes.Views
 
         public List<QuestInfo> Quests = new List<QuestInfo>();
 
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
         public DXLabel TitleLabel;
 
         public DXControl DescriptionContainer;
@@ -3396,7 +3396,7 @@ namespace Client.Scenes.Views
             };
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -3585,13 +3585,13 @@ namespace Client.Scenes.Views
                 GameScene.Game.BigMapBox.SelectedInfo = SelectedQuest.QuestInfo.FinishNPC.Region.Map;
             };
 
-            AcceptButton = new DXButton
+            AcceptButton = new DXTextButton
             {
                 Label = { Text = "Accept" },
                 Parent = this,
                 Location = new Point(250, label.Location.Y + label.Size.Height + 40),
                 Size = new Size(100, DefaultHeight),
-                ButtonType = ButtonType.Default,
+
                 Visible = false,
             };
             AcceptButton.MouseClick += (o, e) =>
@@ -3601,13 +3601,13 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.QuestAccept { Index = SelectedQuest.QuestInfo.Index });
             };
 
-            CompleteButton = new DXButton
+            CompleteButton = new DXTextButton
             {
                 Label = { Text = "Complete" },
                 Parent = this,
                 Location = new Point(250, label.Location.Y + label.Size.Height + 40),
                 Size = new Size(100, DefaultHeight),
-                ButtonType = ButtonType.Default,
+
                 Visible = false,
             };
             CompleteButton.MouseClick += (o, e) =>
@@ -4162,7 +4162,7 @@ namespace Client.Scenes.Views
             {
                 IndexLabel.Location = new Point(CompanionDisplayPoint.X + 25 - IndexLabel.Size.Width / 2, CompanionDisplayPoint.Y + 55);
             };
-            LeftButton = new DXButton
+            LeftButton = new DXTextButton
             {
                 Parent = this,
                 LibraryFile = LibraryFile.GameInter,
@@ -4170,7 +4170,7 @@ namespace Client.Scenes.Views
                 Location = new Point(CompanionDisplayPoint.X - 20, CompanionDisplayPoint.Y + 55)
             };
             LeftButton.MouseClick += (o, e) => SelectedIndex--;
-            RightButton = new DXButton
+            RightButton = new DXTextButton
             {
                 Parent = this,
                 LibraryFile = LibraryFile.GameInter,
@@ -4208,22 +4208,22 @@ namespace Client.Scenes.Views
             };
             label.Location = new Point(CompanionNameTextBox.Location.X - label.Size.Width, CompanionNameTextBox.Location.Y + (CompanionNameTextBox.Size.Height - label.Size.Height) / 2);
 
-            AdoptButton = new DXButton
+            AdoptButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(CompanionNameTextBox.Location.X, CompanionNameTextBox.Location.Y + 27),
                 Size = new Size(120, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = "Adopt" }
             };
             AdoptButton.MouseClick += AdoptButton_MouseClick;
 
-            UnlockButton = new DXButton
+            UnlockButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(ClientArea.Right - 80, ClientArea.Y),
                 Size = new Size(80, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = "Unlock" }
             };
 
@@ -4622,23 +4622,23 @@ namespace Client.Scenes.Views
                 Location = new Point(85, 30)
             };
 
-            StoreButton = new DXButton
+            StoreButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(85, 60),
                 Size = new Size(80, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = "Store" },
                 Visible = false
             };
             StoreButton.MouseClick += StoreButton_MouseClick;
 
-            RetrieveButton = new DXButton
+            RetrieveButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(85, 60),
                 Size = new Size(80, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = "Retrieve" }
             };
             RetrieveButton.MouseClick += RetrieveButton_MouseClick;
@@ -4783,13 +4783,13 @@ namespace Client.Scenes.Views
             RingGrid.Grid[0].LinkChanged += (o, e) => BindButton.Enabled = RingGrid.Grid[0].Item != null;
             RingGrid.Grid[0].BeforeDraw += (o, e) => Draw(RingGrid.Grid[0], 31);
 
-            BindButton = new DXButton
+            BindButton = new DXTextButton
             {
                 Size = new Size(50, SmallButtonHeight),
                 Location = new Point((ClientArea.Width - 50) / 2 + ClientArea.X, ClientArea.Bottom - SmallButtonHeight),
                 Label = { Text = "Bind" },
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Enabled = false,
             };
             BindButton.MouseClick += (o, e) =>
@@ -5013,13 +5013,13 @@ namespace Client.Scenes.Views
 
             GoldBox.ValueChanged += (o, e) => UpdateButton();
 
-            SubmitButton = new DXButton
+            SubmitButton = new DXTextButton
             {
                 Label = { Text = "Submit" },
                 Size = new Size(80, SmallButtonHeight),
                 Parent = this,
                 Enabled = false,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Location = new Point(GoldBox.Location.X + GoldBox.Size.Width - 78, GoldBox.Location.Y + GoldBox.Size.Height + 5),
             };
             SubmitButton.MouseClick += (o, e) =>
@@ -5300,11 +5300,11 @@ namespace Client.Scenes.Views
                 IsControl = false,
             };
 
-            DXButton selectAll = new DXButton
+            DXButton selectAll = new DXTextButton
             {
                 Label = { Text = "Select All" },
                 Location = new Point(ClientArea.X, CostLabel.Location.Y + CostLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight)
             };
@@ -5318,11 +5318,11 @@ namespace Client.Scenes.Views
                 }
             };
 
-            FragmentButton = new DXButton
+            FragmentButton = new DXTextButton
             {
                 Label = { Text = "Fragment" },
                 Location = new Point(ClientArea.Right - 80, CostLabel.Location.Y + CostLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight),
                 Enabled = false,
@@ -5732,12 +5732,12 @@ namespace Client.Scenes.Views
             DarkCheckBox.Location = new Point(ClientArea.Right - DarkCheckBox.Size.Width - 156, ClientArea.Y + 90);
             PhantomCheckBox.Location = new Point(ClientArea.Right - PhantomCheckBox.Size.Width - 240, ClientArea.Y + 107);
 
-            EvaluateButton = new DXButton
+            EvaluateButton = new DXTextButton
             {
                 Label = { Text = "Evaluate" },
                 Size = new Size(80, SmallButtonHeight),
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Enabled = false,
             };
             EvaluateButton.Location = new Point(ClientArea.Right - EvaluateButton.Size.Width, ClientArea.Top + EvaluateButton.Size.Height);
@@ -5819,12 +5819,12 @@ namespace Client.Scenes.Views
             };
             label.Location = new Point(ClientArea.Right - label.Size.Width, EvaluateButton.Location.Y + EvaluateButton.Size.Height + 5);
 
-            SubmitButton = new DXButton
+            SubmitButton = new DXTextButton
             {
                 Label = { Text = "Submit" },
                 Size = new Size(80, SmallButtonHeight),
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Enabled = false,
             };
             SubmitButton.Location = new Point(ClientArea.Right - SubmitButton.Size.Width, ClientArea.Bottom - SubmitButton.Size.Height);
@@ -6480,12 +6480,12 @@ namespace Client.Scenes.Views
             DarkCheckBox.Location = new Point(ClientArea.Right - DarkCheckBox.Size.Width - 186, ClientArea.Y + 105);
             PhantomCheckBox.Location = new Point(ClientArea.Right - PhantomCheckBox.Size.Width - 101, ClientArea.Y + 105);
 
-            SubmitButton = new DXButton
+            SubmitButton = new DXTextButton
             {
                 Label = { Text = "Submit" },
                 Size = new Size(80, SmallButtonHeight),
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Enabled = false,
             };
             SubmitButton.Location = new Point(ClientArea.Left + 40, ClientArea.Bottom - SubmitButton.Size.Height - 5);
@@ -6753,11 +6753,11 @@ namespace Client.Scenes.Views
                 IsControl = false,
             };
 
-            DXButton selectAll = new DXButton
+            DXButton selectAll = new DXTextButton
             {
                 Label = { Text = "Select All" },
                 Location = new Point(ClientArea.X, CostLabel.Location.Y + CostLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight)
             };
@@ -6771,11 +6771,11 @@ namespace Client.Scenes.Views
                 }
             };
 
-            LevelUpButton = new DXButton
+            LevelUpButton = new DXTextButton
             {
                 Label = { Text = "Level Up" },
                 Location = new Point(ClientArea.Right - 80, CostLabel.Location.Y + CostLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight),
                 Enabled = false,
@@ -6912,13 +6912,13 @@ namespace Client.Scenes.Views
             AccessoryGrid.Grid[0].LinkChanged += (o, e) => ResetButton.Enabled = AccessoryGrid.Grid[0].Item != null;
             AccessoryGrid.Grid[0].BeforeDraw += (o, e) => Draw(AccessoryGrid.Grid[0], 31);
 
-            ResetButton = new DXButton
+            ResetButton = new DXTextButton
             {
                 Size = new Size(50, SmallButtonHeight),
                 Location = new Point((ClientArea.Width - 50) / 2 + ClientArea.X, ClientArea.Bottom - SmallButtonHeight),
                 Label = { Text = "Reset" },
                 Parent = this,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Enabled = false,
             };
 
@@ -7345,12 +7345,12 @@ namespace Client.Scenes.Views
 
             #endregion
 
-            AttemptButton = new DXButton
+            AttemptButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(YellowCell.Location.X, ClientArea.Y + 260),
                 Size = new Size(YellowCell.Size.Width + 99, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = "Craft" }
             };
             AttemptButton.MouseClick += (o, e) =>
@@ -7872,11 +7872,11 @@ namespace Client.Scenes.Views
                 Size = new Size(79, 20),
                 IsControl = false,
             };
-            RefineButton = new DXButton
+            RefineButton = new DXTextButton
             {
                 Label = { Text = "Refine" },
                 Location = new Point(ClientArea.Right - 80, CostLabel.Location.Y + CostLabel.Size.Height + 5),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = this,
                 Size = new Size(79, SmallButtonHeight),
                 Enabled = false,

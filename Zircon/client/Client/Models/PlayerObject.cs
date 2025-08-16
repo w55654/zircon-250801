@@ -974,7 +974,8 @@ namespace Client.Models
 
         public override void Draw()
         {
-            if (BodyLibrary == null) return;
+            if (BodyLibrary == null)
+                return;
             DrawPlayer(true);
         }
 

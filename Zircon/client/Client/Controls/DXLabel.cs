@@ -11,46 +11,6 @@ namespace Client.Controls
 {
     public class DXLabel : DXControl
     {
-        #region Static
-
-        public static Size GetSize(string text, bool outline, int paddingBottom = 0)
-        {
-            if (string.IsNullOrEmpty(text))
-                return Size.Empty;
-
-            return new Size(150, 22);
-
-            // todo w 很重要 记得实现
-            //Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, text, font);
-
-            //if (outline && tempSize.Width > 0 && tempSize.Height > 0)
-            //{
-            //    tempSize.Width += 2;
-            //    tempSize.Height += 2;
-            //}
-
-            //tempSize.Height += paddingBottom;
-
-            //return tempSize;
-        }
-
-        public static Size GetHeight(DXLabel label, int width)
-        {
-            return new Size(150, 22);
-
-            //Size tempSize = TextRenderer.MeasureText(DXManager.Graphics, label.Text, label.Font, new Size(width, 2000), label.DrawFormat);
-
-            //if (label.Outline && tempSize.Width > 0 && tempSize.Height > 0)
-            //{
-            //    tempSize.Width += 2;
-            //    tempSize.Height += 2;
-            //}
-
-            //return tempSize;
-        }
-
-        #endregion
-
         #region Properties
 
         #region AutoSize

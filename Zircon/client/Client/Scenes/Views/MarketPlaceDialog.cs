@@ -387,22 +387,22 @@ namespace Client.Scenes.Views
 
             SortBox.ListBox.SelectItem(MarketPlaceSort.Newest);
 
-            SearchButton = new DXButton
+            SearchButton = new DXTextButton
             {
                 Size = new Size(80, SmallButtonHeight),
                 Location = new Point(SortBox.Location.X + SortBox.Size.Width + 25, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = CEnvir.Language.MarketPlaceDialogSearchTabSearchButtonLabel }
             };
             SearchButton.MouseClick += (o, e) => Search();
 
-            DXButton ClearButton = new DXButton
+            DXButton ClearButton = new DXTextButton
             {
                 Size = new Size(50, SmallButtonHeight),
                 Location = new Point(SearchButton.Location.X + SearchButton.Size.Width + 40, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = CEnvir.Language.MarketPlaceDialogSearchTabClearButtonLabel }
             };
             ClearButton.MouseClick += (o, e) =>
@@ -631,12 +631,12 @@ namespace Client.Scenes.Views
             };
             BuyGuildBox.Location = new Point(158 - BuyGuildBox.Size.Width, 101);
 
-            BuyButton = new DXButton
+            BuyButton = new DXTextButton
             {
                 Size = new Size(85, SmallButtonHeight),
                 Location = new Point(69, 124),
                 Label = { Text = CEnvir.Language.MarketPlaceDialogSearchTabBuyingBuyButtonLabel },
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = BuyPanel,
             };
             BuyButton.MouseClick += BuyButton_MouseClick;
@@ -881,12 +881,12 @@ namespace Client.Scenes.Views
             };
             ConsignGuildBox.Location = new Point(169 - ConsignGuildBox.Size.Width, 45);
 
-            ConsignButton = new DXButton
+            ConsignButton = new DXTextButton
             {
                 Size = new Size(85, SmallButtonHeight),
                 Location = new Point(80, 65),
                 Label = { Text = CEnvir.Language.MarketPlaceDialogConsignTabStep4ConsignButtonLabel },
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = ConsignConfirmPanel,
             };
             ConsignButton.MouseClick += ConsignButton_MouseClick;
@@ -933,7 +933,7 @@ namespace Client.Scenes.Views
             StoreTab = new DXTab
             {
                 Parent = TabControl,
-                TabButton = { Label = { Text = CEnvir.Language.MarketPlaceDialogGameStoreTabLabel }, Size = new Size(120, TabHeight), RightAligned = true },
+                TabButton = { Label = { Text = CEnvir.Language.MarketPlaceDialogGameStoreTabLabel }, Size = new Size(120, TabHeight) },
                 Border = true,
             };
             StoreTab.IsVisibleChanged += (o, e) => SelectedStoreRow = null;
@@ -1040,22 +1040,22 @@ namespace Client.Scenes.Views
 
             StoreSortBox.ListBox.SelectItem(MarketPlaceStoreSort.Alphabetical);
 
-            StoreSearchButton = new DXButton
+            StoreSearchButton = new DXTextButton
             {
                 Size = new Size(80, SmallButtonHeight),
                 Location = new Point(StoreSortBox.Location.X + StoreSortBox.Size.Width + 25, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = CEnvir.Language.MarketPlaceDialogGameStoreTabSearchButtonLabel }
             };
             StoreSearchButton.MouseClick += (o, e) => StoreSearch();
 
-            ClearButton = new DXButton
+            ClearButton = new DXTextButton
             {
                 Size = new Size(50, SmallButtonHeight),
                 Location = new Point(SearchButton.Location.X + SearchButton.Size.Width + 40, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = CEnvir.Language.MarketPlaceDialogGameStoreTabClearButtonLabel }
             };
             ClearButton.MouseClick += (o, e) =>
@@ -1167,12 +1167,12 @@ namespace Client.Scenes.Views
                 MaxValue = 200000000,
                 MinValue = -200000000
             };
-            DXButton RechargeButton = new DXButton
+            DXButton RechargeButton = new DXTextButton
             {
                 Size = new Size(85, SmallButtonHeight),
                 Location = new Point(69, 45),
                 Label = { Text = CEnvir.Language.MarketPlaceDialogGameStoreTabGameGoldRechargeButtonLabel },
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = AddGameGoldPanel,
                 Enabled = !CEnvir.TestServer
             };
@@ -1292,12 +1292,12 @@ namespace Client.Scenes.Views
             UseHuntGoldBox.Location = new Point(158 - UseHuntGoldBox.Size.Width, 101);
             UseHuntGoldBox.CheckedChanged += UpdateStoreBuyTotal;
 
-            StoreBuyButton = new DXButton
+            StoreBuyButton = new DXTextButton
             {
                 Size = new Size(85, SmallButtonHeight),
                 Location = new Point(69, 124),
                 Label = { Text = CEnvir.Language.MarketPlaceDialogGameStoreTabBuyingBuyButtonLabel },
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Parent = StoreBuyPanel,
             };
             StoreBuyButton.MouseClick += StoreBuyButton_MouseClick;
@@ -2564,7 +2564,7 @@ namespace Client.Scenes.Views
             };
             HuntPriceLabelLabel.Location = new Point(420 - HuntPriceLabelLabel.Size.Width, 12);
 
-            FavouriteImage = new DXButton
+            FavouriteImage = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 6570,

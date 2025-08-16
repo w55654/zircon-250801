@@ -65,35 +65,6 @@ namespace Client.Controls
 
         #endregion
 
-        #region FixedSize
-
-        public bool FixedSize
-        {
-            get => _FixedSize;
-            set
-            {
-                if (_FixedSize == value) return;
-
-                bool oldValue = _FixedSize;
-                _FixedSize = value;
-
-                OnFixedSizeChanged(oldValue, value);
-            }
-        }
-
-        private bool _FixedSize;
-
-        public event EventHandler<EventArgs> FixedSizeChanged;
-
-        public virtual void OnFixedSizeChanged(bool oValue, bool nValue)
-        {
-            TextureValid = false;
-            UpdateDisplayArea();
-            FixedSizeChanged?.Invoke(this, EventArgs.Empty);
-        }
-
-        #endregion
-
         #region ImageOpacity
 
         public float ImageOpacity
@@ -144,7 +115,7 @@ namespace Client.Controls
         public virtual void OnIndexChanged(int oValue, int nValue)
         {
             TextureValid = false;
-            UpdateDisplayArea();
+            UpdateSize();
             IndexChanged?.Invoke(this, EventArgs.Empty);
         }
 
@@ -177,7 +148,7 @@ namespace Client.Controls
             CEnvir.LibraryList.TryGetValue(LibraryFile, out Library);
 
             TextureValid = false;
-            UpdateDisplayArea();
+            UpdateSize();
 
             LibraryFileChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -239,18 +210,6 @@ namespace Client.Controls
 
         #endregion
 
-        public override Size Size
-        {
-            get
-            {
-                if (Library != null && Index >= 0 && !FixedSize)
-                    return Library.GetSize(Index);
-
-                return base.Size;
-            }
-            set => base.Size = value;
-        }
-
         #endregion
 
         public DXImageControl()
@@ -278,17 +237,17 @@ namespace Client.Controls
 
             if (image?.Image == null) return;
 
-            PresentTexture(image.Image, FixedSize ? null : Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), ImageOpacity, this);
+            PresentTexture(image.Image, Parent, DisplayArea, IsEnabled ? ForeColour : Color.FromArgb(75, 75, 75), ImageOpacity, this);
 
             image.ExpireTime = Time.Now + Config.CacheDuration;
         }
 
-        protected override void DrawBorder()
-        {
-            base.DrawBorder();
+        //protected override void DrawBorder()
+        //{
+        //    base.DrawBorder();
 
-            RayDraw.DrawRectLines(DisplayArea, 2F, Color.Blue);
-        }
+        //    RayDraw.DrawRectLines(DisplayArea, 2F, Color.Blue);
+        //}
 
         protected internal override void UpdateDisplayArea()
         {
@@ -303,6 +262,14 @@ namespace Client.Controls
             DisplayArea = area;
         }
 
+        private void UpdateSize()
+        {
+            if (Library != null && Index >= 0)
+            {
+                Size = Library.GetSize(Index);
+            }
+        }
+
         #endregion
 
         #region IDisposable
@@ -315,7 +282,6 @@ namespace Client.Controls
             {
                 _Blend = false;
                 _DrawImage = false;
-                _FixedSize = false;
                 _ImageOpacity = 0F;
                 _Index = -1;
                 Library = null;
@@ -325,7 +291,6 @@ namespace Client.Controls
 
                 BlendChanged = null;
                 DrawImageChanged = null;
-                FixedSizeChanged = null;
                 ImageOpacityChanged = null;
                 IndexChanged = null;
                 LibraryFileChanged = null;

@@ -494,12 +494,12 @@ namespace Client.Controls
             };
             DrawWeatherCheckBox.Location = new Point(270 - DrawWeatherCheckBox.Size.Width, 160);
 
-            KeyBindButton = new DXButton
+            KeyBindButton = new DXTextButton
             {
                 Parent = GameTab,
                 Location = new Point(190, 185),
                 Size = new Size(80, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = CEnvir.Language.CommonControlConfigWindowGameTabKeyBindButtonLabel }
             };
             KeyBindButton.MouseClick += (o, e) => KeyBindWindow.Visible = !KeyBindWindow.Visible;
@@ -850,12 +850,12 @@ namespace Client.Controls
                 AllowNoColour = true,
             };
 
-            ResetColoursButton = new DXButton
+            ResetColoursButton = new DXTextButton
             {
                 Parent = ColourTab,
                 Location = new Point(180, 160),
                 Size = new Size(80, SmallButtonHeight),
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Label = { Text = CEnvir.Language.CommonControlConfigWindowColoursTabResetColoursButtonLabel }
             };
             ResetColoursButton.MouseClick += (o, e) =>
@@ -891,7 +891,7 @@ namespace Client.Controls
 
             #endregion
 
-            SaveButton = new DXButton
+            SaveButton = new DXTextButton
             {
                 Location = new Point(Size.Width - 190, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -900,7 +900,7 @@ namespace Client.Controls
             };
             SaveButton.MouseClick += SaveSettings;
 
-            CancelButton = new DXButton
+            CancelButton = new DXTextButton
             {
                 Location = new Point(Size.Width - 100, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),

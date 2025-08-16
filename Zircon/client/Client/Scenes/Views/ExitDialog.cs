@@ -13,7 +13,7 @@ namespace Client.Scenes.Views
         #region Properties
 
         public DXLabel TitleLabel;
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
 
         public DXButton ToSelectButton, ExitButton;
 
@@ -35,7 +35,7 @@ namespace Client.Scenes.Views
             Sort = true;
             Modal = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -58,7 +58,7 @@ namespace Client.Scenes.Views
             };
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
-            ToSelectButton = new DXButton
+            ToSelectButton = new DXTextButton
             {
                 Location = new Point(61, 45),
                 Size = new Size(130, DefaultHeight),
@@ -76,7 +76,7 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.Logout());
             };
 
-            ExitButton = new DXButton
+            ExitButton = new DXTextButton
             {
                 Location = new Point(61, 55 + DefaultHeight),
                 Size = new Size(130, DefaultHeight),

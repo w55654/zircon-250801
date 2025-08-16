@@ -59,7 +59,7 @@ namespace Client.Controls
                 Size = new Size(ClientArea.Width, ClientArea.Height - 20)
             };
 
-            SaveButton = new DXButton
+            SaveButton = new DXTextButton
             {
                 Location = new Point(Size.Width - 190, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -68,7 +68,7 @@ namespace Client.Controls
             };
             SaveButton.MouseClick += SaveButton_MouseClick;
 
-            CancelButton = new DXButton
+            CancelButton = new DXTextButton
             {
                 Location = new Point(Size.Width - 100, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -77,7 +77,7 @@ namespace Client.Controls
             };
             CancelButton.MouseClick += (o, e) => Visible = false;
 
-            DefaultButton = new DXButton
+            DefaultButton = new DXTextButton
             {
                 Location = new Point(ClientArea.X, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -676,14 +676,14 @@ namespace Client.Controls
 
         #endregion
 
-        public DXButton ExpandButton;
+        public DXImageButton ExpandButton;
         public DXLabel HeaderLabel;
 
         #endregion
 
         public KeyBindTreeHeader()
         {
-            ExpandButton = new DXButton
+            ExpandButton = new DXImageButton
             {
                 Parent = this,
                 LibraryFile = LibraryFile.GameInter,

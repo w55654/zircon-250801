@@ -169,7 +169,7 @@ namespace Client.Controls
 
         public int Change = 10;
 
-        public DXButton UpButton, DownButton, PositionBar;
+        public DXImageButton UpButton, DownButton, PositionBar;
 
         public override void OnSizeChanged(Size oValue, Size nValue)
         {
@@ -192,7 +192,7 @@ namespace Client.Controls
             DrawTexture = true;
             BackColour = Color.Black;
 
-            UpButton = new DXButton
+            UpButton = new DXImageButton
             {
                 Index = 44,
                 LibraryFile = LibraryFile.Interface,
@@ -203,7 +203,7 @@ namespace Client.Controls
             UpButton.MouseClick += (o, e) => Value -= Change;
             UpButton.MouseWheel += DoMouseWheel;
 
-            DownButton = new DXButton
+            DownButton = new DXImageButton
             {
                 Index = 46,
                 LibraryFile = LibraryFile.Interface,
@@ -214,7 +214,7 @@ namespace Client.Controls
             DownButton.MouseClick += (o, e) => Value += Change;
             DownButton.MouseWheel += DoMouseWheel;
 
-            PositionBar = new DXButton
+            PositionBar = new DXImageButton
             {
                 Index = 45,
                 LibraryFile = LibraryFile.Interface,
@@ -223,7 +223,7 @@ namespace Client.Controls
                 Parent = this,
                 Movable = true,
                 Sound = SoundIndex.None,
-                CanBePressed = false,
+                //CanBePressed = false,
             };
             PositionBar.Moving += PositionBar_Moving;
             PositionBar.MouseWheel += DoMouseWheel;

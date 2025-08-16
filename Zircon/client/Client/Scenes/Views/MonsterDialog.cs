@@ -87,7 +87,7 @@ namespace Client.Scenes.Views
         public DXLabel LevelLabel, NameLabel, HealthLabel, ACLabel, MRLabel, DCLabel;
         public DXLabel FireResistLabel, IceResistLabel, LightningResistLabel, WindResistLabel, HolyResistLabel, DarkResistLabel, PhantomResistLabel, PhysicalResistLabel;
         public DXImageControl AttackSpeedIcon, MovementSpeedIcon, TamableIcon, UndeadIcon, GrowthIcon;
-        public DXButton ExpandButton;
+        public DXImageButton ExpandButton;
 
         public override WindowType Type => WindowType.MonsterBox;
         public override bool CustomSize => false;
@@ -229,7 +229,7 @@ namespace Client.Scenes.Views
                 IsControl = false
             };
 
-            ExpandButton = new DXButton
+            ExpandButton = new DXImageButton
             {
                 Parent = this,
                 Location = new Point(167, 34),

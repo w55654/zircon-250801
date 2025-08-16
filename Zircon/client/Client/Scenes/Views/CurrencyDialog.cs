@@ -361,14 +361,14 @@ namespace Client.Scenes.Views
 
         #endregion
 
-        public DXButton ExpandButton;
+        public DXImageButton ExpandButton;
         public DXLabel HeaderLabel;
 
         #endregion
 
         public CurrencyTreeHeader()
         {
-            ExpandButton = new DXButton
+            ExpandButton = new DXImageButton
             {
                 Parent = this,
                 LibraryFile = LibraryFile.GameInter,

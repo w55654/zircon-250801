@@ -166,7 +166,7 @@ namespace Client.Controls
             Border = true;
             BorderColour = Color.FromArgb(198, 166, 99);
 
-            DownArrow = new DXButton
+            DownArrow = new DXImageButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 795,

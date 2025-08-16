@@ -21,8 +21,8 @@ namespace Client.Scenes.Views
 
         public DXLabel Message;
 
-        public DXButton CloseButton, TakeItemsButton;
-        public DXButton RerollCount, RerollButton, ConfirmChoiceButton;
+        public DXImageButton CloseButton;
+        public DXTextButton TakeItemsButton, RerollCount, RerollButton, ConfirmChoiceButton;
 
         private ClientUserItem[] LootBoxArray;
         private DXItemCell SelectedLootBox;
@@ -50,7 +50,7 @@ namespace Client.Scenes.Views
             Index = 2900;
             Movable = false;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -90,28 +90,28 @@ namespace Client.Scenes.Views
                 AutoSize = true
             };
 
-            RerollCount = new DXButton
+            RerollCount = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(15, 235),
                 Label = { Text = "" },
                 LibraryFile = LibraryFile.GameInter2,
                 Index = 2920,
-                PressedIndex = 2920,
-                HoverIndex = 2920,
+                //PressedIndex = 2920,
+                //HoverIndex = 2920,
                 Size = new Size(128, 20),
-                CanBePressed = false
+                //CanBePressed = false
             };
 
-            RerollButton = new DXButton
+            RerollButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(15, 260),
                 Label = { Text = "" },
                 LibraryFile = LibraryFile.GameInter2,
                 Index = 2926,
-                PressedIndex = 2925,
-                HoverIndex = 2927,
+                //PressedIndex = 2925,
+                //HoverIndex = 2927,
                 Size = new Size(128, 20)
             };
             RerollButton.MouseClick += (o, e) =>
@@ -138,11 +138,10 @@ namespace Client.Scenes.Views
                 };
             };
 
-            TakeItemsButton = new DXButton
+            TakeItemsButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.LootBoxTakeItemsButtonLabel },
-                ButtonType = ButtonType.Default,
                 Size = new Size(100, DefaultHeight),
                 Enabled = false
             };
@@ -161,11 +160,11 @@ namespace Client.Scenes.Views
                 };
             };
 
-            ConfirmChoiceButton = new DXButton
+            ConfirmChoiceButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.LootBoxConfirmChoiceButtonLabel },
-                ButtonType = ButtonType.Default,
+
                 Size = new Size(100, DefaultHeight),
                 Enabled = false
             };

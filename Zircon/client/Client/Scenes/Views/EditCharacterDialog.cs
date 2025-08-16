@@ -261,7 +261,9 @@ namespace Client.Scenes.Views
 
         public DXColourControl HairColour, ArmourColour;
 
-        public DXButton ChangeButton,
+        public DXTextButton ChangeButton;
+
+        public DXImageButton
             WarriorButton,
             WizardButton,
             TaoistButton,
@@ -282,7 +284,7 @@ namespace Client.Scenes.Views
             TitleLabel.Text = "Change";
             CloseButton.MouseClick += (o, e) => Close();
 
-            ChangeButton = new DXButton
+            ChangeButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommonControlConfirm },
@@ -313,7 +315,7 @@ namespace Client.Scenes.Views
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
 
-            WarriorButton = new DXButton
+            WarriorButton = new DXImageButton
             {
                 Index = 120,
                 LibraryFile = LibraryFile.Interface1c,
@@ -324,7 +326,7 @@ namespace Client.Scenes.Views
             int offset = (panel.Size.Width - WarriorButton.Size.Width * 4) / 5;
             WarriorButton.Location = new Point(offset, 22);
 
-            WizardButton = new DXButton
+            WizardButton = new DXImageButton
             {
                 Index = 126,
                 LibraryFile = LibraryFile.Interface1c,
@@ -334,7 +336,7 @@ namespace Client.Scenes.Views
             WizardButton.Location = new Point(offset * 2 + WarriorButton.Size.Width, 22);
             WizardButton.MouseClick += (o, e) => SelectedClass = MirClass.Wizard;
 
-            TaoistButton = new DXButton
+            TaoistButton = new DXImageButton
             {
                 Index = 131,
                 LibraryFile = LibraryFile.Interface1c,
@@ -344,7 +346,7 @@ namespace Client.Scenes.Views
             TaoistButton.Location = new Point(offset * 3 + WarriorButton.Size.Width * 2, 22);
             TaoistButton.MouseClick += (o, e) => SelectedClass = MirClass.Taoist;
 
-            AssassinButton = new DXButton
+            AssassinButton = new DXImageButton
             {
                 Index = 136,
                 LibraryFile = LibraryFile.Interface1c,
@@ -390,7 +392,7 @@ namespace Client.Scenes.Views
             };
             label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
 
-            MaleButton = new DXButton
+            MaleButton = new DXImageButton
             {
                 Index = 115,
                 LibraryFile = LibraryFile.Interface1c,
@@ -400,7 +402,7 @@ namespace Client.Scenes.Views
             };
             MaleButton.MouseClick += (o, e) => SelectedGender = MirGender.Male;
 
-            FemaleButton = new DXButton
+            FemaleButton = new DXImageButton
             {
                 Index = 111,
                 LibraryFile = LibraryFile.Interface1c,

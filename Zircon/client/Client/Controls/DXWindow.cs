@@ -140,7 +140,7 @@ namespace Client.Controls
         public abstract bool CustomSize { get; }
         public abstract bool AutomaticVisibility { get; }
 
-        public DXButton CloseButton { get; protected set; }
+        public DXImageButton CloseButton { get; protected set; }
         public DXLabel TitleLabel { get; protected set; }
 
         public override void OnSizeChanged(Size oValue, Size nValue)
@@ -214,7 +214,7 @@ namespace Client.Controls
                 IsControl = false,
             };
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,

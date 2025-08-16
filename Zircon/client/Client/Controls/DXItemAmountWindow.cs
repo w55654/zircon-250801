@@ -41,7 +41,7 @@ namespace Client.Controls
 
             Location = new Point((ActiveScene.DisplayArea.Width - DisplayArea.Width) / 2, (ActiveScene.DisplayArea.Height - DisplayArea.Height) / 2);
 
-            ConfirmButton = new DXButton
+            ConfirmButton = new DXTextButton
             {
                 Location = new Point(Size.Width / 2 + 10, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),

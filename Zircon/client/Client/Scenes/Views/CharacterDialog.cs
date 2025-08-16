@@ -41,7 +41,7 @@ namespace Client.Scenes.Views
         public DXImageControl MarriageIcon;
         public DXLabel MarriageLabel;
 
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
 
         public DXItemCell[] Grid;
 
@@ -296,7 +296,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -1891,12 +1891,12 @@ namespace Client.Scenes.Views
 
             #region Hermit Buttons
 
-            var button = new DXButton
+            var button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 98),
                 Label = { Text = CEnvir.Language.CommonStatusAC },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -1918,12 +1918,12 @@ namespace Client.Scenes.Views
                 }
             };
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 123),
                 Label = { Text = CEnvir.Language.CommonStatusMR },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight),
             };
             button.MouseClick += (o, e) =>
@@ -1947,12 +1947,12 @@ namespace Client.Scenes.Views
 
             x += button.Size.Width + 5;
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 98),
                 Label = { Text = CEnvir.Language.CommonStatusHealth },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -1974,12 +1974,12 @@ namespace Client.Scenes.Views
                 }
             };
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 123),
                 Label = { Text = CEnvir.Language.CommonStatusMana },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -2003,12 +2003,12 @@ namespace Client.Scenes.Views
 
             x += button.Size.Width + 5;
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 98),
                 Label = { Text = CEnvir.Language.CommonStatusDC },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -2030,12 +2030,12 @@ namespace Client.Scenes.Views
                 }
             };
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 123),
                 Label = { Text = CEnvir.Language.CharacterHermitTabButtonsMCLabel },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -2059,12 +2059,12 @@ namespace Client.Scenes.Views
 
             x += button.Size.Width + 5;
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 98),
                 Label = { Text = CEnvir.Language.CharacterHermitTabButtonsSCLabel },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -2086,12 +2086,12 @@ namespace Client.Scenes.Views
                 }
             };
 
-            button = new DXButton
+            button = new DXTextButton
             {
                 Parent = HermitTab,
                 Location = new Point(x, 123),
                 Label = { Text = CEnvir.Language.CharacterHermitTabButtonsElementLabel },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(65, SmallButtonHeight)
             };
             button.MouseClick += (o, e) =>
@@ -2442,7 +2442,7 @@ namespace Client.Scenes.Views
                 ForeColour = Color.White
             };
 
-            DisciplineButton = new DXButton
+            DisciplineButton = new DXTextButton
             {
                 Parent = DisciplineTab,
                 Label = { Text = CEnvir.Language.CharacterDisciplineTabButtonGainLabel },

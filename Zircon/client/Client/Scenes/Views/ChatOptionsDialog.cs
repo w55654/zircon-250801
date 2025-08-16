@@ -57,9 +57,9 @@ namespace Client.Scenes.Views
                 Parent = this,
             };
 
-            DXButton button = new DXButton
+            DXButton button = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = CEnvir.Language.ChatOptionsDialogButtonAdd },
                 Parent = this,
                 Size = new Size(50, SmallButtonHeight),
@@ -68,9 +68,9 @@ namespace Client.Scenes.Views
 
             button.MouseClick += (o, e) => AddNewTab(null);
 
-            button = new DXButton
+            button = new DXTextButton
             {
-                ButtonType = ButtonType.Default,
+                
                 Label = { Text = CEnvir.Language.ChatOptionsDialogButtonResetAll },
                 Parent = this,
                 Size = new Size(80, DefaultHeight),
@@ -89,9 +89,9 @@ namespace Client.Scenes.Views
                 };
             };
 
-            button = new DXButton
+            button = new DXTextButton
             {
-                ButtonType = ButtonType.Default,
+                
                 Label = { Text = CEnvir.Language.ChatOptionsDialogButtonSaveAll },
                 Parent = this,
                 Size = new Size(80, DefaultHeight),
@@ -105,9 +105,9 @@ namespace Client.Scenes.Views
                 GameScene.Game.ReceiveChat(CEnvir.Language.ChatLayoutSaved, MessageType.Announcement);
             };
 
-            button = new DXButton
+            button = new DXTextButton
             {
-                ButtonType = ButtonType.Default,
+                
                 Label = { Text = CEnvir.Language.ChatOptionsDialogButtonReloadAll },
                 Parent = this,
                 Size = new Size(80, DefaultHeight),
@@ -493,9 +493,9 @@ namespace Client.Scenes.Views
             };
             GainsCheckBox.Location = new Point(216 - GainsCheckBox.Size.Width, 230);
 
-            RemoveButton = new DXButton
+            RemoveButton = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = CEnvir.Language.ChatOptionsPanelRemoveLabel },
                 Parent = this,
                 Size = new Size(50, SmallButtonHeight),

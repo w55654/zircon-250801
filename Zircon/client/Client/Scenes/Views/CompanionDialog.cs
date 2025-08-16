@@ -33,7 +33,8 @@ namespace Client.Scenes.Views
 
         public DXLabel NameLabelTitle, LevelLabelTitle, ExperienceLabelTitle, HungerLabelTitle;
 
-        public DXButton CloseButton, BonusButton, FilterButton, BagButton;
+        public DXImageButton CloseButton;
+        public DXTextButton BonusButton, FilterButton, BagButton;
 
         public DXLabel TitleLabel, HungerLabel, HealthLabel, NameLabel, LevelLabel, ExperienceLabel;
 
@@ -164,7 +165,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -206,7 +207,7 @@ namespace Client.Scenes.Views
 
             CompanionDisplayPoint = new Point(90, 140);
 
-            BonusButton = new DXButton
+            BonusButton = new DXTextButton
             {
                 Parent = CompanionTab,
                 Label = { Text = CEnvir.Language.CompanionDialogCompanionTabBonusButtonLabel },
@@ -216,7 +217,7 @@ namespace Client.Scenes.Views
             };
             BonusButton.MouseClick += (o, e) => ChangeView("Bonus");
 
-            FilterButton = new DXButton
+            FilterButton = new DXTextButton
             {
                 Parent = CompanionTab,
                 Label = { Text = CEnvir.Language.CompanionDialogCompanionTabFilterButtonLabel },
@@ -226,7 +227,7 @@ namespace Client.Scenes.Views
             };
             FilterButton.MouseClick += (o, e) => ChangeView("Filter");
 
-            BagButton = new DXButton
+            BagButton = new DXTextButton
             {
                 Parent = CompanionTab,
                 Label = { Text = CEnvir.Language.CompanionDialogCompanionTabBagButtonLabel },
@@ -639,11 +640,11 @@ namespace Client.Scenes.Views
 
             DrawItemTypeFilter();
 
-            SaveFilterButton = new DXButton
+            SaveFilterButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = "Save settings", },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(80, SmallButtonHeight)
             };
             SaveFilterButton.Location = new Point(370, 40);

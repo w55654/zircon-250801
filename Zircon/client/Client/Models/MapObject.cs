@@ -4929,7 +4929,7 @@ namespace Client.Models
                 IsVisible = true,
                 DrawFormat = TextFormatFlags.WordBreak | TextFormatFlags.WordEllipsis,
             };
-            ChatLabel.Size = DXLabel.GetHeight(ChatLabel, chatWidth);
+            ChatLabel.Size = new Size(chatWidth, ChatLabel.TextSize.Height);
             ChatLabel.Disposing += (o, e) => ChatLabels.Remove(ChatLabel);
             ChatLabels.Add(ChatLabel);
         }

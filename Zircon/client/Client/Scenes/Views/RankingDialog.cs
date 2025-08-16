@@ -253,7 +253,8 @@ namespace Client.Scenes.Views
 
         public DXComboBox RequiredClassBox;
         public DXCheckBox OnlineOnlyBox, ObservableBox;
-        public DXButton CloseButton, SearchButton, ObserveButton;
+        public DXImageButton CloseButton;
+        public DXTextButton SearchButton, ObserveButton;
 
         public DXLabel TitleLabel, LastUpdate;
 
@@ -361,7 +362,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -758,9 +759,9 @@ namespace Client.Scenes.Views
                 SearchButton.Enabled = !string.IsNullOrEmpty(SearchText.Text);
             };
 
-            SearchButton = new DXButton
+            SearchButton = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                //Index = 118,
                 Size = new Size(60, SmallButtonHeight),
                 Parent = RankPanel,
                 Label = { Text = CEnvir.Language.RankingDialogSearchButtonLabel },
@@ -773,9 +774,9 @@ namespace Client.Scenes.Views
                 CEnvir.Enqueue(new C.RankSearch { Name = SearchText.Text });
             };
 
-            ObserveButton = new DXButton
+            ObserveButton = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(60, SmallButtonHeight),
                 Parent = RankPanel,
                 Label = { Text = CEnvir.Language.RankingDialogObserveButtonLabel },

@@ -89,7 +89,7 @@ namespace Client.Scenes
             CharacterAnimation.BeforeDraw += CharacterAnimation_BeforeDraw;
             CharacterAnimation.AfterDraw += CharacterAnimation_AfterDraw;
 
-            ConfigButton = new DXButton
+            ConfigButton = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 116,
@@ -499,7 +499,7 @@ namespace Client.Scenes
 
                 CloseButton.MouseClick += (o, e) => LogOut();
 
-                StartButton = new DXButton
+                StartButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.SelectStartButtonLabel },
@@ -509,7 +509,7 @@ namespace Client.Scenes
                 };
                 StartButton.MouseClick += (o, e) => StartGame();
 
-                CreateButton = new DXButton
+                CreateButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.SelectCreateButtonLabel },
@@ -518,7 +518,7 @@ namespace Client.Scenes
                 };
                 CreateButton.MouseClick += CreateButton_MouseClick;
 
-                DeleteButton = new DXButton
+                DeleteButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.SelectDeleteButtonLabel },
@@ -971,13 +971,8 @@ namespace Client.Scenes
 
             public DXColourControl HairColour, ArmourColour;
 
-            public DXButton CreateButton,
-                WarriorButton,
-                WizardButton,
-                TaoistButton,
-                AssassinButton,
-                MaleButton,
-                FemaleButton;
+            public DXTextButton CreateButton;
+            public DXImageButton WarriorButton, WizardButton, TaoistButton, AssassinButton, MaleButton, FemaleButton;
 
             public override WindowType Type => WindowType.None;
             public override bool CustomSize => false;
@@ -994,7 +989,7 @@ namespace Client.Scenes
                 Visible = false;
                 CloseButton.MouseClick += (o, e) => Close();
 
-                CreateButton = new DXButton
+                CreateButton = new DXTextButton
                 {
                     Parent = this,
                     Enabled = false,
@@ -1025,7 +1020,7 @@ namespace Client.Scenes
                 };
                 label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
 
-                WarriorButton = new DXButton
+                WarriorButton = new DXImageButton
                 {
                     Index = 120,
                     LibraryFile = LibraryFile.Interface1c,
@@ -1036,7 +1031,7 @@ namespace Client.Scenes
                 int offset = (panel.Size.Width - WarriorButton.Size.Width * 4) / 5;
                 WarriorButton.Location = new Point(offset, 22);
 
-                WizardButton = new DXButton
+                WizardButton = new DXImageButton
                 {
                     Index = 126,
                     LibraryFile = LibraryFile.Interface1c,
@@ -1046,7 +1041,7 @@ namespace Client.Scenes
                 WizardButton.Location = new Point(offset * 2 + WarriorButton.Size.Width, 22);
                 WizardButton.MouseClick += (o, e) => SelectedClass = MirClass.Wizard;
 
-                TaoistButton = new DXButton
+                TaoistButton = new DXImageButton
                 {
                     Index = 131,
                     LibraryFile = LibraryFile.Interface1c,
@@ -1056,7 +1051,7 @@ namespace Client.Scenes
                 TaoistButton.Location = new Point(offset * 3 + WarriorButton.Size.Width * 2, 22);
                 TaoistButton.MouseClick += (o, e) => SelectedClass = MirClass.Taoist;
 
-                AssassinButton = new DXButton
+                AssassinButton = new DXImageButton
                 {
                     Index = 136,
                     LibraryFile = LibraryFile.Interface1c,
@@ -1102,7 +1097,7 @@ namespace Client.Scenes
                 };
                 label.Location = new Point((panel.Size.Width - label.Size.Width) / 2, 0);
 
-                MaleButton = new DXButton
+                MaleButton = new DXImageButton
                 {
                     Index = 115,
                     LibraryFile = LibraryFile.Interface1c,
@@ -1112,7 +1107,7 @@ namespace Client.Scenes
                 };
                 MaleButton.MouseClick += (o, e) => SelectedGender = MirGender.Male;
 
-                FemaleButton = new DXButton
+                FemaleButton = new DXImageButton
                 {
                     Index = 111,
                     LibraryFile = LibraryFile.Interface1c,

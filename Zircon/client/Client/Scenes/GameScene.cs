@@ -2829,7 +2829,7 @@ namespace Client.Scenes
                 Parent = MagicLabel,
                 Text = MouseMagic.Description,
             };
-            label.Size = DXLabel.GetHeight(label, MagicLabel.Size.Width);
+            label.Size = new Size(MagicLabel.Size.Width, label.TextSize.Height);
 
             MagicLabel.Size = new Size(label.DisplayArea.Right + 4 > MagicLabel.Size.Width ? label.DisplayArea.Right + 4 : MagicLabel.Size.Width, label.DisplayArea.Bottom + 4);
         }

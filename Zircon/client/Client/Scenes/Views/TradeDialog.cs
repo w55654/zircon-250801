@@ -17,7 +17,9 @@ namespace Client.Scenes.Views
         public DXLabel TitleLabel, UserLabel, PlayerLabel;
         public DXItemGrid UserGrid, PlayerGrid;
         public DXLabel UserGoldLabel, PlayerGoldLabel;
-        public DXButton CloseButton, ConfirmButton;
+
+        public DXImageButton CloseButton;
+        public DXTextButton ConfirmButton;
 
         public ClientUserItem[] PlayerItems;
         public bool IsTrading;
@@ -77,7 +79,7 @@ namespace Client.Scenes.Views
             Index = 125;
             Movable = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -223,12 +225,12 @@ namespace Client.Scenes.Views
                 IsControl = false,
             };
 
-            ConfirmButton = new DXButton
+            ConfirmButton = new DXTextButton
             {
                 Parent = this,
                 Location = new Point(UserGrid.Location.X + UserGrid.Size.Width - 75, UserGoldLabel.Location.Y + 35),
                 Label = { Text = CEnvir.Language.CommonControlConfirm },
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Size = new Size(80, SmallButtonHeight),
             };
             ConfirmButton.MouseClick += (o, e) =>

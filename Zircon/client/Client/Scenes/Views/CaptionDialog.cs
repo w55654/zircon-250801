@@ -84,9 +84,9 @@ namespace Client.Scenes.Views
                 Hint = $"Caption.\nAccepted characters: a-z A-Z 0-9.\nLength: between {Globals.MinCaptionLength} and {Globals.MaxCaptionLength} characters.\nAvoid harmful and racist words.",
             };
 
-            ChangeButton = new DXButton
+            ChangeButton = new DXTextButton
             {
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Parent = this,
                 Size = new Size(60, SmallButtonHeight),
                 Label = { Text = "Change" },

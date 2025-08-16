@@ -20,7 +20,7 @@ namespace Client.Scenes.Views
         #region Properties
 
         public DXLabel TitleLabel;
-        public DXButton CloseButton, AddButton, RemoveButton;
+        public DXImageButton CloseButton, AddButton, RemoveButton;
         public DXCheckBox AllowGroupBox;
 
         #region AllowGroup
@@ -202,7 +202,7 @@ namespace Client.Scenes.Views
             };
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -250,10 +250,10 @@ namespace Client.Scenes.Views
                 BackColour = Color.Empty
             };
 
-            AddButton = new DXButton
+            AddButton = new DXImageButton
             {
                 Size = new Size(36, 36),
-                ButtonType = ButtonType.AddButton,
+                Index = 241,
                 Location = new Point(30, 217),
                 Parent = this,
                 Hint = CEnvir.Language.GroupDialogAddButtonHint
@@ -289,10 +289,10 @@ namespace Client.Scenes.Views
                 };
             };
 
-            RemoveButton = new DXButton
+            RemoveButton = new DXImageButton
             {
                 Size = new Size(36, 36),
-                ButtonType = ButtonType.RemoveButton,
+                Index = 242,
                 Location = new Point(174, 217),
                 Parent = this,
                 Enabled = false,

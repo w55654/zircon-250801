@@ -209,7 +209,7 @@ namespace Client.Controls
             Modal = true;
             HasFooter = true;
 
-            CancelButton = new DXButton
+            CancelButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -219,7 +219,7 @@ namespace Client.Controls
             CancelButton.MouseClick += CancelButton_MouseClick;
             CloseButton.MouseClick += CancelButton_MouseClick;
 
-            SelectButton = new DXButton
+            SelectButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommonControlSelect },
@@ -228,7 +228,7 @@ namespace Client.Controls
             };
             SelectButton.MouseClick += (o, e) => Dispose();
 
-            EmptyButton = new DXButton
+            EmptyButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommonControlColourPickerEmptyLabel },

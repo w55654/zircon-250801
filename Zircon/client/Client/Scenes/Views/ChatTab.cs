@@ -258,10 +258,9 @@ namespace Client.Scenes.Views
                 {
                     if (label.Size.Width == TextPanel.Size.Width) continue;
 
-                    Size size = DXLabel.GetHeight(label, TextPanel.Size.Width);
-                    label.Size = new Size(size.Width, size.Height);
+                    Size size = new Size(TextPanel.Size.Width, label.TextSize.Height);
 
-                    //label.Size = new Size(TextPanel.Size.Width, DXLabel.GetHeight(label, TextPanel.Size.Width).Height);
+                    label.Size = new Size(size.Width, size.Height);
                 }
 
                 UpdateItems();
@@ -409,7 +408,7 @@ namespace Client.Scenes.Views
 
             UpdateColours(label);
 
-            Size size = DXLabel.GetHeight(label, TextPanel.Size.Width);
+            Size size = new Size(TextPanel.Size.Width, label.TextSize.Height);
             label.Size = new Size(size.Width, size.Height);
 
             History.Add(new ChatHistory { Message = message, Label = label, LinkedItems = linkedItems, SentDate = CEnvir.Now });
@@ -471,7 +470,7 @@ namespace Client.Scenes.Views
 
             UpdateColours(label);
 
-            Size size = DXLabel.GetHeight(label, TextPanel.Size.Width);
+            Size size = new Size(TextPanel.Size.Width, label.TextSize.Height);
             label.Size = new Size(size.Width, size.Height);
 
             History.Add(new ChatHistory { Message = label.Text, Label = label, SentDate = CEnvir.Now, Action = action });
@@ -648,7 +647,7 @@ namespace Client.Scenes.Views
             label.Text = regex.Replace(label.Text, " ");
             //label.AutoSize = true;
 
-            Size size = DXLabel.GetHeight(label, TextPanel.Size.Width);
+            Size size = new Size(TextPanel.Size.Width, label.TextSize.Height);
             label.Size = new Size(size.Width, size.Height);
 
             MatchCollection matches = Globals.LinkedItemRegex.Matches(message);

@@ -24,7 +24,7 @@ namespace Client.Scenes.Views
         public QuestTab AvailableTab, CurrentTab, CompletedTab;
 
         public DXLabel TitleLabel;
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
 
         public override void OnIsVisibleChanged(bool oValue, bool nValue)
         {
@@ -107,7 +107,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -510,7 +510,7 @@ namespace Client.Scenes.Views
             DescriptionLabel.Text = GameScene.Game.GetQuestText(SelectedQuest.QuestInfo, SelectedQuest.UserQuest, true);
             TasksLabel.Text = GameScene.Game.GetTaskText(SelectedQuest.QuestInfo, SelectedQuest.UserQuest);
 
-            int height = DXLabel.GetHeight(DescriptionLabel, DescriptionLabel.Size.Width).Height;
+            int height = DescriptionLabel.TextSize.Height;
 
             DescriptionLabel.Size = new Size(DescriptionContainer.Size.Width, height);
             DescriptionScrollBar.MaxValue = DescriptionLabel.Size.Height - DescriptionContainer.Size.Height + 14;
@@ -760,7 +760,7 @@ namespace Client.Scenes.Views
                 GameScene.Game.BigMapBox.SelectedInfo = SelectedQuest.QuestInfo.FinishNPC.Region.Map;
             };
 
-            AbandonButton = new DXButton
+            AbandonButton = new DXTextButton
             {
                 Parent = this,
                 Visible = false,
@@ -1240,14 +1240,14 @@ namespace Client.Scenes.Views
 
         #endregion
 
-        public DXButton ExpandButton;
+        public DXImageButton ExpandButton;
         public DXLabel MapLabel;
 
         #endregion
 
         public QuestTreeHeader()
         {
-            ExpandButton = new DXButton
+            ExpandButton = new DXImageButton
             {
                 Parent = this,
                 LibraryFile = LibraryFile.GameInter,

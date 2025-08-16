@@ -101,7 +101,7 @@ namespace Client.Controls
 
         #endregion
 
-        public List<DXButton> TabButtons = new List<DXButton>();
+        public List<DXTextButton> TabButtons = new List<DXTextButton>();
 
         public override void OnDisplayAreaChanged(Rectangle oValue, Rectangle nValue)
         {
@@ -168,27 +168,27 @@ namespace Client.Controls
             {
                 if (!control.Visible) continue;
 
-                if (control.RightAligned)
-                {
-                    width = control.Size.Width + Padding;
-                    continue;
-                }
+                //if (control.RightAligned)
+                //{
+                //    width = control.Size.Width + Padding;
+                //    continue;
+                //}
 
                 //control.Visible = true;
                 control.Location = new Point(x, 0);
                 x += control.Size.Width + Padding;
             }
 
-            foreach (DXButton control in TabButtons)
-            {
-                if (!control.Visible) continue;
+            //foreach (DXButton control in TabButtons)
+            //{
+            //    if (!control.Visible) continue;
 
-                if (!control.RightAligned) continue;
+            //    //if (!control.RightAligned) continue;
 
-                //    control.Visible = true;
-                control.Location = new Point(Size.Width - width, 0);
-                width -= control.Size.Width + 1;
-            }
+            //    //    control.Visible = true;
+            //    control.Location = new Point(Size.Width - width, 0);
+            //    width -= control.Size.Width + 1;
+            //}
         }
 
         #endregion
@@ -320,7 +320,7 @@ namespace Client.Controls
                 }
                 else
                 {
-                    TabButton.ButtonType = ButtonType.SelectedTab;
+                    //TabButton.ButtonType = ButtonType.SelectedTab;
                     TabButton.Label.ForeColour = Color.White;
                 }
             }
@@ -334,7 +334,7 @@ namespace Client.Controls
                 }
                 else
                 {
-                    TabButton.ButtonType = ButtonType.DeselectedTab;
+                    //TabButton.ButtonType = ButtonType.DeselectedTab;
                     TabButton.Label.ForeColour = Color.FromArgb(198, 166, 99);
                 }
             }
@@ -370,13 +370,13 @@ namespace Client.Controls
 
             if (TabButton != null)
             {
-                TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Outline).Width), TabHeight);
+                TabButton.Size = new Size(Math.Max(MinimumTabWidth, TabButton.Label.Size.Width), TabHeight);
             }
         }
 
         #endregion
 
-        public DXButton TabButton { get; private set; }
+        public DXTextButton TabButton { get; private set; }
 
         public float? OldOpacity { get; set; }
 
@@ -463,14 +463,15 @@ namespace Client.Controls
 
             MinimumTabWidth = 60;
 
-            TabButton = new DXButton
+            TabButton = new DXTextButton
             {
-                ButtonType = ButtonType.DeselectedTab,
+                //ButtonType = ButtonType.DeselectedTab,
+                Index = 117,
                 Size = new Size(60, TabHeight)
             };
             TabButton.Label.TextChanged += (o, e) =>
             {
-                TabButton.Size = new Size(Math.Max(MinimumTabWidth, DXLabel.GetSize(TabButton.Label.Text, TabButton.Label.Outline).Width), TabHeight);
+                TabButton.Size = new Size(Math.Max(MinimumTabWidth, TabButton.Label.TextSize.Width), TabHeight);
             };
             TabButton.MouseClick += (o, e) =>
             {

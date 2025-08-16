@@ -24,7 +24,7 @@ namespace Client.Scenes.Views
         public DXItemGrid Grid;
 
         public DXLabel TitleLabel, PrimaryCurrencyLabel, SecondaryCurrencyLabel, WeightLabel, WalletLabel, PrimaryCurrencyTitle, SecondaryCurrencyTitle;
-        public DXButton CloseButton, SortButton, TrashButton;
+        public DXImageButton CloseButton, SortButton, TrashButton;
 
         public DXButton SellButton;
 
@@ -186,7 +186,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -312,7 +312,7 @@ namespace Client.Scenes.Views
             };
             SecondaryCurrencyLabel.MouseClick += SecondaryCurrencyLabel_MouseClick;
 
-            SortButton = new DXButton
+            SortButton = new DXImageButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 364,
@@ -322,7 +322,7 @@ namespace Client.Scenes.Views
             };
             SortButton.MouseClick += SortButton_MouseClick;
 
-            TrashButton = new DXButton
+            TrashButton = new DXImageButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 358,
@@ -332,7 +332,7 @@ namespace Client.Scenes.Views
             };
             TrashButton.MouseClick += TrashButton_MouseClick;
 
-            SellButton = new DXButton
+            SellButton = new DXTextButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 354,

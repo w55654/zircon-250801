@@ -85,7 +85,7 @@ namespace Client.Controls
                 Text = message,
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.HorizontalCenter
             };
-            Label.Size = new Size(380, DXLabel.GetSize(message, Label.Outline).Height);
+            Label.Size = new Size(380, 25);
             SetClientSize(Label.Size);
             Label.Location = ClientArea.Location;
 
@@ -94,7 +94,7 @@ namespace Client.Controls
             switch (Buttons)
             {
                 case DXMessageBoxButtons.OK:
-                    OKButton = new DXButton
+                    OKButton = new DXTextButton
                     {
                         Location = new Point((Size.Width - 80) / 2, Size.Height - 43),
                         Size = new Size(80, DefaultHeight),
@@ -105,7 +105,7 @@ namespace Client.Controls
                     break;
 
                 case DXMessageBoxButtons.YesNo:
-                    YesButton = new DXButton
+                    YesButton = new DXTextButton
                     {
                         Location = new Point((Size.Width) / 2 - 80 - 10, Size.Height - 43),
                         Size = new Size(80, DefaultHeight),
@@ -113,7 +113,7 @@ namespace Client.Controls
                         Label = { Text = CEnvir.Language.CommonControlYes }
                     };
                     YesButton.MouseClick += (o, e) => Dispose();
-                    NoButton = new DXButton
+                    NoButton = new DXTextButton
                     {
                         Location = new Point(Size.Width / 2 + 10, Size.Height - 43),
                         Size = new Size(80, DefaultHeight),
@@ -124,7 +124,7 @@ namespace Client.Controls
                     break;
 
                 case DXMessageBoxButtons.Cancel:
-                    CancelButton = new DXButton
+                    CancelButton = new DXTextButton
                     {
                         Location = new Point((Size.Width - 80) / 2, Size.Height - 43),
                         Size = new Size(80, DefaultHeight),

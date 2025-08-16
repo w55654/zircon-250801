@@ -15,7 +15,7 @@ namespace Client.Scenes.Views
     {
         public DXLabel TitleLabel;
 
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
         public DXButton SettingsButton, GuildButton, StorageButton, RankingButton, CompanionButton, LeaveButton;
 
         public WindowSetting Settings;
@@ -89,7 +89,7 @@ namespace Client.Scenes.Views
             Sort = true;
             Movable = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -112,7 +112,7 @@ namespace Client.Scenes.Views
             };
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
-            SettingsButton = new DXButton
+            SettingsButton = new DXTextButton
             {
                 Location = new Point(26, 40),
                 Size = new Size(100, DefaultHeight),
@@ -122,7 +122,7 @@ namespace Client.Scenes.Views
             };
             SettingsButton.MouseClick += (o, e) => GameScene.Game.ConfigBox.Visible = !GameScene.Game.ConfigBox.Visible;
 
-            GuildButton = new DXButton
+            GuildButton = new DXTextButton
             {
                 Location = new Point(26, 70),
                 Size = new Size(100, DefaultHeight),
@@ -132,7 +132,7 @@ namespace Client.Scenes.Views
             };
             GuildButton.MouseClick += (o, e) => GameScene.Game.GuildBox.Visible = !GameScene.Game.GuildBox.Visible;
 
-            StorageButton = new DXButton
+            StorageButton = new DXTextButton
             {
                 Location = new Point(26, 100),
                 Size = new Size(100, DefaultHeight),
@@ -142,7 +142,7 @@ namespace Client.Scenes.Views
             };
             StorageButton.MouseClick += (o, e) => GameScene.Game.StorageBox.Visible = !GameScene.Game.StorageBox.Visible;
 
-            RankingButton = new DXButton
+            RankingButton = new DXTextButton
             {
                 Location = new Point(26, 130),
                 Size = new Size(100, DefaultHeight),
@@ -152,7 +152,7 @@ namespace Client.Scenes.Views
             };
             RankingButton.MouseClick += (o, e) => GameScene.Game.RankingBox.Visible = !GameScene.Game.RankingBox.Visible;
 
-            CompanionButton = new DXButton
+            CompanionButton = new DXTextButton
             {
                 Location = new Point(26, 160),
                 Size = new Size(100, DefaultHeight),
@@ -162,7 +162,7 @@ namespace Client.Scenes.Views
             };
             CompanionButton.MouseClick += (o, e) => GameScene.Game.CompanionBox.Visible = !GameScene.Game.CompanionBox.Visible;
 
-            LeaveButton = new DXButton
+            LeaveButton = new DXTextButton
             {
                 Location = new Point(26, 190),
                 Size = new Size(100, DefaultHeight),

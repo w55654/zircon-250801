@@ -25,7 +25,8 @@ namespace Client.Scenes.Views
         public DXLabel TitleLabel;
         public DXTextBox ItemNameTextBox;
         public DXComboBox ItemTypeComboBox;
-        public DXButton CloseButton, ClearButton, SortButton;
+        public DXImageButton CloseButton, SortButton;
+        public DXTextButton ClearButton;
         public DXVScrollBar StorageScrollBar, PartsScrollBar;
 
         public DXItemGrid Grid, PartGrid;
@@ -119,7 +120,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -142,7 +143,7 @@ namespace Client.Scenes.Views
             };
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
-            SortButton = new DXButton
+            SortButton = new DXImageButton
             {
                 LibraryFile = LibraryFile.GameInter,
                 Index = 364,
@@ -229,12 +230,12 @@ namespace Client.Scenes.Views
 
             ItemTypeComboBox.ListBox.SelectItem(null);
 
-            ClearButton = new DXButton
+            ClearButton = new DXTextButton
             {
                 Size = new Size(80, SmallButtonHeight),
                 Location = new Point(ItemTypeComboBox.Location.X + ItemTypeComboBox.Size.Width + 17, label.Location.Y - 1),
                 Parent = filterPanel,
-                ButtonType = ButtonType.SmallButton,
+                Index = 118,
                 Label = { Text = CEnvir.Language.StorageDialogFilterClearButtonLabel }
             };
             ClearButton.MouseClick += (o, e) =>

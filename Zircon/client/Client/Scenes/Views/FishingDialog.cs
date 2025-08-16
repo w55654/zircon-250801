@@ -15,7 +15,7 @@ namespace Client.Scenes.Views
 
         private CharacterDialog CharacterBox;
 
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
 
         public ClientUserItem[] Equipment
         {
@@ -84,7 +84,7 @@ namespace Client.Scenes.Views
             Movable = true;
             Sort = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -235,14 +235,15 @@ namespace Client.Scenes.Views
 
         #endregion
 
-        public DXImageControl FishFoundBase, FishFoundCircle, FishFoundButton;
+        public DXImageControl FishFoundBase, FishFoundCircle;
+        public DXImageButton FishFoundButton;
 
         public DXImageControl MovingPointer;
         public DXImageControl CatchBarTexture, ThrowDistancePointer;
         public DXControl CatchBar, CatchInnerBar;
         public DXControl ProgressBar;
 
-        public DXButton CloseButton;
+        public DXImageButton CloseButton;
         public DXCheckBox AutoCastCheckBox;
 
         public override void OnVisibleChanged(bool oValue, bool nValue)
@@ -259,7 +260,7 @@ namespace Client.Scenes.Views
             LibraryFile = LibraryFile.Interface;
             Size = new Size(252, 144);
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -407,7 +408,7 @@ namespace Client.Scenes.Views
                 Visible = true
             };
 
-            FishFoundButton = new DXButton
+            FishFoundButton = new DXImageButton
             {
                 Index = 4510,
                 LibraryFile = LibraryFile.GameInter,

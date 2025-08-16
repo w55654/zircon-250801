@@ -19,7 +19,7 @@ namespace Client.Scenes.Views
         public DXLabel TitleLabel;
         public DXItemGrid Grid;
 
-        public DXButton CloseButton, ConfirmButton;
+        public DXTextButton CloseButton, ConfirmButton;
 
         private ClientUserItem[] BundleArray;
         private DXItemCell SelectedBundle;
@@ -47,7 +47,7 @@ namespace Client.Scenes.Views
             Index = 3350;
             Movable = true;
 
-            CloseButton = new DXButton
+            CloseButton = new DXTextButton
             {
                 Parent = this,
                 Index = 15,
@@ -89,11 +89,11 @@ namespace Client.Scenes.Views
             };
             TitleLabel.Location = new Point((DisplayArea.Width - TitleLabel.Size.Width) / 2, 8);
 
-            ConfirmButton = new DXButton
+            ConfirmButton = new DXTextButton
             {
                 Parent = this,
                 Label = { Text = "" },
-                ButtonType = ButtonType.Default,
+                //
                 Size = new Size(100, DefaultHeight),
                 Enabled = false
             };

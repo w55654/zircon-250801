@@ -147,7 +147,7 @@ namespace Client.Scenes.Views
             ReadDateBox.Text = ReadMail.Date.ToLongDateString() + " " + ReadMail.Date.ToLongTimeString();
             ReadMessageLabel.Text = ReadMail.Message;
 
-            int height = DXLabel.GetHeight(ReadMessageLabel, ReadMessageLabel.Size.Width).Height;
+            int height = ReadMessageLabel.TextSize.Height;
 
             ReadMessageLabel.Size = new Size(ReadMessageContainer.Size.Width, height);
             ReadMessageScrollBar.MaxValue = ReadMessageLabel.Size.Height - ReadMessageContainer.Size.Height + 14;
@@ -194,7 +194,7 @@ namespace Client.Scenes.Views
 
         public bool CanSend => !SendAttempted && RecipientValid && GoldValid;
 
-        private DXButton CloseButton;
+        private DXImageButton CloseButton;
         private DXLabel TitleLabel;
         private DXTabControl TabControl;
         private DXImageControl BackgroundImage;
@@ -324,7 +324,7 @@ namespace Client.Scenes.Views
 
             #region Main
 
-            CloseButton = new DXButton
+            CloseButton = new DXImageButton
             {
                 Parent = this,
                 Index = 15,
@@ -583,9 +583,8 @@ namespace Client.Scenes.Views
                 }
             };
 
-            FriendAddButton = new DXButton
+            FriendAddButton = new DXTextButton
             {
-                ButtonType = ButtonType.Default,
                 Size = new Size(100, DefaultHeight),
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommunicationDialogFriendTabFriendAddButtonLabel },
@@ -609,9 +608,8 @@ namespace Client.Scenes.Views
                 };
             };
 
-            FriendRemoveButton = new DXButton
+            FriendRemoveButton = new DXTextButton
             {
-                ButtonType = ButtonType.Default,
                 Size = new Size(100, DefaultHeight),
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommunicationDialogFriendTabFriendRemoveButtonLabel },
@@ -719,7 +717,7 @@ namespace Client.Scenes.Views
                 ReceivedRows[index].MouseWheel += RecievedScrollBar.DoMouseWheel;
             }
 
-            ReceivedCollectAllButton = new DXButton
+            ReceivedCollectAllButton = new DXTextButton
             {
                 Size = new Size(80, DefaultHeight),
                 Parent = this,
@@ -757,7 +755,7 @@ namespace Client.Scenes.Views
                 UpdateIcon();
             };
 
-            ReceivedDeleteAll = new DXButton
+            ReceivedDeleteAll = new DXTextButton
             {
                 Size = new Size(80, DefaultHeight),
                 Parent = this,
@@ -778,7 +776,7 @@ namespace Client.Scenes.Views
                 }
             };
 
-            ReceivedNewButton = new DXButton
+            ReceivedNewButton = new DXTextButton
             {
                 Size = new Size(80, DefaultHeight),
                 Parent = this,
@@ -919,9 +917,8 @@ namespace Client.Scenes.Views
             };
             SendGoldBox.ValueTextBox.ValueChanged += GoldBox_ValueChanged;
 
-            SendButton = new DXButton
+            SendButton = new DXTextButton
             {
-                ButtonType = ButtonType.Default,
                 Size = new Size(70, DefaultHeight),
                 Parent = this,
                 Label = { Text = CEnvir.Language.CommunicationDialogSendTabSendButtonLabel },
@@ -956,12 +953,12 @@ namespace Client.Scenes.Views
                 },
             };
 
-            BlockAddButton = new DXButton
+            BlockAddButton = new DXTextButton
             {
                 Label = { Text = CEnvir.Language.CommunicationDialogBlockedTabAddButtonLabel },
                 Parent = this,
                 Size = new Size(100, DefaultHeight),
-                ButtonType = ButtonType.Default,
+
                 Visible = false
             };
             BlockAddButton.MouseClick += (o, e) =>
@@ -981,12 +978,12 @@ namespace Client.Scenes.Views
                 };
             };
 
-            BlockRemoveButton = new DXButton
+            BlockRemoveButton = new DXTextButton
             {
                 Label = { Text = CEnvir.Language.CommunicationDialogBlockedTabRemoveButtonLabel },
                 Parent = this,
                 Size = new Size(100, DefaultHeight),
-                ButtonType = ButtonType.Default,
+
                 Enabled = false,
                 Visible = false
             };
@@ -1135,7 +1132,7 @@ namespace Client.Scenes.Views
                 };
             }
 
-            ReadReplyButton = new DXButton
+            ReadReplyButton = new DXTextButton
             {
                 Size = new Size(100, DefaultHeight),
                 Parent = this,
@@ -1158,7 +1155,7 @@ namespace Client.Scenes.Views
                 SendMessageBox.SetFocus();
             };
 
-            ReadDeleteButton = new DXButton
+            ReadDeleteButton = new DXTextButton
             {
                 Size = new Size(100, DefaultHeight),
                 Parent = this,

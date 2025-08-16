@@ -43,7 +43,7 @@ namespace Client.Controls
                 Text = message,
                 DrawFormat = TextFormatFlags.VerticalCenter | TextFormatFlags.WordBreak | TextFormatFlags.HorizontalCenter
             };
-            Label.Size = new Size(300, DXLabel.GetHeight(Label, 300).Height);
+            Label.Size = new Size(300, Label.TextSize.Height);
 
             ValueTextBox = new DXTextBox
             {
@@ -59,7 +59,7 @@ namespace Client.Controls
             SetClientSize(new Size(300, Label.Size.Height + 30));
             Label.Location = ClientArea.Location;
 
-            ConfirmButton = new DXButton
+            ConfirmButton = new DXTextButton
             {
                 Location = new Point((Size.Width) / 2 - 80 - 10, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),
@@ -68,7 +68,7 @@ namespace Client.Controls
             };
             ConfirmButton.MouseClick += (o, e) => Dispose();
 
-            CancelButton = new DXButton
+            CancelButton = new DXTextButton
             {
                 Location = new Point(Size.Width / 2 + 10, Size.Height - 43),
                 Size = new Size(80, DefaultHeight),

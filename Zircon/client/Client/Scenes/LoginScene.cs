@@ -212,8 +212,6 @@ namespace Client.Scenes
                 LibraryFile = LibraryFile.Interface1c,
                 Parent = LogoBackground,
                 Blend = true,
-                FixedSize = true,
-                Size = new Size(564, 300)
             };
 
             LogoBackground.Location = new Point((Size.Width - LogoBackground.Size.Width) / 2, 25);
@@ -725,7 +723,7 @@ namespace Client.Scenes
                 };
                 PasswordHelpLabel.Location = new Point(PasswordTextBox.Location.X + PasswordTextBox.Size.Width + 2, PasswordTextBox.Location.Y - 2);
 
-                LoginButton = new DXButton
+                LoginButton = new DXTextButton
                 {
                     Parent = this,
                     Location = new Point(550, 60),
@@ -735,7 +733,7 @@ namespace Client.Scenes
                 };
                 LoginButton.MouseClick += (o, e) => Login();
 
-                ExitButton = new DXButton
+                ExitButton = new DXTextButton
                 {
                     Parent = this,
                     Location = new Point(660, 60),
@@ -748,7 +746,7 @@ namespace Client.Scenes
                     //CEnvir.CloseWin32();
                 };
 
-                RankingButton = new DXButton
+                RankingButton = new DXTextButton
                 {
                     Parent = this,
                     LibraryFile = LibraryFile.Interface,
@@ -759,7 +757,7 @@ namespace Client.Scenes
                 };
                 RankingButton.MouseClick += RankingButton_MouseClick;
 
-                OptionButton = new DXButton
+                OptionButton = new DXTextButton
                 {
                     Parent = this,
                     LibraryFile = LibraryFile.Interface,
@@ -770,7 +768,7 @@ namespace Client.Scenes
                 };
                 OptionButton.MouseClick += OptionButton_MouseClick;
 
-                NewAccountButton = new DXButton
+                NewAccountButton = new DXTextButton
                 {
                     Parent = this,
                     LibraryFile = LibraryFile.Interface,
@@ -781,7 +779,7 @@ namespace Client.Scenes
                 };
                 NewAccountButton.MouseClick += NewAccountButton_MouseClick;
 
-                ChangePasswordButton = new DXButton
+                ChangePasswordButton = new DXTextButton
                 {
                     Parent = this,
                     LibraryFile = LibraryFile.Interface,
@@ -1263,7 +1261,7 @@ namespace Client.Scenes
                 HasFooter = true;
                 Visible = false;
 
-                CancelButton = new DXButton
+                CancelButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -1273,7 +1271,7 @@ namespace Client.Scenes
                 CancelButton.MouseClick += (o, e) => Close();
                 CloseButton.MouseClick += (o, e) => Close();
 
-                CreateButton = new DXButton
+                CreateButton = new DXTextButton
                 {
                     Enabled = false,
                     Parent = this,
@@ -1917,7 +1915,7 @@ namespace Client.Scenes
                 HasFooter = true;
                 Visible = false;
 
-                CancelButton = new DXButton
+                CancelButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -1927,7 +1925,7 @@ namespace Client.Scenes
                 CancelButton.MouseClick += (o, e) => Close();
                 CloseButton.MouseClick += (o, e) => Close();
 
-                ChangeButton = new DXButton
+                ChangeButton = new DXTextButton
                 {
                     Enabled = false,
                     Parent = this,
@@ -2361,7 +2359,7 @@ namespace Client.Scenes
                 HasFooter = true;
                 Visible = false;
 
-                CancelButton = new DXButton
+                CancelButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -2371,7 +2369,7 @@ namespace Client.Scenes
                 CancelButton.MouseClick += (o, e) => Close();
                 CloseButton.MouseClick += (o, e) => Close();
 
-                RequestButton = new DXButton
+                RequestButton = new DXTextButton
                 {
                     Enabled = false,
                     Parent = this,
@@ -2695,7 +2693,7 @@ namespace Client.Scenes
                 HasFooter = true;
                 Visible = false;
 
-                CancelButton = new DXButton
+                CancelButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -2705,7 +2703,7 @@ namespace Client.Scenes
                 CancelButton.MouseClick += (o, e) => Close();
                 CloseButton.MouseClick += (o, e) => Close();
 
-                ResetButton = new DXButton
+                ResetButton = new DXTextButton
                 {
                     Enabled = false,
                     Parent = this,
@@ -3071,7 +3069,7 @@ namespace Client.Scenes
                 HasFooter = true;
                 Visible = false;
 
-                CancelButton = new DXButton
+                CancelButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -3081,7 +3079,7 @@ namespace Client.Scenes
                 CancelButton.MouseClick += (o, e) => Close();
                 CloseButton.MouseClick += (o, e) => Close();
 
-                ActivateButton = new DXButton
+                ActivateButton = new DXTextButton
                 {
                     Enabled = false,
                     Parent = this,
@@ -3350,7 +3348,7 @@ namespace Client.Scenes
                 HasFooter = true;
                 Visible = false;
 
-                CancelButton = new DXButton
+                CancelButton = new DXTextButton
                 {
                     Parent = this,
                     Label = { Text = CEnvir.Language.CommonControlCancel },
@@ -3360,7 +3358,7 @@ namespace Client.Scenes
                 CancelButton.MouseClick += (o, e) => Close();
                 CloseButton.MouseClick += (o, e) => Close();
 
-                RequestButton = new DXButton
+                RequestButton = new DXTextButton
                 {
                     Enabled = false,
                     Parent = this,

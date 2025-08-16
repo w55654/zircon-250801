@@ -82,8 +82,8 @@ namespace Client.Controls
 
         private static DXScene _ActiveScene;
 
-        public static int DefaultHeight { get; }
-        public static int TabHeight { get; }
+        public static int DefaultHeight { get; } = 24;
+        public static int TabHeight { get; } = 22;
         public static int HeaderBarSize { get; }
         public static int HeaderSize { get; }
         public static int FooterSize { get; }
@@ -130,8 +130,6 @@ namespace Client.Controls
 
             if (InterfaceLibrary == null) return;
 
-            DefaultHeight = InterfaceLibrary.GetSize(16).Height;
-            TabHeight = InterfaceLibrary.GetSize(19).Height;
             SmallButtonHeight = InterfaceLibrary.GetSize(41).Height;
 
             HeaderBarSize = InterfaceLibrary.GetSize(0).Height;
@@ -1127,7 +1125,7 @@ namespace Client.Controls
             Raylib.BeginTextureMode(ControlTexture);
 
             // 清背景（注意 BackColour 是 System.Drawing.Color）
-            Raylib.ClearBackground(Raylib_cs.Color.Green);
+            Raylib.ClearBackground(Raylib_cs.Color.Gray);
 
             // 你原来的钩子，通常在这里把控件自身的静态内容画进去
             OnClearTexture();
